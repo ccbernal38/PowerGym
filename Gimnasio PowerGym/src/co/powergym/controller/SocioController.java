@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Socio;
+import co.powergym.view.BusquedaSocio;
 import co.powergym.view.RegistroSocio;
 
 public class SocioController implements ActionListener {
@@ -16,12 +17,16 @@ public class SocioController implements ActionListener {
 	SocioDao socioDao;
 	
 	RegistroSocio viewRegistroSocio;
+	BusquedaSocio viewBusquedaSocio;
 
-	public SocioController(SocioDao socioDao, RegistroSocio viewRegistroSocio) {
+	public SocioController(SocioDao socioDao, RegistroSocio viewRegistroSocio, BusquedaSocio viewBusquedaSocio) {
 		this.socioDao = socioDao;
 		this.viewRegistroSocio = viewRegistroSocio;
 		this.viewRegistroSocio.btnRegistrar.addActionListener(this);
-		this.viewRegistroSocio.setVisible(true);		
+		this.viewRegistroSocio.setVisible(true);
+		this.viewBusquedaSocio = viewBusquedaSocio;
+		this.viewBusquedaSocio.btnBuscar.addActionListener(this);
+		this.viewBusquedaSocio.setVisible(true);		
 	}
 
 	@Override
@@ -54,6 +59,35 @@ public class SocioController implements ActionListener {
 				JOptionPane.showMessageDialog(null, "El socio ya se encuentra registrado");
 			}
 
+		}
+		else if (e.getSource()== viewBusquedaSocio.btnBuscar) {
+			String numeroId = viewBusquedaSocio.getTextField_identidad().getText();
+			Socio socio = socioDao.buscarSocio(numeroId);
+			if (socio != null) {
+				
+				String primerNombre = socio.getPrimerNombre();
+				viewBusquedaSocio.getTextField_primerNombre().setText(primerNombre);
+				String segundoNombre = socio.getSegundoNombre();
+				viewBusquedaSocio.getTextField_segundoNombre().setText(segundoNombre);
+				String primerApellido = socio.getPrimerApellido();
+				viewBusquedaSocio.getTextField_primerApellido().setText(primerApellido);
+				String segundoApellido = socio.getSegundoApellido();
+				viewBusquedaSocio.getTextField_segundoApellido().setText(segundoApellido);
+				String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
+				viewBusquedaSocio.getTextField_fechaNacimiento().setText(fechaNacimiento);
+				String telefono = socio.getTelefono();
+				viewBusquedaSocio.getTextField_telefono().setText(telefono);
+				String correo = socio.getCorreo();
+				viewBusquedaSocio.getTextField_correoElectronico().setText(correo);
+				int genero = socio.getGenero();
+				viewBusquedaSocio.getTextField_genero().setText(String.valueOf(genero));
+			
+			} else {
+				JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
+						+ "por favor verique e intente de nuevo");
+			}
+
+			
 		}
 	}
 
