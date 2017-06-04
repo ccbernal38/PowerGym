@@ -14,6 +14,7 @@ import co.powergym.view.RegistroSocio;
 public class SocioController implements ActionListener {
 
 	SocioDao socioDao;
+	
 	RegistroSocio viewRegistroSocio;
 
 	public SocioController(SocioDao socioDao, RegistroSocio viewRegistroSocio) {
