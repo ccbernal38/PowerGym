@@ -2,6 +2,10 @@ package co.powergym.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import co.powergym.view.CrearMembresia;
 
 public class MembresiaController implements ActionListener {
@@ -11,7 +15,9 @@ public class MembresiaController implements ActionListener {
 	public MembresiaController(CrearMembresia membresia) {
 		
 		this.membresia = membresia;
-		membresia.getBtnSiguiente().addActionListener(this);
+		this.membresia.setVisible(true);
+		this.membresia.getBtnSiguiente().addActionListener(this);
+		this.membresia.getBtnCancelar().addActionListener(this);
 	}
 
 	@Override
@@ -20,6 +26,9 @@ public class MembresiaController implements ActionListener {
 		if(e.getSource() == membresia.getBtnSiguiente()){
 			
 			membresia.getLblNombreMembresia().setText("¿Se limitaran las visitas por dia para esta membresia?");
+		}
+		if(e.getSource() == membresia.getBtnCancelar()){
+			membresia.setVisible(false);
 		}
 	}
 

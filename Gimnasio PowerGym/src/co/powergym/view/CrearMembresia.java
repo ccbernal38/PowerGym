@@ -20,27 +20,11 @@ public class CrearMembresia extends JFrame {
 	private JButton btnCancelar;
 	private JLabel lblNombreMembresia;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CrearMembresia frame = new CrearMembresia();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public CrearMembresia() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,8 +64,10 @@ public class CrearMembresia extends JFrame {
 		return tfNombreMembresia;
 	}
 	
-	
 	public JLabel getLblNombreMembresia() {
 		return lblNombreMembresia;
+	}
+	public JPanel getContentPane() {
+		return contentPane;
 	}
 }
