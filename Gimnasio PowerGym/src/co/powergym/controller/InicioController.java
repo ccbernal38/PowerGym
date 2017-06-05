@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import co.powergym.dao.SocioDao;
+import co.powergym.view.BusquedaSocio;
 import co.powergym.view.Principal;
 import co.powergym.view.RegistroSocio;
 
@@ -15,6 +16,7 @@ public class InicioController implements ActionListener {
 
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.btnRegistrarSocio.addActionListener(this);
+		this.viewPrincipal.jMenuItem3buscarSocio.addActionListener(this);		
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
 	}
@@ -25,9 +27,15 @@ public class InicioController implements ActionListener {
 		if (viewPrincipal.btnRegistrarSocio == e.getSource()) {
 			SocioDao dao = new SocioDao();
 			RegistroSocio viewRegistroSocio = new RegistroSocio();
-			viewPrincipal.jDesktopPane1.add(viewRegistroSocio);
-			SocioController socioController = new SocioController(dao, viewRegistroSocio);
+			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
 
+			SocioController socioController = new SocioController(dao, viewRegistroSocio, viewBusquedaSocio);
+		}
+		else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()){
+			SocioDao dao = new SocioDao();
+			RegistroSocio viewRegistroSocio = new RegistroSocio();
+			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
+			SocioController socioController = new SocioController(dao, viewRegistroSocio, viewBusquedaSocio);
 		}
 		
 		if(viewPrincipal.crea)
