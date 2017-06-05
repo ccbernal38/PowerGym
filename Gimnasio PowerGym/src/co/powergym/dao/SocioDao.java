@@ -121,7 +121,7 @@ public class SocioDao implements SocioDaoInterface{
 				socio.setGenero(resultSet.getInt(10));
 			}
 		} catch (Exception e) {
-			
+			System.out.println("error");
 		}
 		return socio;
 	}

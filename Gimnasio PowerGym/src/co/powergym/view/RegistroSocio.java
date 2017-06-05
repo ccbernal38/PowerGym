@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import java.awt.Font;
@@ -23,7 +24,7 @@ import com.toedter.calendar.JDateChooser;
  *
  * @author berna
  */
-public class RegistroSocio extends JInternalFrame {
+public class RegistroSocio extends JFrame {
 	public JTextField textField_identidad;
 	public JTextField textField_primerNombre;
 	public JTextField textField_segundoNombre;
@@ -41,7 +42,6 @@ public class RegistroSocio extends JInternalFrame {
     public RegistroSocio() {
     	setResizable(false);
     	setTitle("Registrar un nuevo socio");
-    	setClosable(true);
         initComponents();
     }
 

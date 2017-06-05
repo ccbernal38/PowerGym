@@ -28,14 +28,13 @@ public class InicioController implements ActionListener {
 			SocioDao dao = new SocioDao();
 			RegistroSocio viewRegistroSocio = new RegistroSocio();
 			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
-			viewPrincipal.jDesktopPane1.add(viewRegistroSocio);
+
 			SocioController socioController = new SocioController(dao, viewRegistroSocio, viewBusquedaSocio);
 		}
 		else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()){
 			SocioDao dao = new SocioDao();
 			RegistroSocio viewRegistroSocio = new RegistroSocio();
 			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
-			viewPrincipal.jDesktopPane1.add(viewBusquedaSocio);
 			SocioController socioController = new SocioController(dao, viewRegistroSocio, viewBusquedaSocio);
 		}
 	}
