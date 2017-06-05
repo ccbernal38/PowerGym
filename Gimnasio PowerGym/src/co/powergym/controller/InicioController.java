@@ -29,6 +29,8 @@ public class InicioController implements ActionListener {
 			SocioController socioController = new SocioController(dao, viewRegistroSocio);
 
 		}
+		
+		if(viewPrincipal.crea)
 	}
 
 }
