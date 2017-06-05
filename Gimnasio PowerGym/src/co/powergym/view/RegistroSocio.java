@@ -35,6 +35,7 @@ public class RegistroSocio extends JFrame {
 	public JDateChooser dateChooser_fechaNacimiento;
 	public JComboBox comboBox_genero;
 	public JButton btnRegistrar;
+	private JTextField textField;
 
     /**
      * Creates new form RegistroSocio
@@ -104,53 +105,64 @@ public class RegistroSocio extends JFrame {
         btnRegistrar = new JButton("Registrar");
         
         dateChooser_fechaNacimiento = new JDateChooser();
+        
+        JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
+        
+        textField = new JTextField();
+        textField.setColumns(10);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
         	layout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(layout.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(lblPrimerApellido, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-        				.addComponent(lblCorreoElectronico, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-        				.addComponent(lblFechaDeNacimiento, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-        				.addComponent(lblNombre, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-        				.addComponent(lblNumeroDeIdentidad))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(layout.createSequentialGroup()
-        					.addComponent(textField_primerNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(lblSegundoNombre))
-        				.addComponent(textField_identidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(layout.createSequentialGroup()
-        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        							.addComponent(dateChooser_fechaNacimiento, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        							.addComponent(textField_primerApellido))
-        						.addComponent(textField_correoElectronico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(lblGenero, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-        						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-        						.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-        							.addComponent(lblSegundoNombre_1, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-        							.addPreferredGap(ComponentPlacement.RELATED)))))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(textField_segundoNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(textField_segundoApellido)
-        				.addComponent(textField_telefono)
-        				.addComponent(comboBox_genero, 0, 114, Short.MAX_VALUE))
-        			.addContainerGap())
-        		.addGroup(layout.createSequentialGroup()
         			.addGap(83)
         			.addComponent(lblRegistrarSocio, GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
         			.addGap(83))
         		.addGroup(layout.createSequentialGroup()
-        			.addGap(218)
+        			.addGap(219)
         			.addComponent(btnRegistrar, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-        			.addGap(195))
+        			.addGap(194))
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(lblPrimerApellido, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+        						.addComponent(lblCorreoElectronico, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+        						.addComponent(lblFechaDeNacimiento, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+        						.addComponent(lblNombre, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+        						.addComponent(lblNumeroDeIdentidad))
+        					.addPreferredGap(ComponentPlacement.RELATED))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(lblDireccin)
+        					.addGap(105)))
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createSequentialGroup()
+        							.addComponent(textField_primerNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.UNRELATED)
+        							.addComponent(lblSegundoNombre))
+        						.addComponent(textField_identidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        									.addComponent(dateChooser_fechaNacimiento, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(textField_primerApellido))
+        								.addComponent(textField_correoElectronico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        							.addPreferredGap(ComponentPlacement.UNRELATED)
+        							.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        								.addComponent(lblGenero, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+        								.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+        								.addComponent(lblSegundoNombre_1, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(textField_segundoApellido, 134, 134, Short.MAX_VALUE)
+        						.addComponent(textField_telefono, 134, 134, Short.MAX_VALUE)
+        						.addComponent(comboBox_genero, 0, 134, Short.MAX_VALUE)
+        						.addComponent(textField_segundoNombre, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
+        				.addComponent(textField, GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+        			.addContainerGap())
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
@@ -186,9 +198,13 @@ public class RegistroSocio extends JFrame {
         				.addComponent(lblCorreoElectronico)
         				.addComponent(comboBox_genero, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         				.addComponent(lblGenero))
-        			.addGap(18)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblDireccin)
+        				.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
         			.addComponent(btnRegistrar)
-        			.addContainerGap(94, Short.MAX_VALUE))
+        			.addContainerGap())
         );
         getContentPane().setLayout(layout);
 
