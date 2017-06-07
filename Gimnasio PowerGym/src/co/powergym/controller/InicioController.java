@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import co.powergym.dao.SocioDao;
 import co.powergym.view.BusquedaSocio;
 import co.powergym.view.Principal;
-import co.powergym.view.RegistroSocio;
+import co.powergym.view.RegistroView;
 
 public class InicioController implements ActionListener {
 
@@ -26,14 +26,14 @@ public class InicioController implements ActionListener {
 		// TODO Auto-generated method stub
 		if (viewPrincipal.btnRegistrarSocio == e.getSource()) {
 			SocioDao dao = new SocioDao();
-			RegistroSocio viewRegistroSocio = new RegistroSocio();
+			RegistroView viewRegistroSocio = new RegistroView();
 			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
 
 			SocioController socioController = new SocioController(dao, viewRegistroSocio, viewBusquedaSocio);
 		}
 		else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()){
 			SocioDao dao = new SocioDao();
-			RegistroSocio viewRegistroSocio = new RegistroSocio();
+			RegistroView viewRegistroSocio = new RegistroView();
 			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
 			SocioController socioController = new SocioController(dao, viewRegistroSocio, viewBusquedaSocio);
 		}
