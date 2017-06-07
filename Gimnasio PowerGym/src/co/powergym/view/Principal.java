@@ -149,7 +149,7 @@ public class Principal extends JFrame {
         btnRegistrarSocio.setBackground(color);
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnMenuMembresia = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         
@@ -178,7 +178,7 @@ public class Principal extends JFrame {
                                             }
                                         });
                                         
-                                                jButton4.setText("Crear membresia");
+                                                btnMenuMembresia.setText("Crear membresia");
                                                 
                                                         jButton5.setText("Pagar mensualidad");
                                                         
@@ -191,7 +191,7 @@ public class Principal extends JFrame {
                                                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                                                 .addGap(31, 31, 31)
                                                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                                                                    .addComponent(btnMenuMembresia, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                                                                                     .addComponent(btnRegistrarSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -213,7 +213,7 @@ public class Principal extends JFrame {
                                                                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                                                                    .addComponent(btnMenuMembresia, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                                                                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                                                 .addContainerGap(34, Short.MAX_VALUE))
@@ -298,7 +298,7 @@ public class Principal extends JFrame {
     public javax.swing.JButton btnRegistrarSocio;
     public javax.swing.JButton jButton2;
     public javax.swing.JButton jButton3;
-    public javax.swing.JButton jButton4;
+    public javax.swing.JButton btnMenuMembresia;
     public javax.swing.JButton jButton5;
     public javax.swing.JButton jButton6;
     public javax.swing.JMenu jMenu1;
@@ -327,5 +327,8 @@ public class Principal extends JFrame {
     // End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
 		return btnRegistrarSocio;
+	}
+	public JButton getBtnMenuMembresia() {
+		return btnMenuMembresia;
 	}
 }
