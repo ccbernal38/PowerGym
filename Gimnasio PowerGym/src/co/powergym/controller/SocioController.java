@@ -2,6 +2,7 @@ package co.powergym.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.sql.Date;
 
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ public class SocioController implements ActionListener {
 	
 	RegistroView viewRegistroSocio;
 	BusquedaSocio viewBusquedaSocio;
+	private BufferedImage fotoTemp;
 
 	public SocioController(SocioDao socioDao, RegistroView viewRegistroSocio, BusquedaSocio viewBusquedaSocio) {
 		this.socioDao = socioDao;
@@ -62,8 +64,7 @@ public class SocioController implements ActionListener {
 
 		}
 		else if(e.getSource() == viewRegistroSocio.getBtnTomarFoto()){
-			
-			
+			fotoTemp = viewRegistroSocio.getWebcam().getImage();
 		}
 		else if (e.getSource()== viewBusquedaSocio.btnBuscar) {
 			String numeroId = viewBusquedaSocio.getTextField_identidad().getText();
