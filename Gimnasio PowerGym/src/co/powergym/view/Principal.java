@@ -10,10 +10,12 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /**
  *
- * @author berna
+ * @author bernal
  */
 public class Principal extends JFrame {
 
@@ -142,6 +144,14 @@ public class Principal extends JFrame {
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
+        
+        jMenuEntrenador = new JMenu("Entrenador");
+        jMenuBar1.add(jMenuEntrenador);        
+        jMenuItemRegistrarEntrenador = new JMenuItem("Registrar entrenador");
+        jMenuEntrenador.add(jMenuItemRegistrarEntrenador);        
+        jMenuItemBuscarEntrenador = new JMenuItem("Buscar entrenador");
+        jMenuEntrenador.add(jMenuItemBuscarEntrenador);
+        
         jPanel1 = new javax.swing.JPanel();
         jPanel1.setBackground(new Color(0, 149, 239));
         btnRegistrarSocio = new javax.swing.JButton();
@@ -328,6 +338,9 @@ public class Principal extends JFrame {
     public javax.swing.JMenuItem jMenuItem8;
     public javax.swing.JMenuItem jMenuItem9;
     public javax.swing.JPanel jPanel1;
+    private JMenu jMenuEntrenador;
+    private JMenuItem jMenuItemRegistrarEntrenador;
+    private JMenuItem jMenuItemBuscarEntrenador;
     // End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
 		return btnRegistrarSocio;
