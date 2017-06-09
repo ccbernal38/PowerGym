@@ -1,24 +1,14 @@
 package co.powergym.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.MatteBorder;
 import javax.swing.ImageIcon;
 
 public class CrearMembresia extends JFrame {
@@ -105,6 +95,7 @@ public class CrearMembresia extends JFrame {
 	public JLabel getLblNombreMembresia() {
 		return lblNombreMembresia;
 	}
+	@Override
 	public JPanel getContentPane() {
 		return contentPane;
 	}

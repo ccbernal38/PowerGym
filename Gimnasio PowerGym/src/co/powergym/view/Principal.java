@@ -10,8 +10,6 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
-import javax.swing.JPanel;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -65,7 +63,8 @@ public class Principal extends JFrame {
 
         jMenuItem1.setText("Salir");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
@@ -100,7 +99,8 @@ public class Principal extends JFrame {
 
         jMenuItem7.setText("Pagar mensualidad");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
             }
         });
@@ -159,21 +159,24 @@ public class Principal extends JFrame {
                         btnRegistrarSocio.setToolTipText("");
                         btnRegistrarSocio.setPreferredSize(new java.awt.Dimension(50, 50));
                         btnRegistrarSocio.addActionListener(new java.awt.event.ActionListener() {
-                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            @Override
+							public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 jButton1ActionPerformed(evt);
                             }
                         });
                         
                                 jButton2.setText("Registrar entrada");
                                 jButton2.addActionListener(new java.awt.event.ActionListener() {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    @Override
+									public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton2ActionPerformed(evt);
                                     }
                                 });
                                 
                                         jButton3.setText("Registrar salida");
                                         jButton3.addActionListener(new java.awt.event.ActionListener() {
-                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                            @Override
+											public void actionPerformed(java.awt.event.ActionEvent evt) {
                                                 jButton3ActionPerformed(evt);
                                             }
                                         });
@@ -288,7 +291,8 @@ public class Principal extends JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 new Principal().setVisible(true);
             }
         });

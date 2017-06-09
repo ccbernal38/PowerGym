@@ -1,6 +1,5 @@
 package co.powergym.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.github.sarxos.webcam.Webcam;
 
 import co.powergym.interfacedao.SocioDaoInterface;
 import co.powergym.model.Conexion;

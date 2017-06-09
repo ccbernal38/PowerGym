@@ -1,7 +1,6 @@
 package co.powergym.model;
 
 import java.sql.Date;
-import java.util.Calendar;
 
 public class Pago {
 	

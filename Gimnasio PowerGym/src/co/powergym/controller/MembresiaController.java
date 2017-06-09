@@ -3,9 +3,6 @@ package co.powergym.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import co.powergym.view.CrearMembresia;
 
 public class MembresiaController implements ActionListener {
