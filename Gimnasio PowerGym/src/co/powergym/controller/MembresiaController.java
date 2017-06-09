@@ -14,17 +14,20 @@ public class MembresiaController implements ActionListener {
 		this.membresia = membresia;
 		this.membresia.setVisible(true);
 		this.membresia.getBtnSiguiente().addActionListener(this);
-		this.membresia.getBtnCancelar().addActionListener(this);
+		this.membresia.getBtnAtras().addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		int contPasos = 1;
 		if(e.getSource() == membresia.getBtnSiguiente()){
 			
-			membresia.getLblNombreMembresia().setText("¿Se limitaran las visitas por dia para esta membresia?");
+			membresia.getLbl_pregunta_1().setVisible(false);
+			membresia.getLbl_pregunta_2().setBounds(20, 118, 285, 16);
+			contPasos ++;
 		}
-		if(e.getSource() == membresia.getBtnCancelar()){
+		if(e.getSource() == membresia.getBtnAtras()){
 			membresia.setVisible(false);
 		}
 	}

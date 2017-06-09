@@ -10,53 +10,44 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CrearMembresia extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfNombreMembresia;
 	private JButton btnSiguiente;
-	private JButton btnCancelar;
-	private JLabel lblNombreMembresia;
+	private JButton btn_anterior;
+	private JLabel lbl_pregunta_1;
 	private JLabel label;
 	private JLabel lblPasoDe;
+	private JLabel lbl_pregunta;
+	private JLabel lbl_pregunta_2;
+	private JLabel lb_pregunta;
 	
 	
 	/**
 	 * Create the frame.
 	 */
 	public CrearMembresia() {
-		setBounds(100, 100, 474, 329);
+		setBounds(100, 100, 807, 357);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(87, 402, 117, 37);
-		contentPane.add(btnCancelar);
+		btn_anterior = new JButton("Atras");
+		btn_anterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btn_anterior.setBounds(501, 127, 117, 37);
+		contentPane.add(btn_anterior);
 		
 		btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setBounds(216, 402, 117, 37);
+		btnSiguiente.setBounds(336, 280, 117, 37);
 		contentPane.add(btnSiguiente);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(25, 203, 397, 187);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		lblNombreMembresia = new JLabel("¿Qué nombre le dara a la nueva membresia?");
-		lblNombreMembresia.setBounds(16, 6, 285, 16);
-		panel.add(lblNombreMembresia);
-		
-		tfNombreMembresia = new JTextField();
-		tfNombreMembresia.setBounds(16, 27, 374, 26);
-		panel.add(tfNombreMembresia);
-		tfNombreMembresia.setColumns(10);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(513, 36, 211, 187);
-		contentPane.add(panel_1);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -81,22 +72,51 @@ public class CrearMembresia extends JFrame {
 		lblPasoDe.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		lblPasoDe.setBounds(76, 50, 61, 16);
 		panel_2.add(lblPasoDe);
+		
+		tfNombreMembresia = new JTextField();
+		tfNombreMembresia.setBounds(16, 138, 374, 26);
+		contentPane.add(tfNombreMembresia);
+		tfNombreMembresia.setColumns(10);
+		
+		lbl_pregunta_1 = new JLabel("¿Qué nombre le dara a la nueva membresia?");
+		lbl_pregunta_1.setBounds(20, 118, 285, 16);
+		contentPane.add(lbl_pregunta_1);
+		
+		lbl_pregunta = new JLabel("¿Qué nombre le dara a la nueva membresia?");
+		lbl_pregunta.setBounds(503, 21, 285, 16);
+		contentPane.add(lbl_pregunta);
+		
+		lb_pregunta = new JLabel("¿Qué nombre le dara a la nueva membresia?");
+		lb_pregunta.setBounds(503, 46, 285, 16);
+		contentPane.add(lb_pregunta);
+		
+		lbl_pregunta_2 = new JLabel("¿Qué nombre le dara a la nueva membresia?");
+		lbl_pregunta_2.setBounds(503, 74, 285, 16);
+		contentPane.add(lbl_pregunta_2);
+		
+		JButton button = new JButton("Siguiente");
+		button.setBounds(22, 280, 117, 37);
+		contentPane.add(button);
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
 	}
-	public JButton getBtnCancelar() {
-		return btnCancelar;
+	public JButton getBtnAtras() {
+		return btn_anterior;
 	}
 	public JTextField getTextField() {
 		return tfNombreMembresia;
 	}
-	
-	public JLabel getLblNombreMembresia() {
-		return lblNombreMembresia;
+	public JLabel getLbl_pregunta_1() {
+		return lbl_pregunta_1;
 	}
-	@Override
-	public JPanel getContentPane() {
-		return contentPane;
+	public JLabel getLbl_pregunta_2() {
+		return lbl_pregunta;
+	}
+	public JLabel getLbl_pregunta_4() {
+		return lbl_pregunta_2;
+	}
+	public JLabel getLb_pregunta_3() {
+		return lb_pregunta;
 	}
 }
