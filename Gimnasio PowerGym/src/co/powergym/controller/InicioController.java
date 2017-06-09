@@ -5,8 +5,9 @@ import java.awt.event.ActionListener;
 
 import co.powergym.dao.SocioDao;
 import co.powergym.view.BusquedaSocio;
+import co.powergym.view.CrearMembresia;
 import co.powergym.view.Principal;
-import co.powergym.view.RegistroSocio;
+import co.powergym.view.RegistroView;
 
 public class InicioController implements ActionListener {
 
@@ -16,7 +17,8 @@ public class InicioController implements ActionListener {
 
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.btnRegistrarSocio.addActionListener(this);
-		this.viewPrincipal.jMenuItem3buscarSocio.addActionListener(this);		
+		this.viewPrincipal.jMenuItem3buscarSocio.addActionListener(this);	
+		this.viewPrincipal.btnMenuMembresia.addActionListener(this);
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
 	}
@@ -26,17 +28,21 @@ public class InicioController implements ActionListener {
 		// TODO Auto-generated method stub
 		if (viewPrincipal.btnRegistrarSocio == e.getSource()) {
 			SocioDao dao = new SocioDao();
-			RegistroSocio viewRegistroSocio = new RegistroSocio();
+			RegistroView viewRegistroSocio = new RegistroView();
 			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
-			viewPrincipal.jDesktopPane1.add(viewRegistroSocio);
+
 			SocioController socioController = new SocioController(dao, viewRegistroSocio, viewBusquedaSocio);
 		}
 		else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()){
 			SocioDao dao = new SocioDao();
-			RegistroSocio viewRegistroSocio = new RegistroSocio();
+			RegistroView viewRegistroSocio = new RegistroView();
 			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
-			viewPrincipal.jDesktopPane1.add(viewBusquedaSocio);
 			SocioController socioController = new SocioController(dao, viewRegistroSocio, viewBusquedaSocio);
+		}
+		
+		if(viewPrincipal.btnMenuMembresia == e.getSource()){
+			CrearMembresia crearMembresia = new CrearMembresia();
+			MembresiaController Mcontroller = new MembresiaController(crearMembresia);
 		}
 	}
 

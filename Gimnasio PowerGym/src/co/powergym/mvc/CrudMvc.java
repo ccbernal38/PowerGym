@@ -6,10 +6,7 @@
 package co.powergym.mvc;
 
 import co.powergym.controller.InicioController;
-import co.powergym.controller.SocioController;
-import co.powergym.dao.SocioDao;
 import co.powergym.view.Principal;
-import co.powergym.view.RegistroSocio;
 
 /**
  *

@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.sarxos.webcam.Webcam;
+
 import co.powergym.interfacedao.SocioDaoInterface;
 import co.powergym.model.Conexion;
 import co.powergym.model.Socio;
@@ -121,7 +123,7 @@ public class SocioDao implements SocioDaoInterface{
 				socio.setGenero(resultSet.getInt(10));
 			}
 		} catch (Exception e) {
-			
+			System.out.println("error");
 		}
 		return socio;
 	}

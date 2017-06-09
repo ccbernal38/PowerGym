@@ -3,49 +3,50 @@ package co.powergym.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
+
+import com.github.sarxos.webcam.Webcam;
 
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Socio;
 import co.powergym.view.BusquedaSocio;
-import co.powergym.view.RegistroSocio;
+import co.powergym.view.RegistroView;
 
 public class SocioController implements ActionListener {
 
+	Webcam webcam;
 	SocioDao socioDao;
 	
-	RegistroSocio viewRegistroSocio;
+	RegistroView viewRegistroSocio;
 	BusquedaSocio viewBusquedaSocio;
 
-	public SocioController(SocioDao socioDao, RegistroSocio viewRegistroSocio, BusquedaSocio viewBusquedaSocio) {
+	public SocioController(SocioDao socioDao, RegistroView viewRegistroSocio, BusquedaSocio viewBusquedaSocio) {
 		this.socioDao = socioDao;
 		this.viewRegistroSocio = viewRegistroSocio;
 		this.viewRegistroSocio.btnRegistrar.addActionListener(this);
 		this.viewRegistroSocio.setVisible(true);
 		this.viewBusquedaSocio = viewBusquedaSocio;
 		this.viewBusquedaSocio.btnBuscar.addActionListener(this);
-		this.viewBusquedaSocio.setVisible(true);		
+		this.viewBusquedaSocio.setVisible(true);
+		webcam = Webcam.getWebcams().get(0);
+		viewRegistroSocio.setWebcam(webcam);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == viewRegistroSocio.btnRegistrar) {
-			String numeroId = viewRegistroSocio.getTextField_identidad().getText();
+			String numeroId = viewRegistroSocio.getTextField_identificacion().getText();
 			Socio socio = socioDao.buscarSocio(numeroId);
 			if (socio == null) {
 				String primerNombre = viewRegistroSocio.getTextField_primerNombre().getText();
 				String segundoNombre = viewRegistroSocio.getTextField_segundoNombre().getText();
 				String primerApellido = viewRegistroSocio.getTextField_primerApellido().getText();
 				String segundoApellido = viewRegistroSocio.getTextField_segundoApellido().getText();
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-				// Date fechaNacimiento =
-				// dateFormat.format(viewRegistroSocio.getDateChooser_fechaNacimiento().getDate());
 				Date fechaNacimiento = new Date(viewRegistroSocio.getDateChooser_fechaNacimiento().getDate().getTime());
 				String telefono = viewRegistroSocio.getTextField_telefono().getText();
-				String correo = viewRegistroSocio.getTextField_correoElectronico().getText();
+				String correo = viewRegistroSocio.getTextField_correo().getText();
 				int genero = viewRegistroSocio.getComboBox_genero().getSelectedIndex();
 
 				boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, primerNombre, segundoNombre,
@@ -59,6 +60,10 @@ public class SocioController implements ActionListener {
 				JOptionPane.showMessageDialog(null, "El socio ya se encuentra registrado");
 			}
 
+		}
+		else if(e.getSource() == viewRegistroSocio.getBtnTomarFoto()){
+			
+			
 		}
 		else if (e.getSource()== viewBusquedaSocio.btnBuscar) {
 			String numeroId = viewBusquedaSocio.getTextField_identidad().getText();
