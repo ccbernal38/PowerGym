@@ -23,13 +23,13 @@ public class RegistroView extends JFrame {
 	private JTextField textField_segundoApellido;
 	private JTextField textField_correo;
 	private JTextField textField_telefono;
-	private JComboBox comboBox_genero;
-	private JDateChooser dateChooser_fechaNacimiento;
+	public JComboBox comboBox_genero;
+	public JDateChooser dateChooser_fechaNacimiento;
 	public JButton btnRegistrar;
 	public JButton btnCancelar;
-	private WebcamPanel webcamPanel;
-	private JButton btnTomarFoto;
-	private JButton btnCapturar;
+	public WebcamPanel webcamPanel;
+	public JButton btnTomarFoto;
+	public JButton btnCapturar;
 	public Webcam webcam;
 	
 
@@ -57,12 +57,12 @@ public class RegistroView extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		if(webcam != null){
-			webcamPanel = new WebcamPanel(webcam, false);	
-		}else{
-			webcamPanel = new WebcamPanel(Webcam.getWebcams().get(0), false);
+		if(webcam == null){
+			webcam = Webcam.getWebcams().get(0);
 		}
 		
+		webcamPanel = new WebcamPanel(webcam, false);	
+
 		webcamPanel.setBounds(10, 11, 226, 239);
 		panel.add(webcamPanel);
 
