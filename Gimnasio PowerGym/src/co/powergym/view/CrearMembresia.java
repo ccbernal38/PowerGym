@@ -26,7 +26,6 @@ public class CrearMembresia extends JFrame {
 	private JLabel lbl_pregunta_2;
 	private JLabel lb_pregunta;
 	
-	
 	/**
 	 * Create the frame.
 	 */
@@ -82,7 +81,7 @@ public class CrearMembresia extends JFrame {
 		lbl_pregunta_1.setBounds(20, 118, 285, 16);
 		contentPane.add(lbl_pregunta_1);
 		
-		lbl_pregunta = new JLabel("¿Qué nombre le dara a la nueva membresia?");
+		lbl_pregunta = new JLabel("Seleccione la duración de esta membresía");
 		lbl_pregunta.setBounds(503, 21, 285, 16);
 		contentPane.add(lbl_pregunta);
 		
