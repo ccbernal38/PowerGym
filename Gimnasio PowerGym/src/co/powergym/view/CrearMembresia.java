@@ -12,6 +12,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class CrearMembresia extends JFrame {
 
@@ -22,15 +23,18 @@ public class CrearMembresia extends JFrame {
 	private JLabel lbl_pregunta_1;
 	private JLabel label;
 	private JLabel lblPasoDe;
-	private JLabel lbl_pregunta;
 	private JLabel lbl_pregunta_2;
-	private JLabel lb_pregunta;
+	private JLabel lbl_pregunta_4;
+	private JLabel lb_pregunta_3;
+	private JComboBox CBXCantidad;
+	private JComboBox CBXTipoTiempo;
+	private JLabel lblCantidad;
 	
 	/**
 	 * Create the frame.
 	 */
 	public CrearMembresia() {
-		setBounds(100, 100, 807, 357);
+		setBounds(100, 100, 883, 357);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
@@ -41,7 +45,7 @@ public class CrearMembresia extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_anterior.setBounds(501, 127, 117, 37);
+		btn_anterior.setBounds(503, 199, 117, 37);
 		contentPane.add(btn_anterior);
 		
 		btnSiguiente = new JButton("Siguiente");
@@ -81,21 +85,29 @@ public class CrearMembresia extends JFrame {
 		lbl_pregunta_1.setBounds(20, 118, 285, 16);
 		contentPane.add(lbl_pregunta_1);
 		
-		lbl_pregunta = new JLabel("Seleccione la duración de esta membresía");
-		lbl_pregunta.setBounds(503, 21, 285, 16);
-		contentPane.add(lbl_pregunta);
-		
-		lb_pregunta = new JLabel("¿Qué nombre le dara a la nueva membresia?");
-		lb_pregunta.setBounds(503, 46, 285, 16);
-		contentPane.add(lb_pregunta);
-		
-		lbl_pregunta_2 = new JLabel("¿Qué nombre le dara a la nueva membresia?");
-		lbl_pregunta_2.setBounds(503, 74, 285, 16);
+		lbl_pregunta_2 = new JLabel("Seleccione la duración de esta membresía");
+		lbl_pregunta_2.setBounds(503, 21, 285, 16);
 		contentPane.add(lbl_pregunta_2);
 		
-		JButton button = new JButton("Siguiente");
-		button.setBounds(22, 280, 117, 37);
-		contentPane.add(button);
+		lb_pregunta_3 = new JLabel("¿Se limitaran las visitas por dia para esta membresía?");
+		lb_pregunta_3.setBounds(505, 118, 344, 16);
+		contentPane.add(lb_pregunta_3);
+		
+		lbl_pregunta_4 = new JLabel("¿Qué nombre le dara a la nueva membresia?");
+		lbl_pregunta_4.setBounds(505, 146, 285, 16);
+		contentPane.add(lbl_pregunta_4);
+		
+		CBXCantidad = new JComboBox();
+		CBXCantidad.setBounds(564, 45, 61, 27);
+		contentPane.add(CBXCantidad);
+		
+		CBXTipoTiempo = new JComboBox();
+		CBXTipoTiempo.setBounds(623, 45, 165, 27);
+		contentPane.add(CBXTipoTiempo);
+		
+		lblCantidad = new JLabel("Cantidad:");
+		lblCantidad.setBounds(503, 49, 61, 16);
+		contentPane.add(lblCantidad);
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
@@ -103,19 +115,31 @@ public class CrearMembresia extends JFrame {
 	public JButton getBtnAtras() {
 		return btn_anterior;
 	}
-	public JTextField getTextField() {
+	public JTextField getTfNombreMembresia() {
 		return tfNombreMembresia;
 	}
 	public JLabel getLbl_pregunta_1() {
 		return lbl_pregunta_1;
 	}
 	public JLabel getLbl_pregunta_2() {
-		return lbl_pregunta;
-	}
-	public JLabel getLbl_pregunta_4() {
 		return lbl_pregunta_2;
 	}
+	public JLabel getLbl_pregunta_4() {
+		return lbl_pregunta_4;
+	}
 	public JLabel getLb_pregunta_3() {
-		return lb_pregunta;
+		return lb_pregunta_3;
+	}
+	public JLabel getLblPasoDe() {
+		return lblPasoDe;
+	}
+	public JComboBox getCBXCantidad() {
+		return CBXCantidad;
+	}
+	public JComboBox getCBXTipoTiempo() {
+		return CBXTipoTiempo;
+	}
+	public JLabel getLblCantidad() {
+		return lblCantidad;
 	}
 }
