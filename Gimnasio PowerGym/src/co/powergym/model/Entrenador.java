@@ -1,7 +1,6 @@
 package co.powergym.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class Entrenador {
 	
@@ -14,7 +13,6 @@ public class Entrenador {
     private String primerNombre, segundoNombre, primerApellido, segundoApellido;
     private String correo, telefono;
     private int genero;
-    private String imagen;
     private Rol rol;
     
     
@@ -22,9 +20,11 @@ public class Entrenador {
     	
     }
     
-    public Entrenador(String identificacion, Date fechaNacimiento, String primerNombre,
+    public Entrenador(int id, String identificacion, Date fechaNacimiento, String primerNombre,
 			String segundoNombre, String primerApellido, String segundoApellido, String correo, String telefono,
 			int genero){
+    	super();
+    	this.id = id;
     	this.identificacion = identificacion;
     	this.fechaNacimiento = fechaNacimiento;
     	this.primerNombre = primerNombre;
@@ -34,6 +34,7 @@ public class Entrenador {
     	this.correo = correo;
     	this.telefono = telefono;
     }
+    
 	public static int getGENERO_M() {
 		return GENERO_M;
 	}
@@ -105,12 +106,6 @@ public class Entrenador {
 	}
 	public void setGenero(int genero) {
 		this.genero = genero;
-	}
-	public String getImagen() {
-		return imagen;
-	}
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
 	}
 	public Rol getRol() {
 		return rol;
