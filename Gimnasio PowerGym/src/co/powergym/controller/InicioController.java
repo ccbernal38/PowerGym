@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
 import co.powergym.dao.SocioDao;
-import co.powergym.view.BusquedaSocio;
 import co.powergym.view.CrearMembresia;
 import co.powergym.view.Principal;
-import co.powergym.view.SocioListadoView;
-import co.powergym.view.SocioRegistroView;
+import co.powergym.view.socio.SocioBusquedaView;
+import co.powergym.view.socio.SocioListadoView;
+import co.powergym.view.socio.SocioRegistroView;
 
 public class InicioController implements ActionListener {
 
@@ -35,7 +35,7 @@ public class InicioController implements ActionListener {
 			SocioController socioController = new SocioController(dao, viewRegistroSocio, null, null);
 		} else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
 			SocioDao dao = new SocioDao();
-			BusquedaSocio viewBusquedaSocio = new BusquedaSocio();
+			SocioBusquedaView viewBusquedaSocio = new SocioBusquedaView();
 			SocioController socioController = new SocioController(dao, null, viewBusquedaSocio, null);
 		} else if (viewPrincipal.btnMenuMembresia == e.getSource()) {
 			CrearMembresia crearMembresia = new CrearMembresia();

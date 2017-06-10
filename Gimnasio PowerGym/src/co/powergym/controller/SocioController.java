@@ -20,9 +20,9 @@ import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Socio;
-import co.powergym.view.BusquedaSocio;
-import co.powergym.view.SocioListadoView;
-import co.powergym.view.SocioRegistroView;
+import co.powergym.view.socio.SocioBusquedaView;
+import co.powergym.view.socio.SocioListadoView;
+import co.powergym.view.socio.SocioRegistroView;
 
 public class SocioController implements ActionListener {
 
@@ -30,12 +30,13 @@ public class SocioController implements ActionListener {
 	SocioDao socioDao;
 
 	SocioRegistroView viewRegistroSocio;
-	BusquedaSocio viewBusquedaSocio;
+	SocioBusquedaView viewBusquedaSocio;
 	SocioListadoView viewListadoSocio;
-	
+
 	private BufferedImage fotoTemp;
 
-	public SocioController(SocioDao socioDao, SocioRegistroView viewRegistroSocio, BusquedaSocio viewBusquedaSocio, SocioListadoView socioListadoView) {
+	public SocioController(SocioDao socioDao, SocioRegistroView viewRegistroSocio, SocioBusquedaView viewBusquedaSocio,
+			SocioListadoView socioListadoView) {
 		this.socioDao = socioDao;
 		if (viewRegistroSocio != null) {
 			webcam = Webcam.getWebcams().get(0);
@@ -52,7 +53,7 @@ public class SocioController implements ActionListener {
 			this.viewBusquedaSocio.btnBuscar.addActionListener(this);
 			this.viewBusquedaSocio.setVisible(true);
 		}
-		if(socioListadoView != null){
+		if (socioListadoView != null) {
 			this.viewListadoSocio = socioListadoView;
 			listadoSociosLlenarTabla(viewListadoSocio.getTableSocios());
 			this.viewListadoSocio.setVisible(true);
@@ -62,7 +63,7 @@ public class SocioController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == viewRegistroSocio.btnRegistrar) {
+		if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.btnRegistrar) {
 			try {
 				String numeroId = viewRegistroSocio.getTextField_identificacion().getText();
 				Socio socio = socioDao.buscarSocio(numeroId);
@@ -114,14 +115,14 @@ public class SocioController implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} else if (e.getSource() == viewRegistroSocio.getBtnCapturar()) {
+		} else if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.getBtnCapturar()) {
 
 			viewRegistroSocio.getBtnTomarFoto().setEnabled(true);
 			viewRegistroSocio.getWebcamPanel().start();
 
-		} else if (e.getSource() == viewRegistroSocio.btnCancelar) {
+		} else if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.btnCancelar) {
 			viewRegistroSocio.dispose();
-		} else if (e.getSource() == viewRegistroSocio.getBtnTomarFoto()) {
+		} else if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.getBtnTomarFoto()) {
 			fotoTemp = viewRegistroSocio.getWebcam().getImage();
 			viewRegistroSocio.getWebcamPanel().stop();
 			viewRegistroSocio.getWebcamPanel().setVisible(false);
@@ -131,7 +132,7 @@ public class SocioController implements ActionListener {
 			viewRegistroSocio.btnTomarFoto.setEnabled(false);
 			viewRegistroSocio.btnCapturar.setEnabled(false);
 
-		} else if (e.getSource() == viewBusquedaSocio.btnBuscar) {
+		} else if (viewBusquedaSocio != null && e.getSource() == viewBusquedaSocio.btnBuscar) {
 
 			String numeroId = viewBusquedaSocio.getTextField_identidad().getText();
 			Socio socio = socioDao.buscarSocio(numeroId);
@@ -152,6 +153,7 @@ public class SocioController implements ActionListener {
 				viewBusquedaSocio.getTextField_correoElectronico().setText(correo);
 				int genero = socio.getGenero();
 				viewBusquedaSocio.getTextField_genero().setText(String.valueOf(genero));
+				viewBusquedaSocio.getLblFoto().setIcon(new ImageIcon(socio.getFoto()));
 
 			} else {
 				JOptionPane.showMessageDialog(null, "No se encontrÃ³ un socio con ese nÃºmero de identificaciÃ³n, "
@@ -160,33 +162,34 @@ public class SocioController implements ActionListener {
 
 		}
 	}
-	
-	public void listadoSociosLlenarTabla(JTable tabla){
+
+	public void listadoSociosLlenarTabla(JTable tabla) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel();
-		tabla.setModel(defaultTableModel);
-		
+
 		defaultTableModel.addColumn("Nro. identificacion");
 		defaultTableModel.addColumn("Nombre");
 		defaultTableModel.addColumn("Apellido");
 		defaultTableModel.addColumn("Dirección");
 		defaultTableModel.addColumn("Correo electrónico");
 		defaultTableModel.addColumn("Teléfono");
-		
+
 		Object[] columna = new Object[6];
-		List<Socio> listSocios = socioDao.listaSocios();  
+		List<Socio> listSocios = socioDao.listaSocios();
 		int numeroRegistros = listSocios.size();
-		
+
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listSocios.get(i).getIdentificacion();
-			columna[1] = listSocios.get(i).getPrimerNombre()+ " " + listSocios.get(i).getSegundoNombre();
+			columna[1] = listSocios.get(i).getPrimerNombre() + " " + listSocios.get(i).getSegundoNombre();
 			columna[2] = listSocios.get(i).getPrimerApellido() + " " + listSocios.get(i).getSegundoApellido();
 			columna[3] = listSocios.get(i).getDireccion();
 			columna[4] = listSocios.get(i).getCorreo();
 			columna[5] = listSocios.get(i).getTelefono();
-			defaultTableModel.addColumn(columna);
+			defaultTableModel.addRow(columna);
 		}
+		tabla.setModel(defaultTableModel);
+
 		tabla.repaint();
-		
+
 	}
 
 }

@@ -3,12 +3,26 @@
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 
 import javax.swing.JMenu;
 
 import javax.swing.JMenuItem;
+import java.awt.SystemColor;
+import java.awt.image.BufferedImage;
+
+import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -20,6 +34,7 @@ public class Principal extends JFrame {
      * Creates new form Principal
      */
     public Principal() {
+    	getContentPane().setBackground(new Color(0, 149, 239));
         initComponents();
     }
 
@@ -156,14 +171,19 @@ public class Principal extends JFrame {
         jPanel1.setBackground(new Color(0, 149, 239));
         btnRegistrarSocio = new javax.swing.JButton();
         btnRegistrarSocio.setForeground(Color.WHITE);
-        btnRegistrarSocio.setBackground(color);
+        btnRegistrarSocio.setBackground(new Color(128, 128, 128));
         jButton2 = new javax.swing.JButton();
+        jButton2.setBackground(new Color(128, 128, 128));
         jButton3 = new javax.swing.JButton();
+        jButton3.setBackground(new Color(128, 128, 128));
         btnMenuMembresia = new javax.swing.JButton();
+        btnMenuMembresia.setBackground(new Color(128, 128, 128));
         jButton5 = new javax.swing.JButton();
+        jButton5.setBackground(new Color(128, 128, 128));
         jButton6 = new javax.swing.JButton();
+        jButton6.setBackground(new Color(128, 128, 128));
         
-                jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                jPanel1.setBorder(null);
                 
                         btnRegistrarSocio.setText("Registro socio");
                         btnRegistrarSocio.setToolTipText("");
@@ -231,6 +251,10 @@ public class Principal extends JFrame {
                                                                                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                                                 .addContainerGap(34, Short.MAX_VALUE))
                                                                         );
+        
+        lblNewLabel = new JLabel("");
+        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\berna\\Desktop\\logo.png"));
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -238,14 +262,21 @@ public class Principal extends JFrame {
         		.addGroup(layout.createSequentialGroup()
         			.addGap(37)
         			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(841, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 803, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
-        			.addGap(40)
-        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(399, Short.MAX_VALUE))
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(40)
+        					.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(63)
+        					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 581, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(72, Short.MAX_VALUE))
         );
         getContentPane().setLayout(layout);
 
@@ -272,42 +303,17 @@ public class Principal extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private Image getScaledImage(Image srcImg, int w, int h){
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-			public void run() {
-                new Principal().setVisible(true);
-            }
-        });
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+
+        return resizedImg;
     }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnRegistrarSocio;
     public javax.swing.JButton jButton2;
@@ -344,6 +350,7 @@ public class Principal extends JFrame {
     private JMenu jMenuEntrenador;
     private JMenuItem jMenuItemRegistrarEntrenador;
     private JMenuItem jMenuItemBuscarEntrenador;
+    private JLabel lblNewLabel;
 
     // End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {

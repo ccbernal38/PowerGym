@@ -123,7 +123,6 @@ public class SocioDao implements SocioDaoInterface{
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Socio WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if(resultSet.next())
 			while (resultSet.next()) {
 				socio = new Socio();
 				socio.setId(resultSet.getInt(1));
@@ -136,6 +135,8 @@ public class SocioDao implements SocioDaoInterface{
 				socio.setTelefono(resultSet.getString(8));
 				socio.setCorreo(resultSet.getString(9));
 				socio.setGenero(resultSet.getInt(10));
+				InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
+				socio.setFoto(ImageIO.read(bufferedImage));
 			}
 		} catch (Exception e) {
 			System.out.println("error");

@@ -1,4 +1,4 @@
-package co.powergym.view;
+package co.powergym.view.socio;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
