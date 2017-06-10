@@ -20,4 +20,6 @@ public interface SocioDaoInterface {
             String segundoApellido, String correo, String telefono, int genero);
 	
 	public Socio buscarSocio(String identificacion);
+	
+	public List<Socio> sociosCumpleaniosMes();
 }

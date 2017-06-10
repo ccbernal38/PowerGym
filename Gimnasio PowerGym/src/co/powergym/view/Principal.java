@@ -352,4 +352,7 @@ public class Principal extends JFrame {
 	public JMenuItem getMntmListadoDeSocios() {
 		return mntmListadoDeSocios;
 	}
+	public JMenuItem getJMenuItemCumpleanios() {
+		return jMenuItem5;
+	}
 }

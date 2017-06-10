@@ -9,6 +9,7 @@ import co.powergym.dao.SocioDao;
 import co.powergym.view.CrearMembresia;
 import co.powergym.view.Principal;
 import co.powergym.view.socio.SocioBusquedaView;
+import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
 import co.powergym.view.socio.SocioRegistroView;
 
@@ -23,6 +24,7 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.jMenuItem3buscarSocio.addActionListener(this);
 		this.viewPrincipal.btnMenuMembresia.addActionListener(this);
 		this.viewPrincipal.getMntmListadoDeSocios().addActionListener(this);
+		this.viewPrincipal.getJMenuItemCumpleanios().addActionListener(this);
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
 	}
@@ -32,17 +34,20 @@ public class InicioController implements ActionListener {
 		if (viewPrincipal.btnRegistrarSocio == e.getSource()) {
 			SocioDao dao = new SocioDao();
 			SocioRegistroView viewRegistroSocio = new SocioRegistroView();
-			SocioController socioController = new SocioController(dao, viewRegistroSocio, null, null);
+			SocioController socioController = new SocioController(dao, viewRegistroSocio, null, null, null);
 		} else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
 			SocioDao dao = new SocioDao();
 			SocioBusquedaView viewBusquedaSocio = new SocioBusquedaView();
-			SocioController socioController = new SocioController(dao, null, viewBusquedaSocio, null);
+			SocioController socioController = new SocioController(dao, null, viewBusquedaSocio, null, null);
 		} else if (viewPrincipal.btnMenuMembresia == e.getSource()) {
 			CrearMembresia crearMembresia = new CrearMembresia();
 			MembresiaController Mcontroller = new MembresiaController(crearMembresia);
-		} else if(viewPrincipal.getMntmListadoDeSocios() == e.getSource()){
+		} else if (viewPrincipal.getMntmListadoDeSocios() == e.getSource()) {
 			SocioListadoView socioListadoView = new SocioListadoView();
-			SocioController socioController = new SocioController(new SocioDao(), null, null, socioListadoView);
+			SocioController socioController = new SocioController(new SocioDao(), null, null, socioListadoView, null);
+		} else if (viewPrincipal.getJMenuItemCumpleanios() == e.getSource()) {
+			SocioController socioController = new SocioController(new SocioDao(), null, null, null,
+					new SocioCumpleaniosListadoView());
 		}
 	}
 }

@@ -1,11 +1,13 @@
 package co.powergym.controller;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -21,6 +23,7 @@ import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Socio;
 import co.powergym.view.socio.SocioBusquedaView;
+import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
 import co.powergym.view.socio.SocioRegistroView;
 
@@ -32,11 +35,11 @@ public class SocioController implements ActionListener {
 	SocioRegistroView viewRegistroSocio;
 	SocioBusquedaView viewBusquedaSocio;
 	SocioListadoView viewListadoSocio;
-
+	SocioCumpleaniosListadoView viewCumpleaniosListadoView;
 	private BufferedImage fotoTemp;
 
 	public SocioController(SocioDao socioDao, SocioRegistroView viewRegistroSocio, SocioBusquedaView viewBusquedaSocio,
-			SocioListadoView socioListadoView) {
+			SocioListadoView socioListadoView, SocioCumpleaniosListadoView cumpleaniosListadoView) {
 		this.socioDao = socioDao;
 		if (viewRegistroSocio != null) {
 			webcam = Webcam.getWebcams().get(0);
@@ -57,6 +60,11 @@ public class SocioController implements ActionListener {
 			this.viewListadoSocio = socioListadoView;
 			listadoSociosLlenarTabla(viewListadoSocio.getTableSocios());
 			this.viewListadoSocio.setVisible(true);
+		}
+		if (cumpleaniosListadoView != null) {
+			this.viewCumpleaniosListadoView = cumpleaniosListadoView;
+			listadoCumpleaniosLlenarTabla(viewCumpleaniosListadoView.getTableSocios());
+			this.viewCumpleaniosListadoView.setVisible(true);
 		}
 	}
 
@@ -153,7 +161,9 @@ public class SocioController implements ActionListener {
 				viewBusquedaSocio.getTextField_correoElectronico().setText(correo);
 				int genero = socio.getGenero();
 				viewBusquedaSocio.getTextField_genero().setText(String.valueOf(genero));
-				viewBusquedaSocio.getLblFoto().setIcon(new ImageIcon(socio.getFoto()));
+				Image dimg = socio.getFoto().getScaledInstance(viewBusquedaSocio.getLblFoto().getWidth(),
+						viewBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
+				viewBusquedaSocio.getLblFoto().setIcon(new ImageIcon(dimg));
 
 			} else {
 				JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
@@ -190,6 +200,61 @@ public class SocioController implements ActionListener {
 
 		tabla.repaint();
 
+	}
+
+	public void listadoCumpleaniosLlenarTabla(JTable tableSocios) {
+		// TODO Auto-generated method stub
+		DefaultTableModel defaultTableModel = new DefaultTableModel();
+
+		defaultTableModel.addColumn("Nro. identificacion");
+		defaultTableModel.addColumn("Nombre");
+		defaultTableModel.addColumn("Apellido");
+		defaultTableModel.addColumn("Fecha de cumplea�os");
+
+		Object[] columna = new Object[6];
+		List<Socio> listSocios = socioDao.sociosCumpleaniosMes();
+		int numeroRegistros = listSocios.size();
+
+		for (int i = 0; i < numeroRegistros; i++) {
+			columna[0] = listSocios.get(i).getIdentificacion();
+			columna[1] = listSocios.get(i).getPrimerNombre() + " " + listSocios.get(i).getSegundoNombre();
+			columna[2] = listSocios.get(i).getPrimerApellido() + " " + listSocios.get(i).getSegundoApellido();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(listSocios.get(i).getFechaNacimiento());
+			int mesTemp = calendar.get(Calendar.MONTH) + 1;
+			String mes = "";
+			if (mesTemp == 1) {
+				mes = "Enero";
+			} else if (mesTemp == 2) {
+				mes = "Febrero";
+			} else if (mesTemp == 3) {
+				mes = "Marzo";
+			} else if (mesTemp == 4) {
+				mes = "Abril";
+			} else if (mesTemp == 5) {
+				mes = "Mayo";
+			} else if (mesTemp == 6) {
+				mes = "Junio";
+			} else if (mesTemp == 7) {
+				mes = "Julio";
+			} else if (mesTemp == 8) {
+				mes = "Agosto";
+			} else if (mesTemp == 9) {
+				mes = "Septiembre";
+			} else if (mesTemp == 10) {
+				mes = "Octubre";
+			} else if (mesTemp == 11) {
+				mes = "Noviembre";
+			} else if (mesTemp == 12) {
+				mes = "Diciembre";
+			}
+
+			columna[3] = calendar.get(Calendar.DAY_OF_MONTH) + " de " + mes;
+			defaultTableModel.addRow(columna);
+		}
+		tableSocios.setModel(defaultTableModel);
+
+		tableSocios.repaint();
 	}
 
 }
