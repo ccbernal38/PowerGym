@@ -1,5 +1,10 @@
 package co.powergym.dao;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -7,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import co.powergym.interfacedao.SocioDaoInterface;
 import co.powergym.model.Conexion;
@@ -23,13 +30,13 @@ public class SocioDao implements SocioDaoInterface{
 	@Override
 	public boolean registrarSocio(String identificacion, Date fechaNacimiento, String primerNombre,
 			String segundoNombre, String primerApellido, String segundoApellido, String correo, String telefono,
-			int genero) {
+			int genero, BufferedImage foto) throws IOException {
 		
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Socio(identificacion, primerNombre, segundoNombre,"
-					+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?,?)");
+					+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto) VALUES(?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
 			statement.setString(2, primerNombre);
 			statement.setString(3, segundoNombre);
@@ -39,9 +46,18 @@ public class SocioDao implements SocioDaoInterface{
 			statement.setString(7, telefono);
 			statement.setString(8, correo);
 			statement.setInt(9, genero);
+			if (foto != null) {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ImageIO.write(foto, "jpg", baos );
+				byte[] imageInByte = baos.toByteArray();
+				Blob blob = accesoBD.createBlob();
+				blob.setBytes(1, imageInByte);
+				statement.setBlob(10, blob);
+			}			
+			statement.execute();
 			respuesta = true;
 		} catch (SQLException e) {
-			System.out.println(e);
+			e.printStackTrace();		
 		}
 		return respuesta;
 	}
@@ -66,6 +82,8 @@ public class SocioDao implements SocioDaoInterface{
 				socio.setTelefono(resultSet.getString(8));
 				socio.setCorreo(resultSet.getString(9));
 				socio.setGenero(resultSet.getInt(10));
+				InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
+				socio.setFoto(ImageIO.read(bufferedImage));
 				list.add(socio);				
 			}
 		} catch (Exception e) {

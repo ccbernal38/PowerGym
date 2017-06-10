@@ -12,8 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
-public class RegistroView extends JFrame {
+public class SocioRegistroView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField_identificacion;
@@ -31,6 +32,7 @@ public class RegistroView extends JFrame {
 	public JButton btnTomarFoto;
 	public JButton btnCapturar;
 	public Webcam webcam;
+	private JPanel panel;
 	
 
 	
@@ -43,15 +45,15 @@ public class RegistroView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegistroView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public SocioRegistroView() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 723, 463);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(32, 29, 246, 331);
 		contentPane.add(panel);
@@ -62,11 +64,13 @@ public class RegistroView extends JFrame {
 		}
 		
 		webcamPanel = new WebcamPanel(webcam, false);	
+		webcamPanel.setBackground(Color.GRAY);
 
 		webcamPanel.setBounds(10, 11, 226, 239);
 		panel.add(webcamPanel);
 
 		btnTomarFoto = new JButton("Tomar Foto");
+		btnTomarFoto.setEnabled(false);
 		btnTomarFoto.setBounds(10, 261, 226, 23);
 		panel.add(btnTomarFoto);
 
@@ -202,5 +206,8 @@ public class RegistroView extends JFrame {
 	}
 	public JButton getBtnCapturar() {
 		return btnCapturar;
+	}
+	public JPanel getPanel() {
+		return panel;
 	}
 }

@@ -1,5 +1,6 @@
 package co.powergym.model;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,8 @@ public class Socio {
     private String correo, telefono;
     private int genero;
     private String imagen;
+    private String direccion;
+    private BufferedImage foto;
     private Rol rol;
     private List<String> huella;
 
@@ -40,7 +43,24 @@ public class Socio {
         }
     }
 
-    public int getId() {
+    
+    public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public BufferedImage getFoto() {
+		return foto;
+	}
+
+	public void setFoto(BufferedImage foto) {
+		this.foto = foto;
+	}
+
+	public int getId() {
         return id;
     }
 

@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -79,6 +80,9 @@ public class Principal extends JFrame {
 
         jMenuItem3buscarSocio.setText("Buscar socio");
         jMenu2.add(jMenuItem3buscarSocio);
+        
+        mntmListadoDeSocios = new JMenuItem("Listado de socios");
+        jMenu2.add(mntmListadoDeSocios);
 
         jMenuItem5.setText("Cumpleaños del mes");
         jMenu2.add(jMenuItem5);
@@ -328,11 +332,15 @@ public class Principal extends JFrame {
     public javax.swing.JMenuItem jMenuItem8;
     public javax.swing.JMenuItem jMenuItem9;
     public javax.swing.JPanel jPanel1;
+    private JMenuItem mntmListadoDeSocios;
     // End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
 		return btnRegistrarSocio;
 	}
 	public JButton getBtnMenuMembresia() {
 		return btnMenuMembresia;
+	}
+	public JMenuItem getMntmListadoDeSocios() {
+		return mntmListadoDeSocios;
 	}
 }
