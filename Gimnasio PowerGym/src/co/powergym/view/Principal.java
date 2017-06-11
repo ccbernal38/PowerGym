@@ -3,24 +3,14 @@
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
-import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 
 import javax.swing.JMenu;
 
 import javax.swing.JMenuItem;
-import java.awt.SystemColor;
-import java.awt.image.BufferedImage;
-
-import javax.swing.border.LineBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -31,6 +21,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class Principal extends JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Creates new form Principal
      */
     public Principal() {
@@ -163,7 +158,13 @@ public class Principal extends JFrame {
         jMenuEntrenador = new JMenu("Entrenador");
         jMenuBar1.add(jMenuEntrenador);        
         jMenuItemRegistrarEntrenador = new JMenuItem("Registrar entrenador");
-        jMenuEntrenador.add(jMenuItemRegistrarEntrenador);        
+        jMenuEntrenador.add(jMenuItemRegistrarEntrenador);  
+        jMenuEntrenador.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	jMenuItemRegistroEntrenadorActionPerformed(evt);
+            }
+        });
         jMenuItemBuscarEntrenador = new JMenuItem("Buscar entrenador");
         jMenuEntrenador.add(jMenuItemBuscarEntrenador);
         
@@ -300,6 +301,10 @@ public class Principal extends JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+    
+    private void jMenuItemRegistroEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 

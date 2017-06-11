@@ -6,16 +6,10 @@ import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
-import com.github.sarxos.webcam.Webcam;
-
 import co.powergym.dao.EntrenadorDao;
-import co.powergym.dao.SocioDao;
 import co.powergym.model.Entrenador;
-import co.powergym.model.Socio;
 import co.powergym.view.BusquedaEntrenador;
-import co.powergym.view.BusquedaSocio;
 import co.powergym.view.RegistroEntrenador;
-import co.powergym.view.RegistroView;
 
 public class EntrenadorController implements ActionListener{
 	
