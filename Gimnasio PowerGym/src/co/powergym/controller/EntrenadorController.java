@@ -52,7 +52,29 @@ public class EntrenadorController implements ActionListener{
 			} else {
 				JOptionPane.showMessageDialog(null, "El entrenador ya se encuentra registrado");
 			}
-
+		}
+		else if (e.getSource() == viewBusquedantrenador.getBtnBuscar()) {
+			String numeroId = viewBusquedantrenador.getTxtNumeroid().getText();
+			Entrenador entrenador = entrenadorDao.buscarEntrenador(numeroId);
+			if (entrenador != null) {
+				String primerNombre = entrenador.getPrimerNombre();
+						viewBusquedantrenador.getTxtNombre().setText(primerNombre);
+				String segundoNombre = entrenador.getSegundoNombre();
+						viewBusquedantrenador.getTxtSegundonombre().setText(segundoNombre);
+				String primerApellido = entrenador.getPrimerApellido();
+						viewBusquedantrenador.getTxtPrimerapellido().setText(primerApellido);
+				String segundoApellido = entrenador.getSegundoApellido();
+						viewBusquedantrenador.getTxtSegundoapellido().setText(segundoApellido);
+				String fechaNacimiento = String.valueOf(entrenador.getFechaNacimiento());
+						viewBusquedantrenador.txtfechaNacimiento.setText(fechaNacimiento);
+				String telefono = entrenador.getTelefono();
+						viewBusquedantrenador.getTxtTelefono().setText(telefono);
+				String correo = entrenador.getCorreo();
+						viewBusquedantrenador.getTxtCorreoelectronico().setText(correo);		
+				
+			} else {
+				JOptionPane.showMessageDialog(null, "No se encontró un entrenador con ese número de identificación, por favor verifique");
+			}
 		}
 		
 	}
