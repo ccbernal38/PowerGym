@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 
 public class CrearMembresia extends JFrame {
 
@@ -29,6 +30,9 @@ public class CrearMembresia extends JFrame {
 	private JComboBox CBXCantidad;
 	private JComboBox CBXTipoTiempo;
 	private JLabel lblCantidad;
+	private JCheckBox chckbxNo;
+	private JCheckBox chckbxSi;
+	private JComboBox comboBoxVisitas;
 	
 	/**
 	 * Create the frame.
@@ -90,11 +94,11 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(lbl_pregunta_2);
 		
 		lb_pregunta_3 = new JLabel("¿Se limitaran las visitas por dia para esta membresía?");
-		lb_pregunta_3.setBounds(505, 118, 344, 16);
+		lb_pregunta_3.setBounds(503, 84, 344, 16);
 		contentPane.add(lb_pregunta_3);
 		
 		lbl_pregunta_4 = new JLabel("¿Qué nombre le dara a la nueva membresia?");
-		lbl_pregunta_4.setBounds(505, 146, 285, 16);
+		lbl_pregunta_4.setBounds(503, 171, 285, 16);
 		contentPane.add(lbl_pregunta_4);
 		
 		CBXCantidad = new JComboBox();
@@ -108,6 +112,18 @@ public class CrearMembresia extends JFrame {
 		lblCantidad = new JLabel("Cantidad:");
 		lblCantidad.setBounds(503, 49, 61, 16);
 		contentPane.add(lblCantidad);
+		
+		chckbxSi = new JCheckBox("SI. Inidicar el número de visitas permitidas por día:");
+		chckbxSi.setBounds(503, 147, 352, 23);
+		contentPane.add(chckbxSi);
+		
+		chckbxNo = new JCheckBox("NO");
+		chckbxNo.setBounds(503, 112, 128, 23);
+		contentPane.add(chckbxNo);
+		
+		comboBoxVisitas = new JComboBox();
+		comboBoxVisitas.setBounds(854, 147, 61, 27);
+		contentPane.add(comboBoxVisitas);
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
@@ -141,5 +157,14 @@ public class CrearMembresia extends JFrame {
 	}
 	public JLabel getLblCantidad() {
 		return lblCantidad;
+	}
+	public JCheckBox getChckbxNo() {
+		return chckbxNo;
+	}
+	public JCheckBox getChckbxSi() {
+		return chckbxSi;
+	}
+	public JComboBox getComboBoxVisitas() {
+		return comboBoxVisitas;
 	}
 }
