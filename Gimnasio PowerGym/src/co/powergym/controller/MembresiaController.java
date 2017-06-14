@@ -44,15 +44,22 @@ public class MembresiaController implements ActionListener {
 				contPasos ++;
 				membresia.getLblPasoDe().setText("Paso "+contPasos+" de 4");
 				membresia.getLbl_pregunta_2().setVisible(false);
+				membresia.getCBXCantidad().setVisible(false);
+				membresia.getCBXTipoTiempo().setVisible(false);
+				membresia.getLblCantidad().setVisible(false);
 				membresia.getLb_pregunta_3().setBounds(20, 118, 342, 16);
+				membresia.getChckbxNo().setBounds(30, 152, 128, 23);
+				membresia.getChckbxSi().setBounds(30, 187, 352, 23);
+				membresia.getComboBoxVisitas().setBounds(381, 187, 61, 27);
+
 				
 			} else
 			if (contPasos == 3) {
 				
 				contPasos ++;
 				membresia.getLblPasoDe().setText("Paso "+contPasos+" de 4");
-				
-				
+				membresia.getLb_pregunta_3().setVisible(false);
+				membresia.getLbl_pregunta_4().setBounds(20, 118, 342, 16);
 			}
 		}
 		if(e.getSource() == membresia.getBtnAtras()){
