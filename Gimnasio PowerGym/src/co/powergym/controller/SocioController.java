@@ -1,8 +1,16 @@
 package co.powergym.controller;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +19,19 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import com.github.sarxos.webcam.Webcam;
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
@@ -197,6 +213,8 @@ public class SocioController implements ActionListener {
 			defaultTableModel.addRow(columna);
 		}
 		tabla.setModel(defaultTableModel);
+		HeaderRenderer r = new HeaderRenderer(tabla.getTableHeader());
+        tabla.getColumnModel().getColumn(0).setHeaderRenderer(r);
 
 		tabla.repaint();
 
@@ -257,4 +275,102 @@ public class SocioController implements ActionListener {
 		tableSocios.repaint();
 	}
 
+	class HeaderRenderer extends JButton implements TableCellRenderer {
+		private static final int BUTTON_WIDTH = 16;
+		private final Color BUTTONBGC = new Color(200, 200, 200, 100);
+		private int rolloverIndex = -1;
+		private final transient MouseAdapter handler = new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JTableHeader header = (JTableHeader) e.getComponent();
+				JTable table = header.getTable();
+				TableColumnModel columnModel = table.getColumnModel();
+				int vci = columnModel.getColumnIndexAtX(e.getX());
+				// int mci = table.convertColumnIndexToModel(vci);
+				// TableColumn column = table.getColumnModel().getColumn(mci);
+				// int w = column.getWidth(); //Nimbus???
+				// int h = header.getHeight();
+				Rectangle r = header.getHeaderRect(vci);
+				Container c = (Container) getTableCellRendererComponent(table, "", true, true, -1, vci);
+				// if (!isNimbus) {
+				// Insets i = c.getInsets();
+				// r.translate(r.width - i.right, 0);
+				// } else {
+				r.translate(r.width - BUTTON_WIDTH, 0);
+				r.setSize(BUTTON_WIDTH, r.height);
+				Point pt = e.getPoint();
+				if (c.getComponentCount() > 0 && r.contains(pt)) {
+					JButton b = (JButton) c.getComponent(0);
+					b.doClick();
+					e.consume();
+				}
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				rolloverIndex = -1;
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				JTableHeader header = (JTableHeader) e.getComponent();
+				JTable table = header.getTable();
+				TableColumnModel columnModel = table.getColumnModel();
+				int vci = columnModel.getColumnIndexAtX(e.getX());
+				int mci = table.convertColumnIndexToModel(vci);
+				rolloverIndex = mci;
+			}
+		};
+
+		protected HeaderRenderer(JTableHeader header) {
+			super();
+			header.addMouseListener(handler);
+			header.addMouseMotionListener(handler);
+		}
+
+		@Override
+		public void updateUI() {
+			super.updateUI();
+			// setOpaque(false);
+			// setFont(header.getFont());
+			setBorder(BorderFactory.createEmptyBorder());
+			setContentAreaFilled(false);
+		}
+
+		// JButton button = new JButton(new AbstractAction() {
+		// @Override public void actionPerformed(ActionEvent e) {
+		// System.out.println("clicked");
+		// }
+		// });
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			TableCellRenderer r = table.getTableHeader().getDefaultRenderer();
+			JLabel l = (JLabel) r.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			l.removeAll();
+			int mci = table.convertColumnIndexToModel(column);
+
+			if (rolloverIndex == mci) {
+				int w = table.getColumnModel().getColumn(mci).getWidth();
+				int h = table.getTableHeader().getHeight();
+				// Icon icon = new MenuArrowIcon();
+				Border outside = l.getBorder();
+				Border inside = BorderFactory.createEmptyBorder(0, 0, 0, BUTTON_WIDTH);
+				Border b = BorderFactory.createCompoundBorder(outside, inside);
+				l.setBorder(b);
+				l.add(this);
+				// Insets i = b.getBorderInsets(l);
+				// setBounds(w - i.right, 0, BUTTON_WIDTH, h - 2);
+				setBounds(w - BUTTON_WIDTH, 0, BUTTON_WIDTH, h - 2);
+				setBackground(BUTTONBGC);
+				setOpaque(true);
+				setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, Color.GRAY));
+			}
+			// if (l.getPreferredSize().height > 1000) { //XXX: Nimbus
+			// System.out.println(l.getPreferredSize().height);
+			// l.setPreferredSize(new Dimension(0, h));
+			// }
+			return l;
+		}
+	}
 }

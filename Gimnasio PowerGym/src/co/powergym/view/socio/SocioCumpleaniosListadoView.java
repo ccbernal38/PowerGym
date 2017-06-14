@@ -1,14 +1,18 @@
 package co.powergym.view.socio;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
@@ -66,9 +70,13 @@ public class SocioCumpleaniosListadoView extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		tableSocios = new JTable();
-		tableSocios.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "New column", "New column", "New column", "New column", "New column", "New column" }));
+		String[] columnNames = new String[] { "Title", "Author", "Publisher", "Published Date", "Pages", "Rating" };
+
+		tableSocios.setModel(new DefaultTableModel(
+				new Object[] { "New column", "New column", "New column", "New column", "New column", "New column" },
+				1));
 		tableSocios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
 		tableSocios.setBounds(-32, 68, 579, 301);
 		JTableHeader header = new JTableHeader();
 		header.setName("asdas");
@@ -81,4 +89,5 @@ public class SocioCumpleaniosListadoView extends JFrame {
 	public JTable getTableSocios() {
 		return tableSocios;
 	}
+
 }
