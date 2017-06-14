@@ -10,6 +10,22 @@ import javax.swing.JComboBox;
 
 public class RegistroEntrenador extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public JTextField txtNumeroid;
+	public JTextField txtNombre;
+	public JTextField txtPrimerapellido;
+	public JTextField txtSegundoapellido;
+	public JTextField txtTelefono;
+	public JTextField txtSegundonombre;
+	public JTextField txtCorreoelectronico;
+	public JButton btnRegistrar;
+	public JButton btnCancelar;
+	public JDateChooser dateChooser_fechaNacimiento;
+	public JComboBox comboBox_genero;
+	
 	public RegistroEntrenador() {
 		setTitle("Registro de entrenador");
 		getContentPane().setLayout(null);
@@ -85,11 +101,11 @@ public class RegistroEntrenador extends JFrame{
 		getContentPane().add(txtCorreoelectronico);
 		txtCorreoelectronico.setColumns(10);
 		
-		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setBounds(236, 300, 100, 29);
 		getContentPane().add(btnRegistrar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(121, 300, 100, 29);
 		getContentPane().add(btnCancelar);
 		
@@ -100,23 +116,10 @@ public class RegistroEntrenador extends JFrame{
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(226, 270, 202, 20);
 		getContentPane().add(comboBox);
+		setSize(470, 380);
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JTextField txtNumeroid;
-	private JTextField txtNombre;
-	private JTextField txtPrimerapellido;
-	private JTextField txtSegundoapellido;
-	private JTextField txtTelefono;
-	private JTextField txtSegundonombre;
-	private JTextField txtCorreoelectronico;
-	private JButton btnRegistrar;
-	private JButton btnCancelar;
-	public JDateChooser dateChooser_fechaNacimiento;
-	public JComboBox comboBox_genero;
+	
 	
 	public JDateChooser getDateChooser_fechaNacimiento() {
 		return dateChooser_fechaNacimiento;

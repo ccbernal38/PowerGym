@@ -5,9 +5,12 @@ import java.awt.event.ActionListener;
 
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
+import co.powergym.dao.EntrenadorDao;
 import co.powergym.dao.SocioDao;
+import co.powergym.view.BusquedaEntrenador;
 import co.powergym.view.CrearMembresia;
 import co.powergym.view.Principal;
+import co.powergym.view.RegistroEntrenador;
 import co.powergym.view.socio.SocioBusquedaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
@@ -25,6 +28,8 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.btnMenuMembresia.addActionListener(this);
 		this.viewPrincipal.getMntmListadoDeSocios().addActionListener(this);
 		this.viewPrincipal.getJMenuItemCumpleanios().addActionListener(this);
+		this.viewPrincipal.getJMenuItemRegistrarEntrenador().addActionListener(this);
+		this.viewPrincipal.getJMenuItemBuscarEntrenador().addActionListener(this);
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
 	}
@@ -48,6 +53,17 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemCumpleanios() == e.getSource()) {
 			SocioController socioController = new SocioController(new SocioDao(), null, null, null,
 					new SocioCumpleaniosListadoView());
+		}
+		else if (viewPrincipal.getJMenuItemRegistrarEntrenador() == e.getSource()){
+			EntrenadorDao dao = new EntrenadorDao();
+			RegistroEntrenador viewRegistroEntrenador = new RegistroEntrenador();
+			EntrenadorController entrenadorController = new EntrenadorController(dao, viewRegistroEntrenador, null);
+		}
+		else if (viewPrincipal.getJMenuItemBuscarEntrenador() == e.getSource()){
+			EntrenadorDao dao = new EntrenadorDao();
+			BusquedaEntrenador viewBusquedaEntrenador = new BusquedaEntrenador();
+			EntrenadorController entrenadorController = new EntrenadorController(dao, null, viewBusquedaEntrenador);
+			
 		}
 	}
 }

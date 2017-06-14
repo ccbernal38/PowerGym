@@ -114,19 +114,19 @@ public class BusquedaEntrenador extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField txtNumeroid;
-	private JTextField txtNombre;
-	private JTextField txtPrimerapellido;
-	private JTextField txtSegundoapellido;
-	private JTextField txtTelefono;
-	private JTextField txtSegundonombre;
-	private JTextField txtCorreoelectronico;
-	private JButton btnBuscar;
-	private JButton btnCancelar;
+	public JTextField txtNumeroid;
+	public JTextField txtNombre;
+	public JTextField txtPrimerapellido;
+	public JTextField txtSegundoapellido;
+	public JTextField txtTelefono;
+	public JTextField txtSegundonombre;
+	public JTextField txtCorreoelectronico;
+	public JButton btnBuscar;
+	public JButton btnCancelar;
 	public JTextField txtfechaNacimiento;
 	public JTextField txtgenero;
-	private JTextField txtTxtfechanacimiento;
-	private JTextField txtTxtgenero;
+	public JTextField txtTxtfechanacimiento;
+	public JTextField txtTxtgenero;
 	
 	
 	public JTextField getTxtNumeroid() {

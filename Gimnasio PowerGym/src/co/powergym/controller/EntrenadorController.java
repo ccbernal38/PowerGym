@@ -20,21 +20,33 @@ public class EntrenadorController implements ActionListener{
 	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador, BusquedaEntrenador viewBusquedaentrenador) {
 		this.entrenadorDao = entrenadorDao;
 		this.viewRegistroEntrenador = viewRegistroEntrenador;
-		this.viewRegistroEntrenador.getBtnRegistrar().addActionListener(this);
-		this.viewRegistroEntrenador.getBtnCancelar().addActionListener(this);
-		this.viewRegistroEntrenador.setVisible(true);
-		this.viewBusquedantrenador = viewBusquedaentrenador;
-		this.viewBusquedantrenador.setVisible(true);
+		if(viewRegistroEntrenador != null){
+			this.viewRegistroEntrenador.btnRegistrar.addActionListener(this);
+			this.viewRegistroEntrenador.btnCancelar.addActionListener(this);
+			this.viewRegistroEntrenador.setVisible(true);
+		}
+		else if(viewBusquedaentrenador != null){
+			this.viewBusquedantrenador = viewBusquedaentrenador;
+			this.viewBusquedantrenador.setVisible(true);
+		}		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == viewRegistroEntrenador.getBtnRegistrar()) {
-			String numeroId = viewRegistroEntrenador.getTxtNumeroid().getText();
+		if (viewRegistroEntrenador != null && e.getSource() == viewRegistroEntrenador.btnRegistrar) {
+			try {
+				String numeroId = viewRegistroEntrenador.getTxtNumeroid().getText();
 			Entrenador entrenador = entrenadorDao.buscarEntrenador(numeroId);
 			if (entrenador == null) {
+				
 				String primerNombre = viewRegistroEntrenador.getTxtNombre().getText();
-				String segundoNombre = viewRegistroEntrenador.getTxtSegundonombre().getText();
+				if(primerNombre == null || primerNombre.equals("")){
+					JOptionPane.showMessageDialog(null, "El campo primer nombre no puede estar vacio.");
+				}
+				else{
+					
+					
+				}String segundoNombre = viewRegistroEntrenador.getTxtSegundonombre().getText();
 				String primerApellido = viewRegistroEntrenador.getTxtPrimerapellido().getText();
 				String segundoApellido = viewRegistroEntrenador.getTxtSegundoapellido().getText();
 				Date fechaNacimiento = new Date(viewRegistroEntrenador.getDateChooser_fechaNacimiento().getDate().getTime());
@@ -52,8 +64,12 @@ public class EntrenadorController implements ActionListener{
 			} else {
 				JOptionPane.showMessageDialog(null, "El entrenador ya se encuentra registrado");
 			}
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			
 		}
-		else if (e.getSource() == viewBusquedantrenador.getBtnBuscar()) {
+		else if (e.getSource() == viewBusquedantrenador.btnBuscar) {
 			String numeroId = viewBusquedantrenador.getTxtNumeroid().getText();
 			Entrenador entrenador = entrenadorDao.buscarEntrenador(numeroId);
 			if (entrenador != null) {

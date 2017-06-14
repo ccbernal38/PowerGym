@@ -360,4 +360,10 @@ public class Principal extends JFrame {
 	public JMenuItem getJMenuItemCumpleanios() {
 		return jMenuItem5;
 	}
+	public JMenuItem getJMenuItemRegistrarEntrenador() {
+		return jMenuItemRegistrarEntrenador;
+	}
+	public JMenuItem getJMenuItemBuscarEntrenador() {
+		return jMenuItemBuscarEntrenador;
+	}
 }
