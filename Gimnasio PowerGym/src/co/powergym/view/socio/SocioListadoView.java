@@ -25,7 +25,7 @@ public class SocioListadoView extends JFrame {
 	 */
 	public SocioListadoView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 646, 419);
+		setBounds(100, 100, 650, 419);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -43,7 +43,7 @@ public class SocioListadoView extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column"
+				"Identificaci\u00F3n", "Nombre"
 			}
 		));
 		tableSocios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

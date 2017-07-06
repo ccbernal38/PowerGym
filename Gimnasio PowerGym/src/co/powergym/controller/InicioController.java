@@ -6,11 +6,13 @@ import java.awt.event.ActionListener;
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
 import co.powergym.dao.EntrenadorDao;
+import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.view.BusquedaEntrenador;
 import co.powergym.view.CrearMembresia;
 import co.powergym.view.Principal;
-import co.powergym.view.RegistroEntrenador;
+import co.powergym.view.entrenador.RegistroEntrenador;
+import co.powergym.view.membresia.MembresiaListadoView;
 import co.powergym.view.socio.SocioBusquedaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
@@ -30,6 +32,7 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getJMenuItemCumpleanios().addActionListener(this);
 		this.viewPrincipal.getJMenuItemRegistrarEntrenador().addActionListener(this);
 		this.viewPrincipal.getJMenuItemBuscarEntrenador().addActionListener(this);
+		this.viewPrincipal.getJMenuItemListaMembresias().addActionListener(this);
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
 	}
@@ -45,25 +48,19 @@ public class InicioController implements ActionListener {
 			SocioBusquedaView viewBusquedaSocio = new SocioBusquedaView();
 			SocioController socioController = new SocioController(dao, null, viewBusquedaSocio, null, null);
 		} else if (viewPrincipal.btnMenuMembresia == e.getSource()) {
+			MembresiaDao membresiaDao = new MembresiaDao();
 			CrearMembresia crearMembresia = new CrearMembresia();
-			MembresiaController Mcontroller = new MembresiaController(crearMembresia);
+			MembresiaController Mcontroller = new MembresiaController(membresiaDao, crearMembresia, null);
 		} else if (viewPrincipal.getMntmListadoDeSocios() == e.getSource()) {
 			SocioListadoView socioListadoView = new SocioListadoView();
 			SocioController socioController = new SocioController(new SocioDao(), null, null, socioListadoView, null);
 		} else if (viewPrincipal.getJMenuItemCumpleanios() == e.getSource()) {
 			SocioController socioController = new SocioController(new SocioDao(), null, null, null,
 					new SocioCumpleaniosListadoView());
+		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
+			MembresiaController membresiaController = new MembresiaController(new MembresiaDao(), null,
+					new MembresiaListadoView());
 		}
-		else if (viewPrincipal.getJMenuItemRegistrarEntrenador() == e.getSource()){
-			EntrenadorDao dao = new EntrenadorDao();
-			RegistroEntrenador viewRegistroEntrenador = new RegistroEntrenador();
-			EntrenadorController entrenadorController = new EntrenadorController(dao, viewRegistroEntrenador, null);
-		}
-		else if (viewPrincipal.getJMenuItemBuscarEntrenador() == e.getSource()){
-			EntrenadorDao dao = new EntrenadorDao();
-			BusquedaEntrenador viewBusquedaEntrenador = new BusquedaEntrenador();
-			EntrenadorController entrenadorController = new EntrenadorController(dao, null, viewBusquedaEntrenador);
-			
-		}
+
 	}
 }

@@ -58,7 +58,7 @@ public class Principal extends JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItemListaMembresias = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -131,8 +131,8 @@ public class Principal extends JFrame {
         jMenuItem10.setText("Crear membresia");
         jMenu4.add(jMenuItem10);
 
-        jMenuItem11.setText("Buscar membresia");
-        jMenu4.add(jMenuItem11);
+        jMenuItemListaMembresias.setText("Lista de membresias");
+        jMenu4.add(jMenuItemListaMembresias);
 
         jMenu7.setText("Informes");
 
@@ -326,7 +326,7 @@ public class Principal extends JFrame {
     public javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JMenuItem jMenuItem1;
     public javax.swing.JMenuItem jMenuItem10;
-    public javax.swing.JMenuItem jMenuItem11;
+    public javax.swing.JMenuItem jMenuItemListaMembresias;
     public javax.swing.JMenuItem jMenuItem12;
     public javax.swing.JMenuItem jMenuItem13;
     public javax.swing.JMenuItem jMenuItem14;
@@ -365,5 +365,8 @@ public class Principal extends JFrame {
 	}
 	public JMenuItem getJMenuItemBuscarEntrenador() {
 		return jMenuItemBuscarEntrenador;
+	}
+	public JMenuItem getJMenuItemListaMembresias() {
+		return jMenuItemListaMembresias;
 	}
 }

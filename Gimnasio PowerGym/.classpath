@@ -7,5 +7,9 @@
 	<classpathentry kind="lib" path="libs/webcam-capture-0.3.10.jar"/>
 	<classpathentry kind="lib" path="libs/bridj-0.6.2.jar"/>
 	<classpathentry kind="lib" path="libs/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/DigitalPersona/Bin/Java/dpfpenrollment.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/DigitalPersona/Bin/Java/dpfpverification.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/DigitalPersona/Bin/Java/dpotapi.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/DigitalPersona/Bin/Java/dpotjni.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

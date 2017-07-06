@@ -1,6 +1,7 @@
 package co.powergym.interfacedao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.powergym.model.Membresia;
 
@@ -8,7 +9,7 @@ public interface MembresiaDaoInterface {
 	
 	public boolean registrarMembresia(String codigo, String nombre, double valor);
 	
-	public ArrayList<Membresia> listaMembresia();
+	public List<Membresia> listaMembresia();
 	
 	public boolean eliminarMembresia(String codigo);
 	

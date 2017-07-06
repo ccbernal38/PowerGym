@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.model.Entrenador;
 import co.powergym.view.BusquedaEntrenador;
-import co.powergym.view.RegistroEntrenador;
+import co.powergym.view.entrenador.RegistroEntrenador;
 
 public class EntrenadorController implements ActionListener{
 	

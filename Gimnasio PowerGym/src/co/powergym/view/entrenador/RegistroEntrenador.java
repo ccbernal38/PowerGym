@@ -1,4 +1,4 @@
-package co.powergym.view;
+package co.powergym.view.entrenador;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
