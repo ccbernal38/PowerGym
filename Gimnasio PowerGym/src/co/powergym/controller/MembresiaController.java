@@ -65,21 +65,28 @@ public class MembresiaController implements ActionListener {
 		if (membresia != null && e.getSource() == membresia.getBtnSiguiente()) {
 
 			if (contPasos == 1) {
-				contPasos++;
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 4");
 
+				contPasos ++;
+				membresia.getLblPasoDe().setText("Paso "+contPasos+" de 5");
+				
+				
 				membresia.getLbl_pregunta_1().setVisible(false);
 				membresia.getTfNombreMembresia().setVisible(false);
+				membresia.getLbl_costoMembresia().setVisible(false);
+				membresia.getLblPeso().setVisible(false);
+				membresia.getTFPrecio().setVisible(false);
+				
+				membresia.getLbl_pregunta_2().setBounds(20, 120, 285, 16);
+				membresia.getBtnAtras().setBounds(118, 317, 110, 30);
+				membresia.getLblCantidad().setBounds(21, 148, 61, 16);
+				membresia.getCBXCantidad().setBounds(92, 144, 61, 27);
+				membresia.getCBXTipoTiempo().setBounds(156, 144, 156, 27);
+			}else 
+			if (contPasos == 2) {
+				
+				contPasos ++;
+				membresia.getLblPasoDe().setText("Paso "+contPasos+" de 5");
 
-				membresia.getLbl_pregunta_2().setBounds(20, 118, 285, 16);
-				membresia.getBtnAtras().setBounds(22, 280, 117, 37);
-				membresia.getLblCantidad().setBounds(21, 146, 61, 16);
-				membresia.getCBXCantidad().setBounds(92, 142, 61, 27);
-				membresia.getCBXTipoTiempo().setBounds(156, 142, 156, 27);
-			} else if (contPasos == 2) {
-
-				contPasos++;
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 4");
 				membresia.getLbl_pregunta_2().setVisible(false);
 				membresia.getCBXCantidad().setVisible(false);
 				membresia.getCBXTipoTiempo().setVisible(false);
@@ -89,12 +96,22 @@ public class MembresiaController implements ActionListener {
 				membresia.getChckbxSi().setBounds(30, 187, 352, 23);
 				membresia.getComboBoxVisitas().setBounds(381, 187, 61, 27);
 
-			} else if (contPasos == 3) {
+			} else
+			if (contPasos == 3) {
+				
+				contPasos ++;
+				membresia.getLblPasoDe().setText("Paso "+contPasos+" de 5");
 
-				contPasos++;
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 4");
 				membresia.getLb_pregunta_3().setVisible(false);
 				membresia.getLbl_pregunta_4().setBounds(20, 118, 342, 16);
+				membresia.getComboBoxVisitas().setVisible(false);
+			}else
+			if(contPasos == 4){
+				
+				contPasos++;
+				membresia.getLblPasoDe().setText("Paso "+contPasos+" de 5");
+				membresia.getLbl_pregunta_4().setVisible(false);
+				membresia.getLbl_pregunta5().setBounds(20, 118, 342, 16);
 			}
 		}
 		if (membresia != null && e.getSource() == membresia.getBtnAtras()) {
