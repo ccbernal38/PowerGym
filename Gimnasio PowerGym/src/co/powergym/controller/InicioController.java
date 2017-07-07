@@ -32,6 +32,7 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getJMenuItemCumpleanios().addActionListener(this);
 		this.viewPrincipal.getJMenuItemRegistrarEntrenador().addActionListener(this);
 		this.viewPrincipal.getJMenuItemBuscarEntrenador().addActionListener(this);
+		this.viewPrincipal.getJMenuItemListaEntrenador().addActionListener(this);
 		this.viewPrincipal.getJMenuItemListaMembresias().addActionListener(this);
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);

@@ -54,4 +54,12 @@ public class ListaEntrenador extends JFrame{
 		contentPane.add(scrollPane);
 		
 	}
+
+	public JTable getJTableListaEntrenador() {
+		return JTableListaEntrenador;
+	}
+
+	public void setJTableListaEntrenador(JTable jTableListaEntrenador) {
+		JTableListaEntrenador = jTableListaEntrenador;
+	}
 }
