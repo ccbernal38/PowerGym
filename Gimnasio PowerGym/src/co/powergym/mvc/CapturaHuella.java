@@ -47,7 +47,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Imposible modificar el tema visual", "Lookandfeel inválido.",
+			JOptionPane.showMessageDialog(null, "Imposible modificar el tema visual", "Lookandfeel invï¿½lido.",
 					JOptionPane.ERROR_MESSAGE);
 		}
 		initComponents();
@@ -349,14 +349,14 @@ public class CapturaHuella extends javax.swing.JDialog {
 	 */
 	public void ProcesarCaptura(DPFPSample sample) {
 		// Procesar la muestra de la huella y crear un conjunto de
-		// características con el propósito de inscripción.
+		// caracterï¿½sticas con el propï¿½sito de inscripciï¿½n.
 		featuresinscripcion = extraerCaracteristicas(sample, DPFPDataPurpose.DATA_PURPOSE_ENROLLMENT);
 
 		// Procesar la muestra de la huella y crear un conjunto de
-		// características con el propósito de verificacion.
+		// caracterï¿½sticas con el propï¿½sito de verificacion.
 		featuresverificacion = extraerCaracteristicas(sample, DPFPDataPurpose.DATA_PURPOSE_VERIFICATION);
 
-		// Comprobar la calidad de la muestra de la huella y lo añade a su
+		// Comprobar la calidad de la muestra de la huella y lo aï¿½ade a su
 		// reclutador si es bueno
 		if (featuresinscripcion != null) {
 			try {
@@ -380,7 +380,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 
 				// Comprueba si la plantilla se ha creado.
 				switch (Reclutador.getTemplateStatus()) {
-				case TEMPLATE_STATUS_READY: // informe de éxito y detiene la
+				case TEMPLATE_STATUS_READY: // informe de ï¿½xito y detiene la
 											// captura de huellas
 					stop();
 					setTemplate(Reclutador.getTemplate());
@@ -489,7 +489,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 	 */
 	public void stop() {
 		Lector.stopCapture();
-		EnviarTexto("No se está usando el Lector de Huella Dactilar ");
+		EnviarTexto("No se estï¿½ usando el Lector de Huella Dactilar ");
 	}
 
 	/**
@@ -533,7 +533,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 
 		// Obtiene los datos del template de la huella actual
 		ByteArrayInputStream datosHuella = new ByteArrayInputStream(template.serialize());
-		Integer tamañoHuella = template.serialize().length;
+		Integer tamanoHuella = template.serialize().length;
 
 		// Capturamos los datos del usuario
 		String cedula = JOptionPane.showInputDialog("No. Identificacion:");
@@ -566,7 +566,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 				} else {
 					PreparedStatement guardarStmt2 = c
 							.prepareStatement("update huella set huella2_usuario=? where (identificacion_usuario=?)");
-					guardarStmt2.setBinaryStream(1, datosHuella, tamañoHuella);
+					guardarStmt2.setBinaryStream(1, datosHuella, tamanoHuella);
 					guardarStmt2.setInt(2, Integer.parseInt(cedula));
 
 					// Ejecuta la sentencia
@@ -580,7 +580,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 						"INSERT INTO huella(identificacion_usuario, nombres_usuario, huella1_usuario, huella2_usuario) values(?,?,?,?)");
 				guardarStmt.setInt(1, Integer.parseInt(cedula));
 				guardarStmt.setString(2, nombre);
-				guardarStmt.setBinaryStream(3, datosHuella, tamañoHuella);
+				guardarStmt.setBinaryStream(3, datosHuella, tamanoHuella);
 				// Ejecuta la sentencia
 				guardarStmt.execute();
 				guardarStmt.close();
@@ -641,7 +641,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 
 				// compara las plantilas (actual vs bd)
 				// Si encuentra correspondencia dibuja el mapa
-				// e indica el nombre de la persona que coincidió.
+				// e indica el nombre de la persona que coincidiï¿½.
 				if (result.isVerified()) {
 					// crea la imagen de los datos guardado de las huellas
 					// guardadas en la base de datos
@@ -651,7 +651,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 			}
 			// Si no encuentra alguna huella que coincida lo indica con un
 			// mensaje
-			JOptionPane.showMessageDialog(null, "No existe ningún registro que coincida con la huella.");
+			JOptionPane.showMessageDialog(null, "No existe ningï¿½n registro que coincida con la huella.");
 		} catch (SQLException e) {
 			System.out.println("Se produjo el siguiente error: " + e.getMessage());
 			e.printStackTrace();
@@ -681,7 +681,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 	 * @author: Napster2011
 	 * @access: public y private
 	 */
-	// Variables declaration – do not modify
+	// Variables declaration ï¿½ do not modify
 	private javax.swing.JButton btnGuardar;
 	private javax.swing.JButton btnIdentificar;
 	private javax.swing.JButton btnSalir;
