@@ -56,12 +56,13 @@ public class CrearMembresia extends JFrame {
 	private JButton btnAadirHorario;
 	private JList list_listaHorarios;
 	private JLabel lbl_costoMembresia;
+	private JLabel label_viñeta_2;
 	
 	/**
 	 * Create the frame.
 	 */
 	public CrearMembresia() {
-		setBounds(100, 100, 883, 762);
+		setBounds(100, 100, 490, 394);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
@@ -88,9 +89,10 @@ public class CrearMembresia extends JFrame {
 		panel_2.setLayout(null);
 		
 		lbl_imagen_m = new JLabel("");
-		lbl_imagen_m.setIcon(new ImageIcon("/Users/iosdeveloper/Google Drive/Membresias/Membresia.png"));
-		lbl_imagen_m.setBounds(29, 25, 35, 50);
+		lbl_imagen_m.setIcon(new ImageIcon("C:\\Users\\crisd\\Downloads\\membresia.png"));
+		lbl_imagen_m.setBounds(20, 25, 54, 50);
 		panel_2.add(lbl_imagen_m);
+		lbl_imagen_m.setIcon(new ImageIcon("image/membresia.png"));
 		
 		JLabel lblCrearMembresia = new JLabel("Crear un tipo de membresia");
 		lblCrearMembresia.setBounds(76, 33, 286, 19);
@@ -103,8 +105,8 @@ public class CrearMembresia extends JFrame {
 		lblPasoDe.setBounds(76, 50, 61, 16);
 		panel_2.add(lblPasoDe);
 		
-		lbl_pregunta_1 = new JLabel("Asigne un nombre a la nuea membres\u00EDa:");
-		lbl_pregunta_1.setBounds(47, 360, 285, 16);
+		lbl_pregunta_1 = new JLabel("Asigne un nombre a la nueva membres\u00EDa:");
+		lbl_pregunta_1.setBounds(30, 118, 285, 16);
 		contentPane.add(lbl_pregunta_1);
 		
 		lbl_pregunta_2 = new JLabel("Seleccione la duraci\u00F3n de esta membres\u00EDa");
@@ -176,54 +178,54 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(checkBox_lunes);
 		
 		tfNombreMembresia = new JTextField();
-		tfNombreMembresia.setBounds(52, 387, 374, 26);
+		tfNombreMembresia.setBounds(25, 145, 374, 26);
 		contentPane.add(tfNombreMembresia);
 		tfNombreMembresia.setColumns(10);
 		
 		lbl_costoMembresia = new JLabel("Asigne un costo a la membres\u00EDa:");
-		lbl_costoMembresia.setBounds(47, 434, 285, 16);
+		lbl_costoMembresia.setBounds(30, 192, 285, 16);
 		contentPane.add(lbl_costoMembresia);
 		
 		label_signoP = new JLabel("$");
 		label_signoP.setFont(new Font("Tahoma", Font.BOLD, 26));
-		label_signoP.setBounds(57, 457, 25, 34);
+		label_signoP.setBounds(30, 215, 25, 34);
 		contentPane.add(label_signoP);
 		
 		textFieldPrecio = new JTextField();
 		textFieldPrecio.setColumns(10);
-		textFieldPrecio.setBounds(81, 462, 86, 26);
+		textFieldPrecio.setBounds(54, 220, 86, 26);
 		contentPane.add(textFieldPrecio);
 		
 		lbl_pregunta5 = new JLabel("Indique los horarios de ingreso permitidos para esta membres\u00EDa");
-		lbl_pregunta5.setBounds(20, 118, 342, 16);
+		lbl_pregunta5.setBounds(520, 260, 342, 16);
 		contentPane.add(lbl_pregunta5);
 		
 		chckbxNo_horario = new JCheckBox("NO");
-		chckbxNo_horario.setBounds(30, 147, 128, 23);
+		chckbxNo_horario.setBounds(530, 289, 128, 23);
 		contentPane.add(chckbxNo_horario);
 		
 		chckbxSi_horario = new JCheckBox("SI. Los horarios pemitidos son:");
-		chckbxSi_horario.setBounds(30, 173, 267, 23);
+		chckbxSi_horario.setBounds(530, 315, 267, 23);
 		contentPane.add(chckbxSi_horario);
 		
 		lblDe = new JLabel("De:");
-		lblDe.setBounds(47, 205, 25, 14);
+		lblDe.setBounds(547, 347, 25, 14);
 		contentPane.add(lblDe);
 		
 		lblA = new JLabel("A:");
-		lblA.setBounds(47, 230, 25, 14);
+		lblA.setBounds(547, 372, 25, 14);
 		contentPane.add(lblA);
 		
 		comboBox_de = new JComboBox();
-		comboBox_de.setBounds(75, 202, 72, 20);
+		comboBox_de.setBounds(575, 344, 72, 20);
 		contentPane.add(comboBox_de);
 		
 		comboBox_a = new JComboBox();
-		comboBox_a.setBounds(75, 225, 72, 20);
+		comboBox_a.setBounds(575, 367, 72, 20);
 		contentPane.add(comboBox_a);
 		
 		btnAadirHorario = new JButton("A\u00F1adir");
-		btnAadirHorario.setBounds(167, 225, 69, 23);
+		btnAadirHorario.setBounds(667, 367, 69, 23);
 		contentPane.add(btnAadirHorario);
 		
 		buttonEliminarH = new JButton("Eliminar");
@@ -231,13 +233,25 @@ public class CrearMembresia extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		buttonEliminarH.setBounds(247, 225, 69, 23);
+		buttonEliminarH.setBounds(747, 367, 69, 23);
 		contentPane.add(buttonEliminarH);
 		
 		list_listaHorarios = new JList();
 		list_listaHorarios.setForeground(Color.WHITE);
-		list_listaHorarios.setBounds(81, 252, 235, 58);
+		list_listaHorarios.setBounds(581, 394, 235, 58);
 		contentPane.add(list_listaHorarios);
+		
+		JLabel label_viñeta_1 = new JLabel("\u2022");
+		label_viñeta_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_viñeta_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		label_viñeta_1.setBounds(10, 116, 20, 20);
+		contentPane.add(label_viñeta_1);
+		
+		label_viñeta_2 = new JLabel("\u2022");
+		label_viñeta_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_viñeta_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		label_viñeta_2.setBounds(10, 189, 20, 20);
+		contentPane.add(label_viñeta_2);
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
@@ -311,7 +325,7 @@ public class CrearMembresia extends JFrame {
 	public JCheckBox getCheckBox_viernes() {
 		return checkBox_viernes;
 	}
-	public JCheckBox getCheckBox_4() {
+	public JCheckBox getCheckBox_jueves() {
 		return checkBox_jueves;
 	}
 	public JComboBox getComboBoxDe() {
@@ -340,5 +354,11 @@ public class CrearMembresia extends JFrame {
 	}
 	public JLabel getLbl_costoMembresia() {
 		return lbl_costoMembresia;
+	}
+	public JList getList_listaHorarios() {
+		return list_listaHorarios;
+	}
+	public JLabel getLabel_vineta_2() {
+		return label_viñeta_2;
 	}
 }
