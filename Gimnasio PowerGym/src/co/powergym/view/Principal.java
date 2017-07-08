@@ -169,6 +169,9 @@ public class Principal extends JFrame {
         jMenuItemBuscarEntrenador = new JMenuItem("Buscar entrenador");
         jMenuEntrenador.add(jMenuItemBuscarEntrenador);
         
+        jMenuItemListaEntrenador = new JMenuItem("Lista de entrenadores");
+        jMenuEntrenador.add(jMenuItemListaEntrenador);
+        
         jPanel1 = new javax.swing.JPanel();
         jPanel1.setBackground(new Color(0, 149, 239));
         btnRegistrarSocio = new javax.swing.JButton();
@@ -347,6 +350,7 @@ public class Principal extends JFrame {
     private JMenuItem jMenuItemRegistrarEntrenador;
     private JMenuItem jMenuItemBuscarEntrenador;
     private JLabel lblNewLabel;
+    private JMenuItem jMenuItemListaEntrenador;
 
     // End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -367,6 +371,10 @@ public class Principal extends JFrame {
 	public JMenuItem getJMenuItemBuscarEntrenador() {
 		return jMenuItemBuscarEntrenador;
 	}
+	public JMenuItem getJMenuItemListaEntrenador() {
+		return jMenuItemListaEntrenador;
+	}
+	
 	public JMenuItem getJMenuItemListaMembresias() {
 		return jMenuItemListaMembresias;
 	}

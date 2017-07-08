@@ -3,12 +3,15 @@ package co.powergym.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.List;
 
 import javax.swing.JOptionPane;
-
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.model.Entrenador;
 import co.powergym.view.BusquedaEntrenador;
+import co.powergym.view.ListaEntrenador;
 import co.powergym.view.entrenador.RegistroEntrenador;
 
 public class EntrenadorController implements ActionListener{
@@ -16,8 +19,10 @@ public class EntrenadorController implements ActionListener{
 	EntrenadorDao entrenadorDao;	
 	RegistroEntrenador viewRegistroEntrenador;
 	BusquedaEntrenador viewBusquedantrenador;
+	ListaEntrenador viewListaEntrenador;
 	
-	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador, BusquedaEntrenador viewBusquedaentrenador) {
+	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador, BusquedaEntrenador viewBusquedaentrenador,
+			ListaEntrenador viewListaEntrenador) {
 		this.entrenadorDao = entrenadorDao;
 		this.viewRegistroEntrenador = viewRegistroEntrenador;
 		if(viewRegistroEntrenador != null){
@@ -28,7 +33,13 @@ public class EntrenadorController implements ActionListener{
 		else if(viewBusquedaentrenador != null){
 			this.viewBusquedantrenador = viewBusquedaentrenador;
 			this.viewBusquedantrenador.setVisible(true);
-		}		
+		}
+		else if(viewListaEntrenador != null) {
+			this.viewListaEntrenador = viewListaEntrenador;
+			listadoEntrenadoresLlenarTabla(viewListaEntrenador.getJTableListaEntrenador());
+			this.viewListaEntrenador.setVisible(true);
+		}
+		
 	}
 
 	@Override
@@ -43,8 +54,7 @@ public class EntrenadorController implements ActionListener{
 				if(primerNombre == null || primerNombre.equals("")){
 					JOptionPane.showMessageDialog(null, "El campo primer nombre no puede estar vacio.");
 				}
-				else{
-					
+				else{					
 					
 				}String segundoNombre = viewRegistroEntrenador.getTxtSegundonombre().getText();
 				String primerApellido = viewRegistroEntrenador.getTxtPrimerapellido().getText();
@@ -92,8 +102,31 @@ public class EntrenadorController implements ActionListener{
 				JOptionPane.showMessageDialog(null, "No se encontró un entrenador con ese número de identificación, por favor verifique");
 			}
 		}
-		
 	}
-
 	
+	public void listadoEntrenadoresLlenarTabla(JTable tablaEntrenadores) {
+		DefaultTableModel defaultTableModel = new DefaultTableModel();
+
+		defaultTableModel.addColumn("Nro. identificacion");
+		defaultTableModel.addColumn("Nombre");
+		defaultTableModel.addColumn("Apellido");
+		defaultTableModel.addColumn("Direcci�n");
+		defaultTableModel.addColumn("Correo electr�nico");
+		defaultTableModel.addColumn("Tel�fono");
+
+		Object[] columna = new Object[5];
+		List<Entrenador> listEntrenadores = entrenadorDao.listaEntrenador();
+		int numeroRegistros = listEntrenadores.size();
+
+		for (int i = 0; i < numeroRegistros; i++) {
+			columna[0] = listEntrenadores.get(i).getIdentificacion();
+			columna[1] = listEntrenadores.get(i).getPrimerNombre() + " " + listEntrenadores.get(i).getSegundoNombre();
+			columna[2] = listEntrenadores.get(i).getPrimerApellido() + " " + listEntrenadores.get(i).getSegundoApellido();
+			columna[4] = listEntrenadores.get(i).getCorreo();
+			columna[5] = listEntrenadores.get(i).getTelefono();
+			defaultTableModel.addRow(columna);
+		}
+		tablaEntrenadores.setModel(defaultTableModel);
+		tablaEntrenadores.repaint();
+	}	
 }
