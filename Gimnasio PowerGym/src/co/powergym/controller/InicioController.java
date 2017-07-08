@@ -8,8 +8,14 @@ import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
+<<<<<<< HEAD
 import co.powergym.view.BusquedaEntrenador;
+=======
+import co.powergym.view.CrearMembresia;
+>>>>>>> 2f91633f445a265a4fa0c5f4c87b82afb66c5af3
 import co.powergym.view.Principal;
+import co.powergym.view.entrenador.BusquedaEntrenador;
+import co.powergym.view.entrenador.ListaEntrenador;
 import co.powergym.view.entrenador.RegistroEntrenador;
 import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
@@ -25,6 +31,7 @@ public class InicioController implements ActionListener {
 	public InicioController(Principal viewPrincipal) {
 
 		this.viewPrincipal = viewPrincipal;
+		this.viewPrincipal.getJMenuItemRegistrarSocio().addActionListener(this);
 		this.viewPrincipal.btnRegistrarSocio.addActionListener(this);
 		this.viewPrincipal.jMenuItem3buscarSocio.addActionListener(this);
 		this.viewPrincipal.btnMenuMembresia.addActionListener(this);
@@ -40,7 +47,7 @@ public class InicioController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (viewPrincipal.btnRegistrarSocio == e.getSource()) {
+		if (viewPrincipal.btnRegistrarSocio == e.getSource() || viewPrincipal.getJMenuItemRegistrarSocio() == e.getSource()) {
 			SocioDao dao = new SocioDao();
 			SocioRegistroView viewRegistroSocio = new SocioRegistroView();
 			SocioController socioController = new SocioController(dao, viewRegistroSocio, null, null, null);
@@ -61,6 +68,15 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
 			MembresiaController membresiaController = new MembresiaController(new MembresiaDao(), null,
 					new MembresiaListadoView());
+		} else if (viewPrincipal.getJMenuItemRegistrarEntrenador() == e.getSource()) {
+			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(),
+					new RegistroEntrenador(), null, null);
+		} else if (viewPrincipal.getJMenuItemBuscarEntrenador() == e.getSource()) {
+			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(), null,
+					new BusquedaEntrenador(), null);
+		} else if (viewPrincipal.getJMenuItemListaEntrenador() == e.getSource()) {
+			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(), null, null,
+					new ListaEntrenador());
 		}
 
 	}

@@ -16,14 +16,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
+import javax.swing.DropMode;
 
 public class SocioBusquedaView extends JFrame {
 
 	private JPanel contentPane;
 	public JTextField textField_identidad;
-	public JTextField textField_primerNombre;
-	public JTextField textField_telefono;
-	public JTextField textField_fechaNacimiento;
+	public JLabel textField_primerNombre;
+	public JLabel textField_telefono;
+	public JLabel textField_fechaNacimiento;
 	public JButton btnBuscar;
 	private JLabel lblFoto;
 
@@ -66,26 +67,20 @@ public class SocioBusquedaView extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		textField_primerNombre = new JTextField();
+		textField_primerNombre = new JLabel();
+		textField_primerNombre.setText("Primer nombre");
 		textField_primerNombre.setBounds(10, 193, 275, 20);
 		panel.add(textField_primerNombre);
-		textField_primerNombre.setEditable(false);
-		textField_primerNombre.setColumns(10);
 
-		textField_fechaNacimiento = new JTextField();
+		textField_fechaNacimiento = new JLabel();
+		textField_fechaNacimiento.setText("Fecha de nacimiento");
 		textField_fechaNacimiento.setBounds(10, 224, 275, 20);
 		panel.add(textField_fechaNacimiento);
-		textField_fechaNacimiento.setEditable(false);
 
-		textField_telefono = new JTextField();
+		textField_telefono = new JLabel();
+		textField_telefono.setText("Telefono");
 		textField_telefono.setBounds(10, 255, 275, 20);
 		panel.add(textField_telefono);
-		textField_telefono.setEditable(false);
-		textField_telefono.setColumns(10);
-
-		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
-		lblDireccin.setBounds(187, 193, 113, 20);
-		panel.add(lblDireccin);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(null);
@@ -108,15 +103,15 @@ public class SocioBusquedaView extends JFrame {
 		return textField_identidad;
 	}
 
-	public JTextField getTextField_primerNombre() {
+	public JLabel getTextField_primerNombre() {
 		return textField_primerNombre;
 	}
 
-	public JTextField getTextField_fechaNacimiento() {
+	public JLabel getTextField_fechaNacimiento() {
 		return textField_fechaNacimiento;
 	}
 
-	public JTextField getTextField_telefono() {
+	public JLabel getTextField_telefono() {
 		return textField_telefono;
 	}
 

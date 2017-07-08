@@ -1,4 +1,4 @@
-package co.powergym.view;
+package co.powergym.view.entrenador;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +29,6 @@ public class ListaEntrenador extends JFrame{
 		
 		JTableListaEntrenador = new JTable();
 		JTableListaEntrenador.setBounds(33, 57, 389, 197);
-		getContentPane().add(JTableListaEntrenador);
 		
 		txtListaDeEntrenadores = new JTextField();
 		txtListaDeEntrenadores.setText("LISTA DE ENTRENADORES");

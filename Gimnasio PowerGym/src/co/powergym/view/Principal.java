@@ -378,4 +378,10 @@ public class Principal extends JFrame {
 	public JMenuItem getJMenuItemListaMembresias() {
 		return jMenuItemListaMembresias;
 	}
+	public JMenuItem getJMenuItemRegistrarSocio() {
+		return jMenuItem2;
+	}
+	public JMenuItem getJMenuItembuscarSocio() {
+		return jMenuItem3buscarSocio;
+	}
 }

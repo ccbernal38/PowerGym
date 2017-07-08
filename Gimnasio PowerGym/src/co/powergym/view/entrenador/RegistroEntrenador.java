@@ -109,9 +109,9 @@ public class RegistroEntrenador extends JFrame{
 		btnCancelar.setBounds(121, 300, 100, 29);
 		getContentPane().add(btnCancelar);
 		
-		JLabel label = new JLabel("Género:");
-		label.setBounds(53, 270, 157, 14);
-		getContentPane().add(label);
+		JLabel lblGnero = new JLabel("G\u00E9nero:");
+		lblGnero.setBounds(53, 270, 157, 14);
+		getContentPane().add(lblGnero);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(226, 270, 202, 20);

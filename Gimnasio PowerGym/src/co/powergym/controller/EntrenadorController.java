@@ -10,8 +10,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.model.Entrenador;
-import co.powergym.view.BusquedaEntrenador;
-import co.powergym.view.ListaEntrenador;
+import co.powergym.view.entrenador.BusquedaEntrenador;
+import co.powergym.view.entrenador.ListaEntrenador;
 import co.powergym.view.entrenador.RegistroEntrenador;
 
 public class EntrenadorController implements ActionListener{
