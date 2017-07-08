@@ -107,6 +107,7 @@ public class BusquedaEntrenador extends JFrame{
 		txtTxtgenero.setBounds(226, 270, 202, 26);
 		getContentPane().add(txtTxtgenero);
 		txtTxtgenero.setColumns(10);
+		setSize(570, 480);
 	
 	}
 

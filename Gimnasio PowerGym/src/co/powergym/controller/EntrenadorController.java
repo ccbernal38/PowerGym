@@ -47,7 +47,7 @@ public class EntrenadorController implements ActionListener{
 		if (viewRegistroEntrenador != null && e.getSource() == viewRegistroEntrenador.btnRegistrar) {
 			try {
 				String numeroId = viewRegistroEntrenador.getTxtNumeroid().getText();
-			Entrenador entrenador = entrenadorDao.buscarEntrenador(numeroId);
+				Entrenador entrenador = entrenadorDao.buscarEntrenador(numeroId);
 			if (entrenador == null) {
 				
 				String primerNombre = viewRegistroEntrenador.getTxtNombre().getText();
@@ -55,22 +55,46 @@ public class EntrenadorController implements ActionListener{
 					JOptionPane.showMessageDialog(null, "El campo primer nombre no puede estar vacio.");
 				}
 				else{					
-					
-				}String segundoNombre = viewRegistroEntrenador.getTxtSegundonombre().getText();
-				String primerApellido = viewRegistroEntrenador.getTxtPrimerapellido().getText();
-				String segundoApellido = viewRegistroEntrenador.getTxtSegundoapellido().getText();
-				Date fechaNacimiento = new Date(viewRegistroEntrenador.getDateChooser_fechaNacimiento().getDate().getTime());
-				String telefono = viewRegistroEntrenador.getTxtTelefono().getText();
-				String correo = viewRegistroEntrenador.getTxtCorreoelectronico().getText();
-				int genero = viewRegistroEntrenador.getComboBox_genero().getSelectedIndex();
-
-				boolean respuesta = entrenadorDao.registrarEntrenador(numeroId, fechaNacimiento, primerNombre, segundoNombre, 
-						primerApellido, segundoApellido, correo, telefono, genero);
-				if (respuesta) {
-					JOptionPane.showMessageDialog(null, "Registro exitoso");
-				} else {
-					JOptionPane.showMessageDialog(null, "Ocurrio un error registrando un nuevo entrenador.");
+					String segundoNombre = viewRegistroEntrenador.getTxtSegundonombre().getText();
+					String primerApellido = viewRegistroEntrenador.getTxtPrimerapellido().getText();					
+					if(primerApellido == null || primerApellido.equals("")){
+						JOptionPane.showMessageDialog(null, "El campo primer apellido no puede estar vacio.");
+					}
+					else{
+						String segundoApellido = viewRegistroEntrenador.getTxtSegundoapellido().getText();
+						if(segundoApellido == null || segundoApellido.equals("")){
+							JOptionPane.showMessageDialog(null, "El campo segundo apellido no puede estar vacio.");
+						}
+						else{
+							Date fechaNacimiento = new Date(viewRegistroEntrenador.getDateChooser_fechaNacimiento().getDate().getTime());
+							if(fechaNacimiento == null || fechaNacimiento.equals("")){
+								JOptionPane.showMessageDialog(null, "El campo fecha de nacimiento no puede estar vacio.");
+							}
+							else{
+								String telefono = viewRegistroEntrenador.getTxtTelefono().getText();
+								if(telefono == null || telefono.equals("")){
+									JOptionPane.showMessageDialog(null, "El campo telefóno no puede estar vacio.");
+								}
+								else{
+									String correo = viewRegistroEntrenador.getTxtCorreoelectronico().getText();
+									int genero = viewRegistroEntrenador.getComboBox_genero().getSelectedIndex();
+									if(correo == null || correo.equals("")){
+										JOptionPane.showMessageDialog(null, "El campo correo electrónico no puede estar vacio.");
+									}
+									boolean respuesta = entrenadorDao.registrarEntrenador(numeroId, fechaNacimiento, primerNombre, segundoNombre, 
+											primerApellido, segundoApellido, correo, telefono, genero);
+									if (respuesta) {
+										JOptionPane.showMessageDialog(null, "Registro exitoso");
+									} else {
+										JOptionPane.showMessageDialog(null, "Ocurrio un error registrando un nuevo entrenador.");
+									}
+								}
+							}
+						}
+					}
+						
 				}
+				
 			} else {
 				JOptionPane.showMessageDialog(null, "El entrenador ya se encuentra registrado");
 			}
@@ -117,6 +141,7 @@ public class EntrenadorController implements ActionListener{
 		Object[] columna = new Object[5];
 		List<Entrenador> listEntrenadores = entrenadorDao.listaEntrenador();
 		int numeroRegistros = listEntrenadores.size();
+		
 
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listEntrenadores.get(i).getIdentificacion();

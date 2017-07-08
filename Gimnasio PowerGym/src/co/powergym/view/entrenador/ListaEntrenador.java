@@ -35,6 +35,7 @@ public class ListaEntrenador extends JFrame{
 		txtListaDeEntrenadores.setBounds(141, 6, 174, 26);
 		getContentPane().add(txtListaDeEntrenadores);
 		txtListaDeEntrenadores.setColumns(10);
+		setSize(470, 380);
 		
 		JTableListaEntrenador.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -51,6 +52,7 @@ public class ListaEntrenador extends JFrame{
 		scrollPane.setBounds(22, 71, 584, 251);
 		scrollPane.add(JTableListaEntrenador);
 		contentPane.add(scrollPane);
+		
 		
 	}
 
