@@ -47,7 +47,7 @@ public class Principal extends JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItemRegistrarSocio = new javax.swing.JMenuItem();
         jMenuItem3buscarSocio = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -84,8 +84,8 @@ public class Principal extends JFrame {
 
         jMenu2.setText("Socios");
 
-        jMenuItem2.setText("Registrar socio");
-        jMenu2.add(jMenuItem2);
+        jMenuItemRegistrarSocio.setText("Registrar socio");
+        jMenu2.add(jMenuItemRegistrarSocio);
 
         jMenuItem3buscarSocio.setText("Buscar socio");
         jMenu2.add(jMenuItem3buscarSocio);
@@ -334,7 +334,7 @@ public class Principal extends JFrame {
     public javax.swing.JMenuItem jMenuItem12;
     public javax.swing.JMenuItem jMenuItem13;
     public javax.swing.JMenuItem jMenuItem14;
-    public javax.swing.JMenuItem jMenuItem2;
+    public javax.swing.JMenuItem jMenuItemRegistrarSocio;
     public javax.swing.JMenuItem jMenuItem3buscarSocio;
     public javax.swing.JMenuItem jMenuItem4;
     public javax.swing.JMenuItem jMenuItem5;
@@ -379,7 +379,7 @@ public class Principal extends JFrame {
 		return jMenuItemListaMembresias;
 	}
 	public JMenuItem getJMenuItemRegistrarSocio() {
-		return jMenuItem2;
+		return jMenuItemRegistrarSocio;
 	}
 	public JMenuItem getJMenuItembuscarSocio() {
 		return jMenuItem3buscarSocio;

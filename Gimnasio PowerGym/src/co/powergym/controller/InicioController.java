@@ -8,11 +8,6 @@ import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
-<<<<<<< HEAD
-import co.powergym.view.BusquedaEntrenador;
-=======
-import co.powergym.view.CrearMembresia;
->>>>>>> 2f91633f445a265a4fa0c5f4c87b82afb66c5af3
 import co.powergym.view.Principal;
 import co.powergym.view.entrenador.BusquedaEntrenador;
 import co.powergym.view.entrenador.ListaEntrenador;
