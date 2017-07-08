@@ -7,44 +7,45 @@ import java.util.List;
 
 public class Socio {
 
-    public static int GENERO_M = 0;
-    public static int GENERO_F = 1;
+	public static int GENERO_M = 0;
+	public static int GENERO_F = 1;
 
-    private int id;
-    private String identificacion;
-    private Date fechaNacimiento;
-    private String primerNombre, segundoNombre, primerApellido, segundoApellido;
-    private String correo, telefono;
-    private int genero;
-    private String imagen;
-    private String direccion;
-    private BufferedImage foto;
-    private Rol rol;
-    private List<String> huella;
+	private int id;
+	private String identificacion;
+	private Date fechaNacimiento;
+	private String primerNombre, segundoNombre, primerApellido, segundoApellido;
+	private String correo, telefono;
+	private int genero;
+	private String imagen;
+	private String direccion;
+	private BufferedImage foto;
+	private Rol rol;
+	private List<String> huella;
+	private String nombreCompleto;
 
-    public Socio() {
-    }
+	public Socio() {
+		
+	}
 
-    public Socio(int id, String identificacion, Date fechaNacimiento, String primerNombre, String segundoNombre, String primerApellido,
-            String segundoApellido, String correo, String telefono, int genero) {
-        super();
-        this.id = id;
-        this.identificacion = identificacion;
-        this.fechaNacimiento = fechaNacimiento;
-        this.primerNombre = primerNombre;
-        this.segundoNombre = segundoNombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.genero = genero;
-        if (huella == null) {
-            huella = new ArrayList<>();
-        }
-    }
+	public Socio(int id, String identificacion, Date fechaNacimiento, String primerNombre, String segundoNombre,
+			String primerApellido, String segundoApellido, String correo, String telefono, int genero) {
+		super();
+		this.id = id;
+		this.identificacion = identificacion;
+		this.fechaNacimiento = fechaNacimiento;
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.genero = genero;
+		if (huella == null) {
+			huella = new ArrayList<>();
+		}
+	}
 
-    
-    public String getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
 
@@ -61,105 +62,135 @@ public class Socio {
 	}
 
 	public int getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getIdentificacion() {
-        return identificacion;
-    }
+	public String getIdentificacion() {
+		return identificacion;
+	}
 
-    public void setIdentificacion(String identificacion) {
-        this.identificacion = identificacion;
-    }
-    
-    public Date getFechaNacimiento(){
-    	return fechaNacimiento;
-    }
-    
-    public void setFechaNacimiento(Date fechaNacimiento){
-    	this.fechaNacimiento = fechaNacimiento;
-    }
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
 
-    public String getPrimerNombre() {
-        return primerNombre;
-    }
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
 
-    public void setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
-    }
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
 
-    public String getSegundoNombre() {
-        return segundoNombre;
-    }
+	public String getPrimerNombre() {
+		return primerNombre;
+	}
 
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
-    }
+	public void setPrimerNombre(String primerNombre) {
+		this.primerNombre = primerNombre;
+	}
 
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
+	public String getSegundoNombre() {
+		return segundoNombre;
+	}
 
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
-    }
+	public void setSegundoNombre(String segundoNombre) {
+		this.segundoNombre = segundoNombre;
+	}
 
-    public String getSegundoApellido() {
-        return segundoApellido;
-    }
+	public String getPrimerApellido() {
+		return primerApellido;
+	}
 
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
-    }
+	public void setPrimerApellido(String primerApellido) {
+		this.primerApellido = primerApellido;
+	}
 
-    public String getCorreo() {
-        return correo;
-    }
+	public String getSegundoApellido() {
+		return segundoApellido;
+	}
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
+	public void setSegundoApellido(String segundoApellido) {
+		this.segundoApellido = segundoApellido;
+	}
 
-    public String getTelefono() {
-        return telefono;
-    }
+	public String getCorreo() {
+		return correo;
+	}
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 
-    public int getGenero() {
-        return genero;
-    }
+	public String getTelefono() {
+		return telefono;
+	}
 
-    public void setGenero(int genero) {
-        this.genero = genero;
-    }
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 
-    public String getImagen() {
-        return imagen;
-    }
+	public int getGenero() {
+		return genero;
+	}
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
+	public void setGenero(int genero) {
+		this.genero = genero;
+	}
 
-    public List<String> getHuella() {
-        if (huella == null) {
-            huella = new ArrayList<>();
-        }
-        return huella;
-    }
+	public String getImagen() {
+		return imagen;
+	}
 
-    public void setHuella(List<String> huella) {
-        if (this.huella == null) {
-        
-        	this.huella = new ArrayList<>();
-        }
-        this.huella = huella;
-    }
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public List<String> getHuella() {
+		if (huella == null) {
+			huella = new ArrayList<>();
+		}
+		return huella;
+	}
+
+	public void setHuella(List<String> huella) {
+		if (this.huella == null) {
+
+			this.huella = new ArrayList<>();
+		}
+		this.huella = huella;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	public String getNombreCompleto() {
+		String nombre = "";
+		if (primerNombre!= null && !primerNombre.equals("")) {
+			nombre += capitalLetter(primerNombre) + " ";
+		}
+		if (segundoNombre!= null && !segundoNombre.equals("")) {
+			nombre += capitalLetter(segundoNombre) + " ";
+		}
+		if (primerApellido!= null && !primerApellido.equals("")) {
+			nombre += capitalLetter(primerApellido) + " ";
+		}
+		if (segundoApellido!= null && !segundoApellido.equals("")) {
+			nombre += capitalLetter(segundoApellido) + " ";
+		}
+		return nombre;
+	}
+	
+	public String capitalLetter(String input){
+		String output = input.substring(0, 1).toUpperCase() + input.substring(1);
+		return output;
+	}
 }

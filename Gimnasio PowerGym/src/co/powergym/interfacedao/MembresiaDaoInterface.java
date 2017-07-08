@@ -11,11 +11,11 @@ public interface MembresiaDaoInterface {
 	
 	public List<Membresia> listaMembresia();
 	
-	public boolean eliminarMembresia(String codigo);
+	public boolean eliminarMembresia(int id);
 	
-	public boolean modificarMembresia(String codigo, String nombre, double valor);
+	public boolean modificarMembresia(int id, String nombre, double valor);
 	
-	public Membresia buscarMembresia(String codigo);
+	public Membresia buscarMembresia(int id);
 	
 
 }

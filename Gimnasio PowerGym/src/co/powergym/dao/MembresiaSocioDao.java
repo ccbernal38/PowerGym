@@ -28,8 +28,7 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD
-					.prepareStatement("INSERT INTO MembresiaSocio(Socio_id, Membresia_id, ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO MembresiaSocio(Socio_id, Membresia_id, ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			
 			statement.execute();
 			respuesta = true;

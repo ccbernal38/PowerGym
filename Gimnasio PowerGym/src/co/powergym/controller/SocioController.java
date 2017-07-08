@@ -161,25 +161,18 @@ public class SocioController implements ActionListener {
 			String numeroId = viewBusquedaSocio.getTextField_identidad().getText();
 			Socio socio = socioDao.buscarSocio(numeroId);
 			if (socio != null) {
-				String primerNombre = socio.getPrimerNombre();
+				String primerNombre = socio.getNombreCompleto();
 				viewBusquedaSocio.getTextField_primerNombre().setText(primerNombre);
-				String segundoNombre = socio.getSegundoNombre();
-				viewBusquedaSocio.getTextField_segundoNombre().setText(segundoNombre);
-				String primerApellido = socio.getPrimerApellido();
-				viewBusquedaSocio.getTextField_primerApellido().setText(primerApellido);
-				String segundoApellido = socio.getSegundoApellido();
-				viewBusquedaSocio.getTextField_segundoApellido().setText(segundoApellido);
 				String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
 				viewBusquedaSocio.getTextField_fechaNacimiento().setText(fechaNacimiento);
 				String telefono = socio.getTelefono();
 				viewBusquedaSocio.getTextField_telefono().setText(telefono);
-				String correo = socio.getCorreo();
-				viewBusquedaSocio.getTextField_correoElectronico().setText(correo);
-				int genero = socio.getGenero();
-				viewBusquedaSocio.getTextField_genero().setText(String.valueOf(genero));
-				Image dimg = socio.getFoto().getScaledInstance(viewBusquedaSocio.getLblFoto().getWidth(),
-						viewBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
-				viewBusquedaSocio.getLblFoto().setIcon(new ImageIcon(dimg));
+
+				if (socio.getFoto() != null) {
+					Image dimg = socio.getFoto().getScaledInstance(viewBusquedaSocio.getLblFoto().getWidth(),
+							viewBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
+					viewBusquedaSocio.getLblFoto().setIcon(new ImageIcon(dimg));
+				}
 
 			} else {
 				JOptionPane.showMessageDialog(null, "No se encontrÃ³ un socio con ese nÃºmero de identificaciÃ³n, "
@@ -190,31 +183,24 @@ public class SocioController implements ActionListener {
 	}
 
 	public void listadoSociosLlenarTabla(JTable tabla) {
-		DefaultTableModel defaultTableModel = new DefaultTableModel();
+		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
+				new String[] { "Nro. identificacion", "Nombre", "Dirección", "Correo electrónico", "Teléfono" });
 
-		defaultTableModel.addColumn("Nro. identificacion");
-		defaultTableModel.addColumn("Nombre");
-		defaultTableModel.addColumn("Apellido");
-		defaultTableModel.addColumn("Dirección");
-		defaultTableModel.addColumn("Correo electrónico");
-		defaultTableModel.addColumn("Teléfono");
-
-		Object[] columna = new Object[6];
+		Object[] columna = new Object[5];
 		List<Socio> listSocios = socioDao.listaSocios();
 		int numeroRegistros = listSocios.size();
 
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listSocios.get(i).getIdentificacion();
-			columna[1] = listSocios.get(i).getPrimerNombre() + " " + listSocios.get(i).getSegundoNombre();
-			columna[2] = listSocios.get(i).getPrimerApellido() + " " + listSocios.get(i).getSegundoApellido();
-			columna[3] = listSocios.get(i).getDireccion();
-			columna[4] = listSocios.get(i).getCorreo();
-			columna[5] = listSocios.get(i).getTelefono();
+			columna[1] = listSocios.get(i).getNombreCompleto();
+			columna[2] = listSocios.get(i).getDireccion();
+			columna[3] = listSocios.get(i).getCorreo();
+			columna[4] = listSocios.get(i).getTelefono();
 			defaultTableModel.addRow(columna);
 		}
 		tabla.setModel(defaultTableModel);
 		HeaderRenderer r = new HeaderRenderer(tabla.getTableHeader());
-        tabla.getColumnModel().getColumn(0).setHeaderRenderer(r);
+		tabla.getColumnModel().getColumn(0).setHeaderRenderer(r);
 
 		tabla.repaint();
 
@@ -222,21 +208,17 @@ public class SocioController implements ActionListener {
 
 	public void listadoCumpleaniosLlenarTabla(JTable tableSocios) {
 		// TODO Auto-generated method stub
-		DefaultTableModel defaultTableModel = new DefaultTableModel();
+		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
+				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumpleaños" });
 
-		defaultTableModel.addColumn("Nro. identificacion");
-		defaultTableModel.addColumn("Nombre");
-		defaultTableModel.addColumn("Apellido");
-		defaultTableModel.addColumn("Fecha de cumpleaños");
-
-		Object[] columna = new Object[6];
+		Object[] columna = new Object[3];
 		List<Socio> listSocios = socioDao.sociosCumpleaniosMes();
 		int numeroRegistros = listSocios.size();
 
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listSocios.get(i).getIdentificacion();
-			columna[1] = listSocios.get(i).getPrimerNombre() + " " + listSocios.get(i).getSegundoNombre();
-			columna[2] = listSocios.get(i).getPrimerApellido() + " " + listSocios.get(i).getSegundoApellido();
+			columna[1] = listSocios.get(i).getNombreCompleto();
+
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(listSocios.get(i).getFechaNacimiento());
 			int mesTemp = calendar.get(Calendar.MONTH) + 1;
@@ -267,7 +249,7 @@ public class SocioController implements ActionListener {
 				mes = "Diciembre";
 			}
 
-			columna[3] = calendar.get(Calendar.DAY_OF_MONTH) + " de " + mes;
+			columna[2] = calendar.get(Calendar.DAY_OF_MONTH) + " de " + mes;
 			defaultTableModel.addRow(columna);
 		}
 		tableSocios.setModel(defaultTableModel);

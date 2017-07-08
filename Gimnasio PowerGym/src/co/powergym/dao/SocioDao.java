@@ -130,7 +130,9 @@ public class SocioDao implements SocioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT * FROM Socio WHERE identificacion = ?");
+					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
+							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+							+ " FROM Socio WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -162,8 +164,11 @@ public class SocioDao implements SocioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT * FROM Socio WHERE mesNacimiento = ?");
-			preparedStatement.setInt(1, calendar.get(Calendar.MONTH) + 1);
+					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
+							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+							+ " FROM Socio WHERE mesNacimiento = ?");
+			int mes = calendar.get(Calendar.MONTH) + 1;
+			preparedStatement.setInt(1, mes);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				socio = new Socio();
@@ -177,8 +182,12 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setTelefono(resultSet.getString(8));
 				socio.setCorreo(resultSet.getString(9));
 				socio.setGenero(resultSet.getInt(10));
-				InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
-				socio.setFoto(ImageIO.read(bufferedImage));
+				Blob blob = resultSet.getBlob(11);
+				if (blob != null) {
+					InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
+					socio.setFoto(ImageIO.read(bufferedImage));
+				}
+
 				list.add(socio);
 			}
 		} catch (Exception e) {

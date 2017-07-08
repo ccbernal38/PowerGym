@@ -35,13 +35,15 @@ public class MembresiaDao implements MembresiaDaoInterface {
 		Membresia membresia;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from Membresia");
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("select id, nombre, duracion, precio from Membresia");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				membresia = new Membresia();
 				membresia.setId(resultSet.getInt(1));
 				membresia.setNombre(resultSet.getString(2));
 				membresia.setDuracion(resultSet.getInt(3));
+				membresia.setValor(resultSet.getInt(4));
 				list.add(membresia);
 			}
 		} catch (Exception e) {
@@ -50,21 +52,30 @@ public class MembresiaDao implements MembresiaDaoInterface {
 	}
 
 	@Override
-	public boolean eliminarMembresia(String codigo) {
+	public boolean eliminarMembresia(int id) {
+
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("DELETE FROM Membresia" + " WHERE id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.execute();
+			return true;
+
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean modificarMembresia(int id, String nombre, double valor) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean modificarMembresia(String codigo, String nombre, double valor) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public Membresia buscarMembresia(int id) {
 
-	@Override
-	public Membresia buscarMembresia(String codigo) {
-		
-		
 		return null;
 	}
 

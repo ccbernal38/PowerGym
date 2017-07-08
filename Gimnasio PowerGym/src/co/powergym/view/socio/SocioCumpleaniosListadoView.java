@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,7 @@ public class SocioCumpleaniosListadoView extends JFrame {
 	 */
 	public SocioCumpleaniosListadoView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 646, 419);
+		setBounds(100, 100, 646, 459);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -68,21 +69,23 @@ public class SocioCumpleaniosListadoView extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setBounds(162, 11, 317, 42);
 		contentPane.add(lblNewLabel);
-
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 127, 614, 265);
+		
 		tableSocios = new JTable();
-		String[] columnNames = new String[] { "Title", "Author", "Publisher", "Published Date", "Pages", "Rating" };
-
-		tableSocios.setModel(new DefaultTableModel(
-				new Object[] { "New column", "New column", "New column", "New column", "New column", "New column" },
-				1));
 		tableSocios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableSocios.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Identificación", "Nombre", "Cumpleaños"
+			}
+		));
+				
+		tableSocios.setBounds(32, 68, 579, 301);
 
-		tableSocios.setBounds(-32, 68, 579, 301);
-		JTableHeader header = new JTableHeader();
-		header.setName("asdas");
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setBounds(22, 71, 584, 251);
-		scrollPane.add(tableSocios);
+		scrollPane.setViewportView(tableSocios);
+		contentPane.setLayout(null);
 		contentPane.add(scrollPane);
 	}
 

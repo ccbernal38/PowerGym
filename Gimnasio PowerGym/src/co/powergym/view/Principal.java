@@ -29,6 +29,7 @@ public class Principal extends JFrame {
      * Creates new form Principal
      */
     public Principal() {
+		setTitle("PowerGym");
     	getContentPane().setBackground(new Color(0, 149, 239));
         initComponents();
     }
@@ -254,7 +255,7 @@ public class Principal extends JFrame {
                                                                         );
         
         lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\berna\\Desktop\\logo.png"));
+        lblNewLabel.setIcon(new ImageIcon("image/logo.png"));
         
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
