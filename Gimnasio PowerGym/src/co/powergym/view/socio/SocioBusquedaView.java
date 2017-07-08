@@ -1,6 +1,7 @@
 package co.powergym.view.socio;
 
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.DropMode;
+import javax.swing.ImageIcon;
 
 public class SocioBusquedaView extends JFrame {
 
@@ -35,26 +37,26 @@ public class SocioBusquedaView extends JFrame {
 
 		setTitle("Buscar un socio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 965, 574);
+		setBounds(100, 100, 610, 705);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lblNumeroDeIdentidad = new JLabel("Ingrese el n\u00FAmero de identidad:");
-		lblNumeroDeIdentidad.setBounds(39, 69, 220, 20);
+		lblNumeroDeIdentidad.setBounds(25, 69, 210, 20);
 
 		textField_identidad = new JTextField();
-		textField_identidad.setBounds(269, 69, 150, 20);
+		textField_identidad.setBounds(245, 69, 165, 20);
 		textField_identidad.setColumns(10);
 
 		JLabel lblBuscarSocio = new JLabel("Buscar Socio");
-		lblBuscarSocio.setBounds(172, 21, 364, 25);
+		lblBuscarSocio.setBounds(25, 21, 550, 25);
 		lblBuscarSocio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBuscarSocio.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(429, 68, 117, 23);
+		btnBuscar.setBounds(420, 68, 155, 23);
 		getContentPane().setLayout(null);
 		getContentPane().add(lblNumeroDeIdentidad);
 		getContentPane().add(textField_identidad);
@@ -63,34 +65,45 @@ public class SocioBusquedaView extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Socio", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(39, 100, 305, 295);
+		panel.setBounds(200, 100, 210, 245);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
 		textField_primerNombre = new JLabel();
+		textField_primerNombre.setFont(new Font("Avenir Black", Font.BOLD, 11));
+		textField_primerNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_primerNombre.setText("Primer nombre");
-		textField_primerNombre.setBounds(10, 193, 275, 20);
+		textField_primerNombre.setBounds(5, 191, 200, 15);
 		panel.add(textField_primerNombre);
 
 		textField_fechaNacimiento = new JLabel();
+		textField_fechaNacimiento.setFont(new Font("Avenir Black", Font.BOLD, 11));
+		textField_fechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_fechaNacimiento.setText("Fecha de nacimiento");
-		textField_fechaNacimiento.setBounds(10, 224, 275, 20);
+		textField_fechaNacimiento.setBounds(5, 206, 200, 15);
 		panel.add(textField_fechaNacimiento);
 
 		textField_telefono = new JLabel();
+		textField_telefono.setFont(new Font("Avenir Black", Font.BOLD, 11));
+		textField_telefono.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_telefono.setText("Telefono");
-		textField_telefono.setBounds(10, 255, 275, 20);
+		textField_telefono.setBounds(5, 221, 200, 15);
 		panel.add(textField_telefono);
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(null);
-		panel_1.setBounds(68, 18, 167, 164);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-
-		lblFoto = new JLabel("");
-		lblFoto.setBounds(10, 11, 147, 142);
-		panel_1.add(lblFoto);
+		
+				lblFoto = new JLabel("");
+				lblFoto.setBounds(30, 30, 150, 150);
+				panel.add(lblFoto);
+				lblFoto.setIcon(new ImageIcon(((new ImageIcon("image/avatar.png")).getImage()).getScaledInstance(lblFoto.getHeight(), lblFoto.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
+				
+				JPanel panel_1 = new JPanel();
+				panel_1.setBorder(new TitledBorder(null, "Historial de membresias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				panel_1.setBounds(25, 356, 550, 140);
+				contentPane.add(panel_1);
+				
+				JPanel panel_2 = new JPanel();
+				panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de asistencias", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				panel_2.setBounds(25, 507, 550, 140);
+				contentPane.add(panel_2);
 	}
 
 	/**
