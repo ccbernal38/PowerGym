@@ -1,4 +1,4 @@
-package co.powergym.view;
+package co.powergym.view.membresia;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -56,13 +56,13 @@ public class CrearMembresia extends JFrame {
 	private JButton btnAadirHorario;
 	private JList list_listaHorarios;
 	private JLabel lbl_costoMembresia;
-	private JLabel label_viñeta_2;
+	private JLabel label_vineta_2;
 	
 	/**
 	 * Create the frame.
 	 */
 	public CrearMembresia() {
-		setBounds(100, 100, 490, 394);
+		setBounds(100, 100, 491, 394);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
@@ -178,7 +178,7 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(checkBox_lunes);
 		
 		tfNombreMembresia = new JTextField();
-		tfNombreMembresia.setBounds(25, 145, 374, 26);
+		tfNombreMembresia.setBounds(30, 145, 374, 26);
 		contentPane.add(tfNombreMembresia);
 		tfNombreMembresia.setColumns(10);
 		
@@ -241,17 +241,17 @@ public class CrearMembresia extends JFrame {
 		list_listaHorarios.setBounds(581, 394, 235, 58);
 		contentPane.add(list_listaHorarios);
 		
-		JLabel label_viñeta_1 = new JLabel("\u2022");
-		label_viñeta_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_viñeta_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		label_viñeta_1.setBounds(10, 116, 20, 20);
-		contentPane.add(label_viñeta_1);
+		JLabel label_vineta_1 = new JLabel("\u2022");
+		label_vineta_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_vineta_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		label_vineta_1.setBounds(10, 116, 20, 20);
+		contentPane.add(label_vineta_1);
 		
-		label_viñeta_2 = new JLabel("\u2022");
-		label_viñeta_2.setHorizontalAlignment(SwingConstants.CENTER);
-		label_viñeta_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		label_viñeta_2.setBounds(10, 189, 20, 20);
-		contentPane.add(label_viñeta_2);
+		label_vineta_2 = new JLabel("\u2022");
+		label_vineta_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_vineta_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		label_vineta_2.setBounds(10, 189, 20, 20);
+		contentPane.add(label_vineta_2);
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
@@ -359,6 +359,6 @@ public class CrearMembresia extends JFrame {
 		return list_listaHorarios;
 	}
 	public JLabel getLabel_vineta_2() {
-		return label_viñeta_2;
+		return label_vineta_2;
 	}
 }

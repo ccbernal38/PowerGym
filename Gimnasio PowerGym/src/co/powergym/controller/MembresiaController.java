@@ -12,7 +12,7 @@ import co.powergym.controller.SocioController.HeaderRenderer;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.model.Membresia;
 import co.powergym.model.Socio;
-import co.powergym.view.CrearMembresia;
+import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
 
 public class MembresiaController implements ActionListener {
@@ -85,10 +85,10 @@ public class MembresiaController implements ActionListener {
 				membresia.getLabel_vineta_2().setVisible(false);
 				
 				membresia.getLbl_pregunta_2().setBounds(30, 118, 285, 16);
-				membresia.getBtnAtras().setBounds(118, 317, 110, 30);
-				membresia.getLblCantidad().setBounds(21, 148, 61, 16);
-				membresia.getCBXCantidad().setBounds(92, 144, 61, 27);
-				membresia.getCBXTipoTiempo().setBounds(156, 144, 156, 27);
+				membresia.getBtnAtras().setBounds(28, 317, 110, 30);
+				membresia.getLblCantidad().setBounds(30, 153, 61, 16);
+				membresia.getCBXCantidad().setBounds(97, 149, 61, 27);
+				membresia.getCBXTipoTiempo().setBounds(161, 149, 156, 27);
 			} else if (contPasos == 2) {
 
 				contPasos++;
@@ -115,13 +115,13 @@ public class MembresiaController implements ActionListener {
 				membresia.getChckbxSi().setVisible(false);
 				
 				membresia.getCheckBox_lunes().setBounds(30,147,66,23);
-				membresia.getCheckBox_martes().setBounds(105,147,66,23);
-				membresia.getCheckBox_miercoles().setBounds(175,147,74,23);
+				membresia.getCheckBox_martes().setBounds(98,147,70,23);
+				membresia.getCheckBox_miercoles().setBounds(166,147,86,23);
 				membresia.getCheckBox_jueves().setBounds(245,147,73,23);
-				membresia.getCheckBox_viernes().setBounds(30,175,66,23);
-				membresia.getCheckBox_sabado().setBounds(105, 175,70,23);
-				membresia.getCheckBox_domingo().setBounds(175,175,74,23);
-				membresia.getCheckBox_todosDias().setBounds(245,175,98,23);
+				membresia.getCheckBox_viernes().setBounds(30,175,70,23);
+				membresia.getCheckBox_sabado().setBounds(98, 175,70,23);
+				membresia.getCheckBox_domingo().setBounds(166,175,78,23);
+				membresia.getCheckBox_todosDias().setBounds(245,175,110,23);
 			}else
 			if(contPasos == 4){
 				
