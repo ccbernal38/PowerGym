@@ -10,6 +10,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class ListaEntrenador extends JFrame{
 	
@@ -18,7 +21,6 @@ public class ListaEntrenador extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable JTableListaEntrenador;
-	private JTextField txtListaDeEntrenadores;
 	private JPanel contentPane;
 	
 	public ListaEntrenador(){
@@ -29,13 +31,8 @@ public class ListaEntrenador extends JFrame{
 		
 		JTableListaEntrenador = new JTable();
 		JTableListaEntrenador.setBounds(33, 57, 389, 197);
-		
-		txtListaDeEntrenadores = new JTextField();
-		txtListaDeEntrenadores.setText("LISTA DE ENTRENADORES");
-		txtListaDeEntrenadores.setBounds(141, 6, 174, 26);
-		getContentPane().add(txtListaDeEntrenadores);
-		txtListaDeEntrenadores.setColumns(10);
-		setSize(470, 380);
+		contentPane.setLayout(null);
+		setSize(670, 380);
 		
 		JTableListaEntrenador.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -52,6 +49,11 @@ public class ListaEntrenador extends JFrame{
 		scrollPane.setBounds(22, 71, 584, 251);
 		scrollPane.add(JTableListaEntrenador);
 		contentPane.add(scrollPane);
+		
+		JLabel lblistaEntrenadores = new JLabel("LISTA DE ENTRENADORES");
+		lblistaEntrenadores.setHorizontalAlignment(SwingConstants.CENTER);
+		lblistaEntrenadores.setBounds(206, 20, 215, 16);
+		contentPane.add(lblistaEntrenadores);
 		
 		
 	}
