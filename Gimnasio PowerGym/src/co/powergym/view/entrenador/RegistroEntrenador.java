@@ -23,7 +23,7 @@ public class RegistroEntrenador extends JFrame{
 	public JTextField txtCorreoelectronico;
 	public JButton btnRegistrar;
 	public JButton btnCancelar;
-	public JDateChooser dateChooser_fechaNacimiento;
+	public JDateChooser dateChooserFechaNa;
 	public JComboBox comboBox_genero;
 	
 	public RegistroEntrenador() {
@@ -79,7 +79,7 @@ public class RegistroEntrenador extends JFrame{
 		lblFechaDeNacimiento.setBounds(53, 180, 130, 16);
 		getContentPane().add(lblFechaDeNacimiento);
 		
-		JDateChooser dateChooserFechaNa = new JDateChooser();
+		dateChooserFechaNa = new JDateChooser();
 		dateChooserFechaNa.setBounds(226, 180, 202, 20);
 		getContentPane().add(dateChooserFechaNa);
 		
@@ -113,19 +113,19 @@ public class RegistroEntrenador extends JFrame{
 		lblGnero.setBounds(53, 270, 157, 14);
 		getContentPane().add(lblGnero);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(226, 270, 202, 20);
-		getContentPane().add(comboBox);
+		comboBox_genero = new JComboBox();
+		comboBox_genero.setBounds(226, 270, 202, 20);
+		getContentPane().add(comboBox_genero);
 		setSize(470, 380);
 	}
 
 	
 	
 	public JDateChooser getDateChooser_fechaNacimiento() {
-		return dateChooser_fechaNacimiento;
+		return dateChooserFechaNa;
 	}
 	public void setDateChooser_fechaNacimiento(JDateChooser dateChooser_fechaNacimiento) {
-		this.dateChooser_fechaNacimiento = dateChooser_fechaNacimiento;
+		this.dateChooserFechaNa = dateChooser_fechaNacimiento;
 	}
 	public JTextField getTxtNumeroid() {
 		return txtNumeroid;

@@ -14,6 +14,7 @@ import java.awt.Font;
 import javax.swing.ListSelectionModel;
 import java.awt.ScrollPane;
 import com.toedter.calendar.JYearChooser;
+import javax.swing.JScrollPane;
 
 public class SocioListadoView extends JFrame {
 
@@ -36,25 +37,20 @@ public class SocioListadoView extends JFrame {
 		lblNewLabel.setBounds(213, 11, 206, 42);
 		contentPane.add(lblNewLabel);
 		
-		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 79, 614, 290);
+		contentPane.add(scrollPane);
 		
 		tableSocios = new JTable();
-		tableSocios.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Identificaci\u00F3n", "Nombre"
-			}
-		));
-		tableSocios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tableSocios.setBounds(-32, 68, 579, 301);
+		tableSocios.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Nro. identificacion", "Nombre", "Dirección", "Correo electrónico", "Teléfono" }));
+		
+		scrollPane.setViewportView(tableSocios);
+		
 		JTableHeader header = new JTableHeader();
 		header.setName("asdas");
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setBounds(22, 71, 584, 251);
-		scrollPane.add(tableSocios);
-		contentPane.add(scrollPane);
 	}
+
 	public JTable getTableSocios() {
 		return tableSocios;
 	}

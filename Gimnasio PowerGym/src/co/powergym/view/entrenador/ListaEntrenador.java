@@ -10,6 +10,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
 
 public class ListaEntrenador extends JFrame{
 	
@@ -17,41 +21,38 @@ public class ListaEntrenador extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable JTableListaEntrenador;
-	private JTextField txtListaDeEntrenadores;
 	private JPanel contentPane;
+	private JScrollPane scrollPane;
+	private JTable JTableListaEntrenador;
 	
 	public ListaEntrenador(){
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().setLayout(null);
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setSize(670, 380);
+		JTableHeader header = new JTableHeader();
+		header.setName("Lista de entrenadores");
+		
+		JLabel lblistaEntrenadores = new JLabel("LISTA DE ENTRENADORES");
+		lblistaEntrenadores.setHorizontalAlignment(SwingConstants.CENTER);
+		lblistaEntrenadores.setBounds(206, 20, 215, 16);
+		contentPane.add(lblistaEntrenadores);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 57, 634, 273);
+		contentPane.add(scrollPane);
 		
 		JTableListaEntrenador = new JTable();
-		JTableListaEntrenador.setBounds(33, 57, 389, 197);
-		
-		txtListaDeEntrenadores = new JTextField();
-		txtListaDeEntrenadores.setText("LISTA DE ENTRENADORES");
-		txtListaDeEntrenadores.setBounds(141, 6, 174, 26);
-		getContentPane().add(txtListaDeEntrenadores);
-		txtListaDeEntrenadores.setColumns(10);
-		setSize(470, 380);
-		
 		JTableListaEntrenador.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Identificaci\u00F3n", "Nombre"
+				"Nro. identificación", "Nombre", "Apellido", "Dirección", "Correo electronico", "Teléfono"
 			}
 		));
-		JTableListaEntrenador.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		JTableListaEntrenador.setBounds(-32, 68, 579, 301);
-		JTableHeader header = new JTableHeader();
-		header.setName("Lista de entrenadores");
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setBounds(22, 71, 584, 251);
-		scrollPane.add(JTableListaEntrenador);
-		contentPane.add(scrollPane);
+		scrollPane.setViewportView(JTableListaEntrenador);
 		
 		
 	}

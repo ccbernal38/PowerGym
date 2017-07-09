@@ -6,6 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class BusquedaEntrenador extends JFrame{
+	/**
+	 * 
+	 */public JButton btnBuscar1;
 	
 	public BusquedaEntrenador() {
 		setTitle("Buscar entrenador");
@@ -60,9 +63,9 @@ public class BusquedaEntrenador extends JFrame{
 		lblTelefono.setBounds(53, 240, 61, 16);
 		getContentPane().add(lblTelefono);
 		
-		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
+		/**JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
 		lblFechaDeNacimiento.setBounds(53, 180, 130, 16);
-		getContentPane().add(lblFechaDeNacimiento);
+		getContentPane().add(lblFechaDeNacimiento);*/
 		
 		JLabel lblSegundoNombre = new JLabel("Segundo nombre");
 		lblSegundoNombre.setBounds(53, 90, 130, 16);
@@ -86,21 +89,23 @@ public class BusquedaEntrenador extends JFrame{
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(453, 24, 100, 29);
-		getContentPane().add(btnBuscar);
+		btnBuscar1 = btnBuscar;
+		getContentPane().add(btnBuscar1);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(245, 326, 100, 29);
-		getContentPane().add(btnCancelar);
+		btnCancelar1 = btnCancelar;
+		getContentPane().add(btnCancelar1);
 		
 		JLabel label = new JLabel("Género:");
 		label.setBounds(53, 270, 157, 14);
 		getContentPane().add(label);
 		
-		txtTxtfechanacimiento = new JTextField();
+	/**	txtTxtfechanacimiento = new JTextField();
 		txtTxtfechanacimiento.setEditable(false);
 		txtTxtfechanacimiento.setBounds(226, 180, 202, 26);
 		getContentPane().add(txtTxtfechanacimiento);
-		txtTxtfechanacimiento.setColumns(10);
+		txtTxtfechanacimiento.setColumns(10);*/
 		
 		txtTxtgenero = new JTextField();
 		txtTxtgenero.setEditable(false);
@@ -111,9 +116,7 @@ public class BusquedaEntrenador extends JFrame{
 	
 	}
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	public JTextField txtNumeroid;
 	public JTextField txtNombre;
@@ -122,13 +125,12 @@ public class BusquedaEntrenador extends JFrame{
 	public JTextField txtTelefono;
 	public JTextField txtSegundonombre;
 	public JTextField txtCorreoelectronico;
-	public JButton btnBuscar;
-	public JButton btnCancelar;
-	public JTextField txtfechaNacimiento;
+	
+	public JButton btnCancelar1;
+	//public JTextField txtfechaNacimiento;
 	public JTextField txtgenero;
 	public JTextField txtTxtfechanacimiento;
 	public JTextField txtTxtgenero;
-	
 	
 	public JTextField getTxtNumeroid() {
 		return txtNumeroid;
@@ -173,23 +175,23 @@ public class BusquedaEntrenador extends JFrame{
 		this.txtCorreoelectronico = txtCorreoelectronico;
 	}
 	public JButton getBtnBuscar() {
-		return btnBuscar;
+		return btnBuscar1;
 	}
 	public void setBtnRegistrar(JButton btnBuscar) {
-		this.btnBuscar = btnBuscar;
+		this.btnBuscar1 = btnBuscar;
 	}
 	public JButton getBtnCancelar() {
-		return btnCancelar;
+		return btnCancelar1;
 	}
 	public void setBtnCancelar(JButton btnCancelar) {
-		this.btnCancelar = btnCancelar;
+		this.btnCancelar1 = btnCancelar;
 	}
-	public JTextField getTxtfechaNacimiento() {
+	/**public JTextField getTxtfechaNacimiento() {
 		return txtfechaNacimiento;
 	}
 	public void setTxtfechaNacimiento(JTextField txtfechaNacimiento) {
 		this.txtfechaNacimiento = txtfechaNacimiento;
-	}
+	}*/
 	public JTextField getTxtgenero() {
 		return txtgenero;
 	}

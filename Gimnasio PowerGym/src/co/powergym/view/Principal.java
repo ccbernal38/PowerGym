@@ -177,10 +177,8 @@ public class Principal extends JFrame {
         btnRegistrarSocio = new javax.swing.JButton();
         btnRegistrarSocio.setForeground(Color.WHITE);
         btnRegistrarSocio.setBackground(new Color(128, 128, 128));
-        jButton2 = new javax.swing.JButton();
-        jButton2.setBackground(new Color(128, 128, 128));
-        jButton3 = new javax.swing.JButton();
-        jButton3.setBackground(new Color(128, 128, 128));
+        jButtonRegistrarEntrada = new javax.swing.JButton();
+        jButtonRegistrarEntrada.setBackground(new Color(128, 128, 128));
         btnMenuMembresia = new javax.swing.JButton();
         btnMenuMembresia.setBackground(new Color(128, 128, 128));
         jButton5 = new javax.swing.JButton();
@@ -200,21 +198,13 @@ public class Principal extends JFrame {
                             }
                         });
                         
-                                jButton2.setText("Registrar entrada");
-                                jButton2.addActionListener(new java.awt.event.ActionListener() {
+                                jButtonRegistrarEntrada.setText("Registrar entrada");
+                                jButtonRegistrarEntrada.addActionListener(new java.awt.event.ActionListener() {
                                     @Override
 									public void actionPerformed(java.awt.event.ActionEvent evt) {
                                         jButton2ActionPerformed(evt);
                                     }
                                 });
-                                
-                                        jButton3.setText("Registrar salida");
-                                        jButton3.addActionListener(new java.awt.event.ActionListener() {
-                                            @Override
-											public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                jButton3ActionPerformed(evt);
-                                            }
-                                        });
                                         
                                                 btnMenuMembresia.setText("Crear membresia");
                                                 
@@ -223,39 +213,36 @@ public class Principal extends JFrame {
                                                                 jButton6.setText("Cierre de caja");
                                                                 
                                                                         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-                                                                        jPanel1.setLayout(jPanel1Layout);
                                                                         jPanel1Layout.setHorizontalGroup(
-                                                                            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                .addGap(31, 31, 31)
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                    .addComponent(btnMenuMembresia, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                                                                    .addComponent(btnRegistrarSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                                                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                                .addContainerGap(32, Short.MAX_VALUE))
+                                                                        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                                                                        		.addGroup(jPanel1Layout.createSequentialGroup()
+                                                                        			.addGap(31)
+                                                                        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+                                                                        				.addComponent(btnMenuMembresia, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                                                        				.addComponent(btnRegistrarSocio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                        			.addPreferredGap(ComponentPlacement.RELATED)
+                                                                        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+                                                                        				.addComponent(jButtonRegistrarEntrada, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        				.addComponent(jButton5, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                                                                        			.addPreferredGap(ComponentPlacement.RELATED)
+                                                                        			.addComponent(jButton6)
+                                                                        			.addContainerGap(32, Short.MAX_VALUE))
                                                                         );
                                                                         jPanel1Layout.setVerticalGroup(
-                                                                            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                .addGap(37, 37, 37)
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                    .addComponent(btnRegistrarSocio, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                                                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                    .addComponent(btnMenuMembresia, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                                                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                                .addContainerGap(34, Short.MAX_VALUE))
+                                                                        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                                                                        		.addGroup(jPanel1Layout.createSequentialGroup()
+                                                                        			.addGap(37)
+                                                                        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+                                                                        				.addComponent(btnRegistrarSocio, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                                                        				.addComponent(jButtonRegistrarEntrada, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                        			.addPreferredGap(ComponentPlacement.RELATED)
+                                                                        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+                                                                        				.addComponent(btnMenuMembresia, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                                                        				.addComponent(jButton5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        				.addComponent(jButton6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                        			.addContainerGap(34, Short.MAX_VALUE))
                                                                         );
+                                                                        jPanel1.setLayout(jPanel1Layout);
         
         lblNewLabel = new JLabel("");
         lblNewLabel.setIcon(new ImageIcon("image/logo.png"));
@@ -303,10 +290,6 @@ public class Principal extends JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
     
     private void jMenuItemRegistroEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -315,8 +298,7 @@ public class Principal extends JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnRegistrarSocio;
-    public javax.swing.JButton jButton2;
-    public javax.swing.JButton jButton3;
+    public javax.swing.JButton jButtonRegistrarEntrada;
     public javax.swing.JButton btnMenuMembresia;
     public javax.swing.JButton jButton5;
     public javax.swing.JButton jButton6;
@@ -383,5 +365,8 @@ public class Principal extends JFrame {
 	}
 	public JMenuItem getJMenuItembuscarSocio() {
 		return jMenuItem3buscarSocio;
+	}
+	public JButton getJButtonRegistrarEntrada() {
+		return jButtonRegistrarEntrada;
 	}
 }

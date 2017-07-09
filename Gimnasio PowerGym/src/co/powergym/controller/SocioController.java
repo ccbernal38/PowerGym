@@ -39,9 +39,11 @@ import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Socio;
 import co.powergym.view.socio.SocioBusquedaView;
+import co.powergym.view.socio.SocioConsultaEntradaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
 import co.powergym.view.socio.SocioRegistroView;
+import co.powergym.view.socio.SocioRegistrarEntradaView;
 
 public class SocioController implements ActionListener {
 
@@ -52,10 +54,13 @@ public class SocioController implements ActionListener {
 	SocioBusquedaView viewBusquedaSocio;
 	SocioListadoView viewListadoSocio;
 	SocioCumpleaniosListadoView viewCumpleaniosListadoView;
+	SocioRegistrarEntradaView viewRegistrarEntrada;
+	SocioConsultaEntradaView viewConsultarEntrada;
 	private BufferedImage fotoTemp;
 
 	public SocioController(SocioDao socioDao, SocioRegistroView viewRegistroSocio, SocioBusquedaView viewBusquedaSocio,
-			SocioListadoView socioListadoView, SocioCumpleaniosListadoView cumpleaniosListadoView) {
+			SocioListadoView socioListadoView, SocioCumpleaniosListadoView cumpleaniosListadoView,
+			SocioRegistrarEntradaView registrarEntradaView, SocioConsultaEntradaView consultaEntradaView) {
 		this.socioDao = socioDao;
 		if (viewRegistroSocio != null) {
 			webcam = Webcam.getWebcams().get(0);
@@ -81,6 +86,16 @@ public class SocioController implements ActionListener {
 			this.viewCumpleaniosListadoView = cumpleaniosListadoView;
 			listadoCumpleaniosLlenarTabla(viewCumpleaniosListadoView.getTableSocios());
 			this.viewCumpleaniosListadoView.setVisible(true);
+		}
+		if (registrarEntradaView != null) {
+			this.viewRegistrarEntrada = registrarEntradaView;
+			this.viewRegistrarEntrada.setVisible(true);
+			this.viewRegistrarEntrada.getBtnIdentificar().addActionListener(this);
+		}
+		if (consultaEntradaView != null) {
+			this.viewConsultarEntrada = consultaEntradaView;
+			this.viewConsultarEntrada.setVisible(true);
+
 		}
 	}
 
@@ -178,8 +193,9 @@ public class SocioController implements ActionListener {
 				JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
 						+ "por favor verique e intente de nuevo");
 			}
+		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada) {
 
-		}
+		} 
 	}
 
 	public void listadoSociosLlenarTabla(JTable tabla) {
@@ -199,15 +215,12 @@ public class SocioController implements ActionListener {
 			defaultTableModel.addRow(columna);
 		}
 		tabla.setModel(defaultTableModel);
-		HeaderRenderer r = new HeaderRenderer(tabla.getTableHeader());
-		tabla.getColumnModel().getColumn(0).setHeaderRenderer(r);
-
 		tabla.repaint();
 
 	}
 
 	public void listadoCumpleaniosLlenarTabla(JTable tableSocios) {
-		// TODO Auto-generated method stub
+
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
 				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumplea�os" });
 
