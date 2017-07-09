@@ -78,7 +78,9 @@ public class SocioDao implements SocioDaoInterface {
 		Socio socio;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from Socio");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, primerNombre"
+					+ ", segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+					+ " FROM Socio");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				socio = new Socio();
@@ -92,11 +94,15 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setTelefono(resultSet.getString(8));
 				socio.setCorreo(resultSet.getString(9));
 				socio.setGenero(resultSet.getInt(10));
-				InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
-				socio.setFoto(ImageIO.read(bufferedImage));
+				Blob resultfoto = resultSet.getBlob(11); 
+				if(resultfoto != null){
+					InputStream bufferedImage = resultfoto.getBinaryStream();
+					socio.setFoto(ImageIO.read(bufferedImage));	
+				}				
 				list.add(socio);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
