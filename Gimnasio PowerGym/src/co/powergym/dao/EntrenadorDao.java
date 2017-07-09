@@ -65,23 +65,26 @@ public class EntrenadorDao implements EntrenadorDaoInterface{
 		Entrenador entrenador;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from Entrenador");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,"
+					+ "identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero "
+					+ " FROM Entrenador");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				entrenador = new Entrenador();
 				entrenador.setId(resultSet.getInt(1));
-				entrenador.setIdentificacion(resultSet.getString(1));
-				entrenador.setPrimerNombre(resultSet.getString(2));
-				entrenador.setSegundoNombre(resultSet.getString(3));
-				entrenador.setPrimerApellido(resultSet.getString(4));
-				entrenador.setSegundoApellido(resultSet.getString(5));
-				entrenador.setFechaNacimiento(resultSet.getDate(6));
-				entrenador.setTelefono(resultSet.getString(7));
-				entrenador.setCorreo(resultSet.getString(8));
-				entrenador.setGenero(resultSet.getInt(9));
+				entrenador.setIdentificacion(resultSet.getString(2));
+				entrenador.setPrimerNombre(resultSet.getString(3));
+				entrenador.setSegundoNombre(resultSet.getString(4));
+				entrenador.setPrimerApellido(resultSet.getString(5));
+				entrenador.setSegundoApellido(resultSet.getString(6));
+				entrenador.setFechaNacimiento(resultSet.getDate(7));
+				entrenador.setTelefono(resultSet.getString(8));
+				entrenador.setCorreo(resultSet.getString(9));
+				entrenador.setGenero(resultSet.getInt(10));
 				list.add(entrenador);				
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}

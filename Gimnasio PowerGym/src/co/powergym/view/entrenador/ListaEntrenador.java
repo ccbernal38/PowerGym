@@ -13,6 +13,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
 
 public class ListaEntrenador extends JFrame{
 	
@@ -20,40 +21,38 @@ public class ListaEntrenador extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable JTableListaEntrenador;
 	private JPanel contentPane;
+	private JScrollPane scrollPane;
+	private JTable JTableListaEntrenador;
 	
 	public ListaEntrenador(){
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().setLayout(null);
 		setContentPane(contentPane);
-		
-		JTableListaEntrenador = new JTable();
-		JTableListaEntrenador.setBounds(33, 57, 389, 197);
 		contentPane.setLayout(null);
 		setSize(670, 380);
-		
-		JTableListaEntrenador.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Identificaci\u00F3n", "Nombre"
-			}
-		));
-		JTableListaEntrenador.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		JTableListaEntrenador.setBounds(-32, 68, 579, 301);
 		JTableHeader header = new JTableHeader();
 		header.setName("Lista de entrenadores");
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setBounds(22, 71, 584, 251);
-		scrollPane.add(JTableListaEntrenador);
-		contentPane.add(scrollPane);
 		
 		JLabel lblistaEntrenadores = new JLabel("LISTA DE ENTRENADORES");
 		lblistaEntrenadores.setHorizontalAlignment(SwingConstants.CENTER);
 		lblistaEntrenadores.setBounds(206, 20, 215, 16);
 		contentPane.add(lblistaEntrenadores);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 57, 634, 273);
+		contentPane.add(scrollPane);
+		
+		JTableListaEntrenador = new JTable();
+		JTableListaEntrenador.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nro. identificación", "Nombre", "Apellido", "Dirección", "Correo electronico", "Teléfono"
+			}
+		));
+		scrollPane.setViewportView(JTableListaEntrenador);
 		
 		
 	}
