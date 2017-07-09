@@ -62,7 +62,7 @@ public class CrearMembresia extends JFrame {
 	 * Create the frame.
 	 */
 	public CrearMembresia() {
-		setBounds(100, 100, 491, 394);
+		setBounds(100, 100, 489, 433);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
@@ -77,7 +77,7 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(btn_anterior);
 		
 		btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setBounds(338, 317, 110, 30);
+		btnSiguiente.setBounds(338, 350, 110, 30);
 		contentPane.add(btnSiguiente);
 		
 		JPanel panel_2 = new JPanel();
@@ -233,7 +233,7 @@ public class CrearMembresia extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		buttonEliminarH.setBounds(747, 367, 69, 23);
+		buttonEliminarH.setBounds(744, 368, 69, 23);
 		contentPane.add(buttonEliminarH);
 		
 		list_listaHorarios = new JList();
