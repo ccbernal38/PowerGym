@@ -13,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Toolkit;
 
 /**
  *
@@ -29,6 +30,8 @@ public class Principal extends JFrame {
      * Creates new form Principal
      */
     public Principal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\PowerGym\\PowerGym\\Gimnasio PowerGym\\image\\icon.ico"));
+		
 		setTitle("PowerGym");
     	getContentPane().setBackground(new Color(0, 149, 239));
         initComponents();
