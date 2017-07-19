@@ -1,5 +1,6 @@
 package co.powergym.controller;
 
+import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -22,6 +23,10 @@ public class EntrenadorController implements ActionListener {
 	RegistroEntrenador viewRegistroEntrenador;
 	BusquedaEntrenador viewBusquedantrenador;
 	ListaEntrenador viewListaEntrenador;
+	Button editar = new Button();		
+	Button eliminar = new Button();
+	
+	
 
 	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador,
 			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador) {
@@ -48,9 +53,9 @@ public class EntrenadorController implements ActionListener {
 
 	public void listadoEntrenadoresLlenarTabla(JTable tablaEntrenadores) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {}, new String[] {
-				"Nro. identificación", "Nombre", "Dirección", "Correo electronico", "Teléfono" });
+				"Nro. identificación", "Nombre", "Dirección", "Correo electronico", "Teléfono", "Editar", "Eliminar" });
 
-		Object[] columna = new Object[5];
+		Object[] columna = new Object[7];
 		List<Entrenador> listEntrenadores = entrenadorDao.listaEntrenador();
 		int numeroRegistros = listEntrenadores.size();
 
@@ -60,6 +65,8 @@ public class EntrenadorController implements ActionListener {
 			columna[2] = listEntrenadores.get(i).getDireccion();
 			columna[3] = listEntrenadores.get(i).getCorreo();
 			columna[4] = listEntrenadores.get(i).getTelefono();
+			columna[5] = editar;
+			columna[6] = eliminar;
 			defaultTableModel.addRow(columna);
 		}
 		tablaEntrenadores.setModel(defaultTableModel);
@@ -170,5 +177,7 @@ public class EntrenadorController implements ActionListener {
 			ArrayList<Entrenador> listaEntrenador = entrenadorDao.listaEntrenador();
 		}
 	}
+	
+	
 
 }
