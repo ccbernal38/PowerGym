@@ -33,7 +33,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface{
 		try {
 				Connection accesoBD = conexion.getConexion();
 				PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Entrenador(identificacion, primerNombre, segundoNombre,"
-						+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correo, genero) VALUES(?,?,?,?,?,?,?,?,?)");
+						+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?,?)");
 				statement.setString(1, identificacion);
 				statement.setString(2, primerNombre);
 				statement.setString(3, segundoNombre);
@@ -97,8 +97,9 @@ public class EntrenadorDao implements EntrenadorDaoInterface{
 			PreparedStatement statement = connection.prepareStatement("DELETE FROM Entrenador WHERE identificacion = ?");
 			statement.setString(1, identificacion);
 			resultado = statement.execute();
+			resultado=true;
 		} catch (Exception e) {
-
+e.printStackTrace();
 		}
 		return resultado;
 	}
@@ -111,7 +112,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface{
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador Set  primerNombre, segundoNombre,"
-						+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correo, genero) VALUES(?,?,?,?,?,?,?,?) "
+						+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?) "
 						+ "WHERE identificacion = ?");				
 				statement.setString(2, primerNombre);
 				statement.setString(3, segundoNombre);
@@ -145,7 +146,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface{
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, telefono, correo, genero"
+							+ "primerApellido, segundoApellido, telefono, correoElectronico, genero"
 							+ " FROM Entrenador WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
 			ResultSet resultSet = preparedStatement.executeQuery();
