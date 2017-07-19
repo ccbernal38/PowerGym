@@ -31,7 +31,7 @@ public class ListaEntrenador extends JFrame{
 		getContentPane().setLayout(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		setSize(670, 380);
+		setSize(730, 380);
 		JTableHeader header = new JTableHeader();
 		header.setName("Lista de entrenadores");
 		
@@ -41,7 +41,7 @@ public class ListaEntrenador extends JFrame{
 		contentPane.add(lblistaEntrenadores);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 57, 634, 273);
+		scrollPane.setBounds(10, 57, 694, 273);
 		contentPane.add(scrollPane);
 		
 		JTableListaEntrenador = new JTable();
@@ -49,7 +49,7 @@ public class ListaEntrenador extends JFrame{
 			new Object[][] {
 			},
 			new String[] {
-				"Nro. identificación", "Nombre", "Apellido", "Dirección", "Correo electronico", "Teléfono"
+				"Nro. identificaciï¿½n", "Nombre", "Apellido", "Direcciï¿½n", "Correo electronico", "Telï¿½fono", "Editar", "Eliminar"
 			}
 		));
 		scrollPane.setViewportView(JTableListaEntrenador);
