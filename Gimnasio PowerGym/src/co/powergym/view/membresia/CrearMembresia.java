@@ -29,7 +29,6 @@ public class CrearMembresia extends JFrame {
 	private JLabel lbl_pregunta_2;
 	private JLabel lbl_pregunta_4;
 	private JLabel lb_pregunta_3;
-	private JComboBox CBXCantidad;
 	private JComboBox CBXTipoTiempo;
 	private JLabel lblCantidad;
 	private JCheckBox chckbxNo;
@@ -57,6 +56,7 @@ public class CrearMembresia extends JFrame {
 	private JList list_listaHorarios;
 	private JLabel lbl_costoMembresia;
 	private JLabel label_vineta_2;
+	private JTextField textFieldCantidad;
 	
 	/**
 	 * Create the frame.
@@ -121,9 +121,10 @@ public class CrearMembresia extends JFrame {
 		lbl_pregunta_4.setBounds(503, 171, 285, 16);
 		contentPane.add(lbl_pregunta_4);
 		
-		CBXCantidad = new JComboBox();
-		CBXCantidad.setBounds(564, 45, 61, 27);
-		contentPane.add(CBXCantidad);
+		textFieldCantidad = new JTextField();
+		textFieldCantidad.setBounds(623, 45, 61, 27);
+		contentPane.add(textFieldCantidad);
+		textFieldCantidad.setColumns(10);
 		
 		CBXTipoTiempo = new JComboBox();
 		CBXTipoTiempo.setBounds(623, 45, 165, 27);
@@ -277,9 +278,6 @@ public class CrearMembresia extends JFrame {
 	public JLabel getLblPasoDe() {
 		return lblPasoDe;
 	}
-	public JComboBox getCBXCantidad() {
-		return CBXCantidad;
-	}
 	public JComboBox getCBXTipoTiempo() {
 		return CBXTipoTiempo;
 	}
@@ -360,5 +358,8 @@ public class CrearMembresia extends JFrame {
 	}
 	public JLabel getLabel_vineta_2() {
 		return label_vineta_2;
+	}
+	public JTextField getTextFieldCantidad() {
+		return textFieldCantidad;
 	}
 }

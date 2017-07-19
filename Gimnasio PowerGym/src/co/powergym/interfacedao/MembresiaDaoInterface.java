@@ -3,11 +3,15 @@ package co.powergym.interfacedao;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.powergym.model.Dia;
+import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
 
 public interface MembresiaDaoInterface {
 	
-	public boolean registrarMembresia(String codigo, String nombre, double valor);
+	public boolean registrarMembresia(String codigo, String nombre, double valor, int cantidadDuracion, 
+			String tipoDuracion, boolean limiteDias, int numeroVisitas, List<Dia>dias, boolean horarioIngreso,
+			List<Horario>horarios);
 	
 	public List<Membresia> listaMembresia();
 	

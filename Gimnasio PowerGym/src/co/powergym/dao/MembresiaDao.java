@@ -1,18 +1,16 @@
 package co.powergym.dao;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import co.powergym.interfacedao.MembresiaDaoInterface;
 import co.powergym.model.Conexion;
+import co.powergym.model.Dia;
+import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
-import co.powergym.model.Socio;
 
 public class MembresiaDao implements MembresiaDaoInterface {
 
@@ -22,13 +20,15 @@ public class MembresiaDao implements MembresiaDaoInterface {
 		// TODO Auto-generated constructor stub
 		conexion = new Conexion();
 	}
-
+	
 	@Override
-	public boolean registrarMembresia(String codigo, String nombre, double valor) {
-		// TODO Auto-generated method stub
+	public boolean registrarMembresia(String codigo, String nombre, double valor, int cantidadDuracion,
+			String tipoDuracion, boolean limiteDias, int numeroVisitas, List<Dia> dias, boolean horarioIngreso,
+			List<Horario> horarios) {
+		
 		return false;
 	}
-
+	
 	@Override
 	public List<Membresia> listaMembresia() {
 		List<Membresia> list = new ArrayList<Membresia>();
