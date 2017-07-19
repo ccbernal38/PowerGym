@@ -30,7 +30,7 @@ public class Principal extends JFrame {
      * Creates new form Principal
      */
     public Principal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\PowerGym\\PowerGym\\Gimnasio PowerGym\\image\\icon.ico"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("image/icon.ico"));
 		
 		setTitle("PowerGym");
     	getContentPane().setBackground(new Color(0, 149, 239));
