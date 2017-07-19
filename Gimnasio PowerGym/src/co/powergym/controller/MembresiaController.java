@@ -88,12 +88,12 @@ public class MembresiaController implements ActionListener {
 				membresia.getLbl_pregunta_2().setBounds(30, 118, 285, 16);
 				membresia.getBtnAtras().setBounds(28, 350, 110, 30);
 				membresia.getLblCantidad().setBounds(30, 153, 61, 16);
-				membresia.getCBXCantidad().setBounds(97, 149, 61, 27);
+				membresia.getTextFieldCantidad().setBounds(97, 149, 61, 27);
 				membresia.getCBXTipoTiempo().setBounds(161, 149, 156, 27);
 				
 				
 					membresia.getLbl_pregunta_2().setVisible(true);
-					membresia.getCBXCantidad().setVisible(true);
+					membresia.getTextFieldCantidad().setVisible(true);
 					membresia.getCBXTipoTiempo().setVisible(true);
 					membresia.getLblCantidad().setVisible(true);
 					contPasosAtras++;
@@ -104,7 +104,7 @@ public class MembresiaController implements ActionListener {
 				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
 
 				membresia.getLbl_pregunta_2().setVisible(false);
-				membresia.getCBXCantidad().setVisible(false);
+				membresia.getTextFieldCantidad().setVisible(false);
 				membresia.getCBXTipoTiempo().setVisible(false);
 				membresia.getLblCantidad().setVisible(false);
 				membresia.getLb_pregunta_3().setBounds(30, 118, 342, 16);
@@ -250,7 +250,7 @@ public class MembresiaController implements ActionListener {
 				membresia.getChckbxSi().setVisible(false);
 				
 				membresia.getLbl_pregunta_2().setVisible(true);
-				membresia.getCBXCantidad().setVisible(true);
+				membresia.getTextFieldCantidad().setVisible(true);
 				membresia.getCBXTipoTiempo().setVisible(true);
 				membresia.getLblCantidad().setVisible(true);
 			}else
@@ -258,7 +258,7 @@ public class MembresiaController implements ActionListener {
 				
 				contPasos--;
 				membresia.getLbl_pregunta_2().setVisible(false);
-				membresia.getCBXCantidad().setVisible(false);
+				membresia.getTextFieldCantidad().setVisible(false);
 				membresia.getCBXTipoTiempo().setVisible(false);
 				membresia.getLblCantidad().setVisible(false);
 				
