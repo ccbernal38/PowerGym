@@ -46,8 +46,6 @@ public class InicioController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (viewPrincipal.getJButtonRegistrarEntrada() == e.getSource()) {
 			SocioController socioController = new SocioController(new SocioDao(), null, null, null, null, new SocioRegistrarEntradaView(), null);
-			SocioRegistrarEntradaView entradaView = new SocioRegistrarEntradaView();
-			entradaView.setVisible(true);
 		} else if (viewPrincipal.btnRegistrarSocio == e.getSource()
 				|| viewPrincipal.getJMenuItemRegistrarSocio() == e.getSource()) {
 			SocioDao dao = new SocioDao();

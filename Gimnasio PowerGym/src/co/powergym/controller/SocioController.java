@@ -90,7 +90,9 @@ public class SocioController implements ActionListener {
 		if (registrarEntradaView != null) {
 			this.viewRegistrarEntrada = registrarEntradaView;
 			this.viewRegistrarEntrada.setVisible(true);
+			this.viewRegistrarEntrada.setLocationRelativeTo(null);
 			this.viewRegistrarEntrada.getBtnIdentificar().addActionListener(this);
+			this.viewRegistrarEntrada.getBtnCancelar().addActionListener(this);
 		}
 		if (consultaEntradaView != null) {
 			this.viewConsultarEntrada = consultaEntradaView;
@@ -190,12 +192,35 @@ public class SocioController implements ActionListener {
 				}
 
 			} else {
-				JOptionPane.showMessageDialog(null, "No se encontrÃ³ un socio con ese nÃºmero de identificaciÃ³n, "
-						+ "por favor verique e intente de nuevo");
+				JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
+						+ "por favor verifique e intente de nuevo");
 			}
-		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada) {
+		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnCancelar()) {
+			viewRegistrarEntrada.setVisible(false);
+		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnIdentificar()) {
+			String id = viewRegistrarEntrada.getTextFieldIdentificacion().getText();
 
-		} 
+			Socio socio = socioDao.buscarSocio(id);
+			if (socio != null) {
+				viewConsultarEntrada = new SocioConsultaEntradaView();
+				viewConsultarEntrada.setVisible(true);
+				viewConsultarEntrada.setLocationRelativeTo(viewRegistrarEntrada);
+				viewConsultarEntrada.getTextField_primerNombre().setText(socio.getNombreCompleto());
+				String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
+				viewConsultarEntrada.getTextField_fechaNacimiento().setText(fechaNacimiento);
+				String telefono = socio.getTelefono();
+				viewConsultarEntrada.getTextField_telefono().setText(telefono);
+
+				if (socio.getFoto() != null) {
+					Image dimg = socio.getFoto().getScaledInstance(viewConsultarEntrada.getLblFoto().getWidth(),
+							viewConsultarEntrada.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
+					viewConsultarEntrada.getLblFoto().setIcon(new ImageIcon(dimg));
+				}
+			} else {
+				JOptionPane.showMessageDialog(viewRegistrarEntrada, "No se encontró un socio con este numero de identificación.");
+			}
+
+		}
 	}
 
 	public void listadoSociosLlenarTabla(JTable tabla) {
@@ -270,102 +295,4 @@ public class SocioController implements ActionListener {
 		tableSocios.repaint();
 	}
 
-	class HeaderRenderer extends JButton implements TableCellRenderer {
-		private static final int BUTTON_WIDTH = 16;
-		private final Color BUTTONBGC = new Color(200, 200, 200, 100);
-		private int rolloverIndex = -1;
-		private final transient MouseAdapter handler = new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				JTableHeader header = (JTableHeader) e.getComponent();
-				JTable table = header.getTable();
-				TableColumnModel columnModel = table.getColumnModel();
-				int vci = columnModel.getColumnIndexAtX(e.getX());
-				// int mci = table.convertColumnIndexToModel(vci);
-				// TableColumn column = table.getColumnModel().getColumn(mci);
-				// int w = column.getWidth(); //Nimbus???
-				// int h = header.getHeight();
-				Rectangle r = header.getHeaderRect(vci);
-				Container c = (Container) getTableCellRendererComponent(table, "", true, true, -1, vci);
-				// if (!isNimbus) {
-				// Insets i = c.getInsets();
-				// r.translate(r.width - i.right, 0);
-				// } else {
-				r.translate(r.width - BUTTON_WIDTH, 0);
-				r.setSize(BUTTON_WIDTH, r.height);
-				Point pt = e.getPoint();
-				if (c.getComponentCount() > 0 && r.contains(pt)) {
-					JButton b = (JButton) c.getComponent(0);
-					b.doClick();
-					e.consume();
-				}
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				rolloverIndex = -1;
-			}
-
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				JTableHeader header = (JTableHeader) e.getComponent();
-				JTable table = header.getTable();
-				TableColumnModel columnModel = table.getColumnModel();
-				int vci = columnModel.getColumnIndexAtX(e.getX());
-				int mci = table.convertColumnIndexToModel(vci);
-				rolloverIndex = mci;
-			}
-		};
-
-		protected HeaderRenderer(JTableHeader header) {
-			super();
-			header.addMouseListener(handler);
-			header.addMouseMotionListener(handler);
-		}
-
-		@Override
-		public void updateUI() {
-			super.updateUI();
-			// setOpaque(false);
-			// setFont(header.getFont());
-			setBorder(BorderFactory.createEmptyBorder());
-			setContentAreaFilled(false);
-		}
-
-		// JButton button = new JButton(new AbstractAction() {
-		// @Override public void actionPerformed(ActionEvent e) {
-		// System.out.println("clicked");
-		// }
-		// });
-		@Override
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
-			TableCellRenderer r = table.getTableHeader().getDefaultRenderer();
-			JLabel l = (JLabel) r.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-			l.removeAll();
-			int mci = table.convertColumnIndexToModel(column);
-
-			if (rolloverIndex == mci) {
-				int w = table.getColumnModel().getColumn(mci).getWidth();
-				int h = table.getTableHeader().getHeight();
-				// Icon icon = new MenuArrowIcon();
-				Border outside = l.getBorder();
-				Border inside = BorderFactory.createEmptyBorder(0, 0, 0, BUTTON_WIDTH);
-				Border b = BorderFactory.createCompoundBorder(outside, inside);
-				l.setBorder(b);
-				l.add(this);
-				// Insets i = b.getBorderInsets(l);
-				// setBounds(w - i.right, 0, BUTTON_WIDTH, h - 2);
-				setBounds(w - BUTTON_WIDTH, 0, BUTTON_WIDTH, h - 2);
-				setBackground(BUTTONBGC);
-				setOpaque(true);
-				setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, Color.GRAY));
-			}
-			// if (l.getPreferredSize().height > 1000) { //XXX: Nimbus
-			// System.out.println(l.getPreferredSize().height);
-			// l.setPreferredSize(new Dimension(0, h));
-			// }
-			return l;
-		}
-	}
 }

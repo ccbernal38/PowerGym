@@ -31,6 +31,7 @@ public class SocioConsultaEntradaView extends JFrame {
 	public JLabel textField_fechaNacimiento;
 	private JLabel lblFoto;
 	private JPanel panel_3;
+	private JButton btnNewButton;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -107,7 +108,7 @@ public class SocioConsultaEntradaView extends JFrame {
 				lblHuella.setBounds(10, 191, 200, 15);
 				panel_3.add(lblHuella);
 				
-				JButton btnNewButton = new JButton("Registrar entrada");
+				btnNewButton = new JButton("Registrar entrada");
 				
 				btnNewButton.setBounds(312, 66, 210, 23);
 				contentPane.add(btnNewButton);
@@ -137,5 +138,8 @@ public class SocioConsultaEntradaView extends JFrame {
 
 	public JLabel getLblFoto() {
 		return lblFoto;
+	}
+	public JButton getBtnRegistrarEntrada() {
+		return btnNewButton;
 	}
 }
