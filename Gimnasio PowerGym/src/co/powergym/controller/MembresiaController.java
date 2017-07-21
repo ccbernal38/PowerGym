@@ -193,6 +193,23 @@ public class MembresiaController implements ActionListener {
 					membresia.getLbl_pregunta5().setVisible(true);
 					contPasosAtras++;
 				
+			}else
+			if(contPasos == 5) {
+				
+				contPasos++;
+				membresia.getLblPasoDe().setText("Resumen del registro de la membresía");
+				membresia.getChckbxNo_horario().setVisible(false);
+				membresia.getChckbxSiLosHorarios().setVisible(false);
+				membresia.getLblDe().setVisible(false);
+				membresia.getComboBoxDe().setVisible(false);
+				membresia.getLblA().setVisible(false);
+				membresia.getComboBoxA().setVisible(false);
+				membresia.getBtnAadirHorario().setVisible(false);
+				membresia.getButtonEliminarH().setVisible(false);
+				membresia.getList_listaHorarios().setVisible(false);
+				membresia.getLbl_pregunta5().setVisible(false);
+				
+				
 			}
 		}
 		if (membresia != null && e.getSource() == membresia.getBtnAtras()) {

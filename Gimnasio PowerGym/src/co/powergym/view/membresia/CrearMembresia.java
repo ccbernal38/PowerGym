@@ -16,6 +16,8 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class CrearMembresia extends JFrame {
 
@@ -57,12 +59,14 @@ public class CrearMembresia extends JFrame {
 	private JLabel lbl_costoMembresia;
 	private JLabel label_vineta_2;
 	private JTextField textFieldCantidad;
+	private JTable table_resumen_membresia;
+	private JLabel lblResumenMembresia;
 	
 	/**
 	 * Create the frame.
 	 */
 	public CrearMembresia() {
-		setBounds(100, 100, 489, 433);
+		setBounds(100, 100, 489, 435);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
@@ -109,7 +113,7 @@ public class CrearMembresia extends JFrame {
 		lbl_pregunta_1.setBounds(30, 118, 285, 16);
 		contentPane.add(lbl_pregunta_1);
 		
-		lbl_pregunta_2 = new JLabel("Seleccione la duraci\u00F3n de esta membres\u00EDa");
+		lbl_pregunta_2 = new JLabel("Seleccione la duraci\u00F3n de esta membres\u00EDa:");
 		lbl_pregunta_2.setBounds(503, 21, 285, 16);
 		contentPane.add(lbl_pregunta_2);
 		
@@ -197,7 +201,7 @@ public class CrearMembresia extends JFrame {
 		textFieldPrecio.setBounds(54, 220, 86, 26);
 		contentPane.add(textFieldPrecio);
 		
-		lbl_pregunta5 = new JLabel("Indique los horarios de ingreso permitidos para esta membres\u00EDa");
+		lbl_pregunta5 = new JLabel("\u00BFSe restringiran los horarios de ingreso para esta membres\u00EDa?");
 		lbl_pregunta5.setBounds(520, 260, 342, 16);
 		contentPane.add(lbl_pregunta5);
 		
@@ -253,6 +257,36 @@ public class CrearMembresia extends JFrame {
 		label_vineta_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		label_vineta_2.setBounds(10, 189, 20, 20);
 		contentPane.add(label_vineta_2);
+		
+		table_resumen_membresia = new JTable();
+		table_resumen_membresia.setModel(new DefaultTableModel(
+			new Object[][] {
+				{" Nombre de la membres\u00EDa:", null},
+				{" Costo de la membres\u00EDa:", null},
+				{" Duraci\u00F3n de la membres\u00EDa:", null},
+				{" N\u00FAmero de visitas por d\u00EDa a Power Gym:", null},
+				{" D\u00EDas limite de ingreso a Powe Gym:", null},
+				{" Horarios de ingreso por d\u00EDa a Power Gym:", null},
+			},
+			new String[] {
+				"Criterio", "New column"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Object.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table_resumen_membresia.getColumnModel().getColumn(0).setPreferredWidth(215);
+		table_resumen_membresia.getColumnModel().getColumn(1).setPreferredWidth(171);
+		table_resumen_membresia.setBounds(55, 435, 368, 96);
+		contentPane.add(table_resumen_membresia);
+		
+		lblResumenMembresia = new JLabel("Resumen de la membres\u00EDa:");
+		lblResumenMembresia.setBounds(55, 559, 165, 14);
+		contentPane.add(lblResumenMembresia);
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
@@ -361,5 +395,11 @@ public class CrearMembresia extends JFrame {
 	}
 	public JTextField getTextFieldCantidad() {
 		return textFieldCantidad;
+	}
+	public JTable getTableResumenMembresia() {
+		return table_resumen_membresia;
+	}
+	public JLabel getLblResumenMembresia() {
+		return lblResumenMembresia;
 	}
 }
