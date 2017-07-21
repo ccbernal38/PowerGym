@@ -3,12 +3,15 @@ package co.powergym.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import co.powergym.controller.SocioController.HeaderRenderer;
+import com.panamahitek.PanamaHitek_Arduino;
+
 import co.powergym.dao.MembresiaDao;
 import co.powergym.model.Membresia;
 import co.powergym.model.Socio;
@@ -33,7 +36,7 @@ public class MembresiaController implements ActionListener {
 			this.membresia.setVisible(true);
 			this.membresia.getBtnSiguiente().addActionListener(this);
 			this.membresia.getBtnAtras().addActionListener(this);
-			
+
 		}
 		if (membresiaListadoView != null) {
 			this.membresiaListadoView = membresiaListadoView;
@@ -84,20 +87,19 @@ public class MembresiaController implements ActionListener {
 				membresia.getLblPeso().setVisible(false);
 				membresia.getTFPrecio().setVisible(false);
 				membresia.getLabel_vineta_2().setVisible(false);
-				
+
 				membresia.getLbl_pregunta_2().setBounds(30, 118, 285, 16);
 				membresia.getBtnAtras().setBounds(28, 350, 110, 30);
 				membresia.getLblCantidad().setBounds(30, 153, 61, 16);
 				membresia.getTextFieldCantidad().setBounds(97, 149, 61, 27);
 				membresia.getCBXTipoTiempo().setBounds(161, 149, 156, 27);
-				
-				
-					membresia.getLbl_pregunta_2().setVisible(true);
-					membresia.getTextFieldCantidad().setVisible(true);
-					membresia.getCBXTipoTiempo().setVisible(true);
-					membresia.getLblCantidad().setVisible(true);
-					contPasosAtras++;
-				
+
+				membresia.getLbl_pregunta_2().setVisible(true);
+				membresia.getTextFieldCantidad().setVisible(true);
+				membresia.getCBXTipoTiempo().setVisible(true);
+				membresia.getLblCantidad().setVisible(true);
+				contPasosAtras++;
+
 			} else if (contPasos == 2) {
 
 				contPasos++;
@@ -111,15 +113,12 @@ public class MembresiaController implements ActionListener {
 				membresia.getChckbxNo().setBounds(30, 152, 128, 23);
 				membresia.getChckbxSi().setBounds(30, 187, 320, 23);
 				membresia.getComboBoxVisitas().setBounds(350, 187, 61, 27);
-				
-				
-					
-					membresia.getLb_pregunta_3().setVisible(true);
-					membresia.getComboBoxVisitas().setVisible(true);
-					membresia.getChckbxNo().setVisible(true);
-					membresia.getChckbxSi().setVisible(true);
-					contPasosAtras++;
-				
+
+				membresia.getLb_pregunta_3().setVisible(true);
+				membresia.getComboBoxVisitas().setVisible(true);
+				membresia.getChckbxNo().setVisible(true);
+				membresia.getChckbxSi().setVisible(true);
+				contPasosAtras++;
 
 			} else if (contPasos == 3) {
 
@@ -131,154 +130,143 @@ public class MembresiaController implements ActionListener {
 				membresia.getComboBoxVisitas().setVisible(false);
 				membresia.getChckbxNo().setVisible(false);
 				membresia.getChckbxSi().setVisible(false);
-				
-				membresia.getCheckBox_lunes().setBounds(30,147,66,23);
-				membresia.getCheckBox_martes().setBounds(98,147,70,23);
-				membresia.getCheckBox_miercoles().setBounds(166,147,84,23);
-				membresia.getCheckBox_jueves().setBounds(245,147,73,23);
-				membresia.getCheckBox_viernes().setBounds(30,175,70,23);
-				membresia.getCheckBox_sabado().setBounds(98, 175,70,23);
-				membresia.getCheckBox_domingo().setBounds(166,175,78,23);
-				membresia.getCheckBox_todosDias().setBounds(245,175,110,23);
-				
-				
-					membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
-					membresia.getLbl_pregunta_4().setVisible(true);
-					membresia.getCheckBox_lunes().setVisible(true);;
-					membresia.getCheckBox_martes().setVisible(true);;
-					membresia.getCheckBox_miercoles().setVisible(true);;
-					membresia.getCheckBox_jueves().setVisible(true);
-					membresia.getCheckBox_viernes().setVisible(true);
-					membresia.getCheckBox_sabado().setVisible(true);
-					membresia.getCheckBox_domingo().setVisible(true);
-					membresia.getCheckBox_todosDias().setVisible(true);
-					contPasosAtras++;
-				
-			}else
-			if(contPasos == 4){
-				
-				contPasos++;
+
+				membresia.getCheckBox_lunes().setBounds(30, 147, 66, 23);
+				membresia.getCheckBox_martes().setBounds(98, 147, 70, 23);
+				membresia.getCheckBox_miercoles().setBounds(166, 147, 84, 23);
+				membresia.getCheckBox_jueves().setBounds(245, 147, 73, 23);
+				membresia.getCheckBox_viernes().setBounds(30, 175, 70, 23);
+				membresia.getCheckBox_sabado().setBounds(98, 175, 70, 23);
+				membresia.getCheckBox_domingo().setBounds(166, 175, 78, 23);
+				membresia.getCheckBox_todosDias().setBounds(245, 175, 110, 23);
+
 				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
-				membresia.getLbl_pregunta_4().setVisible(false);
-				membresia.getLbl_pregunta5().setBounds(30, 118, 370, 16);
-				membresia.getCheckBox_lunes().setVisible(false);;
-				membresia.getCheckBox_martes().setVisible(false);;
-				membresia.getCheckBox_miercoles().setVisible(false);;
-				membresia.getCheckBox_jueves().setVisible(false);
-				membresia.getCheckBox_viernes().setVisible(false);
-				membresia.getCheckBox_sabado().setVisible(false);
-				membresia.getCheckBox_domingo().setVisible(false);
-				membresia.getCheckBox_todosDias().setVisible(false);
-				
-				membresia.getChckbxNo_horario().setBounds(30,147,128,23);
-				membresia.getChckbxSiLosHorarios().setBounds(30,173,267,23);
-				membresia.getLblDe().setBounds(47,215,25,14);
-				membresia.getComboBoxDe().setBounds(75,212,72,20);
-				membresia.getLblA().setBounds(160,215,25,14);
-				membresia.getComboBoxA().setBounds(180,212,72,20);
-				membresia.getBtnAadirHorario().setBounds(260,212,72,20);
-				membresia.getButtonEliminarH().setBounds(253,310,80,20);
-				membresia.getList_listaHorarios().setBounds(75,238,257,68);
-				
-				
-					membresia.getChckbxNo_horario().setVisible(true);
-					membresia.getChckbxSiLosHorarios().setVisible(true);
-					membresia.getLblDe().setVisible(true);
-					membresia.getComboBoxDe().setVisible(true);
-					membresia.getLblA().setVisible(true);
-					membresia.getComboBoxA().setVisible(true);
-					membresia.getBtnAadirHorario().setVisible(true);
-					membresia.getButtonEliminarH().setVisible(true);
-					membresia.getList_listaHorarios().setVisible(true);
-					membresia.getLbl_pregunta5().setVisible(true);
-					contPasosAtras++;
-				
-			}else
-			if(contPasos == 5) {
-				
-				contPasos++;
-				membresia.getLblPasoDe().setText("Resumen del registro de la membresía");
-				membresia.getChckbxNo_horario().setVisible(false);
-				membresia.getChckbxSiLosHorarios().setVisible(false);
-				membresia.getLblDe().setVisible(false);
-				membresia.getComboBoxDe().setVisible(false);
-				membresia.getLblA().setVisible(false);
-				membresia.getComboBoxA().setVisible(false);
-				membresia.getBtnAadirHorario().setVisible(false);
-				membresia.getButtonEliminarH().setVisible(false);
-				membresia.getList_listaHorarios().setVisible(false);
-				membresia.getLbl_pregunta5().setVisible(false);
-				
-				
-			}
-		}
-		if (membresia != null && e.getSource() == membresia.getBtnAtras()) {
-			
-			if(contPasos == 5) {
-				
-				contPasos--;
-				membresia.getChckbxNo_horario().setVisible(false);
-				membresia.getChckbxSiLosHorarios().setVisible(false);
-				membresia.getLblDe().setVisible(false);
-				membresia.getComboBoxDe().setVisible(false);
-				membresia.getLblA().setVisible(false);
-				membresia.getComboBoxA().setVisible(false);
-				membresia.getBtnAadirHorario().setVisible(false);
-				membresia.getButtonEliminarH().setVisible(false);
-				membresia.getList_listaHorarios().setVisible(false);
-				membresia.getLbl_pregunta5().setVisible(false);
-				
 				membresia.getLbl_pregunta_4().setVisible(true);
-				membresia.getCheckBox_lunes().setVisible(true);;
-				membresia.getCheckBox_martes().setVisible(true);;
-				membresia.getCheckBox_miercoles().setVisible(true);;
+				membresia.getCheckBox_lunes().setVisible(true);
+				;
+				membresia.getCheckBox_martes().setVisible(true);
+				;
+				membresia.getCheckBox_miercoles().setVisible(true);
+				;
 				membresia.getCheckBox_jueves().setVisible(true);
 				membresia.getCheckBox_viernes().setVisible(true);
 				membresia.getCheckBox_sabado().setVisible(true);
 				membresia.getCheckBox_domingo().setVisible(true);
 				membresia.getCheckBox_todosDias().setVisible(true);
-				
-			}else
-			if (contPasos == 4) {
-				
-				contPasos--;
+				contPasosAtras++;
+
+			} else if (contPasos == 4) {
+
+				contPasos++;
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
 				membresia.getLbl_pregunta_4().setVisible(false);
-				membresia.getCheckBox_lunes().setVisible(false);;
-				membresia.getCheckBox_martes().setVisible(false);;
-				membresia.getCheckBox_miercoles().setVisible(false);;
+				membresia.getLbl_pregunta5().setBounds(30, 118, 370, 16);
+				membresia.getCheckBox_lunes().setVisible(false);
+				;
+				membresia.getCheckBox_martes().setVisible(false);
+				;
+				membresia.getCheckBox_miercoles().setVisible(false);
+				;
 				membresia.getCheckBox_jueves().setVisible(false);
 				membresia.getCheckBox_viernes().setVisible(false);
 				membresia.getCheckBox_sabado().setVisible(false);
 				membresia.getCheckBox_domingo().setVisible(false);
 				membresia.getCheckBox_todosDias().setVisible(false);
-				
+
+				membresia.getChckbxNo_horario().setBounds(30, 147, 128, 23);
+				membresia.getChckbxSiLosHorarios().setBounds(30, 173, 267, 23);
+				membresia.getLblDe().setBounds(47, 215, 25, 14);
+				membresia.getComboBoxDe().setBounds(75, 212, 72, 20);
+				membresia.getLblA().setBounds(160, 215, 25, 14);
+				membresia.getComboBoxA().setBounds(180, 212, 72, 20);
+				membresia.getBtnAadirHorario().setBounds(260, 212, 72, 20);
+				membresia.getButtonEliminarH().setBounds(253, 310, 80, 20);
+				membresia.getList_listaHorarios().setBounds(75, 238, 257, 68);
+
+				membresia.getChckbxNo_horario().setVisible(true);
+				membresia.getChckbxSiLosHorarios().setVisible(true);
+				membresia.getLblDe().setVisible(true);
+				membresia.getComboBoxDe().setVisible(true);
+				membresia.getLblA().setVisible(true);
+				membresia.getComboBoxA().setVisible(true);
+				membresia.getBtnAadirHorario().setVisible(true);
+				membresia.getButtonEliminarH().setVisible(true);
+				membresia.getList_listaHorarios().setVisible(true);
+				membresia.getLbl_pregunta5().setVisible(true);
+				contPasosAtras++;
+
+			}
+		}
+		if (membresia != null && e.getSource() == membresia.getBtnAtras()) {
+
+			if (contPasos == 5) {
+
+				contPasos--;
+				membresia.getChckbxNo_horario().setVisible(false);
+				membresia.getChckbxSiLosHorarios().setVisible(false);
+				membresia.getLblDe().setVisible(false);
+				membresia.getComboBoxDe().setVisible(false);
+				membresia.getLblA().setVisible(false);
+				membresia.getComboBoxA().setVisible(false);
+				membresia.getBtnAadirHorario().setVisible(false);
+				membresia.getButtonEliminarH().setVisible(false);
+				membresia.getList_listaHorarios().setVisible(false);
+				membresia.getLbl_pregunta5().setVisible(false);
+
+				membresia.getLbl_pregunta_4().setVisible(true);
+				membresia.getCheckBox_lunes().setVisible(true);
+				;
+				membresia.getCheckBox_martes().setVisible(true);
+				;
+				membresia.getCheckBox_miercoles().setVisible(true);
+				;
+				membresia.getCheckBox_jueves().setVisible(true);
+				membresia.getCheckBox_viernes().setVisible(true);
+				membresia.getCheckBox_sabado().setVisible(true);
+				membresia.getCheckBox_domingo().setVisible(true);
+				membresia.getCheckBox_todosDias().setVisible(true);
+
+			} else if (contPasos == 4) {
+
+				contPasos--;
+				membresia.getLbl_pregunta_4().setVisible(false);
+				membresia.getCheckBox_lunes().setVisible(false);
+				;
+				membresia.getCheckBox_martes().setVisible(false);
+				;
+				membresia.getCheckBox_miercoles().setVisible(false);
+				;
+				membresia.getCheckBox_jueves().setVisible(false);
+				membresia.getCheckBox_viernes().setVisible(false);
+				membresia.getCheckBox_sabado().setVisible(false);
+				membresia.getCheckBox_domingo().setVisible(false);
+				membresia.getCheckBox_todosDias().setVisible(false);
+
 				membresia.getLb_pregunta_3().setVisible(true);
 				membresia.getComboBoxVisitas().setVisible(true);
 				membresia.getChckbxNo().setVisible(true);
 				membresia.getChckbxSi().setVisible(true);
 
-			}else
-			if (contPasos == 3) {
-				
+			} else if (contPasos == 3) {
+
 				contPasos--;
 				membresia.getLb_pregunta_3().setVisible(false);
 				membresia.getComboBoxVisitas().setVisible(false);
 				membresia.getChckbxNo().setVisible(false);
 				membresia.getChckbxSi().setVisible(false);
-				
+
 				membresia.getLbl_pregunta_2().setVisible(true);
 				membresia.getTextFieldCantidad().setVisible(true);
 				membresia.getCBXTipoTiempo().setVisible(true);
 				membresia.getLblCantidad().setVisible(true);
-			}else
-			if (contPasos == 2) {
-				
+			} else if (contPasos == 2) {
+
 				contPasos--;
 				membresia.getLbl_pregunta_2().setVisible(false);
 				membresia.getTextFieldCantidad().setVisible(false);
 				membresia.getCBXTipoTiempo().setVisible(false);
 				membresia.getLblCantidad().setVisible(false);
-				
+
 				membresia.getLbl_pregunta_1().setVisible(true);
 				membresia.getTfNombreMembresia().setVisible(true);
 				membresia.getLbl_costoMembresia().setVisible(true);
@@ -286,7 +274,7 @@ public class MembresiaController implements ActionListener {
 				membresia.getTFPrecio().setVisible(true);
 				membresia.getLabel_vineta_2().setVisible(true);
 			}
-			
+
 		}
 		if (membresiaListadoView != null && e.getSource() == membresiaListadoView.getBtnNuevo()) {
 			CrearMembresia crearMembresia = new CrearMembresia();
@@ -314,6 +302,22 @@ public class MembresiaController implements ActionListener {
 				JOptionPane.showMessageDialog(membresiaListadoView,
 						"Primero debe Seleccionar una membresia de la tabla.", "Atención", JOptionPane.ERROR_MESSAGE);
 			}
+		}
+	}
+
+	public void abrirTorniquete(boolean opcion) {
+		PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
+		try {
+			arduino.arduinoTX("COM24", 9600);
+			if (opcion == false) {
+				arduino.sendData("1");
+			} else {
+				arduino.sendData("2");
+			}
+
+			arduino.killArduinoConnection();
+		} catch (Exception ex) {
+			Logger.getLogger("Arduino").log(Level.SEVERE, null, ex);
 		}
 	}
 

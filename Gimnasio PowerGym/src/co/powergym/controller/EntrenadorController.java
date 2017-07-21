@@ -23,10 +23,6 @@ public class EntrenadorController implements ActionListener {
 	RegistroEntrenador viewRegistroEntrenador;
 	BusquedaEntrenador viewBusquedantrenador;
 	ListaEntrenador viewListaEntrenador;
-	Button editar = new Button();		
-	Button eliminar = new Button();
-	
-	
 
 	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador,
 			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador) {
@@ -46,6 +42,8 @@ public class EntrenadorController implements ActionListener {
 		if (viewListaEntrenador != null) {
 			this.viewListaEntrenador = viewListaEntrenador;
 			listadoEntrenadoresLlenarTabla(viewListaEntrenador.getJTableListaEntrenador());
+			this.viewListaEntrenador.btnEditar1.addActionListener(this);
+			this.viewListaEntrenador.btnEliminar1.addActionListener(this);
 			this.viewListaEntrenador.setVisible(true);
 		}
 
@@ -53,9 +51,9 @@ public class EntrenadorController implements ActionListener {
 
 	public void listadoEntrenadoresLlenarTabla(JTable tablaEntrenadores) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {}, new String[] {
-				"Nro. identificación", "Nombre", "Dirección", "Correo electronico", "Teléfono", "Editar", "Eliminar" });
+				"Nro. identificación", "Nombre", "Dirección", "Correo electronico", "Teléfono" });
 
-		Object[] columna = new Object[7];
+		Object[] columna = new Object[5];
 		List<Entrenador> listEntrenadores = entrenadorDao.listaEntrenador();
 		int numeroRegistros = listEntrenadores.size();
 
@@ -65,8 +63,6 @@ public class EntrenadorController implements ActionListener {
 			columna[2] = listEntrenadores.get(i).getDireccion();
 			columna[3] = listEntrenadores.get(i).getCorreo();
 			columna[4] = listEntrenadores.get(i).getTelefono();
-			columna[5] = editar;
-			columna[6] = eliminar;
 			defaultTableModel.addRow(columna);
 		}
 		tablaEntrenadores.setModel(defaultTableModel);
@@ -173,11 +169,28 @@ public class EntrenadorController implements ActionListener {
 		} else if (viewBusquedantrenador != null && e.getSource() == viewBusquedantrenador.btnCancelar1) {
 			viewBusquedantrenador.setVisible(false);
 			viewBusquedantrenador.dispose();
-		} else if (viewListaEntrenador != null) {
+		} else if (viewListaEntrenador != null && e.getSource() == viewListaEntrenador.btnEliminar1) {
+			int filaSeleccionada = viewListaEntrenador.JTableListaEntrenador.getSelectedRow();
 			ArrayList<Entrenador> listaEntrenador = entrenadorDao.listaEntrenador();
+			Boolean filaEliminada;
+			if (filaSeleccionada != -1) {
+				if (listaEntrenador != null) {
+					String identificacion = listaEntrenador.get(filaSeleccionada).getIdentificacion();
+					int optiopn = JOptionPane.showConfirmDialog(viewListaEntrenador,
+							"¿Esta seguro de eliminar el entrenador con identificación " + identificacion + " ?");
+					if (JOptionPane.YES_OPTION == optiopn) {
+						filaEliminada = entrenadorDao.eliminarEntrenador(identificacion);
+						if (filaEliminada == true) {
+
+							JOptionPane.showMessageDialog(viewListaEntrenador,
+									"El entrenador se ha eliminado correctamente.");
+							listadoEntrenadoresLlenarTabla(viewListaEntrenador.getJTableListaEntrenador());
+						}
+					}
+				}
+			}
+
 		}
 	}
-	
-	
 
 }
