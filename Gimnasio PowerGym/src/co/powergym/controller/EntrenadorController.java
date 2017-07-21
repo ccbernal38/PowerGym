@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.model.Entrenador;
+import co.powergym.view.entrenador.ActualizarEntrenador;
 import co.powergym.view.entrenador.BusquedaEntrenador;
 import co.powergym.view.entrenador.ListaEntrenador;
 import co.powergym.view.entrenador.RegistroEntrenador;
@@ -23,9 +24,10 @@ public class EntrenadorController implements ActionListener {
 	RegistroEntrenador viewRegistroEntrenador;
 	BusquedaEntrenador viewBusquedantrenador;
 	ListaEntrenador viewListaEntrenador;
+	ActualizarEntrenador viewActualizarEntrenador;
 
 	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador,
-			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador) {
+			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador, ActualizarEntrenador viewActualizarEntrenador) {
 		this.entrenadorDao = entrenadorDao;
 		this.viewRegistroEntrenador = viewRegistroEntrenador;
 		this.viewBusquedantrenador = viewBusquedaentrenador;
@@ -45,6 +47,11 @@ public class EntrenadorController implements ActionListener {
 			this.viewListaEntrenador.btnEditar1.addActionListener(this);
 			this.viewListaEntrenador.btnEliminar1.addActionListener(this);
 			this.viewListaEntrenador.setVisible(true);
+		}
+		if(viewActualizarEntrenador != null) {
+			this.viewActualizarEntrenador = viewActualizarEntrenador;
+			this.viewActualizarEntrenador.btnActualizar1.addActionListener(this);
+			this.viewActualizarEntrenador.setVisible(true);
 		}
 
 	}
@@ -190,6 +197,23 @@ public class EntrenadorController implements ActionListener {
 				}
 			}
 
+		}
+		else if(viewListaEntrenador != null && e.getSource() == viewListaEntrenador.btnEditar1) {
+			int filaSeleccionada = viewListaEntrenador.JTableListaEntrenador.getSelectedRow();
+			ArrayList<Entrenador> listaEntrenador = entrenadorDao.listaEntrenador();
+			Boolean filaEditada;
+			if (filaSeleccionada != -1) {
+				if (listaEntrenador != null) {
+					String identificacion = listaEntrenador.get(filaSeleccionada).getIdentificacion();
+					Entrenador entrenador = entrenadorDao.buscarEntrenador(identificacion);
+					if(entrenador != null) {
+						
+					}
+				}
+			}
+				
+			
+			
 		}
 	}
 
