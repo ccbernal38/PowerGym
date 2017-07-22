@@ -3,8 +3,6 @@ package co.powergym.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.sun.java_cup.internal.runtime.virtual_parse_stack;
-
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
@@ -17,8 +15,8 @@ import co.powergym.view.membresia.MembresiaListadoView;
 import co.powergym.view.socio.SocioBusquedaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
-import co.powergym.view.socio.SocioRegistroView;
 import co.powergym.view.socio.SocioRegistrarEntradaView;
+import co.powergym.view.socio.SocioRegistroView;
 
 public class InicioController implements ActionListener {
 
