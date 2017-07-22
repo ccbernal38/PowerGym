@@ -319,12 +319,15 @@ public class MembresiaController implements ActionListener {
 			if (select != -1) {
 				if (listMembresias != null) {
 					int id = listMembresias.get(select).getId();
-					boolean remove = membresiaDao.eliminarMembresia(id);
-					if (remove == true) {
+					if (JOptionPane.showConfirmDialog(membresiaListadoView, "¿Desea eliminar esta membresia?", "Eliminar membresia",
+							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						boolean remove = membresiaDao.eliminarMembresia(id);
+						if (remove == true) {
 
-						JOptionPane.showMessageDialog(membresiaListadoView,
-								"La membresia se ha eliminado correctamente.");
-						listadoMembresiasLlenarTabla(membresiaListadoView.getTableListMembresias());
+							JOptionPane.showMessageDialog(membresiaListadoView,
+									"La membresia se ha eliminado correctamente.");
+							listadoMembresiasLlenarTabla(membresiaListadoView.getTableListMembresias());
+						}
 					}
 				}
 			} else {
