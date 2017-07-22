@@ -206,8 +206,8 @@ public class EntrenadorController implements ActionListener {
 				if (listaEntrenador != null) {
 					String identificacion = listaEntrenador.get(filaSeleccionada).getIdentificacion();
 					Entrenador entrenador = entrenadorDao.buscarEntrenador(identificacion);
-					if(entrenador != null) {
-
+					if(entrenador != null) 
+						viewActualizarEntrenador = new ActualizarEntrenador();
 						if(viewActualizarEntrenador != null) {
 							String primerNombre = entrenador.getPrimerNombre();
 						viewActualizarEntrenador.getTxtPrimernombre().setText(primerNombre);
@@ -235,4 +235,3 @@ public class EntrenadorController implements ActionListener {
 		}
 	}
 
-}
