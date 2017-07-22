@@ -207,6 +207,24 @@ public class EntrenadorController implements ActionListener {
 					String identificacion = listaEntrenador.get(filaSeleccionada).getIdentificacion();
 					Entrenador entrenador = entrenadorDao.buscarEntrenador(identificacion);
 					if(entrenador != null) {
+
+						if(viewActualizarEntrenador != null) {
+							String primerNombre = entrenador.getPrimerNombre();
+						viewActualizarEntrenador.getTxtPrimernombre().setText(primerNombre);
+						String segundoNombre = entrenador.getSegundoNombre();
+						viewActualizarEntrenador.getTxtSegundoNombre().setText(segundoNombre);
+						String primerApellido = entrenador.getPrimerApellido();
+						viewActualizarEntrenador.getTxtPrimerapellido().setText(primerApellido);
+						String segundoApellido = entrenador.getSegundoApellido();
+						viewActualizarEntrenador.getTxtSegundoapellido().setText(segundoApellido);
+						String telefono = entrenador.getTelefono();
+						viewActualizarEntrenador.getTxtTelefono().setText(telefono);
+						String correoElectronico = entrenador.getCorreo();
+						viewActualizarEntrenador.getTxtCorreoelectronico().setText(correoElectronico);
+						}
+						else {
+							JOptionPane.showMessageDialog(viewListaEntrenador, "l vista es nula");
+						}
 						
 					}
 				}
