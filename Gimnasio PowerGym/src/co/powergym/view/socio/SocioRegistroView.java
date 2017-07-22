@@ -1,21 +1,26 @@
 package co.powergym.view.socio;
 
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import com.github.sarxos.webcam.WebcamPanel;
+
 import com.github.sarxos.webcam.Webcam;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import com.github.sarxos.webcam.WebcamPanel;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 
 public class SocioRegistroView extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_identificacion;
 	private JTextField textField_primerNombre;
@@ -24,7 +29,7 @@ public class SocioRegistroView extends JFrame {
 	private JTextField textField_segundoApellido;
 	private JTextField textField_correo;
 	private JTextField textField_telefono;
-	public JComboBox comboBox_genero;
+	public JComboBox<String> comboBox_genero;
 	public JDateChooser dateChooser_fechaNacimiento;
 	public JButton btnRegistrar;
 	public JButton btnCancelar;
@@ -113,8 +118,10 @@ public class SocioRegistroView extends JFrame {
 		contentPane.add(textField_telefono);
 		textField_telefono.setColumns(10);
 		
-		comboBox_genero = new JComboBox();
+		comboBox_genero = new JComboBox<String>();
 		comboBox_genero.setBounds(471, 246, 202, 20);
+		comboBox_genero.addItem("Femenino");
+		comboBox_genero.addItem("Masculino");		
 		contentPane.add(comboBox_genero);
 		
 		dateChooser_fechaNacimiento = new JDateChooser();
@@ -186,7 +193,7 @@ public class SocioRegistroView extends JFrame {
 	public JTextField getTextField_telefono() {
 		return textField_telefono;
 	}
-	public JComboBox getComboBox_genero() {
+	public JComboBox<String> getComboBox_genero() {
 		return comboBox_genero;
 	}
 	public JDateChooser getDateChooser_fechaNacimiento() {
