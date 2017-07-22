@@ -14,7 +14,6 @@ import com.panamahitek.PanamaHitek_Arduino;
 
 import co.powergym.dao.MembresiaDao;
 import co.powergym.model.Membresia;
-import co.powergym.model.Socio;
 import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
 
@@ -143,11 +142,9 @@ public class MembresiaController implements ActionListener {
 				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
 				membresia.getLbl_pregunta_4().setVisible(true);
 				membresia.getCheckBox_lunes().setVisible(true);
-				;
 				membresia.getCheckBox_martes().setVisible(true);
-				;
 				membresia.getCheckBox_miercoles().setVisible(true);
-				;
+
 				membresia.getCheckBox_jueves().setVisible(true);
 				membresia.getCheckBox_viernes().setVisible(true);
 				membresia.getCheckBox_sabado().setVisible(true);
@@ -162,11 +159,8 @@ public class MembresiaController implements ActionListener {
 				membresia.getLbl_pregunta_4().setVisible(false);
 				membresia.getLbl_pregunta5().setBounds(30, 118, 370, 16);
 				membresia.getCheckBox_lunes().setVisible(false);
-				;
 				membresia.getCheckBox_martes().setVisible(false);
-				;
 				membresia.getCheckBox_miercoles().setVisible(false);
-				;
 				membresia.getCheckBox_jueves().setVisible(false);
 				membresia.getCheckBox_viernes().setVisible(false);
 				membresia.getCheckBox_sabado().setVisible(false);
@@ -195,11 +189,49 @@ public class MembresiaController implements ActionListener {
 				membresia.getLbl_pregunta5().setVisible(true);
 				contPasosAtras++;
 
+			} else if (contPasos == 5) {
+
+				contPasos++;
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
+				membresia.getLbl_pregunta5().setVisible(false);
+				membresia.getChckbxNo_horario().setVisible(false);
+				membresia.getChckbxSiLosHorarios().setVisible(false);
+				membresia.getLblDe().setVisible(false);
+				membresia.getComboBoxDe().setVisible(false);
+				membresia.getLblA().setVisible(false);
+				membresia.getComboBoxA().setVisible(false);
+				membresia.getBtnAadirHorario().setVisible(false);
+				membresia.getButtonEliminarH().setVisible(false);
+				membresia.getList_listaHorarios().setVisible(false);
+				membresia.getLbl_pregunta5().setVisible(false);
+
+				membresia.getLblResumenMembresia().setBounds(30, 118, 285, 16);
+				membresia.getTableResumenMembresia().setBounds(50, 160, 368, 96);
+
+				membresia.getLblResumenMembresia().setVisible(true);
+				membresia.getTableResumenMembresia().setVisible(true);
 			}
 		}
 		if (membresia != null && e.getSource() == membresia.getBtnAtras()) {
 
-			if (contPasos == 5) {
+			if (contPasos == 6) {
+
+				contPasos--;
+				membresia.getLblResumenMembresia().setVisible(false);
+				membresia.getTableResumenMembresia().setVisible(false);
+
+				membresia.getChckbxNo_horario().setVisible(true);
+				membresia.getChckbxSiLosHorarios().setVisible(true);
+				membresia.getLblDe().setVisible(true);
+				membresia.getComboBoxDe().setVisible(true);
+				membresia.getLblA().setVisible(true);
+				membresia.getComboBoxA().setVisible(true);
+				membresia.getBtnAadirHorario().setVisible(true);
+				membresia.getButtonEliminarH().setVisible(true);
+				membresia.getList_listaHorarios().setVisible(true);
+				membresia.getLbl_pregunta5().setVisible(true);
+
+			} else if (contPasos == 5) {
 
 				contPasos--;
 				membresia.getChckbxNo_horario().setVisible(false);
@@ -215,11 +247,8 @@ public class MembresiaController implements ActionListener {
 
 				membresia.getLbl_pregunta_4().setVisible(true);
 				membresia.getCheckBox_lunes().setVisible(true);
-				;
 				membresia.getCheckBox_martes().setVisible(true);
-				;
 				membresia.getCheckBox_miercoles().setVisible(true);
-				;
 				membresia.getCheckBox_jueves().setVisible(true);
 				membresia.getCheckBox_viernes().setVisible(true);
 				membresia.getCheckBox_sabado().setVisible(true);
