@@ -208,8 +208,11 @@ public class EntrenadorController implements ActionListener {
 					Entrenador entrenador = entrenadorDao.buscarEntrenador(identificacion);
 					if(entrenador != null) {
 						viewActualizarEntrenador = new ActualizarEntrenador();
-						if(viewActualizarEntrenador != null) {
-							viewActualizarEntrenador.setVisible(true);
+						
+						if(viewActualizarEntrenador != null && e.getSource() == viewActualizarEntrenador.btnActualizar1) 
+						{
+							
+						viewActualizarEntrenador.setVisible(true);
 						String numeroId = entrenador.getIdentificacion();
 						viewActualizarEntrenador.getTxtNumeroid().setText(identificacion);
 						viewActualizarEntrenador.getTxtNumeroid().setEditable(false);
@@ -231,6 +234,7 @@ public class EntrenadorController implements ActionListener {
 						viewActualizarEntrenador.getTxtCorreoelectronico().setText(correoElectronico);						
 						
 						boolean respuesta = entrenadorDao.modificarEntrenador(numeroId, primerNombre, segundoNombre, primerApellido, segundoApellido, null, correoElectronico, telefono, 0);
+						
 						if (respuesta) {
 							JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
 						} else {

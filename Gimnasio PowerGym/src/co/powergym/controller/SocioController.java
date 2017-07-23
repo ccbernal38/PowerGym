@@ -75,6 +75,7 @@ public class SocioController implements ActionListener {
 		if (viewBusquedaSocio != null) {
 			this.viewBusquedaSocio = viewBusquedaSocio;
 			this.viewBusquedaSocio.btnBuscar.addActionListener(this);
+			this.viewBusquedaSocio.getBtnAgregarMembresia().addActionListener(this);
 			this.viewBusquedaSocio.setVisible(true);
 		}
 		if (socioListadoView != null) {
@@ -195,6 +196,8 @@ public class SocioController implements ActionListener {
 				JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
 						+ "por favor verifique e intente de nuevo");
 			}
+		} else if (viewBusquedaSocio != null && e.getSource() == viewBusquedaSocio.getBtnAgregarMembresia()) {
+			
 		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnCancelar()) {
 			viewRegistrarEntrada.setVisible(false);
 		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnIdentificar()) {
@@ -217,7 +220,8 @@ public class SocioController implements ActionListener {
 					viewConsultarEntrada.getLblFoto().setIcon(new ImageIcon(dimg));
 				}
 			} else {
-				JOptionPane.showMessageDialog(viewRegistrarEntrada, "No se encontró un socio con este numero de identificación.");
+				JOptionPane.showMessageDialog(viewRegistrarEntrada,
+						"No se encontró un socio con este numero de identificación.");
 			}
 
 		}

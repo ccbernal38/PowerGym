@@ -29,6 +29,7 @@ public class SocioBusquedaView extends JFrame {
 	public JLabel textField_fechaNacimiento;
 	public JButton btnBuscar;
 	private JLabel lblFoto;
+	private JButton btnAgregarMembresia;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -65,7 +66,7 @@ public class SocioBusquedaView extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Socio", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(200, 100, 210, 245);
+		panel.setBounds(25, 100, 210, 245);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -104,6 +105,10 @@ public class SocioBusquedaView extends JFrame {
 				panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de asistencias", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 				panel_2.setBounds(25, 507, 550, 140);
 				contentPane.add(panel_2);
+				
+				btnAgregarMembresia = new JButton("<html><center>Agregar<br/> Membresia</center></html>");
+				btnAgregarMembresia.setBounds(255, 100, 91, 91);
+				contentPane.add(btnAgregarMembresia);
 	}
 
 	/**
@@ -134,5 +139,8 @@ public class SocioBusquedaView extends JFrame {
 
 	public JLabel getLblFoto() {
 		return lblFoto;
+	}
+	public JButton getBtnAgregarMembresia() {
+		return btnAgregarMembresia;
 	}
 }
