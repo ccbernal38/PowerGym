@@ -18,6 +18,7 @@ import javax.swing.JSpinner;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.border.BevelBorder;
 
 public class CrearMembresia extends JFrame {
 
@@ -259,14 +260,15 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(label_vineta_2);
 		
 		table_resumen_membresia = new JTable();
+		table_resumen_membresia.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		table_resumen_membresia.setModel(new DefaultTableModel(
 			new Object[][] {
 				{" Nombre de la membres\u00EDa:", null},
 				{" Costo de la membres\u00EDa:", null},
 				{" Duraci\u00F3n de la membres\u00EDa:", null},
-				{" N\u00FAmero de visitas por d\u00EDa a Power Gym:", null},
-				{" D\u00EDas limite de ingreso a Powe Gym:", null},
-				{" Horarios de ingreso por d\u00EDa a Power Gym:", null},
+				{" N\u00FAmero de visitas por d\u00EDa:", null},
+				{" D\u00EDas limite de ingreso:", null},
+				{" Horarios de ingreso por d\u00EDa:", null},
 			},
 			new String[] {
 				"Criterio", "New column"
@@ -281,7 +283,7 @@ public class CrearMembresia extends JFrame {
 		});
 		table_resumen_membresia.getColumnModel().getColumn(0).setPreferredWidth(215);
 		table_resumen_membresia.getColumnModel().getColumn(1).setPreferredWidth(171);
-		table_resumen_membresia.setBounds(55, 435, 368, 96);
+		table_resumen_membresia.setBounds(59, 535, 389, 96);
 		contentPane.add(table_resumen_membresia);
 		
 		lblResumenMembresia = new JLabel("Resumen de la membres\u00EDa:");

@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import com.panamahitek.PanamaHitek_Arduino;
 
 import co.powergym.dao.MembresiaDao;
+import co.powergym.model.Dia;
+import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
 import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
@@ -24,7 +26,19 @@ public class MembresiaController implements ActionListener {
 	private MembresiaDao membresiaDao;
 	int contPasos = 1;
 	int contPasosAtras = 5;
+	
 	private List<Membresia> listMembresias;
+	private String nombreMembresia;
+	private String precioMembresia;
+	private int duracionMembresia; 
+	private String tipoDuracion;
+	private boolean limiteMembresiaDia;	
+	private int visitasDia;
+	private List<Dia> dias;
+	private boolean restriccionHorario;
+	private String horaDe;
+	private String horaA;
+	private List<Horario> horarios;
 
 	public MembresiaController(MembresiaDao membresiaDao, CrearMembresia membresia,
 			MembresiaListadoView membresiaListadoView) {
@@ -336,7 +350,22 @@ public class MembresiaController implements ActionListener {
 			}
 		}
 	}
-
+	
+	public void llenarTabla() {
+		
+		nombreMembresia = membresia.getTfNombreMembresia().getText();
+		precioMembresia = membresia.getTFPrecio().getText();
+		duracionMembresia = Integer.parseInt(membresia.getTextFieldCantidad().getText()); 
+		tipoDuracion = membresia.getCBXTipoTiempo().getSelectedItem() + "";
+		/**limiteMembresiaDia	
+		private int visitasDia;
+		private List<Dia> dias;
+		private boolean restriccionHorario;
+		private String horaDe;
+		private String horaA;
+		private List<Horario> horarios;**/
+	}
+	
 	public void abrirTorniquete(boolean opcion) {
 		PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
 		try {
