@@ -116,7 +116,7 @@ public class ActualizarEntrenador extends JFrame {
 		lblSegundoApellido.setBounds(64, 175, 123, 16);
 		getContentPane().add(lblSegundoApellido);
 		
-		//setSize(730, 480);
+		setSize(730, 480);
 	}
 
 	public JButton getBtnActualizar1() {
