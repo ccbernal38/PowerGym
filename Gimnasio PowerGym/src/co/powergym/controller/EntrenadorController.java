@@ -207,6 +207,40 @@ public class EntrenadorController implements ActionListener {
 					String identificacion = listaEntrenador.get(filaSeleccionada).getIdentificacion();
 					Entrenador entrenador = entrenadorDao.buscarEntrenador(identificacion);
 					if(entrenador != null) {
+						viewActualizarEntrenador = new ActualizarEntrenador();
+						if(viewActualizarEntrenador != null) {
+							viewActualizarEntrenador.setVisible(true);
+						String numeroId = entrenador.getIdentificacion();
+						viewActualizarEntrenador.getTxtNumeroid().setText(identificacion);
+						viewActualizarEntrenador.getTxtNumeroid().setEditable(false);
+						String primerNombre = entrenador.getPrimerNombre();
+						viewActualizarEntrenador.getTxtPrimernombre().setText(primerNombre);
+						viewActualizarEntrenador.getTxtPrimernombre().setEditable(false);
+						String segundoNombre = entrenador.getSegundoNombre();
+						viewActualizarEntrenador.getTxtSegundoNombre().setText(segundoNombre);
+						viewActualizarEntrenador.getTxtSegundoNombre().setEditable(false);
+						String primerApellido = entrenador.getPrimerApellido();
+						viewActualizarEntrenador.getTxtPrimerapellido().setText(primerApellido);
+						viewActualizarEntrenador.getTxtPrimerapellido().setEditable(false);
+						String segundoApellido = entrenador.getSegundoApellido();
+						viewActualizarEntrenador.getTxtSegundoapellido().setText(segundoApellido);
+						viewActualizarEntrenador.getTxtSegundoapellido().setEnabled(false);
+						String telefono = entrenador.getTelefono();
+						viewActualizarEntrenador.getTxtTelefono().setText(telefono);
+						String correoElectronico = entrenador.getCorreo();
+						viewActualizarEntrenador.getTxtCorreoelectronico().setText(correoElectronico);						
+						
+						boolean respuesta = entrenadorDao.modificarEntrenador(numeroId, primerNombre, segundoNombre, primerApellido, segundoApellido, null, correoElectronico, telefono, 0);
+						if (respuesta) {
+							JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
+						} else {
+							JOptionPane.showMessageDialog(null,
+									"Ocurrio un error actualizando los datos del entrenador.");
+						}
+						}
+						
+					}
+						
 						
 					}
 				}
@@ -217,4 +251,3 @@ public class EntrenadorController implements ActionListener {
 		}
 	}
 
-}

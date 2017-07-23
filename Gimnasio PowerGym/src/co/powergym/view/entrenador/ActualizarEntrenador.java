@@ -14,7 +14,10 @@ public class ActualizarEntrenador extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNumeroid;
+	private JTextField txtPrimernombre;
 	private JTextField txtSegundoNombre;
+	private JTextField txtPrimerapellido;
+	private JTextField txtSegundoapellido;
 	private JTextField txtFechanacimiento;
 	private JTextField txtCorreoelectronico;
 	private JTextField txtTelefono;
@@ -23,10 +26,11 @@ public class ActualizarEntrenador extends JFrame {
 	private JLabel lblCorreoElectrnico;
 	private JLabel lblNmeroDeContacto;
 	public JButton btnActualizar1;
-	private JTextField txtPrimernombre;
+	
 	private JLabel lblSegundoNombre;
-	private JTextField txtPrimerapellido;
+	
 	private JLabel lblPrimerApellido;
+	
 	
 	public ActualizarEntrenador() {
 		getContentPane().setLayout(null);
@@ -42,17 +46,17 @@ public class ActualizarEntrenador extends JFrame {
 		txtSegundoNombre.setColumns(10);
 		
 		txtFechanacimiento = new JTextField();
-		txtFechanacimiento.setBounds(226, 183, 230, 26);
+		txtFechanacimiento.setBounds(226, 201, 230, 26);
 		getContentPane().add(txtFechanacimiento);
 		txtFechanacimiento.setColumns(10);
 		
 		txtCorreoelectronico = new JTextField();
-		txtCorreoelectronico.setBounds(226, 216, 230, 26);
+		txtCorreoelectronico.setBounds(226, 234, 230, 26);
 		getContentPane().add(txtCorreoelectronico);
 		txtCorreoelectronico.setColumns(10);
 		
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(226, 249, 230, 26);
+		txtTelefono.setBounds(226, 267, 230, 26);
 		getContentPane().add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
@@ -65,15 +69,15 @@ public class ActualizarEntrenador extends JFrame {
 		getContentPane().add(lblNombre);
 		
 		lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
-		lblFechaDeNacimiento.setBounds(64, 188, 130, 16);
+		lblFechaDeNacimiento.setBounds(64, 206, 130, 16);
 		getContentPane().add(lblFechaDeNacimiento);
 		
 		lblCorreoElectrnico = new JLabel("Correo electrónico");
-		lblCorreoElectrnico.setBounds(64, 221, 130, 16);
+		lblCorreoElectrnico.setBounds(64, 239, 130, 16);
 		getContentPane().add(lblCorreoElectrnico);
 		
 		lblNmeroDeContacto = new JLabel("Número de contacto");
-		lblNmeroDeContacto.setBounds(64, 254, 130, 16);
+		lblNmeroDeContacto.setBounds(64, 272, 130, 16);
 		getContentPane().add(lblNmeroDeContacto);
 		
 		JButton btnActualizar = new JButton("Actualizar");
@@ -102,6 +106,17 @@ public class ActualizarEntrenador extends JFrame {
 		lblPrimerApellido = new JLabel("Primer apellido");
 		lblPrimerApellido.setBounds(64, 147, 110, 16);
 		getContentPane().add(lblPrimerApellido);
+		
+		txtSegundoapellido = new JTextField();
+		txtSegundoapellido.setBounds(226, 173, 230, 26);
+		getContentPane().add(txtSegundoapellido);
+		txtSegundoapellido.setColumns(10);
+		
+		JLabel lblSegundoApellido = new JLabel("Segundo apellido");
+		lblSegundoApellido.setBounds(64, 175, 123, 16);
+		getContentPane().add(lblSegundoApellido);
+		
+		setSize(730, 480);
 	}
 
 	public JButton getBtnActualizar1() {
@@ -110,5 +125,69 @@ public class ActualizarEntrenador extends JFrame {
 
 	public void setBtnActualizar1(JButton btnActualizar1) {
 		this.btnActualizar1 = btnActualizar1;
+	}
+
+	public JTextField getTxtNumeroid() {
+		return txtNumeroid;
+	}
+
+	public void setTxtNumeroid(JTextField txtNumeroid) {
+		this.txtNumeroid = txtNumeroid;
+	}
+
+	public JTextField getTxtPrimernombre() {
+		return txtPrimernombre;
+	}
+
+	public void setTxtPrimernombre(JTextField txtPrimernombre) {
+		this.txtPrimernombre = txtPrimernombre;
+	}
+
+	public JTextField getTxtSegundoNombre() {
+		return txtSegundoNombre;
+	}
+
+	public void setTxtSegundoNombre(JTextField txtSegundoNombre) {
+		this.txtSegundoNombre = txtSegundoNombre;
+	}
+
+	public JTextField getTxtPrimerapellido() {
+		return txtPrimerapellido;
+	}
+
+	public void setTxtPrimerapellido(JTextField txtPrimerapellido) {
+		this.txtPrimerapellido = txtPrimerapellido;
+	}
+
+	public JTextField getTxtSegundoapellido() {
+		return txtSegundoapellido;
+	}
+
+	public void setTxtSegundoapellido(JTextField txtSegundoapellido) {
+		this.txtSegundoapellido = txtSegundoapellido;
+	}
+
+	public JTextField getTxtFechanacimiento() {
+		return txtFechanacimiento;
+	}
+
+	public void setTxtFechanacimiento(JTextField txtFechanacimiento) {
+		this.txtFechanacimiento = txtFechanacimiento;
+	}
+
+	public JTextField getTxtCorreoelectronico() {
+		return txtCorreoelectronico;
+	}
+
+	public void setTxtCorreoelectronico(JTextField txtCorreoelectronico) {
+		this.txtCorreoelectronico = txtCorreoelectronico;
+	}
+
+	public JTextField getTxtTelefono() {
+		return txtTelefono;
+	}
+
+	public void setTxtTelefono(JTextField txtTelefono) {
+		this.txtTelefono = txtTelefono;
 	}
 }
