@@ -115,6 +115,8 @@ public class ActualizarEntrenador extends JFrame {
 		JLabel lblSegundoApellido = new JLabel("Segundo apellido");
 		lblSegundoApellido.setBounds(64, 175, 123, 16);
 		getContentPane().add(lblSegundoApellido);
+		
+		setSize(730, 480);
 	}
 
 	public JButton getBtnActualizar1() {
