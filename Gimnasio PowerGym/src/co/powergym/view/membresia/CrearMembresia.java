@@ -19,6 +19,7 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
+import javax.swing.ButtonGroup;
 
 public class CrearMembresia extends JFrame {
 
@@ -62,6 +63,8 @@ public class CrearMembresia extends JFrame {
 	private JTextField textFieldCantidad;
 	private JTable table_resumen_membresia;
 	private JLabel lblResumenMembresia;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	
 	/**
 	 * Create the frame.
@@ -140,10 +143,12 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(lblCantidad);
 		
 		chckbxSi = new JCheckBox("SI. Inidicar el n\u00FAmero de visitas permitidas por d\u00EDa.");
+		buttonGroup.add(chckbxSi);
 		chckbxSi.setBounds(503, 147, 267, 23);
 		contentPane.add(chckbxSi);
 		
 		chckbxNo = new JCheckBox("NO");
+		buttonGroup.add(chckbxNo);
 		chckbxNo.setBounds(503, 112, 128, 23);
 		contentPane.add(chckbxNo);
 		
@@ -207,10 +212,12 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(lbl_pregunta5);
 		
 		chckbxNo_horario = new JCheckBox("NO");
+		buttonGroup_1.add(chckbxNo_horario);
 		chckbxNo_horario.setBounds(530, 289, 128, 23);
 		contentPane.add(chckbxNo_horario);
 		
 		chckbxSi_horario = new JCheckBox("SI. Los horarios pemitidos son:");
+		buttonGroup_1.add(chckbxSi_horario);
 		chckbxSi_horario.setBounds(530, 315, 267, 23);
 		contentPane.add(chckbxSi_horario);
 		

@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.panamahitek.PanamaHitek_Arduino;
@@ -19,7 +21,7 @@ import co.powergym.model.Membresia;
 import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
 
-public class MembresiaController implements ActionListener {
+public class MembresiaController implements ActionListener, ChangeListener {
 
 	private CrearMembresia membresia;
 	private MembresiaListadoView membresiaListadoView;
@@ -32,7 +34,8 @@ public class MembresiaController implements ActionListener {
 	private String precioMembresia;
 	private int duracionMembresia; 
 	private String tipoDuracion;
-	private boolean limiteMembresiaDia;	
+	private boolean limiteMembresiaDiaSi;	
+	private boolean limiteMembresiaDiaNO;
 	private int visitasDia;
 	private List<Dia> dias;
 	private boolean restriccionHorario;
@@ -92,7 +95,7 @@ public class MembresiaController implements ActionListener {
 			if (contPasos == 1) {
 
 				contPasos++;
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 
 				membresia.getLbl_pregunta_1().setVisible(false);
 				membresia.getTfNombreMembresia().setVisible(false);
@@ -116,7 +119,7 @@ public class MembresiaController implements ActionListener {
 			} else if (contPasos == 2) {
 
 				contPasos++;
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 
 				membresia.getLbl_pregunta_2().setVisible(false);
 				membresia.getTextFieldCantidad().setVisible(false);
@@ -136,7 +139,7 @@ public class MembresiaController implements ActionListener {
 			} else if (contPasos == 3) {
 
 				contPasos++;
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 
 				membresia.getLb_pregunta_3().setVisible(false);
 				membresia.getLbl_pregunta_4().setBounds(30, 118, 342, 16);
@@ -153,12 +156,10 @@ public class MembresiaController implements ActionListener {
 				membresia.getCheckBox_domingo().setBounds(166, 175, 78, 23);
 				membresia.getCheckBox_todosDias().setBounds(245, 175, 110, 23);
 
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
 				membresia.getLbl_pregunta_4().setVisible(true);
 				membresia.getCheckBox_lunes().setVisible(true);
 				membresia.getCheckBox_martes().setVisible(true);
 				membresia.getCheckBox_miercoles().setVisible(true);
-
 				membresia.getCheckBox_jueves().setVisible(true);
 				membresia.getCheckBox_viernes().setVisible(true);
 				membresia.getCheckBox_sabado().setVisible(true);
@@ -169,7 +170,7 @@ public class MembresiaController implements ActionListener {
 			} else if (contPasos == 4) {
 
 				contPasos++;
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 				membresia.getLbl_pregunta_4().setVisible(false);
 				membresia.getLbl_pregunta5().setBounds(30, 118, 370, 16);
 				membresia.getCheckBox_lunes().setVisible(false);
@@ -206,7 +207,7 @@ public class MembresiaController implements ActionListener {
 			} else if (contPasos == 5) {
 
 				contPasos++;
-				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 5");
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 				membresia.getLbl_pregunta5().setVisible(false);
 				membresia.getChckbxNo_horario().setVisible(false);
 				membresia.getChckbxSiLosHorarios().setVisible(false);
@@ -231,6 +232,7 @@ public class MembresiaController implements ActionListener {
 			if (contPasos == 6) {
 
 				contPasos--;
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 				membresia.getLblResumenMembresia().setVisible(false);
 				membresia.getTableResumenMembresia().setVisible(false);
 
@@ -248,6 +250,7 @@ public class MembresiaController implements ActionListener {
 			} else if (contPasos == 5) {
 
 				contPasos--;
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 				membresia.getChckbxNo_horario().setVisible(false);
 				membresia.getChckbxSiLosHorarios().setVisible(false);
 				membresia.getLblDe().setVisible(false);
@@ -272,6 +275,7 @@ public class MembresiaController implements ActionListener {
 			} else if (contPasos == 4) {
 
 				contPasos--;
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 				membresia.getLbl_pregunta_4().setVisible(false);
 				membresia.getCheckBox_lunes().setVisible(false);
 				;
@@ -293,6 +297,7 @@ public class MembresiaController implements ActionListener {
 			} else if (contPasos == 3) {
 
 				contPasos--;
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 				membresia.getLb_pregunta_3().setVisible(false);
 				membresia.getComboBoxVisitas().setVisible(false);
 				membresia.getChckbxNo().setVisible(false);
@@ -305,6 +310,7 @@ public class MembresiaController implements ActionListener {
 			} else if (contPasos == 2) {
 
 				contPasos--;
+				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 				membresia.getLbl_pregunta_2().setVisible(false);
 				membresia.getTextFieldCantidad().setVisible(false);
 				membresia.getCBXTipoTiempo().setVisible(false);
@@ -351,12 +357,25 @@ public class MembresiaController implements ActionListener {
 		}
 	}
 	
+	
 	public void llenarTabla() {
 		
 		nombreMembresia = membresia.getTfNombreMembresia().getText();
 		precioMembresia = membresia.getTFPrecio().getText();
 		duracionMembresia = Integer.parseInt(membresia.getTextFieldCantidad().getText()); 
 		tipoDuracion = membresia.getCBXTipoTiempo().getSelectedItem() + "";
+		limiteMembresiaDiaNO = membresia.getChckbxNo().isSelected();
+		limiteMembresiaDiaSi = membresia.getChckbxSi().isSelected();
+		
+		if(limiteMembresiaDiaNO) {
+			
+			membresia.getChckbxSi().setSelected(false);
+			limiteMembresiaDiaSi = false;
+		}else
+			if(limiteMembresiaDiaSi) {
+				membresia.getChckbxNo().setSelected(false);
+				limiteMembresiaDiaNO = false;
+			}
 		/**limiteMembresiaDia	
 		private int visitasDia;
 		private List<Dia> dias;
@@ -379,6 +398,15 @@ public class MembresiaController implements ActionListener {
 			arduino.killArduinoConnection();
 		} catch (Exception ex) {
 			Logger.getLogger("Arduino").log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		
+		if(e.getSource() == membresia.getChckbxSi()){
+			
+			membresia.getComboBoxVisitas().setEnabled(false);
 		}
 	}
 
