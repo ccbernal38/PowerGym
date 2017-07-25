@@ -18,6 +18,7 @@ import com.panamahitek.PanamaHitek_Arduino;
 
 import co.powergym.dao.MembresiaDao;
 import co.powergym.model.DiaSemana;
+import co.powergym.model.Duracion;
 import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
 import co.powergym.view.membresia.CrearMembresia;
@@ -35,11 +36,13 @@ public class MembresiaController implements ActionListener {
 	private String nombreMembresia;
 	private String precioMembresia;
 	private int duracionMembresia; 
-	private String tipoDuracion;
+	private Duracion tipoDuracion;
 	private boolean limiteMembresiaDiaSi;	
 	private boolean limiteMembresiaDiaNO;
+	private String limite;
 	private int visitasDia;
 	private List<DiaSemana> dias;
+	private List<DiaSemana> diasAux;
 	private boolean restriccionHorario;
 	private String horaDe;
 	private String horaA;
@@ -359,12 +362,28 @@ public class MembresiaController implements ActionListener {
 			if(membresia.getCheckBox_todosDias().isSelected() == true)
 			{
 				membresia.getCheckBox_lunes().setSelected(true);
+				DiaSemana lunes = new DiaSemana(1, "lunes");
 				membresia.getCheckBox_martes().setSelected(true);
+				DiaSemana martes = new DiaSemana(2,"Martes");
 				membresia.getCheckBox_miercoles().setSelected(true);
+				DiaSemana miercoles = new DiaSemana(3, "Miercoles");
 				membresia.getCheckBox_jueves().setSelected(true);
+				DiaSemana jueves = new DiaSemana(4, "Jueves"); 
 				membresia.getCheckBox_viernes().setSelected(true);
+				DiaSemana viernes = new DiaSemana(5, "Viernes");
 				membresia.getCheckBox_sabado().setSelected(true);
-				membresia.getCheckBox_domingo().setSelected(true);				
+				DiaSemana Sabado = new DiaSemana(6, "Sabado");
+				membresia.getCheckBox_domingo().setSelected(true);
+				DiaSemana domingo = new DiaSemana(7, "Domingo");
+				
+				diasAux.add(lunes);
+				diasAux.add(martes);
+				diasAux.add(miercoles);
+				diasAux.add(jueves);
+				diasAux.add(viernes);
+				diasAux.add(Sabado);
+				diasAux.add(domingo);
+				
 			}else
 				if(membresia.getCheckBox_todosDias().isSelected() == false) {
 					
@@ -375,6 +394,7 @@ public class MembresiaController implements ActionListener {
 					membresia.getCheckBox_viernes().setSelected(false);
 					membresia.getCheckBox_sabado().setSelected(false);
 					membresia.getCheckBox_domingo().setSelected(false);
+					diasAux.clear();
 				}
 		}
 		if(membresia.getChckbxNo_horario() == e.getSource()) {
@@ -435,10 +455,21 @@ public class MembresiaController implements ActionListener {
 		nombreMembresia = membresia.getTfNombreMembresia().getText();
 		precioMembresia = membresia.getTFPrecio().getText();
 		duracionMembresia = Integer.parseInt(membresia.getTextFieldCantidad().getText()); 
-		tipoDuracion = membresia.getCBXTipoTiempo().getSelectedItem() + "";
+		if(membresia.getCBXTipoTiempo().getSelectedItem() instanceof Duracion) {
+			
+			tipoDuracion = (Duracion) membresia.getCBXTipoTiempo().getSelectedItem();
+		}
 		limiteMembresiaDiaNO = membresia.getChckbxNo().isSelected();
 		limiteMembresiaDiaSi = membresia.getChckbxSi().isSelected();
-		visitasDia = Integer.parseInt((String) membresia.getComboBoxVisitas().getSelectedItem());
+		
+		if(limiteMembresiaDiaNO == true) {
+			limite = "No hay límite";
+		}else if(limiteMembresiaDiaSi == true) {
+			
+			visitasDia = Integer.parseInt((String) membresia.getComboBoxVisitas().getSelectedItem());
+			limite = visitasDia+" veces por día";
+		}
+		
 		/**limiteMembresiaDia	
 		private int visitasDia;
 		private List<Dia> dias;
