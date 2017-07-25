@@ -65,6 +65,7 @@ public class CrearMembresia extends JFrame {
 	private JLabel lblResumenMembresia;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private JButton btnFinalizar;
 	
 	/**
 	 * Create the frame.
@@ -296,6 +297,10 @@ public class CrearMembresia extends JFrame {
 		lblResumenMembresia = new JLabel("Resumen de la membres\u00EDa:");
 		lblResumenMembresia.setBounds(55, 559, 165, 14);
 		contentPane.add(lblResumenMembresia);
+		
+		btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.setBounds(39, 343, 89, 23);
+		contentPane.add(btnFinalizar);
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
@@ -410,5 +415,8 @@ public class CrearMembresia extends JFrame {
 	}
 	public JLabel getLblResumenMembresia() {
 		return lblResumenMembresia;
+	}
+	public JButton getBtnFinalizar() {
+		return btnFinalizar;
 	}
 }
