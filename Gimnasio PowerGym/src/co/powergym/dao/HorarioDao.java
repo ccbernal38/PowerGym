@@ -42,6 +42,7 @@ public class HorarioDao implements HorarioDaoInterface {
 				horario.setCodigoMembresia(resultSet.getInt(4));
 				list.add(horario);
 			}
+			conexion.cerrarConexion();
 		} catch (Exception e) {
 		}
 		return list;
@@ -59,6 +60,7 @@ public class HorarioDao implements HorarioDaoInterface {
 			statement.setInt(3, codigoMembresia);
 			statement.execute();
 			respuesta = true;
+			conexion.cerrarConexion();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

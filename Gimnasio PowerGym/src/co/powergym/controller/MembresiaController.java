@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import com.panamahitek.PanamaHitek_Arduino;
 
 import co.powergym.dao.MembresiaDao;
-import co.powergym.model.Dia;
+import co.powergym.model.DiaSemana;
 import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
 import co.powergym.view.membresia.CrearMembresia;
@@ -39,7 +39,7 @@ public class MembresiaController implements ActionListener {
 	private boolean limiteMembresiaDiaSi;	
 	private boolean limiteMembresiaDiaNO;
 	private int visitasDia;
-	private List<Dia> dias;
+	private List<DiaSemana> dias;
 	private boolean restriccionHorario;
 	private String horaDe;
 	private String horaA;

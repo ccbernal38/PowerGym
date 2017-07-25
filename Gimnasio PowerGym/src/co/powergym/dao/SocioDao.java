@@ -66,6 +66,7 @@ public class SocioDao implements SocioDaoInterface {
 			statement.setInt(13, calendar.get(Calendar.YEAR));
 			statement.execute();
 			respuesta = true;
+			conexion.cerrarConexion();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -94,13 +95,14 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setTelefono(resultSet.getString(8));
 				socio.setCorreo(resultSet.getString(9));
 				socio.setGenero(resultSet.getInt(10));
-				Blob resultfoto = resultSet.getBlob(11); 
-				if(resultfoto != null){
+				Blob resultfoto = resultSet.getBlob(11);
+				if (resultfoto != null) {
 					InputStream bufferedImage = resultfoto.getBinaryStream();
-					socio.setFoto(ImageIO.read(bufferedImage));	
-				}				
+					socio.setFoto(ImageIO.read(bufferedImage));
+				}
 				list.add(socio);
 			}
+			conexion.cerrarConexion();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -115,6 +117,7 @@ public class SocioDao implements SocioDaoInterface {
 			PreparedStatement statement = connection.prepareStatement("DELETE FROM Socio WHERE identificacion = ?");
 			statement.setString(1, identificacion);
 			resultado = statement.execute();
+			conexion.cerrarConexion();
 		} catch (Exception e) {
 
 		}
@@ -126,7 +129,6 @@ public class SocioDao implements SocioDaoInterface {
 	public boolean modificarSocio(String identificacion, Date fechaNacimiento, String primerNombre,
 			String segundoNombre, String primerApellido, String segundoApellido, String correo, String telefono,
 			int genero) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -153,9 +155,14 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setTelefono(resultSet.getString(8));
 				socio.setCorreo(resultSet.getString(9));
 				socio.setGenero(resultSet.getInt(10));
-				InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
-				socio.setFoto(ImageIO.read(bufferedImage));
+				Blob blob = resultSet.getBlob(11);
+				if (blob != null) {
+					InputStream bufferedImage = blob.getBinaryStream();
+					socio.setFoto(ImageIO.read(bufferedImage));
+				}
+
 			}
+			conexion.cerrarConexion();
 		} catch (Exception e) {
 			System.out.println("error");
 		}
@@ -196,6 +203,7 @@ public class SocioDao implements SocioDaoInterface {
 
 				list.add(socio);
 			}
+			conexion.cerrarConexion();
 		} catch (Exception e) {
 		}
 		return list;

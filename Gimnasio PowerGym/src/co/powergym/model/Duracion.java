@@ -1,8 +1,6 @@
 package co.powergym.model;
 
-import java.util.List;
-
-public class DiaSemana {
+public class Duracion {
 
 	private int id;
 	private String nombre;
@@ -22,15 +20,14 @@ public class DiaSemana {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public DiaSemana(int id, String nombre) {
-		super();
+
+	/**
+	 * @param id
+	 * @param nombre
+	 */
+	public Duracion(int id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
-	}
-
-	public DiaSemana() {
-		super();
 	}
 
 }
