@@ -438,16 +438,7 @@ public class MembresiaController implements ActionListener {
 		tipoDuracion = membresia.getCBXTipoTiempo().getSelectedItem() + "";
 		limiteMembresiaDiaNO = membresia.getChckbxNo().isSelected();
 		limiteMembresiaDiaSi = membresia.getChckbxSi().isSelected();
-		
-		if(limiteMembresiaDiaNO) {
-			
-			membresia.getChckbxSi().setSelected(false);
-			limiteMembresiaDiaSi = false;
-		}else
-			if(limiteMembresiaDiaSi) {
-				membresia.getChckbxNo().setSelected(false);
-				limiteMembresiaDiaNO = false;
-			}
+		visitasDia = Integer.parseInt((String) membresia.getComboBoxVisitas().getSelectedItem());
 		/**limiteMembresiaDia	
 		private int visitasDia;
 		private List<Dia> dias;
