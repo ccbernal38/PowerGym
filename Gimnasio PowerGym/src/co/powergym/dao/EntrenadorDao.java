@@ -113,31 +113,23 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement statement = connection
-					.prepareStatement("UPDATE Entrenador Set  primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?) "
-							+ "WHERE identificacion = ?");
-			statement.setString(2, primerNombre);
-			statement.setString(3, segundoNombre);
-			statement.setString(4, primerApellido);
-			statement.setString(5, segundoApellido);
-			statement.setDate(6, fechaNacimiento);
-			statement.setString(7, telefono);
-			statement.setString(8, correo);
-			statement.setInt(9, genero);
-			resultado = statement.execute();
 
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(fechaNacimiento);
-
-			statement.setInt(11, calendar.get(Calendar.DAY_OF_MONTH));
-			statement.setInt(12, calendar.get(Calendar.MONTH) + 1);
-			statement.setInt(13, calendar.get(Calendar.YEAR));
-			statement.execute();
-			resultado = true;
-			conexion.cerrarConexion();
+			PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador Set primerNombre = ?, segundoNombre = ?, "
+						+ "primerApellido = ?, segundoApellido = ?, fechaNacimiento = ?, telefono = ?, correoElectronico = ?, genero = ? "
+						+ "WHERE identificacion = ?");				
+				statement.setString(1, primerNombre);
+				statement.setString(2, segundoNombre);
+				statement.setString(3, primerApellido);
+				statement.setString(4, segundoApellido);
+				statement.setDate(5, fechaNacimiento);
+				statement.setString(6, telefono);
+				statement.setString(7, correo);
+				statement.setInt(8, genero);
+				statement.setString(9, identificacion);
+				statement.execute();
+				resultado = true;
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 		return resultado;
 	}

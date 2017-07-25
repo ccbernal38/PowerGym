@@ -18,6 +18,8 @@ import javax.swing.JSpinner;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.border.BevelBorder;
+import javax.swing.ButtonGroup;
 
 public class CrearMembresia extends JFrame {
 
@@ -61,6 +63,9 @@ public class CrearMembresia extends JFrame {
 	private JTextField textFieldCantidad;
 	private JTable table_resumen_membresia;
 	private JLabel lblResumenMembresia;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private JButton btnFinalizar;
 	
 	/**
 	 * Create the frame.
@@ -139,10 +144,12 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(lblCantidad);
 		
 		chckbxSi = new JCheckBox("SI. Inidicar el n\u00FAmero de visitas permitidas por d\u00EDa.");
+		buttonGroup.add(chckbxSi);
 		chckbxSi.setBounds(503, 147, 267, 23);
 		contentPane.add(chckbxSi);
 		
 		chckbxNo = new JCheckBox("NO");
+		buttonGroup.add(chckbxNo);
 		chckbxNo.setBounds(503, 112, 128, 23);
 		contentPane.add(chckbxNo);
 		
@@ -206,10 +213,12 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(lbl_pregunta5);
 		
 		chckbxNo_horario = new JCheckBox("NO");
+		buttonGroup_1.add(chckbxNo_horario);
 		chckbxNo_horario.setBounds(530, 289, 128, 23);
 		contentPane.add(chckbxNo_horario);
 		
 		chckbxSi_horario = new JCheckBox("SI. Los horarios pemitidos son:");
+		buttonGroup_1.add(chckbxSi_horario);
 		chckbxSi_horario.setBounds(530, 315, 267, 23);
 		contentPane.add(chckbxSi_horario);
 		
@@ -259,14 +268,15 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(label_vineta_2);
 		
 		table_resumen_membresia = new JTable();
+		table_resumen_membresia.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		table_resumen_membresia.setModel(new DefaultTableModel(
 			new Object[][] {
 				{" Nombre de la membres\u00EDa:", null},
 				{" Costo de la membres\u00EDa:", null},
 				{" Duraci\u00F3n de la membres\u00EDa:", null},
-				{" N\u00FAmero de visitas por d\u00EDa a Power Gym:", null},
-				{" D\u00EDas limite de ingreso a Powe Gym:", null},
-				{" Horarios de ingreso por d\u00EDa a Power Gym:", null},
+				{" N\u00FAmero de visitas por d\u00EDa:", null},
+				{" D\u00EDas limite de ingreso:", null},
+				{" Horarios de ingreso por d\u00EDa:", null},
 			},
 			new String[] {
 				"Criterio", "New column"
@@ -281,12 +291,16 @@ public class CrearMembresia extends JFrame {
 		});
 		table_resumen_membresia.getColumnModel().getColumn(0).setPreferredWidth(215);
 		table_resumen_membresia.getColumnModel().getColumn(1).setPreferredWidth(171);
-		table_resumen_membresia.setBounds(55, 435, 368, 96);
+		table_resumen_membresia.setBounds(59, 535, 389, 96);
 		contentPane.add(table_resumen_membresia);
 		
 		lblResumenMembresia = new JLabel("Resumen de la membres\u00EDa:");
 		lblResumenMembresia.setBounds(55, 559, 165, 14);
 		contentPane.add(lblResumenMembresia);
+		
+		btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.setBounds(39, 343, 89, 23);
+		contentPane.add(btnFinalizar);
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
@@ -401,5 +415,8 @@ public class CrearMembresia extends JFrame {
 	}
 	public JLabel getLblResumenMembresia() {
 		return lblResumenMembresia;
+	}
+	public JButton getBtnFinalizar() {
+		return btnFinalizar;
 	}
 }

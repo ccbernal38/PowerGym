@@ -27,7 +27,8 @@ public class EntrenadorController implements ActionListener {
 	ActualizarEntrenador viewActualizarEntrenador;
 
 	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador,
-			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador, ActualizarEntrenador viewActualizarEntrenador) {
+			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador,
+			ActualizarEntrenador viewActualizarEntrenador) {
 		this.entrenadorDao = entrenadorDao;
 		this.viewRegistroEntrenador = viewRegistroEntrenador;
 		this.viewBusquedantrenador = viewBusquedaentrenador;
@@ -48,7 +49,7 @@ public class EntrenadorController implements ActionListener {
 			this.viewListaEntrenador.btnEliminar1.addActionListener(this);
 			this.viewListaEntrenador.setVisible(true);
 		}
-		if(viewActualizarEntrenador != null) {
+		if (viewActualizarEntrenador != null) {
 			this.viewActualizarEntrenador = viewActualizarEntrenador;
 			this.viewActualizarEntrenador.btnActualizar1.addActionListener(this);
 			this.viewActualizarEntrenador.setVisible(true);
@@ -57,8 +58,8 @@ public class EntrenadorController implements ActionListener {
 	}
 
 	public void listadoEntrenadoresLlenarTabla(JTable tablaEntrenadores) {
-		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {}, new String[] {
-				"Nro. identificación", "Nombre", "Dirección", "Correo electronico", "Teléfono" });
+		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
+				new String[] { "Nro. identificación", "Nombre", "Dirección", "Correo electronico", "Teléfono" });
 
 		Object[] columna = new Object[5];
 		List<Entrenador> listEntrenadores = entrenadorDao.listaEntrenador();
@@ -198,7 +199,7 @@ public class EntrenadorController implements ActionListener {
 			}
 
 		}
-		else if(viewListaEntrenador != null && e.getSource() == viewListaEntrenador.btnEditar1) {
+		if (viewListaEntrenador != null && e.getSource() == viewListaEntrenador.btnEditar1) {
 			int filaSeleccionada = viewListaEntrenador.JTableListaEntrenador.getSelectedRow();
 			ArrayList<Entrenador> listaEntrenador = entrenadorDao.listaEntrenador();
 			Boolean filaEditada;
@@ -206,10 +207,8 @@ public class EntrenadorController implements ActionListener {
 				if (listaEntrenador != null) {
 					String identificacion = listaEntrenador.get(filaSeleccionada).getIdentificacion();
 					Entrenador entrenador = entrenadorDao.buscarEntrenador(identificacion);
-					if(entrenador != null) {
+					if (entrenador != null) {
 						viewActualizarEntrenador = new ActualizarEntrenador();
-						if(viewActualizarEntrenador != null) {
-							viewActualizarEntrenador.setVisible(true);
 						String numeroId = entrenador.getIdentificacion();
 						viewActualizarEntrenador.getTxtNumeroid().setText(identificacion);
 						viewActualizarEntrenador.getTxtNumeroid().setEditable(false);
@@ -225,29 +224,34 @@ public class EntrenadorController implements ActionListener {
 						String segundoApellido = entrenador.getSegundoApellido();
 						viewActualizarEntrenador.getTxtSegundoapellido().setText(segundoApellido);
 						viewActualizarEntrenador.getTxtSegundoapellido().setEnabled(false);
-						String telefono = entrenador.getTelefono();
-						viewActualizarEntrenador.getTxtTelefono().setText(telefono);
-						String correoElectronico = entrenador.getCorreo();
-						viewActualizarEntrenador.getTxtCorreoelectronico().setText(correoElectronico);						
-						
-						boolean respuesta = entrenadorDao.modificarEntrenador(numeroId, primerNombre, segundoNombre, primerApellido, segundoApellido, null, correoElectronico, telefono, 0);
-						if (respuesta) {
-							JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
-						} else {
-							JOptionPane.showMessageDialog(null,
-									"Ocurrio un error actualizando los datos del entrenador.");
-						}
-						}
-						
+						String telefono = viewActualizarEntrenador.getTxtTelefono().getText();
+						entrenador.setTelefono(telefono);
+						String correoElectronico = viewActualizarEntrenador.getTxtCorreoelectronico().getText();
+						entrenador.setCorreo(correoElectronico);
+						viewActualizarEntrenador.setVisible(true);
+						viewActualizarEntrenador.getBtnActualizar1().addActionListener(this);
 					}
-						
-						
-					}
+
 				}
 			}
-				
-			
-			
 		}
-	}
+		if (viewActualizarEntrenador != null && e.getSource() == viewActualizarEntrenador.btnActualizar1) {
+			String numeroId = viewActualizarEntrenador.getTxtNumeroid().getText();
+			String primerNombre = viewActualizarEntrenador.getTxtPrimernombre().getText();
+			String segundoNombre = viewActualizarEntrenador.getTxtSegundoNombre().getText();
+			String primerApellido = viewActualizarEntrenador.getTxtPrimerapellido().getText();
+			String segundoApellido = viewActualizarEntrenador.getTxtSegundoapellido().getText();
+			String telefono = viewActualizarEntrenador.getTxtTelefono().getText();
+			String correoElectronico = viewActualizarEntrenador.getTxtCorreoelectronico().getText();
 
+			boolean respuesta = entrenadorDao.modificarEntrenador(numeroId, primerNombre, segundoNombre, primerApellido,
+					segundoApellido, null, correoElectronico, telefono, 0);
+			if (respuesta) {
+				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
+			} else {
+				JOptionPane.showMessageDialog(null, "Ocurrio un error actualizando los datos del entrenador.");
+			}
+		}
+
+	}
+}
