@@ -9,12 +9,19 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.Normalizer.Form;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,12 +29,15 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -36,70 +46,175 @@ import javax.swing.table.TableColumnModel;
 import com.github.sarxos.webcam.Webcam;
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
+import co.powergym.dao.MembresiaDao;
+import co.powergym.dao.MembresiaSocioDao;
 import co.powergym.dao.SocioDao;
+import co.powergym.model.Membresia;
 import co.powergym.model.Socio;
+import co.powergym.view.socio.SocioAsignarMembresiaView;
 import co.powergym.view.socio.SocioBusquedaView;
 import co.powergym.view.socio.SocioConsultaEntradaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
 import co.powergym.view.socio.SocioRegistroView;
+import javafx.scene.control.ComboBox;
+import jdk.nashorn.internal.runtime.arrays.NumericElements;
 import co.powergym.view.socio.SocioRegistrarEntradaView;
 
-public class SocioController implements ActionListener {
+public class SocioController implements ActionListener, ItemListener {
 
-	Webcam webcam;
-	SocioDao socioDao;
-
-	SocioRegistroView viewRegistroSocio;
-	SocioBusquedaView viewBusquedaSocio;
-	SocioListadoView viewListadoSocio;
-	SocioCumpleaniosListadoView viewCumpleaniosListadoView;
-	SocioRegistrarEntradaView viewRegistrarEntrada;
-	SocioConsultaEntradaView viewConsultarEntrada;
+	private Webcam webcam;
+	private SocioDao socioDao;
+	private MembresiaDao membresiaDao;
+	private MembresiaSocioDao membresiaSocioDao;
+	private SocioRegistroView viewRegistroSocio;
+	private SocioBusquedaView viewBusquedaSocio;
+	private SocioListadoView viewListadoSocio;
+	private SocioCumpleaniosListadoView viewCumpleaniosListadoView;
+	private SocioRegistrarEntradaView viewRegistrarEntrada;
+	private SocioConsultaEntradaView viewConsultarEntrada;
 	private BufferedImage fotoTemp;
+	private SocioAsignarMembresiaView viewAsignarMembresia;
 
-	public SocioController(SocioDao socioDao, SocioRegistroView viewRegistroSocio, SocioBusquedaView viewBusquedaSocio,
+	public SocioController(SocioRegistroView viewRegistroSocio, SocioBusquedaView viewBusquedaSocio,
 			SocioListadoView socioListadoView, SocioCumpleaniosListadoView cumpleaniosListadoView,
-			SocioRegistrarEntradaView registrarEntradaView, SocioConsultaEntradaView consultaEntradaView) {
-		this.socioDao = socioDao;
+			SocioRegistrarEntradaView registrarEntradaView, SocioConsultaEntradaView consultaEntradaView,
+			SocioAsignarMembresiaView asignarMembresiaView) {
+		this.socioDao = new SocioDao();
+		this.membresiaDao = new MembresiaDao();
+		this.membresiaSocioDao = new MembresiaSocioDao();
+
 		if (viewRegistroSocio != null) {
-			webcam = Webcam.getWebcams().get(0);
-			this.viewRegistroSocio = viewRegistroSocio;
-			this.viewRegistroSocio.btnTomarFoto.addActionListener(this);
-			this.viewRegistroSocio.btnCapturar.addActionListener(this);
-			this.viewRegistroSocio.btnRegistrar.addActionListener(this);
-			this.viewRegistroSocio.btnCancelar.addActionListener(this);
-			this.viewRegistroSocio.setVisible(true);
-			this.viewRegistroSocio.setWebcam(webcam);
+			initRegistroSocio(viewRegistroSocio);
 		}
 		if (viewBusquedaSocio != null) {
-			this.viewBusquedaSocio = viewBusquedaSocio;
-			this.viewBusquedaSocio.btnBuscar.addActionListener(this);
-			this.viewBusquedaSocio.getBtnAgregarMembresia().addActionListener(this);
-			this.viewBusquedaSocio.setVisible(true);
+			initBusquedaSocio(viewBusquedaSocio);
 		}
 		if (socioListadoView != null) {
-			this.viewListadoSocio = socioListadoView;
-			listadoSociosLlenarTabla(viewListadoSocio.getTableSocios());
-			this.viewListadoSocio.setVisible(true);
+			initSocioListado(socioListadoView);
 		}
 		if (cumpleaniosListadoView != null) {
-			this.viewCumpleaniosListadoView = cumpleaniosListadoView;
-			listadoCumpleaniosLlenarTabla(viewCumpleaniosListadoView.getTableSocios());
-			this.viewCumpleaniosListadoView.setVisible(true);
+			initCumpleaniosListado(cumpleaniosListadoView);
 		}
 		if (registrarEntradaView != null) {
-			this.viewRegistrarEntrada = registrarEntradaView;
-			this.viewRegistrarEntrada.setVisible(true);
-			this.viewRegistrarEntrada.setLocationRelativeTo(null);
-			this.viewRegistrarEntrada.getBtnIdentificar().addActionListener(this);
-			this.viewRegistrarEntrada.getBtnCancelar().addActionListener(this);
+			initRegistrarEntrada(registrarEntradaView);
 		}
 		if (consultaEntradaView != null) {
-			this.viewConsultarEntrada = consultaEntradaView;
-			this.viewConsultarEntrada.setVisible(true);
-
+			initConsultarEntrada(consultaEntradaView);
 		}
+		if (asignarMembresiaView != null) {
+			initAsignarMembresia(asignarMembresiaView);
+		}
+	}
+
+	public void initAsignarMembresia(SocioAsignarMembresiaView asignarMembresiaView) {
+		this.viewAsignarMembresia = asignarMembresiaView;
+		cargarDatosAsignarMembresia();
+		this.viewAsignarMembresia.setLocationRelativeTo(null);
+		this.viewAsignarMembresia.setVisible(true);
+	}
+
+	private void cargarDatosAsignarMembresia() {
+		List<Membresia> membresias = membresiaDao.listaMembresia();
+		JComboBox comboboxMembresias = viewAsignarMembresia.getComboBoxMembresia();
+		comboboxMembresias.addItem("----");
+		for (Membresia membresia : membresias) {
+			comboboxMembresias.addItem(membresia);
+		}
+		comboboxMembresias.addItemListener(this);
+		viewAsignarMembresia.getCheckboxInscripcion().addItemListener(this);
+		viewAsignarMembresia.getTextFieldValorInscripcion().getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarTotal();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarTotal();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				actualizarTotal();
+			}
+		});
+		viewAsignarMembresia.getBtnCancelar().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				viewAsignarMembresia.setVisible(false);
+				viewAsignarMembresia.dispose();
+			}
+		});
+		viewAsignarMembresia.getBtnFinalizar().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		JComboBox<String> comboBoxMeses = viewAsignarMembresia.getComboBoxMes();
+		comboBoxMeses.addItem("Enero");
+		comboBoxMeses.addItem("Febrero");
+		comboBoxMeses.addItem("Marzo");
+		comboBoxMeses.addItem("Abril");
+		comboBoxMeses.addItem("Mayo");
+		comboBoxMeses.addItem("Junio");
+		comboBoxMeses.addItem("Julio");
+		comboBoxMeses.addItem("Agosto");
+		comboBoxMeses.addItem("Septiembre");
+		comboBoxMeses.addItem("Octubre");
+		comboBoxMeses.addItem("Noviembre");
+		comboBoxMeses.addItem("Diciembre");
+
+	}
+
+	public void initRegistroSocio(SocioRegistroView socioRegistroView) {
+		webcam = Webcam.getWebcams().get(0);
+		this.viewRegistroSocio = socioRegistroView;
+		this.viewRegistroSocio.btnTomarFoto.addActionListener(this);
+		this.viewRegistroSocio.btnCapturar.addActionListener(this);
+		this.viewRegistroSocio.btnRegistrar.addActionListener(this);
+		this.viewRegistroSocio.btnCancelar.addActionListener(this);
+		this.viewRegistroSocio.setVisible(true);
+		this.viewRegistroSocio.setWebcam(webcam);
+	}
+
+	public void initBusquedaSocio(SocioBusquedaView socioBusquedaView) {
+		this.viewBusquedaSocio = socioBusquedaView;
+		this.viewBusquedaSocio.btnBuscar.addActionListener(this);
+		this.viewBusquedaSocio.getBtnAgregarMembresia().addActionListener(this);
+		this.viewBusquedaSocio.setVisible(true);
+	}
+
+	public void initSocioListado(SocioListadoView socioListadoView) {
+		this.viewListadoSocio = socioListadoView;
+		listadoSociosLlenarTabla(viewListadoSocio.getTableSocios());
+		this.viewListadoSocio.setVisible(true);
+	}
+
+	public void initCumpleaniosListado(SocioCumpleaniosListadoView cumpleaniosListadoView) {
+		this.viewCumpleaniosListadoView = cumpleaniosListadoView;
+		listadoCumpleaniosLlenarTabla(viewCumpleaniosListadoView.getTableSocios());
+		this.viewCumpleaniosListadoView.setVisible(true);
+	}
+
+	public void initRegistrarEntrada(SocioRegistrarEntradaView registrarEntradaView) {
+		this.viewRegistrarEntrada = registrarEntradaView;
+		this.viewRegistrarEntrada.setVisible(true);
+		this.viewRegistrarEntrada.setLocationRelativeTo(null);
+		this.viewRegistrarEntrada.getBtnIdentificar().addActionListener(this);
+		this.viewRegistrarEntrada.getBtnCancelar().addActionListener(this);
+	}
+
+	public void initConsultarEntrada(SocioConsultaEntradaView consultaEntradaView) {
+		this.viewConsultarEntrada = consultaEntradaView;
+		this.viewConsultarEntrada.setVisible(true);
 	}
 
 	@Override
@@ -154,7 +269,6 @@ public class SocioController implements ActionListener {
 					JOptionPane.showMessageDialog(null, "El socio ya se encuentra registrado");
 				}
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		} else if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.getBtnCapturar()) {
@@ -197,7 +311,9 @@ public class SocioController implements ActionListener {
 						+ "por favor verifique e intente de nuevo");
 			}
 		} else if (viewBusquedaSocio != null && e.getSource() == viewBusquedaSocio.getBtnAgregarMembresia()) {
-			
+
+			initAsignarMembresia(new SocioAsignarMembresiaView());
+
 		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnCancelar()) {
 			viewRegistrarEntrada.setVisible(false);
 		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnIdentificar()) {
@@ -295,8 +411,89 @@ public class SocioController implements ActionListener {
 			defaultTableModel.addRow(columna);
 		}
 		tableSocios.setModel(defaultTableModel);
-
 		tableSocios.repaint();
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+
+		if (viewAsignarMembresia != null && e.getSource() == viewAsignarMembresia.getComboBoxMembresia()) {
+			try {
+				Membresia membresia = (Membresia) viewAsignarMembresia.getComboBoxMembresia().getSelectedItem();
+				viewAsignarMembresia.getLabelPrecioMembresia()
+						.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
+				viewAsignarMembresia.getLabelResumenNombreMembresia().setText(membresia.getNombre());
+
+				viewAsignarMembresia.getLabelDuracionMembresia().setText(membresia.getDuracion() + "");
+
+				viewAsignarMembresia.getLabelDiasPermitidos().setText(membresia.getDias());
+				viewAsignarMembresia.getLabelHorarioPermitido().setText(membresia.getHorarioPermitido());
+				if (membresia.getCantidad_visitas_dia() == -1) {
+					viewAsignarMembresia.getLabelVisitasPorDia().setText("Sin limite");
+				} else {
+					viewAsignarMembresia.getLabelVisitasPorDia().setText(membresia.getCantidad_visitas_dia() + "");
+				}
+
+				viewAsignarMembresia.getLblResumenPrecioMembresia()
+						.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
+				viewAsignarMembresia.getLabelResumenSubtotal()
+						.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
+				if (viewAsignarMembresia.getCheckboxInscripcion().getState() == true) {
+					viewAsignarMembresia.getTextFieldValorInscripcion().setEnabled(true);
+					String costo = viewAsignarMembresia.getTextFieldValorInscripcion().getText();
+					if (!costo.equals("") || !costo.matches("[a-zA-Z]+")) {
+						int costoIncripcion = Integer.parseInt(costo);
+						viewAsignarMembresia.getLabelResumenCostoInscripcion()
+								.setText("$" + NumberFormat.getNumberInstance().format(costoIncripcion));
+						viewAsignarMembresia.getLabelResumenTotal().setText(
+								"$" + NumberFormat.getNumberInstance().format(membresia.getValor() + costoIncripcion));
+					}
+				} else {
+					viewAsignarMembresia.getTextFieldValorInscripcion().setEnabled(false);
+					viewAsignarMembresia.getLabelResumenCostoInscripcion().setText("$0");
+
+					viewAsignarMembresia.getLabelResumenTotal().setText("$" + membresia.getValor());
+				}
+
+			} catch (Exception error) {
+
+			}
+		}
+		if (viewAsignarMembresia != null && viewAsignarMembresia.getCheckboxInscripcion() == e.getSource()) {
+			try {
+				actualizarTotal();
+			} catch (Exception error) {
+
+			}
+		}
+	}
+
+	private void actualizarTotal() {
+		if (viewAsignarMembresia.getComboBoxMembresia().getSelectedItem() instanceof Membresia) {
+			Membresia membresia = (Membresia) viewAsignarMembresia.getComboBoxMembresia().getSelectedItem();
+
+			if (viewAsignarMembresia.getCheckboxInscripcion().getState() == true) {
+				viewAsignarMembresia.getTextFieldValorInscripcion().setEnabled(true);
+				String costo = viewAsignarMembresia.getTextFieldValorInscripcion().getText();
+				if (!costo.equals("") || !costo.matches("[a-zA-Z]+")) {
+					try {
+						int costoIncripcion = Integer.parseInt(costo);
+						viewAsignarMembresia.getLabelResumenCostoInscripcion()
+								.setText("$" + NumberFormat.getNumberInstance().format(costoIncripcion));
+						viewAsignarMembresia.getLabelResumenTotal().setText(
+								"$" + NumberFormat.getNumberInstance().format(membresia.getValor() + costoIncripcion));
+					} catch (Exception error) {
+
+					}
+				}
+			} else {
+				viewAsignarMembresia.getTextFieldValorInscripcion().setEnabled(false);
+				viewAsignarMembresia.getLabelResumenCostoInscripcion().setText("$0");
+				viewAsignarMembresia.getLabelResumenTotal()
+						.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
+			}
+		}
+
 	}
 
 }

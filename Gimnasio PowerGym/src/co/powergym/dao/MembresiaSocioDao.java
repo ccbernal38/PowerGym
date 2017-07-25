@@ -28,13 +28,15 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO MembresiaSocio(Socio_id, Membresia_id, ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Membresia_Socio(Socio_id, Membresia_id, fecha, activa) VALUES(?,?,?,?)");
 			
 			statement.execute();
 			respuesta = true;
+			conexion.cerrarConexion();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return respuesta;
 	}
 

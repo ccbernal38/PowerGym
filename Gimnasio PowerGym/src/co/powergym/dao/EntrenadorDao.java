@@ -16,44 +16,43 @@ import co.powergym.model.Conexion;
 import co.powergym.model.Entrenador;
 import co.powergym.model.Socio;
 
-public class EntrenadorDao implements EntrenadorDaoInterface{
-	
+public class EntrenadorDao implements EntrenadorDaoInterface {
+
 	Conexion conexion;
-	
-	public EntrenadorDao(){
+
+	public EntrenadorDao() {
 		conexion = new Conexion();
 	}
 
 	@Override
 	public boolean registrarEntrenador(String identificacion, String primerNombre, String segundoNombre,
 			String primerApellido, String segundoApellido, Date fechaNacimiento, String correo, String telefono,
-			int genero) 
-	{
+			int genero) {
 		boolean respuesta = false;
 		try {
-				Connection accesoBD = conexion.getConexion();
-				PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Entrenador(identificacion, primerNombre, segundoNombre,"
-						+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?,?)");
-				statement.setString(1, identificacion);
-				statement.setString(2, primerNombre);
-				statement.setString(3, segundoNombre);
-				statement.setString(4, primerApellido);
-				statement.setString(5, segundoApellido);
-				statement.setDate(6, fechaNacimiento);
-				statement.setString(7, telefono);
-				statement.setString(8, correo);
-				statement.setInt(9, genero);
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(fechaNacimiento);			
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD
+					.prepareStatement("INSERT INTO Entrenador(identificacion, primerNombre, segundoNombre,"
+							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?,?)");
+			statement.setString(1, identificacion);
+			statement.setString(2, primerNombre);
+			statement.setString(3, segundoNombre);
+			statement.setString(4, primerApellido);
+			statement.setString(5, segundoApellido);
+			statement.setDate(6, fechaNacimiento);
+			statement.setString(7, telefono);
+			statement.setString(8, correo);
+			statement.setInt(9, genero);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(fechaNacimiento);
 
-				//statement.setInt(11, calendar.get(Calendar.DAY_OF_MONTH));
-				//statement.setInt(12, calendar.get(Calendar.MONTH) + 1);
-				//statement.setInt(13, calendar.get(Calendar.YEAR));
-				statement.execute();
-				respuesta = true;
-			} 
-		catch (SQLException e) 
-		{
+			// statement.setInt(11, calendar.get(Calendar.DAY_OF_MONTH));
+			// statement.setInt(12, calendar.get(Calendar.MONTH) + 1);
+			// statement.setInt(13, calendar.get(Calendar.YEAR));
+			statement.execute();
+			respuesta = true;
+			conexion.cerrarConexion();
+		} catch (SQLException e) {
 			System.out.println(e);
 		}
 		return respuesta;
@@ -81,8 +80,9 @@ public class EntrenadorDao implements EntrenadorDaoInterface{
 				entrenador.setTelefono(resultSet.getString(8));
 				entrenador.setCorreo(resultSet.getString(9));
 				entrenador.setGenero(resultSet.getInt(10));
-				list.add(entrenador);				
+				list.add(entrenador);
 			}
+			conexion.cerrarConexion();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,12 +94,14 @@ public class EntrenadorDao implements EntrenadorDaoInterface{
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement statement = connection.prepareStatement("DELETE FROM Entrenador WHERE identificacion = ?");
+			PreparedStatement statement = connection
+					.prepareStatement("DELETE FROM Entrenador WHERE identificacion = ?");
 			statement.setString(1, identificacion);
 			resultado = statement.execute();
-			resultado=true;
+			resultado = true;
+			conexion.cerrarConexion();
 		} catch (Exception e) {
-e.printStackTrace();
+			e.printStackTrace();
 		}
 		return resultado;
 	}
@@ -107,32 +109,33 @@ e.printStackTrace();
 	@Override
 	public boolean modificarEntrenador(String identificacion, String primerNombre, String segundoNombre,
 			String primerApellido, String segundoApellido, Date fechaNacimiento, String correo, String telefono,
-			int genero){		
+			int genero) {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador Set  primerNombre, segundoNombre,"
-						+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?) "
-						+ "WHERE identificacion = ?");				
-				statement.setString(2, primerNombre);
-				statement.setString(3, segundoNombre);
-				statement.setString(4, primerApellido);
-				statement.setString(5, segundoApellido);
-				statement.setDate(6, fechaNacimiento);
-				statement.setString(7, telefono);
-				statement.setString(8, correo);
-				statement.setInt(9, genero);
-				resultado = statement.execute();
-				
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(fechaNacimiento);
-				
+			PreparedStatement statement = connection
+					.prepareStatement("UPDATE Entrenador Set  primerNombre, segundoNombre,"
+							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?) "
+							+ "WHERE identificacion = ?");
+			statement.setString(2, primerNombre);
+			statement.setString(3, segundoNombre);
+			statement.setString(4, primerApellido);
+			statement.setString(5, segundoApellido);
+			statement.setDate(6, fechaNacimiento);
+			statement.setString(7, telefono);
+			statement.setString(8, correo);
+			statement.setInt(9, genero);
+			resultado = statement.execute();
 
-				statement.setInt(11, calendar.get(Calendar.DAY_OF_MONTH));
-				statement.setInt(12, calendar.get(Calendar.MONTH) + 1);
-				statement.setInt(13, calendar.get(Calendar.YEAR));
-				statement.execute();
-				resultado = true;
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(fechaNacimiento);
+
+			statement.setInt(11, calendar.get(Calendar.DAY_OF_MONTH));
+			statement.setInt(12, calendar.get(Calendar.MONTH) + 1);
+			statement.setInt(13, calendar.get(Calendar.YEAR));
+			statement.execute();
+			resultado = true;
+			conexion.cerrarConexion();
 		} catch (Exception e) {
 
 		}
@@ -162,12 +165,11 @@ e.printStackTrace();
 				entrenador.setCorreo(resultSet.getString(8));
 				entrenador.setGenero(resultSet.getInt(9));
 			}
+			conexion.cerrarConexion();
 		} catch (Exception e) {
 			System.out.println("error");
 		}
 		return entrenador;
 	}
-
-
 
 }

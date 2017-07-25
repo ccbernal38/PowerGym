@@ -1,6 +1,7 @@
 package co.powergym.model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Membresia {
@@ -8,20 +9,22 @@ public class Membresia {
 	private int id;
 	private String codigo;
 	private String nombre;
-	private double valor;
+	private int valor;
 	private int cantidad_visitas_dia;
 	private int duracion;
 	private List<DiaSemana> diasPermitidos;
 	private List<Horario> horario;
 	private Date fecha_creacion;
+	private Duracion duracionValor;
+	private boolean renovar;
 
-	public Membresia(String nombre, double valor) {
+	public Membresia(String nombre, int valor) {
 		super();
 		this.nombre = nombre;
 		this.valor = valor;
 	}
 
-	public Membresia(String codigo, String nombre, double valor) {
+	public Membresia(String codigo, String nombre, int valor) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -30,6 +33,22 @@ public class Membresia {
 
 	public Membresia() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public boolean isRenovar() {
+		return renovar;
+	}
+
+	public void setRenovar(boolean renovar) {
+		this.renovar = renovar;
+	}
+
+	public Duracion getDuracionValor() {
+		return duracionValor;
+	}
+
+	public void setDuracionValor(Duracion duracionValor) {
+		this.duracionValor = duracionValor;
 	}
 
 	public int getId() {
@@ -48,11 +67,11 @@ public class Membresia {
 		this.nombre = nombre;
 	}
 
-	public double getValor() {
+	public int getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(int valor) {
 		this.valor = valor;
 	}
 
@@ -102,6 +121,49 @@ public class Membresia {
 
 	public void setHorario(List<Horario> horario) {
 		this.horario = horario;
+	}
+
+	public String getDias() {
+		String dias = "";
+		for (int i = 0; i < diasPermitidos.size(); i++) {
+
+			if (i + 1 == diasPermitidos.size()) {
+				dias += diasPermitidos.get(i).getNombre() + "";
+			} else if (i < diasPermitidos.size()) {
+				dias += diasPermitidos.get(i).getNombre() + " - ";
+			}
+		}
+		return dias;
+	}
+
+	public String getTiempoDuracion() {
+		return "Comienza el " + fecha_creacion + " hasta el " + "Fin";
+	}
+
+	public String getHorarioPermitido() {
+		String cadena = "<html>";
+		for (int i = 0; i < getHorario().size(); i++) {
+			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
+			String dateHoraInicio = sdf.format(getHorario().get(i).getHoraInicio());
+			String dateHoraFin = sdf.format(getHorario().get(i).getHoraFin());
+			if (i + 1 == getHorario().size()) {
+				cadena += dateHoraInicio + " - " + dateHoraFin;
+			} else if (i < getHorario().size()) {
+				cadena += dateHoraInicio + " - " + dateHoraFin + ", ";
+			}
+			if (i % 3 == 1) {
+				cadena += "<br/>";
+			}
+
+		}
+		cadena += "</html>";
+		return cadena;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return nombre;
 	}
 
 }
