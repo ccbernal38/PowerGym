@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,10 +43,14 @@ public class MembresiaController implements ActionListener {
 	private String limite;
 	private int visitasDia;
 	private List<DiaSemana> dias;
-	private List<DiaSemana> diasAux;
-	private boolean restriccionHorario;
+	private List<DiaSemana> diasAux = new ArrayList<>();
+	private boolean restriccionHorarioSi;
+	private boolean restriccionHorarioNo;
+	private String restriccionHorario;
 	private String horaDe;
 	private String horaA;
+	private String horaDeAux;
+	private String horaAAux;
 	private List<Horario> horarios;
 
 	public MembresiaController(MembresiaDao membresiaDao, CrearMembresia membresia,
@@ -61,8 +66,16 @@ public class MembresiaController implements ActionListener {
 			this.membresia.getChckbxNo().addActionListener(this);
 			this.membresia.getComboBoxVisitas().setEnabled(false); 
 			this.membresia.getCheckBox_todosDias().addActionListener(this);
+			this.membresia.getCheckBox_lunes().addActionListener(this);
+			this.membresia.getCheckBox_martes().addActionListener(this);
+			this.membresia.getCheckBox_miercoles().addActionListener(this);
+			this.membresia.getCheckBox_jueves().addActionListener(this);
+			this.membresia.getCheckBox_viernes().addActionListener(this);
+			this.membresia.getCheckBox_sabado().addActionListener(this);
+			this.membresia.getCheckBox_domingo().addActionListener(this);
 			this.membresia.getChckbxNo_horario().addActionListener(this);
 			this.membresia.getChckbxSiLosHorarios().addActionListener(this);
+			this.membresia.getBtnAadirHorario().addActionListener(this);
 			this.membresia.getBtnFinalizar().addActionListener(this);
 
 		}
@@ -397,6 +410,63 @@ public class MembresiaController implements ActionListener {
 					diasAux.clear();
 				}
 		}
+		if(membresia.getCheckBox_lunes() == e.getSource()) {
+			
+			if(membresia.getCheckBox_lunes().isSelected() == true) {
+				DiaSemana lunes = new DiaSemana(1, "Lunes");
+				diasAux.add(lunes);
+			}else if(membresia.getCheckBox_lunes().isSelected() == false) {
+				eliminarDiasAux(1);
+			}
+		}
+		if(membresia.getCheckBox_martes() == e.getSource()) {			
+			if(membresia.getCheckBox_martes().isSelected() == true) {
+				DiaSemana martes = new DiaSemana(2, "Martes");
+				diasAux.add(martes);
+			}else if (membresia.getCheckBox_martes().isSelected() == false) {
+				eliminarDiasAux(2);
+			}
+		}
+		if(membresia.getCheckBox_miercoles() == e.getSource()) {
+			if(membresia.getCheckBox_miercoles().isSelected() == true) {
+				DiaSemana miercoles = new DiaSemana(3, "Miercoles");
+				diasAux.add(miercoles);
+			}else if(membresia.getCheckBox_miercoles().isSelected() == false) {
+				eliminarDiasAux(3);
+			}
+		}
+		if(membresia.getCheckBox_jueves() == e.getSource()) {
+			if(membresia.getCheckBox_jueves().isSelected() == true) {
+				DiaSemana jueves = new DiaSemana(4, "Jueves");
+				diasAux.add(jueves);
+			}else if(membresia.getCheckBox_jueves().isSelected() == false) {
+				eliminarDiasAux(4);
+			}
+		}
+		if(membresia.getCheckBox_viernes() == e.getSource()) {
+			if(membresia.getCheckBox_viernes().isSelected() == true) {
+				DiaSemana viernes = new DiaSemana(5, "Viernes");
+				diasAux.add(viernes);
+			}else if(membresia.getCheckBox_viernes().isSelected() == false) {
+				eliminarDiasAux(5);
+			}
+		}
+		if(membresia.getCheckBox_sabado() == e.getSource()) {
+			if(membresia.getCheckBox_sabado().isSelected() == true) {
+				DiaSemana sabado = new DiaSemana(6, "Sabado");
+				diasAux.add(sabado);
+			}else if(membresia.getCheckBox_sabado().isSelected() == false) {
+				eliminarDiasAux(6);
+			}
+		}
+		if(membresia.getCheckBox_domingo() == e.getSource()) {
+			if(membresia.getCheckBox_domingo().isSelected() == true) {
+				DiaSemana domingo = new DiaSemana(7, "Domingo");
+				diasAux.add(domingo);
+			}else if(membresia.getCheckBox_domingo().isSelected() == false) {
+				eliminarDiasAux(7);
+			}
+		}
 		if(membresia.getChckbxNo_horario() == e.getSource()) {
 			
 			membresia.getComboBoxA().setEnabled(false);
@@ -422,6 +492,13 @@ public class MembresiaController implements ActionListener {
 			crearMembresia.setVisible(true);
 			crearMembresia.getBtnSiguiente().addActionListener(this);
 			crearMembresia.getBtnAtras().addActionListener(this);
+		}
+		if(membresia.getBtnAadirHorario() == e.getSource()) {
+			
+			horaDeAux = (String)membresia.getComboBoxDe().getSelectedItem();
+			horaAAux = (String)membresia.getComboBoxA().getSelectedItem();
+			
+			
 		}
 		if (membresiaListadoView != null && e.getSource() == membresiaListadoView.getBtnEditar()) {
 
@@ -449,7 +526,16 @@ public class MembresiaController implements ActionListener {
 		}
 	}
 	
-	
+	public void eliminarDiasAux(int dia) {
+		if(diasAux != null) {
+			for (int i = 0; i < diasAux.size(); i++) {
+				if(diasAux.get(i).getId() == dia) {
+					diasAux.remove(i);
+				}
+			}	
+		}
+		
+	}
 	public void llenarTabla() {
 		
 		nombreMembresia = membresia.getTfNombreMembresia().getText();
@@ -469,11 +555,20 @@ public class MembresiaController implements ActionListener {
 			visitasDia = Integer.parseInt((String) membresia.getComboBoxVisitas().getSelectedItem());
 			limite = visitasDia+" veces por día";
 		}
+		dias = diasAux;
+		restriccionHorarioSi = membresia.getChckbxSiLosHorarios().isSelected();
+		restriccionHorarioNo = membresia.getChckbxNo_horario().isSelected();
 		
-		/**limiteMembresiaDia	
+		if(restriccionHorarioNo == true) {
+			restriccionHorario = "No hay restricción.";
+		}else if(restriccionHorarioSi == true) {
+			
+		}
+		/**
 		private int visitasDia;
 		private List<Dia> dias;
-		private boolean restriccionHorario;
+		restriccionHorarioSi;
+		private boolean restriccionHorarioNo;	
 		private String horaDe;
 		private String horaA;
 		private List<Horario> horarios;**/
