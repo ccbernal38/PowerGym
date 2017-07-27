@@ -2,16 +2,20 @@ package co.powergym.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.panamahitek.PanamaHitek_Arduino;
 
+import co.powergym.dao.DuracionDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.model.DiaSemana;
 import co.powergym.model.Duracion;
@@ -25,6 +29,7 @@ public class MembresiaController implements ActionListener {
 	private CrearMembresia membresia;
 	private MembresiaListadoView membresiaListadoView;
 	private MembresiaDao membresiaDao;
+	private DuracionDao duracionDao;
 	int contPasos = 1;
 	int contPasosAtras = 5;
 	
@@ -47,11 +52,11 @@ public class MembresiaController implements ActionListener {
 	private String horaDeAux;
 	private String horaAAux;
 	private List<Horario> horarios;
-
+	
 	public MembresiaController(MembresiaDao membresiaDao, CrearMembresia membresia,
 			MembresiaListadoView membresiaListadoView) {
 		this.membresiaDao = membresiaDao;
-
+		this.duracionDao = new DuracionDao();
 		if (membresia != null) {
 			this.membresia = membresia;
 			this.membresia.setVisible(true);
@@ -72,7 +77,9 @@ public class MembresiaController implements ActionListener {
 			this.membresia.getChckbxSiLosHorarios().addActionListener(this);
 			this.membresia.getBtnAadirHorario().addActionListener(this);
 			this.membresia.getBtnFinalizar().addActionListener(this);
-
+			llenarRegistroMembresia();
+			llenarComboboxNumeroVisitas();
+			llenarComboboxHorarios();
 		}
 		if (membresiaListadoView != null) {
 			this.membresiaListadoView = membresiaListadoView;
@@ -84,7 +91,33 @@ public class MembresiaController implements ActionListener {
 		}
 
 	}
-
+	
+	private void llenarRegistroMembresia() {
+		
+		List<Duracion> list = duracionDao.listarDuracion();
+		for (int i = 0; i < list.size(); i++) {
+			this.membresia.getCBXTipoTiempo().addItem(list.get(i));			
+		}
+	}
+	
+	private void llenarComboboxNumeroVisitas() {
+	
+		for (int i = 1; i <= 20; i++) {
+			this.membresia.getComboBoxVisitas().addItem(i);
+		}
+	}
+	
+	private void llenarComboboxHorarios(){
+		
+		for (int i = 1; 1 <= 24; i++) {
+			if(i <= 12) {
+				this.membresia.getComboBoxDe().addItem(i+":00 AM");				
+			}else if(i > 12 && i <= 24) {
+				this.membresia.getComboBoxA().addItem(i+":00 PM");
+			}else
+				break;
+		}
+	}
 	private void listadoMembresiasLlenarTabla(JTable tableListMembresias) {
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
@@ -207,7 +240,7 @@ public class MembresiaController implements ActionListener {
 				membresia.getLblDe().setBounds(47, 215, 25, 14);
 				membresia.getComboBoxDe().setBounds(75, 212, 72, 20);
 				membresia.getLblA().setBounds(160, 215, 25, 14);
-				membresia.getComboBoxA().setBounds(180, 212, 72, 20);
+				membresia.getComboBoxA().setBounds(180, 212, 79, 20);
 				membresia.getBtnAadirHorario().setBounds(260, 212, 72, 20);
 				membresia.getButtonEliminarH().setBounds(253, 310, 80, 20);
 				membresia.getList_listaHorarios().setBounds(75, 238, 257, 68);
@@ -490,10 +523,13 @@ public class MembresiaController implements ActionListener {
 		}
 		if(membresia.getBtnAadirHorario() == e.getSource()) {
 			
+			JList lista = membresia.getList_listaHorarios();
+			DefaultListModel modelo = (DefaultListModel) lista.getmode();
 			horaDeAux = (String)membresia.getComboBoxDe().getSelectedItem();
 			horaAAux = (String)membresia.getComboBoxA().getSelectedItem();
-			
-			
+			modelo.addElement(horaDeAux +" "+horaAAux);
+			lista.setModel(modelo);
+			lista.updateUI();
 		}
 		if (membresiaListadoView != null && e.getSource() == membresiaListadoView.getBtnEditar()) {
 
