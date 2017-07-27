@@ -102,19 +102,17 @@ public class SocioController implements ActionListener, ItemListener {
 		if (consultaEntradaView != null) {
 			initConsultarEntrada(consultaEntradaView);
 		}
-		if (asignarMembresiaView != null) {
-			initAsignarMembresia(asignarMembresiaView);
-		}
+
 	}
 
-	public void initAsignarMembresia(SocioAsignarMembresiaView asignarMembresiaView) {
+	public void initAsignarMembresia(SocioAsignarMembresiaView asignarMembresiaView, String identificacion) {
 		this.viewAsignarMembresia = asignarMembresiaView;
-		cargarDatosAsignarMembresia();
-		this.viewAsignarMembresia.setLocationRelativeTo(null);
+		cargarDatosAsignarMembresia(identificacion);
+		this.viewAsignarMembresia.setLocationRelativeTo(viewBusquedaSocio);
 		this.viewAsignarMembresia.setVisible(true);
 	}
 
-	private void cargarDatosAsignarMembresia() {
+	private void cargarDatosAsignarMembresia(String identificacion) {
 		List<Membresia> membresias = membresiaDao.listaMembresia();
 		JComboBox comboboxMembresias = viewAsignarMembresia.getComboBoxMembresia();
 		comboboxMembresias.addItem("----");
@@ -144,7 +142,7 @@ public class SocioController implements ActionListener, ItemListener {
 			}
 		});
 		viewAsignarMembresia.getBtnCancelar().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				viewAsignarMembresia.setVisible(false);
@@ -152,10 +150,34 @@ public class SocioController implements ActionListener, ItemListener {
 			}
 		});
 		viewAsignarMembresia.getBtnFinalizar().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
+				if (viewAsignarMembresia.getComboBoxMembresia().getSelectedItem() instanceof Membresia) {
+					Membresia membresia = (Membresia) viewAsignarMembresia.getComboBoxMembresia().getSelectedItem();
+					Socio socio = socioDao.buscarSocio(identificacion);
+					int dia = (int) viewAsignarMembresia.getComboBoxDia().getSelectedItem();
+					int mes = viewAsignarMembresia.getComboBoxMes().getSelectedIndex();
+					Calendar calendar = Calendar.getInstance();
+					calendar.set(calendar.get(Calendar.YEAR), mes, dia);
+					Date date = new Date(calendar.get(Calendar.YEAR) - 1900, mes, dia);
+					boolean renovar = viewAsignarMembresia.getRdbtnSi().isSelected();
+					boolean respuesta = membresiaSocioDao.registrarMembresiaSocio(membresia.getId(), socio.getId(),
+							date, renovar);
+					
+					if (respuesta == true) {
+						JOptionPane.showMessageDialog(viewAsignarMembresia,
+								"Se ha asignado una nueva membresia al socio.");
+						viewAsignarMembresia.setVisible(false);
+						viewAsignarMembresia.dispose();
+					} else {
+						JOptionPane.showMessageDialog(viewAsignarMembresia,
+								"Ha ocurrido un error asignando una nueva membresia al socio.");
+						viewAsignarMembresia.setVisible(false);
+						viewAsignarMembresia.dispose();
+					}
+				}
 			}
 		});
 		JComboBox<String> comboBoxMeses = viewAsignarMembresia.getComboBoxMes();
@@ -189,6 +211,7 @@ public class SocioController implements ActionListener, ItemListener {
 		this.viewBusquedaSocio = socioBusquedaView;
 		this.viewBusquedaSocio.btnBuscar.addActionListener(this);
 		this.viewBusquedaSocio.getBtnAgregarMembresia().addActionListener(this);
+		this.viewBusquedaSocio.setLocationRelativeTo(null);
 		this.viewBusquedaSocio.setVisible(true);
 	}
 
@@ -311,11 +334,12 @@ public class SocioController implements ActionListener, ItemListener {
 						+ "por favor verifique e intente de nuevo");
 			}
 		} else if (viewBusquedaSocio != null && e.getSource() == viewBusquedaSocio.getBtnAgregarMembresia()) {
-
-			initAsignarMembresia(new SocioAsignarMembresiaView());
+			String identificacion = viewBusquedaSocio.getTextField_identidad().getText();
+			initAsignarMembresia(new SocioAsignarMembresiaView(), identificacion);
 
 		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnCancelar()) {
 			viewRegistrarEntrada.setVisible(false);
+
 		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnIdentificar()) {
 			String id = viewRegistrarEntrada.getTextFieldIdentificacion().getText();
 
@@ -433,7 +457,6 @@ public class SocioController implements ActionListener, ItemListener {
 				} else {
 					viewAsignarMembresia.getLabelVisitasPorDia().setText(membresia.getCantidad_visitas_dia() + "");
 				}
-
 				viewAsignarMembresia.getLblResumenPrecioMembresia()
 						.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
 				viewAsignarMembresia.getLabelResumenSubtotal()

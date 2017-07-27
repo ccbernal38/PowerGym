@@ -129,6 +129,7 @@ public class SocioAsignarMembresiaView extends JFrame {
 		contentPane.add(lblRenovarAutomaticamente);
 		
 		rdbtnSi = new JRadioButton("Si");
+		rdbtnSi.setSelected(true);
 		rdbtnSi.setBounds(320, 259, 50, 23);
 		
 		contentPane.add(rdbtnSi);

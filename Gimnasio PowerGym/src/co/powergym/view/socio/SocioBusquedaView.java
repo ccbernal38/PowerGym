@@ -13,12 +13,17 @@ import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.DropMode;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import java.awt.FlowLayout;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class SocioBusquedaView extends JFrame {
 
@@ -30,6 +35,7 @@ public class SocioBusquedaView extends JFrame {
 	public JButton btnBuscar;
 	private JLabel lblFoto;
 	private JButton btnAgregarMembresia;
+	private JTable table;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -90,25 +96,45 @@ public class SocioBusquedaView extends JFrame {
 		textField_telefono.setText("Telefono");
 		textField_telefono.setBounds(5, 221, 200, 15);
 		panel.add(textField_telefono);
-		
-				lblFoto = new JLabel("");
-				lblFoto.setBounds(30, 30, 150, 150);
-				panel.add(lblFoto);
-				lblFoto.setIcon(new ImageIcon(((new ImageIcon("image/avatar.png")).getImage()).getScaledInstance(lblFoto.getHeight(), lblFoto.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
-				
-				JPanel panel_1 = new JPanel();
-				panel_1.setBorder(new TitledBorder(null, "Historial de membresias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				panel_1.setBounds(25, 356, 550, 140);
-				contentPane.add(panel_1);
-				
-				JPanel panel_2 = new JPanel();
-				panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de asistencias", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-				panel_2.setBounds(25, 507, 550, 140);
-				contentPane.add(panel_2);
-				
-				btnAgregarMembresia = new JButton("<html><center>Agregar<br/> Membresia</center></html>");
-				btnAgregarMembresia.setBounds(255, 100, 91, 91);
-				contentPane.add(btnAgregarMembresia);
+
+		lblFoto = new JLabel("");
+		lblFoto.setBounds(30, 30, 150, 150);
+		panel.add(lblFoto);
+		lblFoto.setIcon(new ImageIcon(((new ImageIcon("image/avatar.png")).getImage())
+				.getScaledInstance(lblFoto.getHeight(), lblFoto.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(
+				new TitledBorder(null, "Historial de membresias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(25, 356, 550, 140);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 23, 530, 106);
+		panel_1.add(scrollPane);
+
+		table = new JTable();
+		table.setCellSelectionEnabled(true);
+		table.setColumnSelectionAllowed(true);
+
+		table.setModel(
+				new DefaultTableModel(new Object[][] {}, new String[] { "Nombre", "Fecha de inicio", "Estado" }));
+		scrollPane.setViewportView(table);
+
+		JTableHeader header = new JTableHeader();
+		header.setName("asdas");
+		table.setBounds(10, 23, 530, 106);
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de asistencias",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2.setBounds(25, 507, 550, 140);
+		contentPane.add(panel_2);
+
+		btnAgregarMembresia = new JButton("<html><center>Agregar<br/> Membresia</center></html>");
+		btnAgregarMembresia.setBounds(255, 100, 91, 91);
+		contentPane.add(btnAgregarMembresia);
 	}
 
 	/**
@@ -140,6 +166,7 @@ public class SocioBusquedaView extends JFrame {
 	public JLabel getLblFoto() {
 		return lblFoto;
 	}
+
 	public JButton getBtnAgregarMembresia() {
 		return btnAgregarMembresia;
 	}
