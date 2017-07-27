@@ -299,7 +299,7 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(lblResumenMembresia);
 		
 		btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.setBounds(39, 343, 89, 23);
+		btnFinalizar.setBounds(30, 443, 89, 23);
 		contentPane.add(btnFinalizar);
 	}
 	public JButton getBtnSiguiente() {
