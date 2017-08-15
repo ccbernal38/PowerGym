@@ -231,7 +231,6 @@ public class EntrenadorController implements ActionListener {
 						viewActualizarEntrenador.setVisible(true);
 						viewActualizarEntrenador.getBtnActualizar1().addActionListener(this);
 					}
-
 				}
 			}
 		}

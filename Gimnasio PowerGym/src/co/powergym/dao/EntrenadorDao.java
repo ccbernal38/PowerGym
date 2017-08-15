@@ -1,6 +1,4 @@
 package co.powergym.dao;
-
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,13 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import javax.imageio.ImageIO;
-
 import co.powergym.interfacedao.EntrenadorDaoInterface;
 import co.powergym.model.Conexion;
 import co.powergym.model.Entrenador;
-import co.powergym.model.Socio;
 
 public class EntrenadorDao implements EntrenadorDaoInterface {
 
