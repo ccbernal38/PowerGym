@@ -51,7 +51,7 @@ public class MembresiaController implements ActionListener {
 	private String horaA;
 	private String horaDeAux;
 	private String horaAAux;
-	private List<Horario> horarios;
+	private List<String> horarios = new ArrayList<>();
 
 	public MembresiaController(MembresiaDao membresiaDao, CrearMembresia membresia,
 			MembresiaListadoView membresiaListadoView) {
@@ -77,6 +77,7 @@ public class MembresiaController implements ActionListener {
 			this.membresia.getChckbxSiLosHorarios().addActionListener(this);
 			this.membresia.getBtnAadirHorario().addActionListener(this);
 			this.membresia.getBtnFinalizar().addActionListener(this);
+			this.membresia.getButtonEliminarH().addActionListener(this);
 			llenarRegistroMembresia();
 			llenarComboboxNumeroVisitas();
 			llenarComboboxHorarios();
@@ -533,10 +534,18 @@ public class MembresiaController implements ActionListener {
 			}
 			horaDeAux = (String) membresia.getComboBoxDe().getSelectedItem();
 			horaAAux = (String) membresia.getComboBoxA().getSelectedItem();
-			listModel.addElement( horaDeAux + horaAAux);
+			listModel.addElement( "De "+ horaDeAux +" a "+ horaAAux);
+			horarios.add(horaDe + horaAAux);
 			lista.setModel(listModel);
 			lista.updateUI();
 
+		}
+		if(membresia.getButtonEliminarH() == e.getSource()) {
+			
+			JList lista = membresia.getList_listaHorarios();
+			int index = lista.getSelectedIndex();
+			DefaultListModel modelo = (DefaultListModel) lista.getModel();
+			modelo.remove(index);
 		}
 		if (membresiaListadoView != null && e.getSource() == membresiaListadoView.getBtnEditar()) {
 
@@ -601,7 +610,9 @@ public class MembresiaController implements ActionListener {
 		if (restriccionHorarioNo == true) {
 			restriccionHorario = "No hay restricción.";
 		} else if (restriccionHorarioSi == true) {
-
+			for (int i = 0; i < horarios.size(); i++) {
+				restriccionHorario += horarios.get(i)+", ";
+			}
 		}
 		/**
 		 * private int visitasDia; private List<Dia> dias; restriccionHorarioSi; private
