@@ -16,12 +16,13 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.Normalizer.Form;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -46,10 +47,13 @@ import javax.swing.table.TableColumnModel;
 import com.github.sarxos.webcam.Webcam;
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
+import co.powergym.dao.AsistenciaDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.MembresiaSocioDao;
 import co.powergym.dao.SocioDao;
+import co.powergym.model.Asistencia;
 import co.powergym.model.Membresia;
+import co.powergym.model.MembresiaSocio;
 import co.powergym.model.Socio;
 import co.powergym.view.socio.SocioAsignarMembresiaView;
 import co.powergym.view.socio.SocioBusquedaView;
@@ -60,6 +64,7 @@ import co.powergym.view.socio.SocioRegistroView;
 import javafx.scene.control.ComboBox;
 import jdk.nashorn.internal.runtime.arrays.NumericElements;
 import co.powergym.view.socio.SocioRegistrarEntradaView;
+import co.powergym.view.socio.SocioRegistroHuella;
 
 public class SocioController implements ActionListener, ItemListener {
 
@@ -71,15 +76,14 @@ public class SocioController implements ActionListener, ItemListener {
 	private SocioBusquedaView viewBusquedaSocio;
 	private SocioListadoView viewListadoSocio;
 	private SocioCumpleaniosListadoView viewCumpleaniosListadoView;
-	private SocioRegistrarEntradaView viewRegistrarEntrada;
 	private SocioConsultaEntradaView viewConsultarEntrada;
 	private BufferedImage fotoTemp;
 	private SocioAsignarMembresiaView viewAsignarMembresia;
+	private byte[] tempHuella;
 
 	public SocioController(SocioRegistroView viewRegistroSocio, SocioBusquedaView viewBusquedaSocio,
 			SocioListadoView socioListadoView, SocioCumpleaniosListadoView cumpleaniosListadoView,
-			SocioRegistrarEntradaView registrarEntradaView, SocioConsultaEntradaView consultaEntradaView,
-			SocioAsignarMembresiaView asignarMembresiaView) {
+			SocioConsultaEntradaView consultaEntradaView, SocioAsignarMembresiaView asignarMembresiaView) {
 		this.socioDao = new SocioDao();
 		this.membresiaDao = new MembresiaDao();
 		this.membresiaSocioDao = new MembresiaSocioDao();
@@ -96,13 +100,9 @@ public class SocioController implements ActionListener, ItemListener {
 		if (cumpleaniosListadoView != null) {
 			initCumpleaniosListado(cumpleaniosListadoView);
 		}
-		if (registrarEntradaView != null) {
-			initRegistrarEntrada(registrarEntradaView);
-		}
 		if (consultaEntradaView != null) {
 			initConsultarEntrada(consultaEntradaView);
 		}
-
 	}
 
 	public void initAsignarMembresia(SocioAsignarMembresiaView asignarMembresiaView, String identificacion) {
@@ -125,19 +125,16 @@ public class SocioController implements ActionListener, ItemListener {
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
 				actualizarTotal();
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
 				actualizarTotal();
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
 				actualizarTotal();
 			}
 		});
@@ -153,7 +150,6 @@ public class SocioController implements ActionListener, ItemListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				if (viewAsignarMembresia.getComboBoxMembresia().getSelectedItem() instanceof Membresia) {
 					Membresia membresia = (Membresia) viewAsignarMembresia.getComboBoxMembresia().getSelectedItem();
 					Socio socio = socioDao.buscarSocio(identificacion);
@@ -165,7 +161,6 @@ public class SocioController implements ActionListener, ItemListener {
 					boolean renovar = viewAsignarMembresia.getRdbtnSi().isSelected();
 					boolean respuesta = membresiaSocioDao.registrarMembresiaSocio(membresia.getId(), socio.getId(),
 							date, renovar);
-					
 					if (respuesta == true) {
 						JOptionPane.showMessageDialog(viewAsignarMembresia,
 								"Se ha asignado una nueva membresia al socio.");
@@ -193,16 +188,16 @@ public class SocioController implements ActionListener, ItemListener {
 		comboBoxMeses.addItem("Octubre");
 		comboBoxMeses.addItem("Noviembre");
 		comboBoxMeses.addItem("Diciembre");
-
 	}
 
 	public void initRegistroSocio(SocioRegistroView socioRegistroView) {
 		webcam = Webcam.getWebcams().get(0);
 		this.viewRegistroSocio = socioRegistroView;
-		this.viewRegistroSocio.btnTomarFoto.addActionListener(this);
-		this.viewRegistroSocio.btnCapturar.addActionListener(this);
-		this.viewRegistroSocio.btnRegistrar.addActionListener(this);
-		this.viewRegistroSocio.btnCancelar.addActionListener(this);
+		this.viewRegistroSocio.getBtnTomarFoto().addActionListener(this);
+		this.viewRegistroSocio.getBtnCapturar().addActionListener(this);
+		this.viewRegistroSocio.getBtnRegistrar().addActionListener(this);
+		this.viewRegistroSocio.getBtnCancelar().addActionListener(this);
+		this.viewRegistroSocio.getBtnTomarHuellas().addActionListener(this);
 		this.viewRegistroSocio.setVisible(true);
 		this.viewRegistroSocio.setWebcam(webcam);
 	}
@@ -227,14 +222,6 @@ public class SocioController implements ActionListener, ItemListener {
 		this.viewCumpleaniosListadoView.setVisible(true);
 	}
 
-	public void initRegistrarEntrada(SocioRegistrarEntradaView registrarEntradaView) {
-		this.viewRegistrarEntrada = registrarEntradaView;
-		this.viewRegistrarEntrada.setVisible(true);
-		this.viewRegistrarEntrada.setLocationRelativeTo(null);
-		this.viewRegistrarEntrada.getBtnIdentificar().addActionListener(this);
-		this.viewRegistrarEntrada.getBtnCancelar().addActionListener(this);
-	}
-
 	public void initConsultarEntrada(SocioConsultaEntradaView consultaEntradaView) {
 		this.viewConsultarEntrada = consultaEntradaView;
 		this.viewConsultarEntrada.setVisible(true);
@@ -243,40 +230,150 @@ public class SocioController implements ActionListener, ItemListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.btnRegistrar) {
-			try {
-				String numeroId = viewRegistroSocio.getTextField_identificacion().getText();
+		if (viewRegistroSocio != null) {
+
+			if (e.getSource() == viewRegistroSocio.getBtnRegistrar()) {
+				registroSocio();
+			}
+
+			if (e.getSource() == viewRegistroSocio.getBtnCapturar()) {
+				viewRegistroSocio.getBtnTomarFoto().setEnabled(true);
+				viewRegistroSocio.getWebcamPanel().start();
+			}
+
+			if (e.getSource() == viewRegistroSocio.btnCancelar) {
+				viewRegistroSocio.dispose();
+			}
+
+			if (e.getSource() == viewRegistroSocio.getBtnTomarHuellas()) {
+				new HuellaController(new SocioRegistroHuella(), null, this);
+			}
+
+			if (e.getSource() == viewRegistroSocio.getBtnTomarFoto()) {
+				fotoTemp = viewRegistroSocio.getWebcam().getImage();
+				viewRegistroSocio.getWebcamPanel().stop();
+				viewRegistroSocio.getWebcamPanel().setVisible(false);
+				JLabel jLabel = new JLabel(new ImageIcon(fotoTemp));
+				jLabel.setBounds(viewRegistroSocio.getWebcamPanel().getBounds());
+				viewRegistroSocio.getPanel().add(jLabel);
+				viewRegistroSocio.btnTomarFoto.setEnabled(false);
+				viewRegistroSocio.btnCapturar.setEnabled(false);
+			}
+		}
+
+		if (viewBusquedaSocio != null) {
+			if (e.getSource() == viewBusquedaSocio.btnBuscar) {
+				String numeroId = viewBusquedaSocio.getTextField_identidad().getText();
 				Socio socio = socioDao.buscarSocio(numeroId);
-				if (socio == null) {
-					String primerNombre = viewRegistroSocio.getTextField_primerNombre().getText();
-					if (primerNombre == null || primerNombre.equals("")) {
-						JOptionPane.showMessageDialog(null, "El campo primer nombre no puede estar vacio.");
+				if (socio != null) {
+					viewBusquedaSocio.getBtnAgregarMembresia().setEnabled(true);
+					String primerNombre = socio.getNombreCompleto();
+					viewBusquedaSocio.getTextField_primerNombre().setText(primerNombre);
+					String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
+					viewBusquedaSocio.getTextField_fechaNacimiento().setText(fechaNacimiento);
+					String telefono = socio.getTelefono();
+					viewBusquedaSocio.getTextField_telefono().setText(telefono);
+					if (socio.getFoto() != null) {
+						Image dimg = socio.getFoto().getScaledInstance(viewBusquedaSocio.getLblFoto().getWidth(),
+								viewBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
+						viewBusquedaSocio.getLblFoto().setIcon(new ImageIcon(dimg));
+					}
+					llenarTablaHistorico(socio.getId());
+					llenarTablaAsistencia(socio.getId());
+				} else {
+					JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
+							+ "por favor verifique e intente de nuevo");
+				}
+			}
+			if (e.getSource() == viewBusquedaSocio.getBtnAgregarMembresia()) {
+				String identificacion = viewBusquedaSocio.getTextField_identidad().getText();
+				initAsignarMembresia(new SocioAsignarMembresiaView(), identificacion);
+			}
+		}
+	}
+
+	private void llenarTablaAsistencia(int id) {
+		AsistenciaDao asistenciaDao = new AsistenciaDao();
+		List<Asistencia> list = asistenciaDao.historicoAsistencias(id);
+
+		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
+				new String[] { "Dia", "Fecha", "Hora" });
+
+		Object[] columna = new Object[3];
+		int numeroRegistros = list.size();
+
+		for (int i = 0; i < numeroRegistros; i++) {
+			columna[0] = list.get(i).getDia();
+			columna[1] = list.get(i).getFecha();
+			columna[2] = list.get(i).getHora();
+
+			defaultTableModel.addRow(columna);
+		}
+		viewBusquedaSocio.getTableAsistencias().setModel(defaultTableModel);
+		viewBusquedaSocio.getTableAsistencias().repaint();
+	}
+
+	private void llenarTablaHistorico(int id) {
+		MembresiaSocioDao membresiaSocioDao = new MembresiaSocioDao();
+		List<MembresiaSocio> list = membresiaSocioDao.historialMembresias(id);
+
+		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
+				new String[] { "Nombre", "Fecha Inicio", "Fecha Fin", "Estado" });
+
+		Object[] columna = new Object[4];
+		int numeroRegistros = list.size();
+
+		for (int i = 0; i < numeroRegistros; i++) {
+			columna[0] = list.get(i).getMembresia().getNombre();
+			Date inicial = list.get(i).getFechaInicial();
+			columna[1] = new SimpleDateFormat("MM-dd-yyyy").format(inicial);
+
+			columna[2] = new SimpleDateFormat("MM-dd-yyyy").format(list.get(i).getFechaFinal());
+			if (list.get(i).isActiva()) {
+				columna[3] = "Activa";
+			} else {
+				columna[3] = "Inactiva";
+			}
+			defaultTableModel.addRow(columna);
+		}
+		viewBusquedaSocio.getTableHistorico().setModel(defaultTableModel);
+		viewBusquedaSocio.getTableHistorico().repaint();
+	}
+
+	private void registroSocio() {
+		try {
+			String numeroId = viewRegistroSocio.getTextField_identificacion().getText();
+			Socio socio = socioDao.buscarSocio(numeroId);
+			if (socio == null) {
+				String primerNombre = viewRegistroSocio.getTextField_primerNombre().getText();
+
+				if (primerNombre == null || primerNombre.equals("")) {
+					JOptionPane.showMessageDialog(null, "El campo primer nombre no puede estar vacio.");
+				} else {
+					String segundoNombre = viewRegistroSocio.getTextField_segundoNombre().getText();
+					String primerApellido = viewRegistroSocio.getTextField_primerApellido().getText();
+					if (primerApellido == null || primerApellido.equals("")) {
+						JOptionPane.showMessageDialog(null, "El campo primer apellido no puede estar vacio.");
 					} else {
-						String segundoNombre = viewRegistroSocio.getTextField_segundoNombre().getText();
-						String primerApellido = viewRegistroSocio.getTextField_primerApellido().getText();
-						if (primerApellido == null || primerApellido.equals("")) {
-							JOptionPane.showMessageDialog(null, "El campo primer apellido no puede estar vacio.");
+						String segundoApellido = viewRegistroSocio.getTextField_segundoApellido().getText();
+						Date fechaNacimiento = null;
+						if (viewRegistroSocio.getDateChooser_fechaNacimiento().getDate() == null) {
+							JOptionPane.showMessageDialog(null, "El campo fecha de nacimiento no puede estar vacio.");
 						} else {
-							String segundoApellido = viewRegistroSocio.getTextField_segundoApellido().getText();
-							Date fechaNacimiento = null;
-							if (viewRegistroSocio.getDateChooser_fechaNacimiento().getDate() == null) {
-								JOptionPane.showMessageDialog(null,
-										"El campo fecha de nacimiento no puede estar vacio.");
-							} else {
-								fechaNacimiento = new Date(
-										viewRegistroSocio.getDateChooser_fechaNacimiento().getDate().getTime());
+							fechaNacimiento = new Date(
+									viewRegistroSocio.getDateChooser_fechaNacimiento().getDate().getTime());
 
-								String telefono = viewRegistroSocio.getTextField_telefono().getText();
-								String correo = viewRegistroSocio.getTextField_correo().getText();
-								int genero = viewRegistroSocio.getComboBox_genero().getSelectedIndex();
+							String telefono = viewRegistroSocio.getTextField_telefono().getText();
+							String correo = viewRegistroSocio.getTextField_correo().getText();
+							int genero = viewRegistroSocio.getComboBox_genero().getSelectedIndex();
 
-								if (fotoTemp == null) {
-									fotoTemp = ImageIO.read(new File("image/avatar.png"));
-								}
-
+							if (fotoTemp == null) {
+								fotoTemp = ImageIO.read(new File("image/avatar.png"));
+							}
+							if (tempHuella != null) {
 								boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, primerNombre,
 										segundoNombre, primerApellido, segundoApellido, correo, telefono, genero,
-										fotoTemp);
+										fotoTemp, tempHuella);
 								if (respuesta) {
 									JOptionPane.showMessageDialog(null, "Registro exitoso");
 									viewRegistroSocio.setVisible(false);
@@ -284,86 +381,20 @@ public class SocioController implements ActionListener, ItemListener {
 								} else {
 									JOptionPane.showMessageDialog(null, "Ocurrio un error registrando un nuevo socio.");
 								}
+							} else {
+								JOptionPane.showMessageDialog(viewRegistroSocio,
+										"Aun no ha registrado la huella del nuevo socio.");
 							}
+
 						}
 					}
-
-				} else {
-					JOptionPane.showMessageDialog(null, "El socio ya se encuentra registrado");
-				}
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		} else if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.getBtnCapturar()) {
-
-			viewRegistroSocio.getBtnTomarFoto().setEnabled(true);
-			viewRegistroSocio.getWebcamPanel().start();
-
-		} else if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.btnCancelar) {
-			viewRegistroSocio.dispose();
-		} else if (viewRegistroSocio != null && e.getSource() == viewRegistroSocio.getBtnTomarFoto()) {
-			fotoTemp = viewRegistroSocio.getWebcam().getImage();
-			viewRegistroSocio.getWebcamPanel().stop();
-			viewRegistroSocio.getWebcamPanel().setVisible(false);
-			JLabel jLabel = new JLabel(new ImageIcon(fotoTemp));
-			jLabel.setBounds(viewRegistroSocio.getWebcamPanel().getBounds());
-			viewRegistroSocio.getPanel().add(jLabel);
-			viewRegistroSocio.btnTomarFoto.setEnabled(false);
-			viewRegistroSocio.btnCapturar.setEnabled(false);
-
-		} else if (viewBusquedaSocio != null && e.getSource() == viewBusquedaSocio.btnBuscar) {
-
-			String numeroId = viewBusquedaSocio.getTextField_identidad().getText();
-			Socio socio = socioDao.buscarSocio(numeroId);
-			if (socio != null) {
-				String primerNombre = socio.getNombreCompleto();
-				viewBusquedaSocio.getTextField_primerNombre().setText(primerNombre);
-				String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
-				viewBusquedaSocio.getTextField_fechaNacimiento().setText(fechaNacimiento);
-				String telefono = socio.getTelefono();
-				viewBusquedaSocio.getTextField_telefono().setText(telefono);
-
-				if (socio.getFoto() != null) {
-					Image dimg = socio.getFoto().getScaledInstance(viewBusquedaSocio.getLblFoto().getWidth(),
-							viewBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
-					viewBusquedaSocio.getLblFoto().setIcon(new ImageIcon(dimg));
 				}
 
 			} else {
-				JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
-						+ "por favor verifique e intente de nuevo");
+				JOptionPane.showMessageDialog(null, "El socio ya se encuentra registrado");
 			}
-		} else if (viewBusquedaSocio != null && e.getSource() == viewBusquedaSocio.getBtnAgregarMembresia()) {
-			String identificacion = viewBusquedaSocio.getTextField_identidad().getText();
-			initAsignarMembresia(new SocioAsignarMembresiaView(), identificacion);
-
-		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnCancelar()) {
-			viewRegistrarEntrada.setVisible(false);
-
-		} else if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnIdentificar()) {
-			String id = viewRegistrarEntrada.getTextFieldIdentificacion().getText();
-
-			Socio socio = socioDao.buscarSocio(id);
-			if (socio != null) {
-				viewConsultarEntrada = new SocioConsultaEntradaView();
-				viewConsultarEntrada.setVisible(true);
-				viewConsultarEntrada.setLocationRelativeTo(viewRegistrarEntrada);
-				viewConsultarEntrada.getTextField_primerNombre().setText(socio.getNombreCompleto());
-				String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
-				viewConsultarEntrada.getTextField_fechaNacimiento().setText(fechaNacimiento);
-				String telefono = socio.getTelefono();
-				viewConsultarEntrada.getTextField_telefono().setText(telefono);
-
-				if (socio.getFoto() != null) {
-					Image dimg = socio.getFoto().getScaledInstance(viewConsultarEntrada.getLblFoto().getWidth(),
-							viewConsultarEntrada.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
-					viewConsultarEntrada.getLblFoto().setIcon(new ImageIcon(dimg));
-				}
-			} else {
-				JOptionPane.showMessageDialog(viewRegistrarEntrada,
-						"No se encontró un socio con este numero de identificación.");
-			}
-
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 
@@ -441,54 +472,60 @@ public class SocioController implements ActionListener, ItemListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 
-		if (viewAsignarMembresia != null && e.getSource() == viewAsignarMembresia.getComboBoxMembresia()) {
-			try {
-				Membresia membresia = (Membresia) viewAsignarMembresia.getComboBoxMembresia().getSelectedItem();
-				viewAsignarMembresia.getLabelPrecioMembresia()
-						.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
-				viewAsignarMembresia.getLabelResumenNombreMembresia().setText(membresia.getNombre());
+		if (viewAsignarMembresia != null) {
+			if (e.getSource() == viewAsignarMembresia.getComboBoxMembresia()) {
 
-				viewAsignarMembresia.getLabelDuracionMembresia().setText(membresia.getDuracion() + "");
+				try {
+					Membresia membresia = (Membresia) viewAsignarMembresia.getComboBoxMembresia().getSelectedItem();
+					viewAsignarMembresia.getLabelPrecioMembresia()
+							.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
+					viewAsignarMembresia.getLabelResumenNombreMembresia().setText(membresia.getNombre());
 
-				viewAsignarMembresia.getLabelDiasPermitidos().setText(membresia.getDias());
-				viewAsignarMembresia.getLabelHorarioPermitido().setText(membresia.getHorarioPermitido());
-				if (membresia.getCantidad_visitas_dia() == -1) {
-					viewAsignarMembresia.getLabelVisitasPorDia().setText("Sin limite");
-				} else {
-					viewAsignarMembresia.getLabelVisitasPorDia().setText(membresia.getCantidad_visitas_dia() + "");
-				}
-				viewAsignarMembresia.getLblResumenPrecioMembresia()
-						.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
-				viewAsignarMembresia.getLabelResumenSubtotal()
-						.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
-				if (viewAsignarMembresia.getCheckboxInscripcion().getState() == true) {
-					viewAsignarMembresia.getTextFieldValorInscripcion().setEnabled(true);
-					String costo = viewAsignarMembresia.getTextFieldValorInscripcion().getText();
-					if (!costo.equals("") || !costo.matches("[a-zA-Z]+")) {
-						int costoIncripcion = Integer.parseInt(costo);
-						viewAsignarMembresia.getLabelResumenCostoInscripcion()
-								.setText("$" + NumberFormat.getNumberInstance().format(costoIncripcion));
-						viewAsignarMembresia.getLabelResumenTotal().setText(
-								"$" + NumberFormat.getNumberInstance().format(membresia.getValor() + costoIncripcion));
+					viewAsignarMembresia.getLabelDuracionMembresia()
+							.setText(membresia.getDuracion() + " " + membresia.getDuracionValor().getNombre());
+
+					viewAsignarMembresia.getLabelDiasPermitidos().setText(membresia.getDias());
+					viewAsignarMembresia.getLabelHorarioPermitido().setText(membresia.getHorarioPermitido());
+					if (membresia.getCantidad_visitas_dia() == -1) {
+						viewAsignarMembresia.getLabelVisitasPorDia().setText("Sin limite");
+					} else {
+						viewAsignarMembresia.getLabelVisitasPorDia().setText(membresia.getCantidad_visitas_dia() + "");
 					}
-				} else {
-					viewAsignarMembresia.getTextFieldValorInscripcion().setEnabled(false);
-					viewAsignarMembresia.getLabelResumenCostoInscripcion().setText("$0");
+					viewAsignarMembresia.getLblResumenPrecioMembresia()
+							.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
+					viewAsignarMembresia.getLabelResumenSubtotal()
+							.setText("$" + NumberFormat.getNumberInstance().format(membresia.getValor()));
+					if (viewAsignarMembresia.getCheckboxInscripcion().getState() == true) {
+						viewAsignarMembresia.getTextFieldValorInscripcion().setEnabled(true);
+						String costo = viewAsignarMembresia.getTextFieldValorInscripcion().getText();
+						if (!costo.equals("") || !costo.matches("[a-zA-Z]+")) {
+							int costoIncripcion = Integer.parseInt(costo);
+							viewAsignarMembresia.getLabelResumenCostoInscripcion()
+									.setText("$" + NumberFormat.getNumberInstance().format(costoIncripcion));
+							viewAsignarMembresia.getLabelResumenTotal().setText("$"
+									+ NumberFormat.getNumberInstance().format(membresia.getValor() + costoIncripcion));
+						}
+					} else {
+						viewAsignarMembresia.getTextFieldValorInscripcion().setEnabled(false);
+						viewAsignarMembresia.getLabelResumenCostoInscripcion().setText("$0");
+						viewAsignarMembresia.getLabelResumenTotal().setText("$" + membresia.getValor());
+					}
 
-					viewAsignarMembresia.getLabelResumenTotal().setText("$" + membresia.getValor());
+					viewAsignarMembresia.getLabelResumenDuracion().setText(membresia.getTiempoDuracion());
+
+				} catch (Exception error) {
+
 				}
+			}
+			if (viewAsignarMembresia.getCheckboxInscripcion() == e.getSource()) {
+				try {
+					actualizarTotal();
+				} catch (Exception error) {
 
-			} catch (Exception error) {
-
+				}
 			}
 		}
-		if (viewAsignarMembresia != null && viewAsignarMembresia.getCheckboxInscripcion() == e.getSource()) {
-			try {
-				actualizarTotal();
-			} catch (Exception error) {
 
-			}
-		}
 	}
 
 	private void actualizarTotal() {
@@ -517,6 +554,14 @@ public class SocioController implements ActionListener, ItemListener {
 			}
 		}
 
+	}
+
+	public byte[] getTempHuella() {
+		return tempHuella;
+	}
+
+	public void setTempHuella(byte[] tempHuella) {
+		this.tempHuella = tempHuella;
 	}
 
 }

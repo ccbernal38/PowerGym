@@ -1,6 +1,7 @@
 package co.powergym.model;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,11 +21,11 @@ public class Socio {
 	private String direccion;
 	private BufferedImage foto;
 	private Rol rol;
-	private List<String> huella;
+	private byte[]  huella;
 	private String nombreCompleto;
 
 	public Socio() {
-		
+
 	}
 
 	public Socio(int id, String identificacion, Date fechaNacimiento, String primerNombre, String segundoNombre,
@@ -40,9 +41,6 @@ public class Socio {
 		this.correo = correo;
 		this.telefono = telefono;
 		this.genero = genero;
-		if (huella == null) {
-			huella = new ArrayList<>();
-		}
 	}
 
 	public String getDireccion() {
@@ -149,18 +147,11 @@ public class Socio {
 		this.imagen = imagen;
 	}
 
-	public List<String> getHuella() {
-		if (huella == null) {
-			huella = new ArrayList<>();
-		}
+	public byte[] getHuella() {
 		return huella;
 	}
 
-	public void setHuella(List<String> huella) {
-		if (this.huella == null) {
-
-			this.huella = new ArrayList<>();
-		}
+	public void setHuella(byte[] huella) {
 		this.huella = huella;
 	}
 
@@ -174,22 +165,22 @@ public class Socio {
 
 	public String getNombreCompleto() {
 		String nombre = "";
-		if (primerNombre!= null && !primerNombre.equals("")) {
+		if (primerNombre != null && !primerNombre.equals("")) {
 			nombre += capitalLetter(primerNombre) + " ";
 		}
-		if (segundoNombre!= null && !segundoNombre.equals("")) {
+		if (segundoNombre != null && !segundoNombre.equals("")) {
 			nombre += capitalLetter(segundoNombre) + " ";
 		}
-		if (primerApellido!= null && !primerApellido.equals("")) {
+		if (primerApellido != null && !primerApellido.equals("")) {
 			nombre += capitalLetter(primerApellido) + " ";
 		}
-		if (segundoApellido!= null && !segundoApellido.equals("")) {
+		if (segundoApellido != null && !segundoApellido.equals("")) {
 			nombre += capitalLetter(segundoApellido) + " ";
 		}
 		return nombre;
 	}
-	
-	public String capitalLetter(String input){
+
+	public String capitalLetter(String input) {
 		String output = input.substring(0, 1).toUpperCase() + input.substring(1);
 		return output;
 	}

@@ -47,7 +47,8 @@ public class SocioAsignarMembresiaView extends JFrame {
 	 * Create the frame.
 	 */
 	public SocioAsignarMembresiaView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBackground(new Color(32, 39, 49));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 591, 607);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

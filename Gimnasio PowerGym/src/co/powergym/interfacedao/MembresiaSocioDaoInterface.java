@@ -1,6 +1,10 @@
 package co.powergym.interfacedao;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
+
+import co.powergym.model.Membresia;
+import co.powergym.model.MembresiaSocio;
 
 public interface MembresiaSocioDaoInterface {
 
@@ -8,7 +12,7 @@ public interface MembresiaSocioDaoInterface {
 	
 	public boolean modificarMembresiaSocio(int id, int codigoMembresia, int idSocio, boolean isActivo);
 	
-	
+	public List<MembresiaSocio> historialMembresias(int idSocio);	
 	
 	
 }

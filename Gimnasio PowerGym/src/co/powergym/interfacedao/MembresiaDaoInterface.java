@@ -5,6 +5,7 @@ import java.util.List;
 import co.powergym.model.DiaSemana;
 import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
+import co.powergym.model.MembresiaSocio;
 
 public interface MembresiaDaoInterface {
 
@@ -24,4 +25,5 @@ public interface MembresiaDaoInterface {
 
 	public List<DiaSemana> getDiasPermitidos(int id);
 
+	public Membresia verificarEntradaMembresia(int idSocio);
 }

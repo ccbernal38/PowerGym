@@ -1,7 +1,8 @@
 package co.powergym.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class Membresia {
@@ -137,7 +138,9 @@ public class Membresia {
 	}
 
 	public String getTiempoDuracion() {
-		return "Comienza el " + fecha_creacion + " hasta el " + "Fin";
+		String fechaActual = new SimpleDateFormat("dd/mm/yyyy").format(Calendar.getInstance().getTime());
+		String fechaFin = new SimpleDateFormat("dd/mm/yyyy").format(getFechaFinal());
+		return "Comienza el " + fechaActual + " hasta el " + fechaFin;
 	}
 
 	public String getHorarioPermitido() {
@@ -166,4 +169,28 @@ public class Membresia {
 		return nombre;
 	}
 
+	public Date getFechaFinal() {
+
+		String duracionValor = getDuracionValor().getNombre();
+		int duracion = getDuracion();
+		int diasTotal = 0;
+		if (duracionValor.equals(Duracion.DIA)) {
+			diasTotal = duracion;
+		} else if (duracionValor.equals(Duracion.SEMANA)) {
+			diasTotal = duracion * 7;
+		} else if (duracionValor.equals(Duracion.MES)) {
+			diasTotal = duracion * 30;
+		} else if (duracionValor.equals(Duracion.ANIO)) {
+			diasTotal = duracion * 365;
+		}
+		return sumarDiasFecha(Calendar.getInstance().getTime(), diasTotal);
+	}
+
+	public Date sumarDiasFecha(Date fecha, int dias) {
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha); // Configuramos la fecha que se recibe
+		calendar.add(Calendar.DAY_OF_YEAR, dias); // numero de días a añadir, o restar en caso de días<0
+		return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+	}
 }

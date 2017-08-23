@@ -1,12 +1,13 @@
 package co.powergym.dao;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class SocioDao implements SocioDaoInterface {
 	@Override
 	public boolean registrarSocio(String identificacion, Date fechaNacimiento, String primerNombre,
 			String segundoNombre, String primerApellido, String segundoApellido, String correo, String telefono,
-			int genero, BufferedImage foto) throws IOException {
+			int genero, BufferedImage foto, byte[] tempHuella) throws IOException {
 
 		boolean respuesta = false;
 		try {
@@ -39,13 +40,13 @@ public class SocioDao implements SocioDaoInterface {
 			PreparedStatement statement = accesoBD
 					.prepareStatement("INSERT INTO Socio(identificacion, primerNombre, segundoNombre,"
 							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto, diaNacimiento,"
-							+ "mesNacimiento, anioNacimiento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+							+ "mesNacimiento, anioNacimiento, huella) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
 			statement.setString(2, primerNombre);
 			statement.setString(3, segundoNombre);
 			statement.setString(4, primerApellido);
 			statement.setString(5, segundoApellido);
-			statement.setDate(6, fechaNacimiento);
+			statement.setDate(6, new java.sql.Date(fechaNacimiento.getTime()));
 			statement.setString(7, telefono);
 			statement.setString(8, correo);
 			statement.setInt(9, genero);
@@ -64,9 +65,10 @@ public class SocioDao implements SocioDaoInterface {
 			statement.setInt(11, calendar.get(Calendar.DAY_OF_MONTH));
 			statement.setInt(12, calendar.get(Calendar.MONTH) + 1);
 			statement.setInt(13, calendar.get(Calendar.YEAR));
+			statement.setBytes(14, tempHuella);
 			statement.execute();
 			respuesta = true;
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +82,7 @@ public class SocioDao implements SocioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, primerNombre"
-					+ ", segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+					+ ", segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto, huella"
 					+ " FROM Socio");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -100,9 +102,11 @@ public class SocioDao implements SocioDaoInterface {
 					InputStream bufferedImage = resultfoto.getBinaryStream();
 					socio.setFoto(ImageIO.read(bufferedImage));
 				}
+				socio.setHuella(resultSet.getBytes(12));
 				list.add(socio);
+				
 			}
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -117,7 +121,7 @@ public class SocioDao implements SocioDaoInterface {
 			PreparedStatement statement = connection.prepareStatement("DELETE FROM Socio WHERE identificacion = ?");
 			statement.setString(1, identificacion);
 			resultado = statement.execute();
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 
 		}
@@ -162,7 +166,7 @@ public class SocioDao implements SocioDaoInterface {
 				}
 
 			}
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 			System.out.println("error");
 		}
@@ -203,10 +207,47 @@ public class SocioDao implements SocioDaoInterface {
 
 				list.add(socio);
 			}
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 		}
 		return list;
+	}
+
+	@Override
+	public Socio buscarSocio(int idSocio) {
+		Socio socio = null;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
+							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+							+ " FROM Socio WHERE id = ?");
+			preparedStatement.setInt(1, idSocio);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				socio = new Socio();
+				socio.setId(resultSet.getInt(1));
+				socio.setIdentificacion(resultSet.getString(2));
+				socio.setPrimerNombre(resultSet.getString(3));
+				socio.setSegundoNombre(resultSet.getString(4));
+				socio.setPrimerApellido(resultSet.getString(5));
+				socio.setSegundoApellido(resultSet.getString(6));
+				socio.setFechaNacimiento(resultSet.getDate(7));
+				socio.setTelefono(resultSet.getString(8));
+				socio.setCorreo(resultSet.getString(9));
+				socio.setGenero(resultSet.getInt(10));
+				Blob blob = resultSet.getBlob(11);
+				if (blob != null) {
+					InputStream bufferedImage = blob.getBinaryStream();
+					socio.setFoto(ImageIO.read(bufferedImage));
+				}
+
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			System.out.println("error");
+		}
+		return socio;
 	}
 
 }

@@ -1,7 +1,9 @@
 package co.powergym.view.socio;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -14,6 +16,10 @@ import javax.swing.border.LineBorder;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.toedter.calendar.JDateChooser;
+
+import co.powergym.view.util.MiBoton;
+
+import javax.swing.SwingConstants;
 
 public class SocioRegistroView extends JFrame {
 
@@ -38,6 +44,7 @@ public class SocioRegistroView extends JFrame {
 	public JButton btnCapturar;
 	public Webcam webcam;
 	private JPanel panel;
+	private JButton btnTomarHuellas;
 	
 
 	
@@ -54,6 +61,7 @@ public class SocioRegistroView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 723, 463);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(32, 39, 49));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -129,48 +137,64 @@ public class SocioRegistroView extends JFrame {
 		contentPane.add(dateChooser_fechaNacimiento);
 		
 		JLabel lblPrimerNombre = new JLabel("Primer nombre:");
+		lblPrimerNombre.setForeground(Color.WHITE);
 		lblPrimerNombre.setBounds(304, 66, 157, 14);
 		contentPane.add(lblPrimerNombre);
 		
 		JLabel lblSegundoNombre = new JLabel("Segundo nombre:");
+		lblSegundoNombre.setForeground(Color.WHITE);
 		lblSegundoNombre.setBounds(304, 97, 157, 14);
 		contentPane.add(lblSegundoNombre);
 		
 		JLabel lblPrimerApellido = new JLabel("Primer apellido:");
+		lblPrimerApellido.setForeground(Color.WHITE);
 		lblPrimerApellido.setBounds(304, 128, 157, 14);
 		contentPane.add(lblPrimerApellido);
 		
 		JLabel lblSegundoApellido = new JLabel("Segundo apellido:");
+		lblSegundoApellido.setForeground(Color.WHITE);
 		lblSegundoApellido.setBounds(304, 159, 157, 14);
 		contentPane.add(lblSegundoApellido);
 		
 		JLabel lblNmeroDeIdentificacin = new JLabel("N\u00FAmero de identificaci\u00F3n:");
+		lblNmeroDeIdentificacin.setForeground(Color.WHITE);
 		lblNmeroDeIdentificacin.setBounds(304, 35, 157, 14);
 		contentPane.add(lblNmeroDeIdentificacin);
 		
 		JLabel lblCorreoElectronico = new JLabel("Correo electr\u00F3nico:");
+		lblCorreoElectronico.setForeground(Color.WHITE);
 		lblCorreoElectronico.setBounds(304, 190, 157, 14);
 		contentPane.add(lblCorreoElectronico);
 		
 		JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
+		lblTelfono.setForeground(Color.WHITE);
 		lblTelfono.setBounds(304, 218, 157, 14);
 		contentPane.add(lblTelfono);
 		
 		JLabel lblGnero = new JLabel("G\u00E9nero:");
+		lblGnero.setForeground(Color.WHITE);
 		lblGnero.setBounds(304, 252, 157, 14);
 		contentPane.add(lblGnero);
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
+		lblFechaDeNacimiento.setForeground(Color.WHITE);
 		lblFechaDeNacimiento.setBounds(304, 283, 157, 14);
 		contentPane.add(lblFechaDeNacimiento);
 		
-		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(315, 390, 89, 23);
+		btnRegistrar = new MiBoton("Registrar");
+		btnRegistrar.setBounds(315, 381, 119, 32);
+		
+		
 		contentPane.add(btnRegistrar);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(216, 390, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		btnTomarHuellas = new JButton("Tomar Huellas ");
+		btnTomarHuellas.setBounds(304, 337, 393, 23);
+		contentPane.add(btnTomarHuellas);
+		
 	}
 	public JTextField getTextField_identificacion() {
 		return textField_identificacion;
@@ -216,5 +240,8 @@ public class SocioRegistroView extends JFrame {
 	}
 	public JPanel getPanel() {
 		return panel;
+	}
+	public JButton getBtnTomarHuellas() {
+		return btnTomarHuellas;
 	}
 }

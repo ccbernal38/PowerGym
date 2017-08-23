@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import java.awt.FlowLayout;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.SystemColor;
 
 public class SocioBusquedaView extends JFrame {
 
@@ -36,6 +37,8 @@ public class SocioBusquedaView extends JFrame {
 	private JLabel lblFoto;
 	private JButton btnAgregarMembresia;
 	private JTable table;
+	private JScrollPane scrollPane_1;
+	private JTable table_1;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -46,11 +49,13 @@ public class SocioBusquedaView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 610, 705);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(32, 39, 49));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNumeroDeIdentidad = new JLabel("Ingrese el n\u00FAmero de identidad:");
+		JLabel lblNumeroDeIdentidad = new JLabel("Ingrese el número de identidad:");
+		lblNumeroDeIdentidad.setForeground(Color.WHITE);
 		lblNumeroDeIdentidad.setBounds(25, 69, 210, 20);
 
 		textField_identidad = new JTextField();
@@ -58,9 +63,10 @@ public class SocioBusquedaView extends JFrame {
 		textField_identidad.setColumns(10);
 
 		JLabel lblBuscarSocio = new JLabel("Buscar Socio");
+		lblBuscarSocio.setForeground(Color.WHITE);
 		lblBuscarSocio.setBounds(25, 21, 550, 25);
 		lblBuscarSocio.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBuscarSocio.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblBuscarSocio.setFont(new Font("Tahoma", Font.BOLD, 20));
 
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(420, 68, 155, 23);
@@ -71,12 +77,14 @@ public class SocioBusquedaView extends JFrame {
 		getContentPane().add(btnBuscar);
 
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Socio", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBackground(new Color(32, 39, 49));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Socio", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
 		panel.setBounds(25, 100, 210, 245);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
 		textField_primerNombre = new JLabel();
+		textField_primerNombre.setForeground(Color.WHITE);
 		textField_primerNombre.setFont(new Font("Avenir Black", Font.BOLD, 11));
 		textField_primerNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_primerNombre.setText("Primer nombre");
@@ -84,6 +92,7 @@ public class SocioBusquedaView extends JFrame {
 		panel.add(textField_primerNombre);
 
 		textField_fechaNacimiento = new JLabel();
+		textField_fechaNacimiento.setForeground(Color.WHITE);
 		textField_fechaNacimiento.setFont(new Font("Avenir Black", Font.BOLD, 11));
 		textField_fechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_fechaNacimiento.setText("Fecha de nacimiento");
@@ -91,6 +100,7 @@ public class SocioBusquedaView extends JFrame {
 		panel.add(textField_fechaNacimiento);
 
 		textField_telefono = new JLabel();
+		textField_telefono.setForeground(Color.WHITE);
 		textField_telefono.setFont(new Font("Avenir Black", Font.BOLD, 11));
 		textField_telefono.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_telefono.setText("Telefono");
@@ -104,8 +114,10 @@ public class SocioBusquedaView extends JFrame {
 				.getScaledInstance(lblFoto.getHeight(), lblFoto.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setForeground(Color.WHITE);
+		panel_1.setBackground(new Color(32, 39, 49));
 		panel_1.setBorder(
-				new TitledBorder(null, "Historial de membresias", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de membresias", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
 		panel_1.setBounds(25, 356, 550, 140);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
@@ -127,12 +139,28 @@ public class SocioBusquedaView extends JFrame {
 		table.setBounds(10, 23, 530, 106);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de asistencias",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2.setBackground(new Color(32, 39, 49));
+		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de asistencias", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
 		panel_2.setBounds(25, 507, 550, 140);
 		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 23, 530, 106);
+		panel_2.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Día", "Fecha", "Hora"
+			}
+		));
+		scrollPane_1.setViewportView(table_1);
 
 		btnAgregarMembresia = new JButton("<html><center>Agregar<br/> Membresia</center></html>");
+		btnAgregarMembresia.setEnabled(false);
 		btnAgregarMembresia.setBounds(255, 100, 91, 91);
 		contentPane.add(btnAgregarMembresia);
 	}
@@ -169,5 +197,11 @@ public class SocioBusquedaView extends JFrame {
 
 	public JButton getBtnAgregarMembresia() {
 		return btnAgregarMembresia;
+	}
+	public JTable getTableHistorico() {
+		return table;
+	}
+	public JTable getTableAsistencias() {
+		return table_1;
 	}
 }

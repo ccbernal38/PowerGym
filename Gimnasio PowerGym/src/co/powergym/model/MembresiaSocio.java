@@ -1,12 +1,15 @@
 package co.powergym.model;
 
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MembresiaSocio {
 
+	private int id;
 	private Membresia membresia;
 	private Socio socio;
-	private Date fecha;
+	private Date fechaInicial;
+	private Date fechaFinal;
 	private boolean isActiva;
 	private Pago pago;
 
@@ -26,14 +29,6 @@ public class MembresiaSocio {
 		this.socio = socio;
 	}
 
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
 	public boolean isActiva() {
 		return isActiva;
 	}
@@ -50,11 +45,52 @@ public class MembresiaSocio {
 		this.pago = pago;
 	}
 
+	public Date getFechaInicial() {
+		return fechaInicial;
+	}
+
+	public void setFechaInicial(Date fechaInicial) {
+		this.fechaInicial = fechaInicial;
+	}
+
+	public Date getFechaFinal() {
+		if (fechaFinal == null) {
+			String duracionValor = membresia.getDuracionValor().getNombre();
+			int duracion = membresia.getDuracion();
+			int diasTotal = 0;
+			if (duracionValor.equals(Duracion.DIA)) {
+				diasTotal = duracion;
+			} else if (duracionValor.equals(Duracion.SEMANA)) {
+				diasTotal = duracion * 7;
+			} else if (duracionValor.equals(Duracion.MES)) {
+				diasTotal = duracion * 30;
+			} else if (duracionValor.equals(Duracion.ANIO)) {
+				diasTotal = duracion * 365;
+			}
+			fechaFinal = sumarDiasFecha(fechaInicial, diasTotal);
+		}
+
+		return fechaFinal;
+	}
+
+	public Date sumarDiasFecha(Date fecha, int dias) {
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha); // Configuramos la fecha que se recibe
+		calendar.add(Calendar.DAY_OF_YEAR, dias); // numero de días a añadir, o restar en caso de días<0
+		return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+
+	}
+
+	public void setFechaFinal(Date fechaFinal) {
+		this.fechaFinal = fechaFinal;
+	}
+
 	public MembresiaSocio(Membresia membresia, Socio socio, Date fecha, boolean isActiva, Pago pago) {
 
 		this.membresia = membresia;
 		this.socio = socio;
-		this.fecha = fecha;
+		this.fechaInicial = fecha;
 		this.isActiva = isActiva;
 		this.pago = pago;
 	}
@@ -64,6 +100,14 @@ public class MembresiaSocio {
 	 */
 	public MembresiaSocio() {
 		super();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

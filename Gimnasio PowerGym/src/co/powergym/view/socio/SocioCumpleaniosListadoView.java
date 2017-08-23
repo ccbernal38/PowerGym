@@ -33,6 +33,7 @@ public class SocioCumpleaniosListadoView extends JFrame {
 	public SocioCumpleaniosListadoView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 646, 459);
+		setBackground(new Color(32, 39, 49));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -71,17 +72,12 @@ public class SocioCumpleaniosListadoView extends JFrame {
 		contentPane.add(lblNewLabel);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 127, 614, 265);
-		
+
 		tableSocios = new JTable();
 		tableSocios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tableSocios.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Identificación", "Nombre", "Cumpleaños"
-			}
-		));
-				
+		tableSocios.setModel(
+				new DefaultTableModel(new Object[][] {}, new String[] { "Identificación", "Nombre", "Cumpleaños" }));
+
 		tableSocios.setBounds(32, 68, 579, 301);
 
 		scrollPane.setViewportView(tableSocios);

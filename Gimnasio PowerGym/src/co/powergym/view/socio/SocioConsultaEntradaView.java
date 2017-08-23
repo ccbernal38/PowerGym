@@ -30,14 +30,13 @@ public class SocioConsultaEntradaView extends JFrame {
 	public JLabel textField_telefono;
 	public JLabel textField_fechaNacimiento;
 	private JLabel lblFoto;
-	private JPanel panel_3;
 	private JButton btnNewButton;
 
 	/**
 	 * Creates new form RegistroSocio
 	 */
 	public SocioConsultaEntradaView() {
-
+		setBackground(new Color(32, 39, 49));
 		setTitle("Buscar un socio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 610, 540);
@@ -90,23 +89,6 @@ public class SocioConsultaEntradaView extends JFrame {
 				panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Membresia activa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 				panel_1.setBounds(25, 356, 550, 140);
 				contentPane.add(panel_1);
-				
-				panel_3 = new JPanel();
-				panel_3.setLayout(null);
-				panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-				panel_3.setBounds(312, 100, 210, 245);
-				contentPane.add(panel_3);
-				
-				JLabel label = new JLabel("");
-				label.setBounds(30, 30, 150, 150);
-				panel_3.add(label);
-				
-				JLabel lblHuella = new JLabel();
-				lblHuella.setText("Huella");
-				lblHuella.setHorizontalAlignment(SwingConstants.CENTER);
-				lblHuella.setFont(new Font("Avenir Black", Font.BOLD, 11));
-				lblHuella.setBounds(10, 191, 200, 15);
-				panel_3.add(lblHuella);
 				
 				btnNewButton = new JButton("Registrar entrada");
 				

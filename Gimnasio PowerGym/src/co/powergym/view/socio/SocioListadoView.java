@@ -1,6 +1,7 @@
 package co.powergym.view.socio;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -31,22 +32,23 @@ public class SocioListadoView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setBackground(new Color(32, 39, 49));
+
 		JLabel lblNewLabel = new JLabel("LISTADO DE SOCIOS");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setBounds(213, 11, 206, 42);
 		contentPane.add(lblNewLabel);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 79, 614, 290);
 		contentPane.add(scrollPane);
-		
+
 		tableSocios = new JTable();
 		tableSocios.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Nro. identificacion", "Nombre", "Dirección", "Correo electrónico", "Teléfono" }));
-		
+
 		scrollPane.setViewportView(tableSocios);
-		
+
 		JTableHeader header = new JTableHeader();
 		header.setName("asdas");
 	}

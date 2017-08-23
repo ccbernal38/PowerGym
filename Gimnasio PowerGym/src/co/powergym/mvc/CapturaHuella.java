@@ -577,7 +577,7 @@ public class CapturaHuella extends javax.swing.JDialog {
 			} else if (!rs.next()) {
 				String nombre = JOptionPane.showInputDialog("Nombre y Apellidos:");
 				PreparedStatement guardarStmt = c.prepareStatement(
-						"INSERT INTO huella(identificacion_usuario, nombres_usuario, huella1_usuario, huella2_usuario) values(?,?,?,?)");
+						"INSERT INTO huella(identificacion_usuario, nombres_usuario, huella1_usuario) values(?,?,?)");
 				guardarStmt.setInt(1, Integer.parseInt(cedula));
 				guardarStmt.setString(2, nombre);
 				guardarStmt.setBinaryStream(3, datosHuella, tamanoHuella);

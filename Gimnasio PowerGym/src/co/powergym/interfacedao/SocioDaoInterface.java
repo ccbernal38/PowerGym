@@ -1,8 +1,9 @@
 package co.powergym.interfacedao;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import co.powergym.model.Socio;
@@ -10,7 +11,7 @@ import co.powergym.model.Socio;
 public interface SocioDaoInterface {
 
 	public boolean registrarSocio(String identificacion, Date fechaNacimiento, String primerNombre, String segundoNombre, String primerApellido,
-            String segundoApellido, String correo, String telefono, int genero, BufferedImage foto) throws IOException;
+            String segundoApellido, String correo, String telefono, int genero, BufferedImage foto, byte[] huella) throws IOException;
 	
 	public List<Socio> listaSocios();
 	
@@ -21,5 +22,8 @@ public interface SocioDaoInterface {
 	
 	public Socio buscarSocio(String identificacion);
 	
+	public Socio buscarSocio(int idSocio);
+
 	public List<Socio> sociosCumpleaniosMes();
+	
 }

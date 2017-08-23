@@ -14,6 +14,7 @@ import co.powergym.model.DiaSemana;
 import co.powergym.model.Duracion;
 import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
+import co.powergym.model.MembresiaSocio;
 
 public class MembresiaDao implements MembresiaDaoInterface {
 
@@ -54,7 +55,7 @@ public class MembresiaDao implements MembresiaDaoInterface {
 				membresia.setHorario(getHorarios(membresia.getId()));
 				list.add(membresia);
 			}
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 			System.out.println("error");
 		}
@@ -69,7 +70,7 @@ public class MembresiaDao implements MembresiaDaoInterface {
 			PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Membresia WHERE id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.execute();
-			conexion.cerrarConexion();
+			conexion.desconectar();
 			return true;
 
 		} catch (Exception e) {
@@ -85,8 +86,34 @@ public class MembresiaDao implements MembresiaDaoInterface {
 
 	@Override
 	public Membresia buscarMembresia(int id) {
+		Membresia membresia = null;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT m.id, m.nombre, m.duracion, "
+					+ "d.id as idDuracion, d.nombre as nombreDuracion, m.precio, m.visitasxdia, m.renovar "
+					+ "FROM membresia m " + "JOIN Duracion d ON d.id = m.duracion_id " + "WHERE m.id = ?");
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				membresia = new Membresia();
+				membresia.setId(id);
+				membresia.setNombre(resultSet.getString("nombre"));
+				membresia.setDuracion(resultSet.getInt("duracion"));
+				membresia.setDuracionValor(
+						new Duracion(resultSet.getInt("idDuracion"), resultSet.getString("nombreDuracion")));
+				membresia.setValor(resultSet.getInt("precio"));
+				membresia.setCantidad_visitas_dia(resultSet.getInt("visitasxdia"));
+				if (resultSet.getInt("renovar") == 1)
+					membresia.setRenovar(true);
+				else
+					membresia.setRenovar(false);
 
-		return null;
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			System.out.println("error");
+		}
+		return membresia;
 	}
 
 	@Override
@@ -95,8 +122,8 @@ public class MembresiaDao implements MembresiaDaoInterface {
 		Horario horario;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection.prepareStatement(
-					"SELECT id, horaInicio, horaFin " + "FROM Horario AS h " + "WHERE h.membresia_id = ?");
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT id, horaInicio, horaFin FROM Horario AS h WHERE h.membresia_id = ?");
 			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -108,7 +135,7 @@ public class MembresiaDao implements MembresiaDaoInterface {
 				horario.setHoraFin(new Date(timeFin.getTime()));
 				list.add(horario);
 			}
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 			System.out.println("error");
 		}
@@ -132,11 +159,53 @@ public class MembresiaDao implements MembresiaDaoInterface {
 				diasemana.setNombre(resultSet.getString(2));
 				list.add(diasemana);
 			}
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 			System.out.println("error");
 		}
 		return list;
 	}
 
+	@Override
+	public Membresia verificarEntradaMembresia(int idSocio) {
+		Membresia membresia = null;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT m.id as idMembresia, ds.id as idDia, ds.nombre as nombre, h.id as idHora, "
+							+ " 	h.horaInicio as horaInicio, h.horaFin as horaFin FROM membresia_socio ms "
+							+ "		JOIN Membresia m ON m.id = ms.id "
+							+ "		JOIN Membresia_diasemana md ON md.membresia_id = m.id "
+							+ "		JOIN DiaSemana ds ON ds.id = md.diassemana_id "
+							+ "		JOIN Horario h ON h.membresia_id = m.id "
+							+ "		WHERE activa = 1 AND socio_id = ?");
+
+			preparedStatement.setInt(1, idSocio);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				if(membresia == null) {
+					membresia = new Membresia();
+					membresia.setHorario(new ArrayList<>());
+					membresia.setDiasPermitidos(new ArrayList<>());
+				}
+				
+				DiaSemana diaSemana = new DiaSemana();
+				diaSemana.setId(resultSet.getInt("idDia"));
+				diaSemana.setNombre(resultSet.getString("nombre"));
+				if(!membresia.getDiasPermitidos().contains(diaSemana))
+					membresia.getDiasPermitidos().add(diaSemana);
+				
+				Horario horario = new Horario();
+				horario.setId(resultSet.getInt("idHora"));
+				horario.setHoraInicio(new Date(resultSet.getTimestamp("horaInicio").getTime()));
+				horario.setHoraFin(new Date(resultSet.getTimestamp("horaFin").getTime()));
+				if(!membresia.getHorario().contains(horario))
+					membresia.getHorario().add(horario);
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			System.out.println("error");
+		}
+		return membresia;
+	}
 }

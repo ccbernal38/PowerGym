@@ -20,8 +20,9 @@ public class Conexion {
 
 		return con;
 	}
-
-	public void cerrarConexion() {
+	
+	
+	public void desconectar() {
 		try {
 			if (con != null) {
 				con.close();

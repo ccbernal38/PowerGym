@@ -51,7 +51,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 			// statement.setInt(13, calendar.get(Calendar.YEAR));
 			statement.execute();
 			respuesta = true;
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
@@ -82,7 +82,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 				entrenador.setGenero(resultSet.getInt(10));
 				list.add(entrenador);
 			}
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,7 +99,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 			statement.setString(1, identificacion);
 			resultado = statement.execute();
 			resultado = true;
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -157,7 +157,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 				entrenador.setCorreo(resultSet.getString(8));
 				entrenador.setGenero(resultSet.getInt(9));
 			}
-			conexion.cerrarConexion();
+			conexion.desconectar();
 		} catch (Exception e) {
 			System.out.println("error");
 		}
