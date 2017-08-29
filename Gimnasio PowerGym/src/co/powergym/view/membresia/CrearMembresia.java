@@ -76,6 +76,8 @@ public class CrearMembresia extends JFrame {
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		this.setResizable(false);
+
 		
 		btn_anterior = new JButton("Atras");
 		btn_anterior.addActionListener(new ActionListener() {
@@ -272,7 +274,7 @@ public class CrearMembresia extends JFrame {
 		table_resumen_membresia.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		table_resumen_membresia.setModel(new DefaultTableModel(
 			new Object[][] {
-				{" Nombre de la membres\u00EDa:", null},
+				{" Nombre de la membres\u00EDa:", "(("},
 				{" Costo de la membres\u00EDa:", null},
 				{" Duraci\u00F3n de la membres\u00EDa:", null},
 				{" N\u00FAmero de visitas por d\u00EDa:", null},
