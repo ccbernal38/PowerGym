@@ -26,14 +26,13 @@ public class CrudMvc {
 	public static void main(String[] args) {
 		CrudMvc crudMvc = new CrudMvc();
 		crudMvc.cargarLogin();
-
+		
 	}
 
 	public void cargarLogin() {
 		Preferencias.initPreferencia();
-
 		LoginController controller = new LoginController();
-		
+
 	}
 
 }

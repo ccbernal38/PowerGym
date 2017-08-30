@@ -4,9 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -22,9 +19,7 @@ import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.MembresiaSocioDao;
 import co.powergym.model.DiaSemana;
 import co.powergym.model.Duracion;
-import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
-import co.powergym.mvc.JavaTX;
 import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
 import jssc.SerialPortException;
@@ -62,8 +57,7 @@ public class MembresiaController implements ActionListener {
 	private String horaAAux;
 	private List<String> horarios = new ArrayList<>();
 
-	public MembresiaController(CrearMembresia membresia,
-			MembresiaListadoView membresiaListadoView) {
+	public MembresiaController(CrearMembresia membresia, MembresiaListadoView membresiaListadoView) {
 		membresiaDao = new MembresiaDao();
 		this.duracionDao = new DuracionDao();
 		if (membresia != null) {
@@ -626,26 +620,5 @@ public class MembresiaController implements ActionListener {
 			 * boolean restriccionHorarioNo; private String horaDe; private String horaA;
 			 * private List<Horario> horarios;
 			 **/
-	}
-
-	public void abrirTorniquete(boolean opcion) {
-		PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
-
-		try {
-			arduino.arduinoTX("COM24", 9600);
-
-			if (opcion == false) {
-				arduino.sendData("1");
-			} else {
-				arduino.sendData("2");
-			}
-		} catch (ArduinoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SerialPortException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 }

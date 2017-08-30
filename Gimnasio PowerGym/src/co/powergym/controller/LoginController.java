@@ -33,6 +33,7 @@ public class LoginController implements ActionListener {
 		this.viewLogin.getBtnSalir().addActionListener(this);
 		this.viewLogin.setVisible(true);
 		this.viewLogin.setLocationRelativeTo(null);
+		
 	}
 
 	@Override

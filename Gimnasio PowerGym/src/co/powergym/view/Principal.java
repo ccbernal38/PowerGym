@@ -15,8 +15,18 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Toolkit;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Cursor;
 import javax.swing.border.BevelBorder;
+import javax.swing.JSplitPane;
+import javax.swing.JPanel;
+import javax.swing.JList;
+import javax.swing.JLayeredPane;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -36,7 +46,7 @@ public class Principal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("image/icon.ico"));
 
 		setTitle("PowerGym");
-		getContentPane().setBackground(new Color(0, 149, 239));
+		
 		getContentPane().setBackground(new Color(42, 45, 52));
 		initComponents();
 	}
@@ -86,7 +96,6 @@ public class Principal extends JFrame {
 		jMenuBar1.add(jMenu1);
 
 		jMenu2.setText("Socios");
-		
 
 		jMenuItemRegistrarSocio.setText("Registrar socio");
 		jMenu2.add(jMenuItemRegistrarSocio);
@@ -165,10 +174,10 @@ public class Principal extends JFrame {
 
 		jMenuItemListaEntrenador = new JMenuItem("Lista de entrenadores");
 		jMenuEntrenador.add(jMenuItemListaEntrenador);
-		
+
 		JMenu mnAyuda = new JMenu("Ayuda");
 		jMenuBar1.add(mnAyuda);
-		
+
 		mntmPuertoTorniquete = new JMenuItem("Puerto torniquete");
 		mnAyuda.add(mntmPuertoTorniquete);
 		getContentPane().setLayout(null);
@@ -201,7 +210,7 @@ public class Principal extends JFrame {
 		btnMenuMembresia.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		btnRegistrarSocio.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		btnMenuMembresia.setForeground(Color.WHITE);
-		btnMenuMembresia.setBounds(410, 50, 150, 150);
+		btnMenuMembresia.setBounds(220, 211, 150, 150);
 		getContentPane().add(btnMenuMembresia);
 		btnMenuMembresia.setBackground(new Color(0, 208, 0));
 
@@ -212,7 +221,7 @@ public class Principal extends JFrame {
 		jButton5.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		btnRegistrarSocio.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		jButton5.setForeground(Color.WHITE);
-		jButton5.setBounds(600, 50, 150, 150);
+		jButton5.setBounds(30, 211, 150, 150);
 		getContentPane().add(jButton5);
 		jButton5.setBackground(new Color(0, 0, 208));
 
@@ -223,23 +232,87 @@ public class Principal extends JFrame {
 		jButton6.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		btnRegistrarSocio.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		jButton6.setForeground(Color.WHITE);
-		jButton6.setBounds(790, 50, 150, 150);
+		jButton6.setBounds(220, 372, 150, 150);
 		getContentPane().add(jButton6);
 		jButton6.setBackground(new Color(208, 208, 0));
 
 		jButton6.setText("<html>Cierre<br />de caja</html>");
 
-		JLabel label = new JLabel("");
-		label.setBounds(824, 153, 520, 520);
+		btnSalir = new JButton("Salir");
+		btnSalir.setBounds(1255, 11, 89, 23);
+		getContentPane().add(btnSalir);
 
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panel.setBackground(new Color(0, 0, 0, 0));
+		panel.setBounds(1080, 50, 264, 623);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+
+		JLabel lblCumpleaosDelDa = new JLabel("Cumpleaños del Día");
+		lblCumpleaosDelDa.setForeground(Color.WHITE);
+		lblCumpleaosDelDa.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCumpleaosDelDa.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblCumpleaosDelDa.setBounds(10, 11, 244, 29);
+		panel.add(lblCumpleaosDelDa);
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		ImageIcon image = new ImageIcon("image/logo_bithday.png");
+
+		lblNewLabel.setBounds(10, 51, 244, 137);
+		lblNewLabel.setIcon(new ImageIcon(((new ImageIcon("image/logo_bithday.png")).getImage()).getScaledInstance(
+				lblNewLabel.getHeight(), lblNewLabel.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
+
+		panel.add(lblNewLabel);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBackground(new Color(0, 0, 0, 0));
+		scrollPane.setBounds(10, 199, 244, 413);
+		panel.add(scrollPane);
+
+		listCumpleanios = new JList();
+		listCumpleanios.setFont(new Font("Tahoma", Font.BOLD, 14));
+		listCumpleanios.setBorder(null);
+		listCumpleanios.setEnabled(false);
+		listCumpleanios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(listCumpleanios);
+		listCumpleanios.setForeground(Color.WHITE);
+		listCumpleanios.setBackground(new Color(0, 0, 0, 0));
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panel_1.setBackground(new Color(0, 0, 0, 0));
+		panel_1.setBounds(810, 50, 264, 623);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblMembresiaProximasA = new JLabel("Membresía a finalizar");
+		lblMembresiaProximasA.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMembresiaProximasA.setForeground(Color.WHITE);
+		lblMembresiaProximasA.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblMembresiaProximasA.setBounds(10, 11, 244, 29);
+		panel_1.add(lblMembresiaProximasA);
+
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(10, 51, 244, 137);
+		lblNewLabel_1.setIcon(new ImageIcon(((new ImageIcon("image/vencido.png")).getImage()).getScaledInstance(
+				lblNewLabel_1.getHeight(), lblNewLabel_1.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
+		panel_1.add(lblNewLabel_1);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 199, 244, 413);
+		panel_1.add(scrollPane_1);
+
+		JLabel label = new JLabel("");
+		label.setBounds(398, 153, 520, 520);
 		label.setIcon(new ImageIcon(((new ImageIcon("image/principal.png")).getImage())
 				.getScaledInstance(label.getHeight(), label.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
 
 		getContentPane().add(label);
-		
-		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(1255, 11, 89, 23);
-		getContentPane().add(btnSalir);
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -281,6 +354,8 @@ public class Principal extends JFrame {
 	private JMenuItem jMenuItemListaEntrenador;
 	private JButton btnSalir;
 	private JMenuItem mntmPuertoTorniquete;
+	private JList listCumpleanios;
+	private JLabel lblNewLabel_1;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -326,10 +401,16 @@ public class Principal extends JFrame {
 	public JButton getJButtonRegistrarEntrada() {
 		return jButtonRegistrarEntrada;
 	}
+
 	public JButton getBtnSalir() {
 		return btnSalir;
 	}
+
 	public JMenuItem getMntmPuertoTorniquete() {
 		return mntmPuertoTorniquete;
+	}
+
+	public JList getListCumpleanios() {
+		return listCumpleanios;
 	}
 }

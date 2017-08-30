@@ -184,4 +184,9 @@ public class Socio {
 		String output = input.substring(0, 1).toUpperCase() + input.substring(1);
 		return output;
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getNombreCompleto();
+	}
 }

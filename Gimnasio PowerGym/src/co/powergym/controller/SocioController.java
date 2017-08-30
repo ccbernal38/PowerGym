@@ -368,7 +368,25 @@ public class SocioController implements ActionListener, ItemListener {
 							int genero = viewRegistroSocio.getComboBox_genero().getSelectedIndex();
 
 							if (fotoTemp == null) {
-								fotoTemp = ImageIO.read(new File("image/avatar.png"));
+								int random =(int) (Math.random() * 3);
+								if(genero == 0) {
+									if(random == 0) {
+										fotoTemp = ImageIO.read(new File("image/avatar_girl.png"));		
+									}else if(random == 1) {
+										fotoTemp = ImageIO.read(new File("image/avatar_girl_2.png"));		
+									}else {
+										fotoTemp = ImageIO.read(new File("image/avatar_girl_3.png"));
+									}
+								}else {
+									if(random == 0) {
+										fotoTemp = ImageIO.read(new File("image/avatar_boy.png"));		
+									}else if(random == 1) {
+										fotoTemp = ImageIO.read(new File("image/avatar_boy_2.png"));		
+									}else {
+										fotoTemp = ImageIO.read(new File("image/avatar_boy_3.png"));
+									}
+								}
+								
 							}
 							if (tempHuella != null) {
 								boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, primerNombre,

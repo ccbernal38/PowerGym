@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="libs/dpotapi.jar"/>
 	<classpathentry kind="lib" path="libs/dpotjni.jar"/>
 	<classpathentry kind="lib" path="libs/PanamaHitek_Arduino-2.8.2.jar"/>
+	<classpathentry kind="lib" path="libs/prompt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

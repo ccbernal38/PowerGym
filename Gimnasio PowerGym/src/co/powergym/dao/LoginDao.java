@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import co.powergym.interfacedao.LoginInterfaceDao;
 import co.powergym.model.Conexion;
@@ -68,7 +69,7 @@ public class LoginDao implements LoginInterfaceDao {
 			}
 			conexion.desconectar();
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "No se ha podido realizar la conexión con la base de datos, por favor intente de nuevo.");
 		}
 		return usuario;
 	}

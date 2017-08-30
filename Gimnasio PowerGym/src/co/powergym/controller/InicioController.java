@@ -4,16 +4,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.List;
 import java.util.prefs.Preferences;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
+import co.powergym.model.Socio;
 import co.powergym.utils.Preferencias;
+import co.powergym.utils.SocioPanelCumpleanios;
 import co.powergym.view.Principal;
+import co.powergym.view.config.ConfigPuertoView;
 import co.powergym.view.entrenador.BusquedaEntrenador;
 import co.powergym.view.entrenador.ListaEntrenador;
 import co.powergym.view.entrenador.RegistroEntrenador;
@@ -28,9 +34,10 @@ import co.powergym.view.socio.SocioRegistroView;
 public class InicioController implements ActionListener {
 
 	Principal viewPrincipal = new Principal();
+	SocioDao socioDao;
 
 	public InicioController(Principal viewPrincipal) {
-
+		socioDao = new SocioDao();
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.getJMenuItemRegistrarSocio().addActionListener(this);
 		this.viewPrincipal.btnRegistrarSocio.addActionListener(this);
@@ -45,8 +52,10 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getJButtonRegistrarEntrada().addActionListener(this);
 		this.viewPrincipal.getMntmPuertoTorniquete().addActionListener(this);
 		this.viewPrincipal.getBtnSalir().addActionListener(this);
+		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
+		
 		this.viewPrincipal.addWindowListener(new WindowListener() {
 
 			@Override
@@ -159,10 +168,21 @@ public class InicioController implements ActionListener {
 					}
 				}
 			}).start();
-
 			dialog.setVisible(true);
 		} else if (viewPrincipal.getMntmPuertoTorniquete() == e.getSource()) {
-			
+			new ConfigController(new ConfigPuertoView());
 		}
+	}
+
+	public void listadoCumpleaniosDia() {
+		JList<Socio> jList = viewPrincipal.getListCumpleanios();
+		List<Socio> socios = socioDao.sociosCumpleaniosDia();
+
+		DefaultListModel<Socio> model = new DefaultListModel<>();
+		for (Socio socio : socios) {
+			model.addElement(socio);
+		}
+		jList.setModel(model);
+		jList.setCellRenderer(new SocioPanelCumpleanios());
 	}
 }

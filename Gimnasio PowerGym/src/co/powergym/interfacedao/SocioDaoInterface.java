@@ -26,4 +26,6 @@ public interface SocioDaoInterface {
 
 	public List<Socio> sociosCumpleaniosMes();
 	
+	public List<Socio> sociosCumpleaniosDia();
+
 }

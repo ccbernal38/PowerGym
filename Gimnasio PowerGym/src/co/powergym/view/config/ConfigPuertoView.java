@@ -20,22 +20,6 @@ public class ConfigPuertoView extends JFrame {
 	private JButton btnCancelar;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConfigPuertoView frame = new ConfigPuertoView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public ConfigPuertoView() {
@@ -48,25 +32,29 @@ public class ConfigPuertoView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Puerto de comunicaci\u00F3n de torniquete");
-		lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 11, 414, 33);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblPuerto = new JLabel("Puerto:");
+		lblPuerto.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPuerto.setBounds(106, 58, 60, 14);
 		contentPane.add(lblPuerto);
 		
 		textFieldPuerto = new JTextField();
+		textFieldPuerto.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textFieldPuerto.setBounds(177, 55, 148, 20);
 		contentPane.add(textFieldPuerto);
 		textFieldPuerto.setColumns(10);
 		
 		btnCambiar = new JButton("Cambiar");
+		btnCambiar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCambiar.setBounds(129, 99, 89, 23);
 		contentPane.add(btnCambiar);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCancelar.setBounds(228, 99, 89, 23);
 		contentPane.add(btnCancelar);
 	}

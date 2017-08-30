@@ -250,4 +250,45 @@ public class SocioDao implements SocioDaoInterface {
 		return socio;
 	}
 
+	@Override
+	public List<Socio> sociosCumpleaniosDia() {
+		List<Socio> list = new ArrayList<Socio>();
+		Socio socio;
+		Calendar calendar = Calendar.getInstance();
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
+							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+							+ " FROM Socio WHERE mesNacimiento = ? AND diaNacimiento = ?");
+			int mes = calendar.get(Calendar.MONTH) + 1;
+			int dia = calendar.get(Calendar.DAY_OF_MONTH);
+			preparedStatement.setInt(1, mes);
+			preparedStatement.setInt(2, dia);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				socio = new Socio();
+				socio.setId(resultSet.getInt(1));
+				socio.setIdentificacion(resultSet.getString(2));
+				socio.setPrimerNombre(resultSet.getString(3));
+				socio.setSegundoNombre(resultSet.getString(4));
+				socio.setPrimerApellido(resultSet.getString(5));
+				socio.setSegundoApellido(resultSet.getString(6));
+				socio.setFechaNacimiento(resultSet.getDate(7));
+				socio.setTelefono(resultSet.getString(8));
+				socio.setCorreo(resultSet.getString(9));
+				socio.setGenero(resultSet.getInt(10));
+				Blob blob = resultSet.getBlob(11);
+				if (blob != null) {
+					InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
+					socio.setFoto(ImageIO.read(bufferedImage));
+				}
+				list.add(socio);
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+		}
+		return list;
+	}
+
 }

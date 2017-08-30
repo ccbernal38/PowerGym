@@ -7,10 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -51,7 +49,8 @@ import co.powergym.model.DiaSemana;
 import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
 import co.powergym.model.Socio;
-import co.powergym.mvc.JavaTX;
+import co.powergym.utils.Constantes;
+import co.powergym.utils.Preferencias;
 import co.powergym.view.socio.SocioConsultaEntradaView;
 import co.powergym.view.socio.SocioRegistrarEntradaView;
 import co.powergym.view.socio.SocioRegistroHuella;
@@ -520,19 +519,23 @@ public class HuellaController implements ActionListener {
 		JOptionPane pane = new JOptionPane("Espere, abriendo puerta......", JOptionPane.INFORMATION_MESSAGE,
 				JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
 		JDialog dialog = pane.createDialog(null, "Entrada");
-		
+
 		new Thread(new Runnable() {
 			public void run() {
 				try {
+					String puerto = Preferencias.obtenerPreferencia(Constantes.PUERTO);
+					if (puerto.equals("-1")) {
+						puerto = "COM5";
+					}
 					// Se inicia la comunicación con el Puerto Serie
 					System.out.println("Arduino inicio");
-					ino.arduinoTX("COM6", 9600);
+					ino.arduinoTX(puerto, 9600);
 					TimeUnit.SECONDS.sleep(2);
 					ino.sendData("1");
 					System.out.println("Arduino Fin");
 					ino.killArduinoConnection();
 				} catch (ArduinoException ex) {
-					Logger.getLogger(JavaTX.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(HuellaController.class.getName()).log(Level.SEVERE, null, ex);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -542,7 +545,7 @@ public class HuellaController implements ActionListener {
 				}
 			}
 		}).start();
-		
+
 		new Thread(new Runnable() {
 			public void run() {
 				try {

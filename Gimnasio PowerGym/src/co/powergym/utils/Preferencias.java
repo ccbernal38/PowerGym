@@ -10,7 +10,6 @@ import co.powergym.model.Usuario;
 public class Preferencias {
 	
 
-	private static String namePreference = "PowerGym";
 	private static Preferences prefs;
 	
 	public static String obtenerPreferencia(String clave) {
@@ -31,10 +30,11 @@ public class Preferencias {
 	}
 	
 	public static void initPreferencia() {
-		prefs = Preferences.userRoot().node(namePreference);
-		if(obtenerPreferencia("Puerto").equals("-1")) {
-			guardarPreferencia("Puerto", "COM5");
+		prefs = Preferences.userRoot().node(Constantes.PREFERENCIAS);
+		if(obtenerPreferencia(Constantes.PUERTO).equals("-1")) {
+			guardarPreferencia(Constantes.PUERTO, "COM5");
 		}
+		System.out.println(obtenerPreferencia(Constantes.PUERTO));
 	}
 	
 	public static void InicioSesionPrefs(Usuario usuario) {
