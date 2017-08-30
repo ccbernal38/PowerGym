@@ -46,16 +46,14 @@ public class MembresiaController implements ActionListener {
 	private boolean limiteMembresiaDiaNO;
 	private String limite;
 	private int visitasDia;
-	private List<DiaSemana> dias;
 	private List<DiaSemana> diasAux = new ArrayList<>();
 	private boolean restriccionHorarioSi;
 	private boolean restriccionHorarioNo;
-	private String restriccionHorario;
-	private String horaDe;
-	private String horaA;
+	private String restriccionHorario = "";
 	private String horaDeAux;
 	private String horaAAux;
 	private List<String> horarios = new ArrayList<>();
+	private String dias = "";
 
 	public MembresiaController(CrearMembresia membresia, MembresiaListadoView membresiaListadoView) {
 		membresiaDao = new MembresiaDao();
@@ -84,7 +82,7 @@ public class MembresiaController implements ActionListener {
 			llenarRegistroMembresia();
 			llenarComboboxNumeroVisitas();
 			llenarComboboxHorarios();
-
+			inhabilitarRestriccionHorario();
 		}
 		if (membresiaListadoView != null) {
 			this.membresiaListadoView = membresiaListadoView;
@@ -95,6 +93,16 @@ public class MembresiaController implements ActionListener {
 			this.membresiaListadoView.setVisible(true);
 		}
 
+	}
+
+	private void inhabilitarRestriccionHorario() {
+		membresia.getComboBoxA().setEnabled(false);
+		membresia.getComboBoxDe().setEnabled(false);
+		membresia.getBtnAadirHorario().setEnabled(false);
+		membresia.getList_listaHorarios().setEnabled(false);
+		membresia.getButtonEliminarH().setEnabled(false);
+		membresia.getLblA().setEnabled(false);
+		membresia.getLblDe().setEnabled(false);
 	}
 
 	private void llenarRegistroMembresia() {
@@ -120,7 +128,7 @@ public class MembresiaController implements ActionListener {
 				this.membresia.getComboBoxA().addItem(i + ":00 AM");
 			} else if (i > 12 && i <= 24) {
 				this.membresia.getComboBoxDe().addItem(i + ":00 PM");
-				this.membresia.getComboBoxA().addItem(i + ":00 AM");
+				this.membresia.getComboBoxA().addItem(i + ":00 PM");
 			} else
 				break;
 		}
@@ -286,7 +294,9 @@ public class MembresiaController implements ActionListener {
 
 				membresia.getBtnSiguiente().setVisible(false);
 				membresia.getBtnFinalizar().setVisible(true);
+
 				membresia.getBtnFinalizar().setBounds(338, 350, 110, 30);
+				llenarTabla();
 			}
 		}
 		if (membresia != null && e.getSource() == membresia.getBtnAtras()) {
@@ -345,9 +355,7 @@ public class MembresiaController implements ActionListener {
 				membresia.getCheckBox_lunes().setVisible(false);
 				;
 				membresia.getCheckBox_martes().setVisible(false);
-				;
 				membresia.getCheckBox_miercoles().setVisible(false);
-				;
 				membresia.getCheckBox_jueves().setVisible(false);
 				membresia.getCheckBox_viernes().setVisible(false);
 				membresia.getCheckBox_sabado().setVisible(false);
@@ -535,8 +543,10 @@ public class MembresiaController implements ActionListener {
 			}
 			horaDeAux = (String) membresia.getComboBoxDe().getSelectedItem();
 			horaAAux = (String) membresia.getComboBoxA().getSelectedItem();
+
 			listModel.addElement("De " + horaDeAux + " a " + horaAAux);
-			horarios.add(horaDe + horaAAux);
+			horarios.add("De " + horaDeAux + " a " + horaAAux);
+
 			lista.setModel(listModel);
 			lista.updateUI();
 
@@ -589,11 +599,14 @@ public class MembresiaController implements ActionListener {
 
 		nombreMembresia = membresia.getTfNombreMembresia().getText();
 		precioMembresia = membresia.getTFPrecio().getText();
-		duracionMembresia = Integer.parseInt(membresia.getTextFieldCantidad().getText());
+		if (!membresia.getTextFieldCantidad().getText().equals("")) {
+			duracionMembresia = Integer.parseInt(membresia.getTextFieldCantidad().getText());
+		}
 		if (membresia.getCBXTipoTiempo().getSelectedItem() instanceof Duracion) {
 
 			tipoDuracion = (Duracion) membresia.getCBXTipoTiempo().getSelectedItem();
 		}
+		String tipoDu = tipoDuracion.getNombre();
 		limiteMembresiaDiaNO = membresia.getChckbxNo().isSelected();
 		limiteMembresiaDiaSi = membresia.getChckbxSi().isSelected();
 
@@ -601,24 +614,42 @@ public class MembresiaController implements ActionListener {
 			limite = "No hay límite";
 		} else if (limiteMembresiaDiaSi == true) {
 
-			visitasDia = Integer.parseInt((String) membresia.getComboBoxVisitas().getSelectedItem());
+			visitasDia = (int) membresia.getComboBoxVisitas().getSelectedItem();
 			limite = visitasDia + " veces por día";
 		}
-		dias = diasAux;
+		for (int i = 0; i < diasAux.size(); i++) {
+
+			if (i == diasAux.size() - 1) {
+				dias += diasAux.get(i).getNombre() + ". ";
+			} else {
+				dias += diasAux.get(i).getNombre() + ", ";
+			}
+		}
 		restriccionHorarioSi = membresia.getChckbxSiLosHorarios().isSelected();
 		restriccionHorarioNo = membresia.getChckbxNo_horario().isSelected();
 
 		if (restriccionHorarioNo == true) {
 			restriccionHorario = "No hay restricción.";
 		} else if (restriccionHorarioSi == true) {
-
+			restriccionHorario = "";
 			for (int i = 0; i < horarios.size(); i++) {
-				restriccionHorario += horarios.get(i) + ", ";
+				if (i == horarios.size() - 1) {
+					restriccionHorario += horarios.get(i) + ". ";
+				} else {
+					restriccionHorario += horarios.get(i) + ", ";
+				}
 			}
-		} /**
-			 * private int visitasDia; private List<Dia> dias; restriccionHorarioSi; private
-			 * boolean restriccionHorarioNo; private String horaDe; private String horaA;
-			 * private List<Horario> horarios;
-			 **/
+		}
+
+		DefaultTableModel defaultTableModel = new DefaultTableModel(
+				new Object[][] { { " Nombre de la membres\u00EDa:", nombreMembresia },
+						{ " Costo de la membres\u00EDa:", precioMembresia },
+						{ " Duraci\u00F3n de la membres\u00EDa:", duracionMembresia + " " + tipoDu },
+						{ " N\u00FAmero de visitas por d\u00EDa:", limite }, { " D\u00EDas limite de ingreso:", dias },
+						{ " Horarios de ingreso por d\u00EDa:", restriccionHorario }, },
+				new String[] { "", "" });
+		membresia.getTableResumenMembresia().setModel(defaultTableModel);
+		membresia.getTableResumenMembresia().repaint();
 	}
+
 }
