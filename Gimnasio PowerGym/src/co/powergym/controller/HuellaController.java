@@ -272,7 +272,7 @@ public class HuellaController implements ActionListener {
 
 	public void stop() {
 		Lector.stopCapture();
-		enviarTexto("No se está usando el Lector de Huella Dactilar ");
+		enviarTexto("No se estï¿½ usando el Lector de Huella Dactilar ");
 	}
 
 	public DPFPTemplate getTemplate() {
@@ -343,7 +343,7 @@ public class HuellaController implements ActionListener {
 
 	public void guardarHuella() {
 		ByteArrayInputStream datosHuella = new ByteArrayInputStream(template.serialize());
-		Integer tamañoHuella = template.serialize().length;
+		Integer tamanoHuella = template.serialize().length;
 
 		try {
 			socioController.setTempHuella(read(datosHuella));
@@ -364,7 +364,7 @@ public class HuellaController implements ActionListener {
 	public void guardarHuellaDB() {
 		// Obtiene los datos del template de la huella actual
 		ByteArrayInputStream datosHuella = new ByteArrayInputStream(template.serialize());
-		Integer tamañoHuella = template.serialize().length;
+		Integer tamanoHuella = template.serialize().length;
 
 		// Pregunta el nombre de la persona a la cual corresponde dicha huella
 		String nombre = JOptionPane.showInputDialog("Nombre:");
@@ -373,7 +373,7 @@ public class HuellaController implements ActionListener {
 			Connection c = con.getConexion();
 			PreparedStatement guardarStmt = c.prepareStatement("INSERT INTO huella(huenombre, huehuella) values(?,?)");
 			guardarStmt.setString(1, nombre);
-			guardarStmt.setBinaryStream(2, datosHuella, tamañoHuella);
+			guardarStmt.setBinaryStream(2, datosHuella, tamanoHuella);
 			// Ejecuta la sentencia
 			guardarStmt.execute();
 			guardarStmt.close();
@@ -402,7 +402,7 @@ public class HuellaController implements ActionListener {
 				return;
 			}
 		}
-		JOptionPane.showMessageDialog(null, "No existe ningún registro que coincida con la huella",
+		JOptionPane.showMessageDialog(null, "No existe ningï¿½n registro que coincida con la huella",
 				"Verificacion de Huella", JOptionPane.ERROR_MESSAGE);
 		setTemplate(null);
 	}
@@ -435,7 +435,7 @@ public class HuellaController implements ActionListener {
 				initConsultaEntrada(socio);
 			} else {
 				JOptionPane.showMessageDialog(viewRegistrarEntrada,
-						"No se encontró un socio con este numero de identificación.");
+						"No se encontrï¿½ un socio con este numero de identificaciï¿½n.");
 			}
 
 		}
@@ -527,7 +527,7 @@ public class HuellaController implements ActionListener {
 					if (puerto.equals("-1")) {
 						puerto = "COM5";
 					}
-					// Se inicia la comunicación con el Puerto Serie
+					// Se inicia la comunicaciï¿½n con el Puerto Serie
 					System.out.println("Arduino inicio");
 					ino.arduinoTX(puerto, 9600);
 					TimeUnit.SECONDS.sleep(2);
