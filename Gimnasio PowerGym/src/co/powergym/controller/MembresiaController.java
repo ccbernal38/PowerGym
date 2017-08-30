@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
 
+import co.powergym.dao.DuracionDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.MembresiaSocioDao;
 import co.powergym.model.DiaSemana;
@@ -31,7 +34,11 @@ public class MembresiaController implements ActionListener {
 	private CrearMembresia membresia;
 	private MembresiaListadoView membresiaListadoView;
 	private MembresiaDao membresiaDao;
+
 	private MembresiaSocioDao membresiaSocioDao;
+
+	private DuracionDao duracionDao;
+
 	int contPasos = 1;
 	int contPasosAtras = 5;
 
@@ -53,11 +60,12 @@ public class MembresiaController implements ActionListener {
 	private String horaA;
 	private String horaDeAux;
 	private String horaAAux;
-	private List<Horario> horarios;
+	private List<String> horarios = new ArrayList<>();
 
-	public MembresiaController(CrearMembresia membresia, MembresiaListadoView membresiaListadoView) {
-		this.membresiaDao = new MembresiaDao();
-		this.membresiaSocioDao = new MembresiaSocioDao();
+	public MembresiaController(CrearMembresia membresia,
+			MembresiaListadoView membresiaListadoView) {
+		membresiaDao = new MembresiaDao();
+		this.duracionDao = new DuracionDao();
 		if (membresia != null) {
 			this.membresia = membresia;
 			this.membresia.setVisible(true);
@@ -78,6 +86,11 @@ public class MembresiaController implements ActionListener {
 			this.membresia.getChckbxSiLosHorarios().addActionListener(this);
 			this.membresia.getBtnAadirHorario().addActionListener(this);
 			this.membresia.getBtnFinalizar().addActionListener(this);
+			this.membresia.getButtonEliminarH().addActionListener(this);
+			llenarRegistroMembresia();
+			llenarComboboxNumeroVisitas();
+			llenarComboboxHorarios();
+
 		}
 		if (membresiaListadoView != null) {
 			this.membresiaListadoView = membresiaListadoView;
@@ -88,6 +101,35 @@ public class MembresiaController implements ActionListener {
 			this.membresiaListadoView.setVisible(true);
 		}
 
+	}
+
+	private void llenarRegistroMembresia() {
+
+		List<Duracion> list = duracionDao.listarDuracion();
+		for (int i = 0; i < list.size(); i++) {
+			this.membresia.getCBXTipoTiempo().addItem(list.get(i));
+		}
+	}
+
+	private void llenarComboboxNumeroVisitas() {
+
+		for (int i = 1; i <= 20; i++) {
+			this.membresia.getComboBoxVisitas().addItem(i);
+		}
+	}
+
+	private void llenarComboboxHorarios() {
+
+		for (int i = 1; 1 <= 24; i++) {
+			if (i <= 12) {
+				this.membresia.getComboBoxDe().addItem(i + ":00 AM");
+				this.membresia.getComboBoxA().addItem(i + ":00 AM");
+			} else if (i > 12 && i <= 24) {
+				this.membresia.getComboBoxDe().addItem(i + ":00 PM");
+				this.membresia.getComboBoxA().addItem(i + ":00 AM");
+			} else
+				break;
+		}
 	}
 
 	private void listadoMembresiasLlenarTabla(JTable tableListMembresias) {
@@ -206,13 +248,13 @@ public class MembresiaController implements ActionListener {
 
 				membresia.getChckbxNo_horario().setBounds(30, 147, 128, 23);
 				membresia.getChckbxSiLosHorarios().setBounds(30, 173, 267, 23);
-				membresia.getLblDe().setBounds(47, 215, 25, 14);
-				membresia.getComboBoxDe().setBounds(75, 212, 72, 20);
-				membresia.getLblA().setBounds(160, 215, 25, 14);
-				membresia.getComboBoxA().setBounds(180, 212, 72, 20);
+				membresia.getLblDe().setBounds(40, 215, 25, 14);
+				membresia.getComboBoxDe().setBounds(65, 212, 77, 20);
+				membresia.getLblA().setBounds(153, 215, 25, 14);
+				membresia.getComboBoxA().setBounds(170, 212, 84, 20);
 				membresia.getBtnAadirHorario().setBounds(260, 212, 72, 20);
 				membresia.getButtonEliminarH().setBounds(253, 310, 80, 20);
-				membresia.getList_listaHorarios().setBounds(75, 238, 257, 68);
+				membresia.getList_listaHorarios().setBounds(65, 238, 267, 68);
 
 				membresia.getChckbxNo_horario().setVisible(true);
 				membresia.getChckbxSiLosHorarios().setVisible(true);
@@ -490,9 +532,27 @@ public class MembresiaController implements ActionListener {
 		}
 		if (membresia.getBtnAadirHorario() == e.getSource()) {
 
+			JList lista = membresia.getList_listaHorarios();
+
+			DefaultListModel listModel = new DefaultListModel();
+
+			for (int i = 0; i < lista.getModel().getSize(); i++) {
+				listModel.addElement(lista.getModel().getElementAt(i));
+			}
 			horaDeAux = (String) membresia.getComboBoxDe().getSelectedItem();
 			horaAAux = (String) membresia.getComboBoxA().getSelectedItem();
+			listModel.addElement("De " + horaDeAux + " a " + horaAAux);
+			horarios.add(horaDe + horaAAux);
+			lista.setModel(listModel);
+			lista.updateUI();
 
+		}
+		if (membresia.getButtonEliminarH() == e.getSource()) {
+
+			JList lista = membresia.getList_listaHorarios();
+			int index = lista.getSelectedIndex();
+			DefaultListModel modelo = (DefaultListModel) lista.getModel();
+			modelo.remove(index);
 		}
 		if (membresiaListadoView != null && e.getSource() == membresiaListadoView.getBtnEditar()) {
 
@@ -558,12 +618,34 @@ public class MembresiaController implements ActionListener {
 			restriccionHorario = "No hay restricción.";
 		} else if (restriccionHorarioSi == true) {
 
-		}
-		/**
-		 * private int visitasDia; private List<Dia> dias; restriccionHorarioSi; private
-		 * boolean restriccionHorarioNo; private String horaDe; private String horaA;
-		 * private List<Horario> horarios;
-		 **/
+			for (int i = 0; i < horarios.size(); i++) {
+				restriccionHorario += horarios.get(i) + ", ";
+			}
+		} /**
+			 * private int visitasDia; private List<Dia> dias; restriccionHorarioSi; private
+			 * boolean restriccionHorarioNo; private String horaDe; private String horaA;
+			 * private List<Horario> horarios;
+			 **/
 	}
 
+	public void abrirTorniquete(boolean opcion) {
+		PanamaHitek_Arduino arduino = new PanamaHitek_Arduino();
+
+		try {
+			arduino.arduinoTX("COM24", 9600);
+
+			if (opcion == false) {
+				arduino.sendData("1");
+			} else {
+				arduino.sendData("2");
+			}
+		} catch (ArduinoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 }

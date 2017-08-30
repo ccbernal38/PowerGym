@@ -1,9 +1,7 @@
 package co.powergym.view.socio;
 
 import java.awt.Color;
-import java.awt.Toolkit;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,10 +14,6 @@ import javax.swing.border.LineBorder;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.toedter.calendar.JDateChooser;
-
-import co.powergym.view.util.MiBoton;
-
-import javax.swing.SwingConstants;
 
 public class SocioRegistroView extends JFrame {
 
@@ -181,7 +175,7 @@ public class SocioRegistroView extends JFrame {
 		lblFechaDeNacimiento.setBounds(304, 283, 157, 14);
 		contentPane.add(lblFechaDeNacimiento);
 		
-		btnRegistrar = new MiBoton("Registrar");
+		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setBounds(315, 381, 119, 32);
 		
 		

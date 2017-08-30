@@ -165,6 +165,12 @@ public class Principal extends JFrame {
 
 		jMenuItemListaEntrenador = new JMenuItem("Lista de entrenadores");
 		jMenuEntrenador.add(jMenuItemListaEntrenador);
+		
+		JMenu mnAyuda = new JMenu("Ayuda");
+		jMenuBar1.add(mnAyuda);
+		
+		mntmPuertoTorniquete = new JMenuItem("Puerto torniquete");
+		mnAyuda.add(mntmPuertoTorniquete);
 		getContentPane().setLayout(null);
 		btnRegistrarSocio = new javax.swing.JButton();
 		btnRegistrarSocio.setBorder(null);
@@ -230,6 +236,10 @@ public class Principal extends JFrame {
 				.getScaledInstance(label.getHeight(), label.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
 
 		getContentPane().add(label);
+		
+		btnSalir = new JButton("Salir");
+		btnSalir.setBounds(1255, 11, 89, 23);
+		getContentPane().add(btnSalir);
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -269,6 +279,8 @@ public class Principal extends JFrame {
 	private JMenuItem jMenuItemRegistrarEntrenador;
 	private JMenuItem jMenuItemBuscarEntrenador;
 	private JMenuItem jMenuItemListaEntrenador;
+	private JButton btnSalir;
+	private JMenuItem mntmPuertoTorniquete;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -313,5 +325,11 @@ public class Principal extends JFrame {
 
 	public JButton getJButtonRegistrarEntrada() {
 		return jButtonRegistrarEntrada;
+	}
+	public JButton getBtnSalir() {
+		return btnSalir;
+	}
+	public JMenuItem getMntmPuertoTorniquete() {
+		return mntmPuertoTorniquete;
 	}
 }

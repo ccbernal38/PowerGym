@@ -8,14 +8,14 @@ import co.powergym.model.Entrenador;
 public interface EntrenadorDaoInterface {
 	
 public boolean registrarEntrenador(String identificacion,  String primerNombre, String segundoNombre, String primerApellido,
-        String segundoApellido, Date fechaNacimiento,String correo, String telefono, int genero);
+        String segundoApellido, Date fechaNacimiento,String correo, String telefono, int genero, String username, String password);
 	
 	public ArrayList<Entrenador> listaEntrenador();
 	
 	public boolean eliminarEntrenador(String identificacion);
 	
 	public boolean modificarEntrenador(String identificacion,  String primerNombre, String segundoNombre, String primerApellido,
-	        String segundoApellido,Date fechaNacimiento, String correo, String telefono, int genero);
+	        String segundoApellido,Date fechaNacimiento, String correo, String telefono, int genero, String username, String password);
 	
 	public Entrenador buscarEntrenador(String identificacion);
 }

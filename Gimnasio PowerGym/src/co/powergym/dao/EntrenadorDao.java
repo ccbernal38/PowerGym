@@ -1,6 +1,4 @@
 package co.powergym.dao;
-
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,13 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import javax.imageio.ImageIO;
-
 import co.powergym.interfacedao.EntrenadorDaoInterface;
 import co.powergym.model.Conexion;
 import co.powergym.model.Entrenador;
-import co.powergym.model.Socio;
 
 public class EntrenadorDao implements EntrenadorDaoInterface {
 
@@ -27,13 +21,13 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 	@Override
 	public boolean registrarEntrenador(String identificacion, String primerNombre, String segundoNombre,
 			String primerApellido, String segundoApellido, Date fechaNacimiento, String correo, String telefono,
-			int genero) {
+			int genero, String username, String password) {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
-					.prepareStatement("INSERT INTO Entrenador(identificacion, primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero) VALUES(?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO Usuario(identificacion, primerNombre, segundoNombre,"
+							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
 			statement.setString(2, primerNombre);
 			statement.setString(3, segundoNombre);
@@ -66,7 +60,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,"
 					+ "identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero "
-					+ " FROM Entrenador");
+					+ " FROM Usuario");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				entrenador = new Entrenador();
@@ -95,7 +89,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement statement = connection
-					.prepareStatement("DELETE FROM Entrenador WHERE identificacion = ?");
+					.prepareStatement("DELETE FROM Usuario WHERE identificacion = ?");
 			statement.setString(1, identificacion);
 			resultado = statement.execute();
 			resultado = true;
@@ -109,12 +103,12 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 	@Override
 	public boolean modificarEntrenador(String identificacion, String primerNombre, String segundoNombre,
 			String primerApellido, String segundoApellido, Date fechaNacimiento, String correo, String telefono,
-			int genero) {
+			int genero, String username, String password) {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
 
-			PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador Set primerNombre = ?, segundoNombre = ?, "
+			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set primerNombre = ?, segundoNombre = ?, "
 						+ "primerApellido = ?, segundoApellido = ?, fechaNacimiento = ?, telefono = ?, correoElectronico = ?, genero = ? "
 						+ "WHERE identificacion = ?");				
 				statement.setString(1, primerNombre);
@@ -142,7 +136,7 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
 							+ "primerApellido, segundoApellido, telefono, correoElectronico, genero"
-							+ " FROM Entrenador WHERE identificacion = ?");
+							+ " FROM Usuario WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {

@@ -2,11 +2,17 @@ package co.powergym.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.prefs.Preferences;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
+import co.powergym.utils.Preferencias;
 import co.powergym.view.Principal;
 import co.powergym.view.entrenador.BusquedaEntrenador;
 import co.powergym.view.entrenador.ListaEntrenador;
@@ -37,12 +43,72 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getJMenuItemListaEntrenador().addActionListener(this);
 		this.viewPrincipal.getJMenuItemListaMembresias().addActionListener(this);
 		this.viewPrincipal.getJButtonRegistrarEntrada().addActionListener(this);
+		this.viewPrincipal.getMntmPuertoTorniquete().addActionListener(this);
+		this.viewPrincipal.getBtnSalir().addActionListener(this);
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
-		Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
+		this.viewPrincipal.addWindowListener(new WindowListener() {
 
-		System.out.println(prefs.getInt("Clave", -1));
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
 
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Closed");
+				Preferencias.resetPreferencias();
+				JOptionPane pane = new JOptionPane("Espere, Saliendo......", JOptionPane.INFORMATION_MESSAGE,
+						JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+				JDialog dialog = pane.createDialog(null, "Entrada");
+				new Thread(new Runnable() {
+					public void run() {
+						try {
+							Thread.sleep(500);
+							dialog.dispose();
+							e.getWindow().dispose();
+						} catch (Throwable th) {
+							System.out.println("setValidComboIndex(): error :\n" + th.getMessage());
+						}
+					}
+				}).start();
+
+				dialog.setVisible(true);
+
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	@Override
@@ -77,6 +143,26 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemListaEntrenador() == e.getSource()) {
 			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(), null, null,
 					new ListaEntrenador(), null);
+		} else if (viewPrincipal.getBtnSalir() == e.getSource()) {
+			Preferencias.resetPreferencias();
+			JOptionPane pane = new JOptionPane("Espere, Saliendo......", JOptionPane.INFORMATION_MESSAGE,
+					JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+			JDialog dialog = pane.createDialog(null, "Entrada");
+			new Thread(new Runnable() {
+				public void run() {
+					try {
+						Thread.sleep(1000);
+						dialog.dispose();
+						System.exit(0);
+					} catch (Throwable th) {
+						System.out.println("setValidComboIndex(): error :\n" + th.getMessage());
+					}
+				}
+			}).start();
+
+			dialog.setVisible(true);
+		} else if (viewPrincipal.getMntmPuertoTorniquete() == e.getSource()) {
+			
 		}
 	}
 }

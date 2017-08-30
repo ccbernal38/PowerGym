@@ -9,6 +9,8 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import co.powergym.controller.InicioController;
+import co.powergym.controller.LoginController;
+import co.powergym.utils.Preferencias;
 import co.powergym.view.Principal;
 
 /**
@@ -16,7 +18,6 @@ import co.powergym.view.Principal;
  * @author
  */
 public class CrudMvc {
-	private static Preferences prefs;
 
 	/**
 	 * @param args
@@ -24,18 +25,14 @@ public class CrudMvc {
 	 */
 	public static void main(String[] args) {
 		CrudMvc crudMvc = new CrudMvc();
-		crudMvc.cargarPreferencias();
+		crudMvc.cargarLogin();
 
 	}
 
-	public void cargarPreferencias() {
-		prefs = Preferences.userRoot().node(this.getClass().getName());
+	public void cargarLogin() {
+		Preferencias.initPreferencia();
 
-		System.out.println(prefs.getInt("Clave", -1));
-
-		prefs.putInt("Clave",3);
-		Principal viewPrincipal = new Principal();
-		InicioController controller = new InicioController(viewPrincipal);
+		LoginController controller = new LoginController();
 		
 	}
 

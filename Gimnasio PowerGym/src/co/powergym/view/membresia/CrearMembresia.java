@@ -251,7 +251,8 @@ public class CrearMembresia extends JFrame {
 		contentPane.add(buttonEliminarH);
 		
 		list_listaHorarios = new JList();
-		list_listaHorarios.setForeground(Color.WHITE);
+		list_listaHorarios.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		list_listaHorarios.setForeground(Color.BLACK);
 		list_listaHorarios.setBounds(581, 394, 235, 58);
 		contentPane.add(list_listaHorarios);
 		

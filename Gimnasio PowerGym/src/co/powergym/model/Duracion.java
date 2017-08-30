@@ -34,5 +34,13 @@ public class Duracion {
 		this.id = id;
 		this.nombre = nombre;
 	}
-
+	
+	public Duracion() {
+		
+	}
+	@Override
+	public String toString() {
+		
+		return nombre;
+	}
 }

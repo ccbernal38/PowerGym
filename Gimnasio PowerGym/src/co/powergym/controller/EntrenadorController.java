@@ -123,9 +123,12 @@ public class EntrenadorController implements ActionListener {
 											JOptionPane.showMessageDialog(null,
 													"El campo correo electrónico no puede estar vacio.");
 										}
+										// TODO: Completar campos
+										String username = "";
+										String password = "";
 										boolean respuesta = entrenadorDao.registrarEntrenador(numeroId, primerNombre,
 												segundoNombre, primerApellido, segundoApellido, fechaNacimiento, correo,
-												telefono, genero);
+												telefono, genero, username, password);
 										if (respuesta) {
 											JOptionPane.showMessageDialog(null, "Registro exitoso");
 										} else {
@@ -231,7 +234,6 @@ public class EntrenadorController implements ActionListener {
 						viewActualizarEntrenador.setVisible(true);
 						viewActualizarEntrenador.getBtnActualizar1().addActionListener(this);
 					}
-
 				}
 			}
 		}
@@ -243,9 +245,11 @@ public class EntrenadorController implements ActionListener {
 			String segundoApellido = viewActualizarEntrenador.getTxtSegundoapellido().getText();
 			String telefono = viewActualizarEntrenador.getTxtTelefono().getText();
 			String correoElectronico = viewActualizarEntrenador.getTxtCorreoelectronico().getText();
-
+			// TODO: Completar campos
+			String username = "";
+			String password = "";
 			boolean respuesta = entrenadorDao.modificarEntrenador(numeroId, primerNombre, segundoNombre, primerApellido,
-					segundoApellido, null, correoElectronico, telefono, 0);
+					segundoApellido, null, correoElectronico, telefono, 0, username, password);
 			if (respuesta) {
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
 			} else {
