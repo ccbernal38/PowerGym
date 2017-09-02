@@ -30,22 +30,20 @@ public class SocioDao implements SocioDaoInterface {
 	}
 
 	@Override
-	public boolean registrarSocio(String identificacion, Date fechaNacimiento, String primerNombre,
-			String segundoNombre, String primerApellido, String segundoApellido, String correo, String telefono,
+	public boolean registrarSocio(String identificacion, Date fechaNacimiento, String nombre,
+			String apellido, String correo, String telefono,
 			int genero, BufferedImage foto, byte[] tempHuella) throws IOException {
 
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
-					.prepareStatement("INSERT INTO Socio(identificacion, primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto, diaNacimiento,"
+					.prepareStatement("INSERT INTO Socio(identificacion, nombre, "
+							+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto, diaNacimiento,"
 							+ "mesNacimiento, anioNacimiento, huella) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
-			statement.setString(2, primerNombre);
-			statement.setString(3, segundoNombre);
-			statement.setString(4, primerApellido);
-			statement.setString(5, segundoApellido);
+			statement.setString(2, nombre);
+			statement.setString(4, apellido);
 			statement.setDate(6, new java.sql.Date(fechaNacimiento.getTime()));
 			statement.setString(7, telefono);
 			statement.setString(8, correo);
@@ -81,8 +79,8 @@ public class SocioDao implements SocioDaoInterface {
 		Socio socio;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, primerNombre"
-					+ ", segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto, huella"
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre"
+					+ ", apellido, fechaNacimiento, telefono, correoElectronico, genero, foto, huella"
 					+ " FROM Socio");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -90,19 +88,17 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
 				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setSegundoNombre(resultSet.getString(4));
-				socio.setPrimerApellido(resultSet.getString(5));
-				socio.setSegundoApellido(resultSet.getString(6));
-				socio.setFechaNacimiento(resultSet.getDate(7));
-				socio.setTelefono(resultSet.getString(8));
-				socio.setCorreo(resultSet.getString(9));
-				socio.setGenero(resultSet.getInt(10));
-				Blob resultfoto = resultSet.getBlob(11);
+				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setFechaNacimiento(resultSet.getDate(5));
+				socio.setTelefono(resultSet.getString(6));
+				socio.setCorreo(resultSet.getString(7));
+				socio.setGenero(resultSet.getInt(8));
+				Blob resultfoto = resultSet.getBlob(9);
 				if (resultfoto != null) {
 					InputStream bufferedImage = resultfoto.getBinaryStream();
 					socio.setFoto(ImageIO.read(bufferedImage));
 				}
-				socio.setHuella(resultSet.getBytes(12));
+				socio.setHuella(resultSet.getBytes(10));
 				list.add(socio);
 				
 			}
@@ -131,7 +127,7 @@ public class SocioDao implements SocioDaoInterface {
 
 	@Override
 	public boolean modificarSocio(String identificacion, Date fechaNacimiento, String primerNombre,
-			String segundoNombre, String primerApellido, String segundoApellido, String correo, String telefono,
+			String primerApellido, String correo, String telefono,
 			int genero) {
 		return false;
 	}
@@ -142,8 +138,8 @@ public class SocioDao implements SocioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+					.prepareStatement("SELECT id, identificacion, nombre, "
+							+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
 							+ " FROM Socio WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -152,14 +148,12 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
 				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setSegundoNombre(resultSet.getString(4));
-				socio.setPrimerApellido(resultSet.getString(5));
-				socio.setSegundoApellido(resultSet.getString(6));
-				socio.setFechaNacimiento(resultSet.getDate(7));
-				socio.setTelefono(resultSet.getString(8));
-				socio.setCorreo(resultSet.getString(9));
-				socio.setGenero(resultSet.getInt(10));
-				Blob blob = resultSet.getBlob(11);
+				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setFechaNacimiento(resultSet.getDate(5));
+				socio.setTelefono(resultSet.getString(6));
+				socio.setCorreo(resultSet.getString(7));
+				socio.setGenero(resultSet.getInt(8));
+				Blob blob = resultSet.getBlob(9);
 				if (blob != null) {
 					InputStream bufferedImage = blob.getBinaryStream();
 					socio.setFoto(ImageIO.read(bufferedImage));
@@ -181,8 +175,8 @@ public class SocioDao implements SocioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+					.prepareStatement("SELECT id, identificacion, nombre, "
+							+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
 							+ " FROM Socio WHERE mesNacimiento = ?");
 			int mes = calendar.get(Calendar.MONTH) + 1;
 			preparedStatement.setInt(1, mes);
@@ -192,16 +186,14 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
 				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setSegundoNombre(resultSet.getString(4));
-				socio.setPrimerApellido(resultSet.getString(5));
-				socio.setSegundoApellido(resultSet.getString(6));
-				socio.setFechaNacimiento(resultSet.getDate(7));
-				socio.setTelefono(resultSet.getString(8));
-				socio.setCorreo(resultSet.getString(9));
-				socio.setGenero(resultSet.getInt(10));
-				Blob blob = resultSet.getBlob(11);
+				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setFechaNacimiento(resultSet.getDate(5));
+				socio.setTelefono(resultSet.getString(6));
+				socio.setCorreo(resultSet.getString(7));
+				socio.setGenero(resultSet.getInt(8));
+				Blob blob = resultSet.getBlob(9);
 				if (blob != null) {
-					InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
+					InputStream bufferedImage = resultSet.getBlob(10).getBinaryStream();
 					socio.setFoto(ImageIO.read(bufferedImage));
 				}
 
@@ -219,8 +211,8 @@ public class SocioDao implements SocioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+					.prepareStatement("SELECT id, identificacion, nombre, "
+							+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
 							+ " FROM Socio WHERE id = ?");
 			preparedStatement.setInt(1, idSocio);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -229,14 +221,12 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
 				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setSegundoNombre(resultSet.getString(4));
-				socio.setPrimerApellido(resultSet.getString(5));
-				socio.setSegundoApellido(resultSet.getString(6));
-				socio.setFechaNacimiento(resultSet.getDate(7));
-				socio.setTelefono(resultSet.getString(8));
-				socio.setCorreo(resultSet.getString(9));
-				socio.setGenero(resultSet.getInt(10));
-				Blob blob = resultSet.getBlob(11);
+				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setFechaNacimiento(resultSet.getDate(5));
+				socio.setTelefono(resultSet.getString(6));
+				socio.setCorreo(resultSet.getString(7));
+				socio.setGenero(resultSet.getInt(8));
+				Blob blob = resultSet.getBlob(9);
 				if (blob != null) {
 					InputStream bufferedImage = blob.getBinaryStream();
 					socio.setFoto(ImageIO.read(bufferedImage));
@@ -258,8 +248,8 @@ public class SocioDao implements SocioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, identificacion, primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+					.prepareStatement("SELECT id, identificacion, nombre, "
+							+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
 							+ " FROM Socio WHERE mesNacimiento = ? AND diaNacimiento = ?");
 			int mes = calendar.get(Calendar.MONTH) + 1;
 			int dia = calendar.get(Calendar.DAY_OF_MONTH);
@@ -271,16 +261,14 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
 				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setSegundoNombre(resultSet.getString(4));
-				socio.setPrimerApellido(resultSet.getString(5));
-				socio.setSegundoApellido(resultSet.getString(6));
-				socio.setFechaNacimiento(resultSet.getDate(7));
-				socio.setTelefono(resultSet.getString(8));
-				socio.setCorreo(resultSet.getString(9));
-				socio.setGenero(resultSet.getInt(10));
-				Blob blob = resultSet.getBlob(11);
+				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setFechaNacimiento(resultSet.getDate(5));
+				socio.setTelefono(resultSet.getString(6));
+				socio.setCorreo(resultSet.getString(7));
+				socio.setGenero(resultSet.getInt(8));
+				Blob blob = resultSet.getBlob(9);
 				if (blob != null) {
-					InputStream bufferedImage = resultSet.getBlob(11).getBinaryStream();
+					InputStream bufferedImage = resultSet.getBlob(10).getBinaryStream();
 					socio.setFoto(ImageIO.read(bufferedImage));
 				}
 				list.add(socio);

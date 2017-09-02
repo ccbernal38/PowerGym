@@ -80,8 +80,8 @@ public class InitView extends JFrame {
 		jMenuItem3buscarSocio = new javax.swing.JMenuItem();
 		jMenuItem5 = new javax.swing.JMenuItem();
 		jMenu6 = new javax.swing.JMenu();
-		jMenuItem4 = new javax.swing.JMenuItem();
-		jMenuItem6 = new javax.swing.JMenuItem();
+		jMenuItemSocioActivo = new javax.swing.JMenuItem();
+		jMenuItemAsistencia = new javax.swing.JMenuItem();
 		jMenu3 = new javax.swing.JMenu();
 		jMenuItem7 = new javax.swing.JMenuItem();
 		jMenuItem8 = new javax.swing.JMenuItem();
@@ -122,11 +122,11 @@ public class InitView extends JFrame {
 
 		jMenu6.setText("Informes");
 
-		jMenuItem4.setText("Socios activos");
-		jMenu6.add(jMenuItem4);
+		jMenuItemSocioActivo.setText("Socios activos");
+		jMenu6.add(jMenuItemSocioActivo);
 
-		jMenuItem6.setText("Asistencia");
-		jMenu6.add(jMenuItem6);
+		jMenuItemAsistencia.setText("Asistencia");
+		jMenu6.add(jMenuItemAsistencia);
 
 		jMenu2.add(jMenu6);
 
@@ -422,9 +422,25 @@ public class InitView extends JFrame {
 	public javax.swing.JMenuItem jMenuItem14;
 	public javax.swing.JMenuItem jMenuItemRegistrarSocio;
 	public javax.swing.JMenuItem jMenuItem3buscarSocio;
-	public javax.swing.JMenuItem jMenuItem4;
+	public javax.swing.JMenuItem jMenuItemSocioActivo;
+
+	/**
+	 * @return the jMenuItemSocioActivo
+	 */
+	public javax.swing.JMenuItem getjMenuItemSocioActivo() {
+		return jMenuItemSocioActivo;
+	}
+
+	/**
+	 * @param jMenuItemSocioActivo
+	 *            the jMenuItemSocioActivo to set
+	 */
+	public void setjMenuItemSocioActivo(javax.swing.JMenuItem jMenuItemSocioActivo) {
+		this.jMenuItemSocioActivo = jMenuItemSocioActivo;
+	}
+
 	public javax.swing.JMenuItem jMenuItem5;
-	public javax.swing.JMenuItem jMenuItem6;
+	public javax.swing.JMenuItem jMenuItemAsistencia;
 	public javax.swing.JMenuItem jMenuItem7;
 	public javax.swing.JMenuItem jMenuItem8;
 	public javax.swing.JMenuItem jMenuItem9;
@@ -526,5 +542,35 @@ public class InitView extends JFrame {
 
 	public JTextArea getTextArea() {
 		return textArea;
+	}
+
+	/**
+	 * @return the jMenuItem3buscarSocio
+	 */
+	public javax.swing.JMenuItem getjMenuItem3buscarSocio() {
+		return jMenuItem3buscarSocio;
+	}
+
+	/**
+	 * @param jMenuItem3buscarSocio
+	 *            the jMenuItem3buscarSocio to set
+	 */
+	public void setjMenuItem3buscarSocio(javax.swing.JMenuItem jMenuItem3buscarSocio) {
+		this.jMenuItem3buscarSocio = jMenuItem3buscarSocio;
+	}
+
+	/**
+	 * @return the jMenuItemAsistencia
+	 */
+	public javax.swing.JMenuItem getjMenuItemAsistencia() {
+		return jMenuItemAsistencia;
+	}
+
+	/**
+	 * @param jMenuItemAsistencia
+	 *            the jMenuItemAsistencia to set
+	 */
+	public void setjMenuItemAsistencia(javax.swing.JMenuItem jMenuItemAsistencia) {
+		this.jMenuItemAsistencia = jMenuItemAsistencia;
 	}
 }

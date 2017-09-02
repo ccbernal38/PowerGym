@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
+import java.awt.Font;
 
 public class ActualizarEntrenador extends JFrame {
 	/**
@@ -36,87 +37,88 @@ public class ActualizarEntrenador extends JFrame {
 		getContentPane().setLayout(null);
 		
 		txtNumeroid = new JTextField();
-		txtNumeroid.setBounds(226, 54, 230, 26);
+		txtNumeroid.setBounds(271, 76, 230, 26);
 		getContentPane().add(txtNumeroid);
 		txtNumeroid.setColumns(10);
 		
 		txtSegundoNombre = new JTextField();
-		txtSegundoNombre.setBounds(226, 114, 230, 26);
+		txtSegundoNombre.setBounds(271, 136, 230, 26);
 		getContentPane().add(txtSegundoNombre);
 		txtSegundoNombre.setColumns(10);
 		
 		txtFechanacimiento = new JTextField();
-		txtFechanacimiento.setBounds(226, 201, 230, 26);
+		txtFechanacimiento.setBounds(271, 223, 230, 26);
 		getContentPane().add(txtFechanacimiento);
 		txtFechanacimiento.setColumns(10);
 		
 		txtCorreoelectronico = new JTextField();
-		txtCorreoelectronico.setBounds(226, 234, 230, 26);
+		txtCorreoelectronico.setBounds(271, 256, 230, 26);
 		getContentPane().add(txtCorreoelectronico);
 		txtCorreoelectronico.setColumns(10);
 		
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(226, 267, 230, 26);
+		txtTelefono.setBounds(271, 289, 230, 26);
 		getContentPane().add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
 		JLabel lblNmeroDeIdentificacion = new JLabel("Número de identificacion");
-		lblNmeroDeIdentificacion.setBounds(64, 59, 166, 16);
+		lblNmeroDeIdentificacion.setBounds(109, 81, 166, 16);
 		getContentPane().add(lblNmeroDeIdentificacion);
 		
 		lblNombre = new JLabel("Primer nombre");
-		lblNombre.setBounds(63, 89, 101, 16);
+		lblNombre.setBounds(108, 111, 101, 16);
 		getContentPane().add(lblNombre);
 		
 		lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
-		lblFechaDeNacimiento.setBounds(64, 206, 130, 16);
+		lblFechaDeNacimiento.setBounds(109, 228, 130, 16);
 		getContentPane().add(lblFechaDeNacimiento);
 		
 		lblCorreoElectrnico = new JLabel("Correo electrónico");
-		lblCorreoElectrnico.setBounds(64, 239, 130, 16);
+		lblCorreoElectrnico.setBounds(109, 261, 130, 16);
 		getContentPane().add(lblCorreoElectrnico);
 		
 		lblNmeroDeContacto = new JLabel("Número de contacto");
-		lblNmeroDeContacto.setBounds(64, 272, 130, 16);
+		lblNmeroDeContacto.setBounds(109, 294, 130, 16);
 		getContentPane().add(lblNmeroDeContacto);
 		
 		JButton btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(211, 305, 117, 29);
+		btnActualizar.setBounds(256, 327, 117, 29);
 		btnActualizar1 = btnActualizar;
 		getContentPane().add(btnActualizar1);
 		
-		JLabel lblActualizarDatos = new JLabel("Actualizar datos");
-		lblActualizarDatos.setBounds(163, 6, 110, 16);
+		JLabel lblActualizarDatos = new JLabel("Actualizar datos del entrenador");
+		lblActualizarDatos.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblActualizarDatos.setBounds(199, 21, 261, 16);
 		getContentPane().add(lblActualizarDatos);
 		
 		txtPrimernombre = new JTextField();
-		txtPrimernombre.setBounds(226, 84, 230, 26);
+		txtPrimernombre.setBounds(271, 106, 230, 26);
 		getContentPane().add(txtPrimernombre);
 		txtPrimernombre.setColumns(10);
 		
 		lblSegundoNombre = new JLabel("Segundo nombre");
-		lblSegundoNombre.setBounds(64, 119, 117, 16);
+		lblSegundoNombre.setBounds(109, 141, 117, 16);
 		getContentPane().add(lblSegundoNombre);
 		
 		txtPrimerapellido = new JTextField();
-		txtPrimerapellido.setBounds(226, 145, 230, 26);
+		txtPrimerapellido.setBounds(271, 167, 230, 26);
 		getContentPane().add(txtPrimerapellido);
 		txtPrimerapellido.setColumns(10);
 		
 		lblPrimerApellido = new JLabel("Primer apellido");
-		lblPrimerApellido.setBounds(64, 147, 110, 16);
+		lblPrimerApellido.setBounds(109, 169, 110, 16);
 		getContentPane().add(lblPrimerApellido);
 		
 		txtSegundoapellido = new JTextField();
-		txtSegundoapellido.setBounds(226, 173, 230, 26);
+		txtSegundoapellido.setBounds(271, 195, 230, 26);
 		getContentPane().add(txtSegundoapellido);
 		txtSegundoapellido.setColumns(10);
 		
 		JLabel lblSegundoApellido = new JLabel("Segundo apellido");
-		lblSegundoApellido.setBounds(64, 175, 123, 16);
+		lblSegundoApellido.setBounds(109, 197, 123, 16);
 		getContentPane().add(lblSegundoApellido);
 		
-		setSize(730, 480);
+		setSize(656, 480);
 	}
 
 	public JButton getBtnActualizar1() {

@@ -22,6 +22,7 @@ import co.powergym.dao.EntrenadorDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Socio;
+import co.powergym.reportes.Reporte;
 import co.powergym.utils.HuellaInit;
 import co.powergym.utils.Preferencias;
 import co.powergym.utils.SocioPanelCumpleanios;
@@ -42,6 +43,7 @@ public class InicioController implements ActionListener {
 
 	InitView viewPrincipal = new InitView();
 	SocioDao socioDao;
+	Reporte reporte;
 
 	private DPFPCapture Lector;
 	private DPFPEnrollment Reclutador;
@@ -68,6 +70,8 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getJButtonRegistrarEntrada().addActionListener(this);
 		this.viewPrincipal.getMntmPuertoTorniquete().addActionListener(this);
 		this.viewPrincipal.getBtnSalir().addActionListener(this);
+		this.viewPrincipal.getjMenuItemAsistencia().addActionListener(this);
+		this.viewPrincipal.getjMenuItemSocioActivo().addActionListener(this);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
@@ -144,7 +148,7 @@ public class InicioController implements ActionListener {
 				|| viewPrincipal.getJMenuItemRegistrarSocio() == e.getSource()) {
 			SocioRegistroView viewRegistroSocio = new SocioRegistroView();
 			SocioController socioController = new SocioController(viewRegistroSocio, null, null, null, null);
-			
+
 		} else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
 			SocioBusquedaView viewBusquedaSocio = new SocioBusquedaView();
 			SocioController socioController = new SocioController(null, viewBusquedaSocio, null, null, null);
@@ -169,6 +173,8 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemListaEntrenador() == e.getSource()) {
 			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(), null, null,
 					new ListaEntrenador(), null);
+		} else if (viewPrincipal.getjMenuItemAsistencia() == e.getSource()) {
+
 		} else if (viewPrincipal.getBtnSalir() == e.getSource()) {
 			Preferencias.resetPreferencias();
 			JOptionPane pane = new JOptionPane("Espere, Saliendo......", JOptionPane.INFORMATION_MESSAGE,

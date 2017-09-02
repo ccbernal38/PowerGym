@@ -23,10 +23,8 @@ public class SocioRegistroView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_identificacion;
-	private JTextField textField_primerNombre;
-	private JTextField textField_segundoNombre;
-	private JTextField textField_primerApellido;
-	private JTextField textField_segundoApellido;
+	private JTextField textField_nombre;
+	private JTextField textField_apellido;
 	private JTextField textField_correo;
 	private JTextField textField_telefono;
 	public JComboBox<String> comboBox_genero;
@@ -53,7 +51,7 @@ public class SocioRegistroView extends JFrame {
 	 */
 	public SocioRegistroView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 723, 463);
+		setBounds(100, 100, 765, 463);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(32, 39, 49));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,93 +84,77 @@ public class SocioRegistroView extends JFrame {
 		panel.add(btnCapturar);
 		
 		textField_identificacion = new JTextField();
-		textField_identificacion.setBounds(471, 29, 202, 20);
+		textField_identificacion.setBounds(495, 29, 202, 20);
 		contentPane.add(textField_identificacion);
 		textField_identificacion.setColumns(10);
 		
-		textField_primerNombre = new JTextField();
-		textField_primerNombre.setBounds(471, 60, 202, 20);
-		contentPane.add(textField_primerNombre);
-		textField_primerNombre.setColumns(10);
+		textField_nombre = new JTextField();
+		textField_nombre.setBounds(495, 60, 202, 20);
+		contentPane.add(textField_nombre);
+		textField_nombre.setColumns(10);
 		
-		textField_segundoNombre = new JTextField();
-		textField_segundoNombre.setBounds(471, 91, 202, 20);
-		contentPane.add(textField_segundoNombre);
-		textField_segundoNombre.setColumns(10);
 		
-		textField_primerApellido = new JTextField();
-		textField_primerApellido.setBounds(471, 122, 202, 20);
-		contentPane.add(textField_primerApellido);
-		textField_primerApellido.setColumns(10);
+		textField_apellido = new JTextField();
+		textField_apellido.setBounds(495, 92, 202, 20);
+		contentPane.add(textField_apellido);
+		textField_apellido.setColumns(10);
 		
-		textField_segundoApellido = new JTextField();
-		textField_segundoApellido.setBounds(471, 153, 202, 20);
-		contentPane.add(textField_segundoApellido);
-		textField_segundoApellido.setColumns(10);
 		
 		textField_correo = new JTextField();
-		textField_correo.setBounds(471, 184, 202, 20);
+		textField_correo.setBounds(495, 124, 202, 20);
 		contentPane.add(textField_correo);
 		textField_correo.setColumns(10);
 		
 		textField_telefono = new JTextField();
-		textField_telefono.setBounds(471, 215, 202, 20);
+		textField_telefono.setBounds(495, 155, 202, 20);
 		contentPane.add(textField_telefono);
 		textField_telefono.setColumns(10);
 		
 		comboBox_genero = new JComboBox<String>();
-		comboBox_genero.setBounds(471, 246, 202, 20);
+		comboBox_genero.setBounds(495, 186, 202, 20);
 		comboBox_genero.addItem("Femenino");
 		comboBox_genero.addItem("Masculino");		
 		contentPane.add(comboBox_genero);
 		
 		dateChooser_fechaNacimiento = new JDateChooser();
-		dateChooser_fechaNacimiento.setBounds(471, 277, 202, 20);
+		dateChooser_fechaNacimiento.setBounds(495, 217, 202, 20);
 		contentPane.add(dateChooser_fechaNacimiento);
 		
-		JLabel lblPrimerNombre = new JLabel("Primer nombre:");
-		lblPrimerNombre.setForeground(Color.WHITE);
-		lblPrimerNombre.setBounds(304, 66, 157, 14);
-		contentPane.add(lblPrimerNombre);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(Color.WHITE);
+		lblNombre.setBounds(304, 66, 157, 14);
+		contentPane.add(lblNombre);
 		
-		JLabel lblSegundoNombre = new JLabel("Segundo nombre:");
-		lblSegundoNombre.setForeground(Color.WHITE);
-		lblSegundoNombre.setBounds(304, 97, 157, 14);
-		contentPane.add(lblSegundoNombre);
 		
-		JLabel lblPrimerApellido = new JLabel("Primer apellido:");
-		lblPrimerApellido.setForeground(Color.WHITE);
-		lblPrimerApellido.setBounds(304, 128, 157, 14);
-		contentPane.add(lblPrimerApellido);
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setForeground(Color.WHITE);
+		lblApellido.setBounds(304, 98, 157, 14);
+		contentPane.add(lblApellido);
 		
-		JLabel lblSegundoApellido = new JLabel("Segundo apellido:");
-		lblSegundoApellido.setForeground(Color.WHITE);
-		lblSegundoApellido.setBounds(304, 159, 157, 14);
-		contentPane.add(lblSegundoApellido);
 		
 		JLabel lblNmeroDeIdentificacin = new JLabel("N\u00FAmero de identificaci\u00F3n:");
 		lblNmeroDeIdentificacin.setForeground(Color.WHITE);
-		lblNmeroDeIdentificacin.setBounds(304, 35, 157, 14);
+		lblNmeroDeIdentificacin.setBounds(304, 35, 179, 14);
 		contentPane.add(lblNmeroDeIdentificacin);
 		
 		JLabel lblCorreoElectronico = new JLabel("Correo electr\u00F3nico:");
 		lblCorreoElectronico.setForeground(Color.WHITE);
-		lblCorreoElectronico.setBounds(304, 190, 157, 14);
+		lblCorreoElectronico.setBounds(304, 130, 157, 14);
 		contentPane.add(lblCorreoElectronico);
 		
 		JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
 		lblTelfono.setForeground(Color.WHITE);
-		lblTelfono.setBounds(304, 218, 157, 14);
+		lblTelfono.setBounds(304, 158, 157, 14);
 		contentPane.add(lblTelfono);
 		
 		JLabel lblGnero = new JLabel("G\u00E9nero:");
 		lblGnero.setForeground(Color.WHITE);
-		lblGnero.setBounds(304, 252, 157, 14);
+		lblGnero.setBounds(304, 192, 157, 14);
 		contentPane.add(lblGnero);
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
 		lblFechaDeNacimiento.setForeground(Color.WHITE);
-		lblFechaDeNacimiento.setBounds(304, 283, 157, 14);
+		lblFechaDeNacimiento.setBounds(304, 223, 157, 14);
 		contentPane.add(lblFechaDeNacimiento);
 		
 		btnRegistrar = new JButton("Registrar");
@@ -186,7 +168,7 @@ public class SocioRegistroView extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		btnTomarHuellas = new JButton("Tomar Huellas ");
-		btnTomarHuellas.setBounds(304, 337, 393, 23);
+		btnTomarHuellas.setBounds(304, 336, 393, 23);
 		contentPane.add(btnTomarHuellas);
 		
 	}
@@ -194,16 +176,10 @@ public class SocioRegistroView extends JFrame {
 		return textField_identificacion;
 	}
 	public JTextField getTextField_primerNombre() {
-		return textField_primerNombre;
-	}
-	public JTextField getTextField_segundoNombre() {
-		return textField_segundoNombre;
+		return textField_nombre;
 	}
 	public JTextField getTextField_primerApellido() {
-		return textField_primerApellido;
-	}
-	public JTextField getTextField_segundoApellido() {
-		return textField_segundoApellido;
+		return textField_apellido;
 	}
 	public JTextField getTextField_correo() {
 		return textField_correo;

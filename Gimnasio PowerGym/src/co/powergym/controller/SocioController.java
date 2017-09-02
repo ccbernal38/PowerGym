@@ -277,7 +277,7 @@ public class SocioController implements ActionListener, ItemListener {
 					llenarTablaHistorico(socio.getId());
 					llenarTablaAsistencia(socio.getId());
 				} else {
-					JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
+					JOptionPane.showMessageDialog(null, "No se encontrï¿½ un socio con ese nï¿½mero de identificaciï¿½n, "
 							+ "por favor verifique e intente de nuevo");
 				}
 			}
@@ -344,17 +344,17 @@ public class SocioController implements ActionListener, ItemListener {
 			String numeroId = viewRegistroSocio.getTextField_identificacion().getText();
 			Socio socio = socioDao.buscarSocio(numeroId);
 			if (socio == null) {
-				String primerNombre = viewRegistroSocio.getTextField_primerNombre().getText();
+				String nombre = viewRegistroSocio.getTextField_primerNombre().getText();
 
-				if (primerNombre == null || primerNombre.equals("")) {
+				if (nombre == null || nombre.equals("")) {
 					JOptionPane.showMessageDialog(null, "El campo primer nombre no puede estar vacio.");
 				} else {
-					String segundoNombre = viewRegistroSocio.getTextField_segundoNombre().getText();
-					String primerApellido = viewRegistroSocio.getTextField_primerApellido().getText();
-					if (primerApellido == null || primerApellido.equals("")) {
+					
+					String apellido = viewRegistroSocio.getTextField_primerApellido().getText();
+					if (apellido == null || apellido.equals("")) {
 						JOptionPane.showMessageDialog(null, "El campo primer apellido no puede estar vacio.");
 					} else {
-						String segundoApellido = viewRegistroSocio.getTextField_segundoApellido().getText();
+						
 						Date fechaNacimiento = null;
 						if (viewRegistroSocio.getDateChooser_fechaNacimiento().getDate() == null) {
 							JOptionPane.showMessageDialog(null, "El campo fecha de nacimiento no puede estar vacio.");
@@ -387,8 +387,8 @@ public class SocioController implements ActionListener, ItemListener {
 								}
 							}
 							if (tempHuella != null) {
-								boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, primerNombre,
-										segundoNombre, primerApellido, segundoApellido, correo, telefono, genero,
+								boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, nombre,
+										apellido, correo, telefono, genero,
 										fotoTemp, tempHuella);
 								if (respuesta) {
 									JOptionPane.showMessageDialog(null, "Registro exitoso");
@@ -418,7 +418,7 @@ public class SocioController implements ActionListener, ItemListener {
 
 	public void listadoSociosLlenarTabla(JTable tabla) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificacion", "Nombre", "Dirección", "Correo electrónico", "Teléfono" });
+				new String[] { "Nro. identificacion", "Nombre", "Direcciï¿½n", "Correo electrï¿½nico", "Telï¿½fono" });
 
 		Object[] columna = new Object[5];
 		List<Socio> listSocios = socioDao.listaSocios();
@@ -440,7 +440,7 @@ public class SocioController implements ActionListener, ItemListener {
 	public void listadoCumpleaniosLlenarTabla(JTable tableSocios) {
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumpleaños" });
+				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumpleaï¿½os" });
 
 		Object[] columna = new Object[3];
 		List<Socio> listSocios = socioDao.sociosCumpleaniosMes();
