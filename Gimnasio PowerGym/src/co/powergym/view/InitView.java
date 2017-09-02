@@ -40,6 +40,7 @@ import com.toedter.components.JSpinField;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 /**
  *
@@ -301,12 +302,12 @@ public class InitView extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Consultar socio:");
 		lblNewLabel_2.setForeground(Color.WHITE);
 		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(10, 4, 195, 36);
+		lblNewLabel_2.setBounds(10, 3, 195, 36);
 		panelBusqueda.add(lblNewLabel_2);
 
 		textFieldKey = new JTextField();
 		textFieldKey.setFont(new Font("Verdana", Font.BOLD, 12));
-		textFieldKey.setBounds(162, 4, 164, 36);
+		textFieldKey.setBounds(162, 8, 164, 29);
 		panelBusqueda.add(textFieldKey);
 		textFieldKey.setColumns(10);
 
@@ -315,7 +316,7 @@ public class InitView extends JFrame {
 		btnSalir.setBounds(1233, 11, 107, 23);
 		panelBusqueda.add(btnSalir);
 		btnB = new JButton("Buscar");
-		btnB.setBounds(336, 4, 121, 36);
+		btnB.setBounds(336, 11, 121, 25);
 		panelBusqueda.add(btnB);
 		
 		btnPuerta = new JButton("Puerta");
@@ -324,8 +325,9 @@ public class InitView extends JFrame {
 		panelBusqueda.add(btnPuerta);
 
 		panel = new JPanel();
+		panel.setBackground(new Color(0, 0, 0, 0));
 		panel.setBorder(
-				new TitledBorder(null, "Escaneando huella....", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaneando huella....", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
 		panel.setBounds(28, 177, 192, 205);
 		getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
@@ -333,38 +335,35 @@ public class InitView extends JFrame {
 		lblHuella = new JLabel("");
 		panel.add(lblHuella, BorderLayout.CENTER);
 
-		label = new JLabel("Ingrese el n\u00FAmero de identificaci\u00F3n del socio:");
-		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Verdana", Font.PLAIN, 12));
-		label.setBounds(26, 105, 312, 14);
-		getContentPane().add(label);
+		lblingreseElNmero = new JLabel("<html><center>Ingrese el número <br>de identificación del socio:</center></html>");
+		lblingreseElNmero.setForeground(Color.WHITE);
+		lblingreseElNmero.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblingreseElNmero.setBounds(244, 177, 168, 50);
+		getContentPane().add(lblingreseElNmero);
 
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(348, 103, 125, 20);
+		textField.setBounds(263, 238, 125, 20);
 		getContentPane().add(textField);
 
-		label_1 = new JLabel("REGISTRO DE ENTRADA");
-		label_1.setForeground(Color.WHITE);
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setFont(new Font("Verdana", Font.PLAIN, 12));
-		label_1.setBounds(26, 80, 447, 14);
-		getContentPane().add(label_1);
-
 		scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBackground(Color.LIGHT_GRAY);
 		scrollPane_2.setBounds(28, 393, 384, 82);
 		getContentPane().add(scrollPane_2);
 
 		textArea = new JTextArea();
+		textArea.setFont(new Font("Verdana", Font.BOLD, 13));
+		textArea.setForeground(Color.WHITE);
+		textArea.setBackground(Color.DARK_GRAY);
 		scrollPane_2.setViewportView(textArea);
 
 		btnVerificar = new JButton("Verificar");
-		btnVerificar.setBounds(348, 131, 125, 23);
+		btnVerificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnVerificar.setBounds(263, 266, 125, 23);
 		getContentPane().add(btnVerificar);
-
-		separator = new JSeparator();
-		separator.setBounds(28, 165, 384, 2);
-		getContentPane().add(separator);
 		
 				JLabel labelBackgroundImage = new JLabel("");
 				labelBackgroundImage.setBounds(398, 153, 520, 520);
@@ -434,12 +433,10 @@ public class InitView extends JFrame {
 	private JPanel panelBusqueda;
 	private JTextField textFieldKey;
 	private JPanel panel;
-	private JLabel label;
+	private JLabel lblingreseElNmero;
 	private JTextField textField;
-	private JLabel label_1;
 	private JScrollPane scrollPane_2;
 	private JButton btnVerificar;
-	private JSeparator separator;
 	private JLabel lblHuella;
 	private JTextArea textArea;
 	private JButton btnPuerta;

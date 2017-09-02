@@ -195,7 +195,7 @@ public class HuellaInit {
 	}
 
 	public void EstadoHuellas() {
-		enviarTexto("Muestra de Huellas Necesarias para Guardar Template " + Reclutador.getFeaturesNeeded());
+		//enviarTexto("Muestra de Huellas Necesarias para Guardar Template " + Reclutador.getFeaturesNeeded());
 	}
 
 	public void enviarTexto(String string) {
