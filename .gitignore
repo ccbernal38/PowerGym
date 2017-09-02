@@ -19,7 +19,10 @@ hs_err_pid*
 *.class
 *.class
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 *.class
+>>>>>>> 994a913d79312a3316f0022c24ae7f37db24cb84
+=======
 >>>>>>> 994a913d79312a3316f0022c24ae7f37db24cb84
 *.class

@@ -29,8 +29,12 @@ import co.powergym.dao.UsuarioDao;
 import co.powergym.dao.AsistenciaDao;
 import co.powergym.dao.MembresiaDao;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import co.powergym.dao.PermisoDao;
 import co.powergym.dao.PermisoUsuarioDao;
+=======
+import co.powergym.dao.MembresiaSocioDao;
+>>>>>>> 994a913d79312a3316f0022c24ae7f37db24cb84
 =======
 import co.powergym.dao.MembresiaSocioDao;
 >>>>>>> 994a913d79312a3316f0022c24ae7f37db24cb84
