@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class RegistroUsuario extends JFrame{
 	
@@ -118,9 +120,12 @@ public class RegistroUsuario extends JFrame{
 		lblListaDePermisos.setBounds(71, 281, 130, 16);
 		getContentPane().add(lblListaDePermisos);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(71, 297, 463, 112);
+		getContentPane().add(scrollPane);
+		
 		tablePermisos = new JTable();
-		tablePermisos.setBounds(71, 404, 540, -78);
-		getContentPane().add(tablePermisos);
+		scrollPane.setViewportView(tablePermisos);
 		setSize(644, 500);
 	}
 

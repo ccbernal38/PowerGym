@@ -101,8 +101,8 @@ public class UsuarioController implements ActionListener {
 		
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listPermisos.get(i).getNombre();
-			columna[2] = listPermisos.get(i).getFechaCreacion();
-			columna[3] = listPermisos.get(i).getFechaModificacion();
+			columna[1] = listPermisos.get(i).getFechaCreacion();
+			columna[2] = listPermisos.get(i).getFechaModificacion();
 			defaultTableModel.addRow(columna);
 		}
 		tablaPermisos.setModel(defaultTableModel);

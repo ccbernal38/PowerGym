@@ -28,7 +28,7 @@ public class PermisoDao implements PermisoDaoInterface{
 	 * Método constructor de la clase
 	 */
 	public PermisoDao() {
-		// TODO Auto-generated constructor stub
+		conexion = new Conexion();
 	}
 
 	@Override
