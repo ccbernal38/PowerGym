@@ -199,7 +199,7 @@ public class SocioController implements ActionListener, ItemListener {
 		this.viewRegistroSocio.getBtnTomarHuellas().addActionListener(this);
 		this.viewRegistroSocio.setVisible(true);
 		this.viewRegistroSocio.setWebcam(webcam);
-		generarCódigo();
+		generarCodigo();
 	}
 
 	public void initBusquedaSocio(SocioBusquedaView socioBusquedaView) {
@@ -392,7 +392,7 @@ public class SocioController implements ActionListener, ItemListener {
 								
 								boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, nombre,
 										apellido, correo, telefono, genero,
-										fotoTemp, tempHuella, generarCódigo());
+										fotoTemp, tempHuella, generarCodigo());
 								if (respuesta) {
 									JOptionPane.showMessageDialog(null, "Registro exitoso");
 									viewRegistroSocio.setVisible(false);
@@ -577,7 +577,7 @@ public class SocioController implements ActionListener, ItemListener {
 
 	}
 	
-	public String generarCódigo() {
+	public String generarCodigo() {
 		
 		int cantSocios = socioDao.contarSocios()+1;
 		String codigo = cantSocios+"";
