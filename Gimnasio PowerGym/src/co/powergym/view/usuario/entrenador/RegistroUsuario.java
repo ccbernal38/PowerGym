@@ -55,7 +55,7 @@ public class RegistroUsuario extends JFrame{
 		getContentPane().add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
-		JLabel lblDocumentoDeIdentidad = new JLabel("Número de identificación");
+		JLabel lblDocumentoDeIdentidad = new JLabel("N\u00FAmero de identificaci\u00F3n");
 		lblDocumentoDeIdentidad.setBounds(100, 42, 162, 16);
 		getContentPane().add(lblDocumentoDeIdentidad);
 		
