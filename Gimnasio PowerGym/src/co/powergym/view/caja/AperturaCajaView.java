@@ -21,7 +21,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 
-public class AperturaCaja extends JFrame {
+public class AperturaCajaView extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblEstado;
@@ -34,7 +34,7 @@ public class AperturaCaja extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AperturaCaja frame = new AperturaCaja();
+					AperturaCajaView frame = new AperturaCajaView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class AperturaCaja extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AperturaCaja() {
+	public AperturaCajaView() {
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		        if ("Nimbus".equals(info.getName())) {

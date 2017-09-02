@@ -13,18 +13,18 @@ import javax.swing.table.DefaultTableModel;
 
 import co.powergym.dao.EntrenadorDao;
 import co.powergym.model.Entrenador;
-import co.powergym.view.entrenador.ActualizarEntrenador;
-import co.powergym.view.entrenador.BusquedaEntrenador;
-import co.powergym.view.entrenador.ListaEntrenador;
-import co.powergym.view.entrenador.RegistroEntrenador;
+import co.powergym.view.usuario.entrenador.ActualizarEntrenador;
+import co.powergym.view.usuario.entrenador.BusquedaEntrenador;
+import co.powergym.view.usuario.entrenador.ListaEntrenador;
+import co.powergym.view.usuario.entrenador.RegistroEntrenador;
 
 public class EntrenadorController implements ActionListener {
 
 	EntrenadorDao entrenadorDao;
-	RegistroEntrenador viewRegistroEntrenador;
-	BusquedaEntrenador viewBusquedantrenador;
-	ListaEntrenador viewListaEntrenador;
-	ActualizarEntrenador viewActualizarEntrenador;
+	co.powergym.view.usuario.entrenador.RegistroEntrenador viewRegistroEntrenador;
+	co.powergym.view.usuario.entrenador.BusquedaEntrenador viewBusquedantrenador;
+	co.powergym.view.usuario.entrenador.ListaEntrenador viewListaEntrenador;
+	co.powergym.view.usuario.entrenador.ActualizarEntrenador viewActualizarEntrenador;
 
 	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador,
 			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador,

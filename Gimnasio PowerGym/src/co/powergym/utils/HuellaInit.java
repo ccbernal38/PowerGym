@@ -1,13 +1,8 @@
-package co.powergym.controller;
+package co.powergym.utils;
 
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -41,21 +36,18 @@ import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
 
+import co.powergym.controller.HuellaController;
 import co.powergym.dao.AsistenciaDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
-import co.powergym.model.Conexion;
 import co.powergym.model.DiaSemana;
 import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
 import co.powergym.model.Socio;
-import co.powergym.utils.Constantes;
-import co.powergym.utils.Preferencias;
-import co.powergym.view.socio.SocioRegistrarEntradaView;
-import co.powergym.view.socio.SocioRegistroHuella;
+import co.powergym.view.InitView;
 import jssc.SerialPortException;
 
-public class HuellaController implements ActionListener {
+public class HuellaInit {
 
 	private DPFPCapture Lector;
 	private DPFPEnrollment Reclutador;
@@ -64,33 +56,16 @@ public class HuellaController implements ActionListener {
 	public static String TEMPLATE_PROPERTY = "template";
 	public DPFPFeatureSet featuresinscripcion;
 	public DPFPFeatureSet featuresverificacion;
-	private SocioRegistroHuella socioRegistroHuella;
-	private Conexion con;
 
-	private SocioController socioController;
-	private SocioRegistrarEntradaView viewRegistrarEntrada;
+	private InitView initView;
 	private SocioDao socioDao;
 	private AsistenciaDao asistenciaDao;
 
-	public HuellaController(SocioRegistroHuella socioRegistroHuella, SocioRegistrarEntradaView registrarEntradaView,
-			SocioController socioController) {
-		con = new Conexion();
+	public HuellaInit(InitView initView) {
 		socioDao = new SocioDao();
 		asistenciaDao = new AsistenciaDao();
+		this.initView = initView;
 
-		this.socioController = socioController;
-
-		if (socioRegistroHuella != null) {
-
-			this.socioRegistroHuella = socioRegistroHuella;
-			this.socioRegistroHuella.getBtnGuardar().addActionListener(this);
-			this.socioRegistroHuella.getBtnSalir().addActionListener(this);
-			this.socioRegistroHuella.setVisible(true);
-			this.socioRegistroHuella.setLocationRelativeTo(null);
-		}
-		if (registrarEntradaView != null) {
-			initRegistrarEntrada(registrarEntradaView);
-		}
 		if (Lector == null) {
 			Lector = DPFPGlobal.getCaptureFactory().createCapture();
 		}
@@ -104,13 +79,14 @@ public class HuellaController implements ActionListener {
 
 	}
 
-	private void initRegistrarEntrada(SocioRegistrarEntradaView registrarEntradaView) {
-		this.viewRegistrarEntrada = registrarEntradaView;
-		this.viewRegistrarEntrada.setVisible(true);
-		this.viewRegistrarEntrada.setLocationRelativeTo(null);
-		this.viewRegistrarEntrada.getBtnIdentificar().addActionListener(this);
-		this.viewRegistrarEntrada.getBtnCancelar().addActionListener(this);
-		this.viewRegistrarEntrada.getBtnVerificar().addActionListener(this);
+	public void initLector() {
+		Iniciar();
+		start();
+		EstadoHuellas();
+		if (initView != null) {
+			initView.getLblHuella().setIcon(null);
+		}
+
 	}
 
 	protected void Iniciar() {
@@ -121,7 +97,7 @@ public class HuellaController implements ActionListener {
 					public void run() {
 						enviarTexto("La Huella Digital ha sido Capturada");
 						ProcesarCaptura(e.getSample());
-						if (viewRegistrarEntrada != null) {
+						if (initView != null) {
 							try {
 								identificarHuella();
 								Reclutador.clear();
@@ -211,33 +187,9 @@ public class HuellaController implements ActionListener {
 
 	public void DibujarHuella(Image image, int huella) {
 
-		if (socioRegistroHuella != null) {
-			if (huella == 1) {
-				socioRegistroHuella.getLblImagenHuella1().setIcon(
-						new ImageIcon(image.getScaledInstance(socioRegistroHuella.getLblImagenHuella1().getWidth(),
-								socioRegistroHuella.getLblImagenHuella1().getHeight(), Image.SCALE_DEFAULT)));
-				socioRegistroHuella.repaint();
-			} else if (huella == 2) {
-				socioRegistroHuella.getLblImagenHuella2().setIcon(
-						new ImageIcon(image.getScaledInstance(socioRegistroHuella.getLblImagenHuella2().getWidth(),
-								socioRegistroHuella.getLblImagenHuella2().getHeight(), Image.SCALE_DEFAULT)));
-				socioRegistroHuella.repaint();
-			} else if (huella == 3) {
-				socioRegistroHuella.getLblImagenHuella3().setIcon(
-						new ImageIcon(image.getScaledInstance(socioRegistroHuella.getLblImagenHuella3().getWidth(),
-								socioRegistroHuella.getLblImagenHuella3().getHeight(), Image.SCALE_DEFAULT)));
-				socioRegistroHuella.repaint();
-			} else {
-				socioRegistroHuella.getLblImagenHuella4().setIcon(
-						new ImageIcon(image.getScaledInstance(socioRegistroHuella.getLblImagenHuella4().getWidth(),
-								socioRegistroHuella.getLblImagenHuella4().getHeight(), Image.SCALE_DEFAULT)));
-				socioRegistroHuella.repaint();
-			}
-		}
-		if (viewRegistrarEntrada != null) {
-			viewRegistrarEntrada.getLblHuella()
-					.setIcon(new ImageIcon(image.getScaledInstance(viewRegistrarEntrada.getLblHuella().getWidth(),
-							viewRegistrarEntrada.getLblHuella().getHeight(), Image.SCALE_DEFAULT)));
+		if (initView != null) {
+			initView.getLblHuella().setIcon(new ImageIcon(image.getScaledInstance(initView.getLblHuella().getWidth(),
+					initView.getLblHuella().getHeight(), Image.SCALE_DEFAULT)));
 		}
 
 	}
@@ -247,11 +199,9 @@ public class HuellaController implements ActionListener {
 	}
 
 	public void enviarTexto(String string) {
-		if (socioRegistroHuella != null) {
-			socioRegistroHuella.getTextArea().append(string + "\n");
-		}
-		if (viewRegistrarEntrada != null) {
-			viewRegistrarEntrada.getTextArea().append(string + "\n");
+
+		if (initView != null) {
+			initView.getTextArea().append(string + "\n");
 		}
 
 	}
@@ -280,10 +230,8 @@ public class HuellaController implements ActionListener {
 	public void setTemplate(DPFPTemplate template) {
 		DPFPTemplate old = this.template;
 		this.template = template;
-		if (socioRegistroHuella != null) {
-			socioRegistroHuella.callFirePropertyChange(TEMPLATE_PROPERTY, old, template);
-		} else if (viewRegistrarEntrada != null) {
-			viewRegistrarEntrada.callFirePropertyChange(TEMPLATE_PROPERTY, old, template);
+		if (initView != null) {
+			initView.callFirePropertyChange(TEMPLATE_PROPERTY, old, template);
 		}
 
 	}
@@ -320,9 +268,6 @@ public class HuellaController implements ActionListener {
 					stop();
 					setTemplate(Reclutador.getTemplate());
 					enviarTexto("La Plantilla de la Huella ha Sido Creada, ya puede Verificarla o Identificarla");
-					socioRegistroHuella.getBtnGuardar().setEnabled(true);
-					socioRegistroHuella.getBtnGuardar().grabFocus();
-
 					break;
 
 				case TEMPLATE_STATUS_FAILED: // informe de fallas y reiniciar la captura de huellas
@@ -330,26 +275,11 @@ public class HuellaController implements ActionListener {
 					stop();
 					EstadoHuellas();
 					setTemplate(null);
-					JOptionPane.showMessageDialog(socioRegistroHuella,
-							"La Plantilla de la Huella no pudo ser creada, Repita el Proceso",
-							"Inscripcion de Huellas Dactilares", JOptionPane.ERROR_MESSAGE);
+
 					start();
 					break;
 				}
 			}
-	}
-
-	public void guardarHuella() {
-		ByteArrayInputStream datosHuella = new ByteArrayInputStream(template.serialize());
-		Integer tamañoHuella = template.serialize().length;
-
-		try {
-			socioController.setTempHuella(read(datosHuella));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		socioRegistroHuella.setVisible(false);
 	}
 
 	public byte[] read(ByteArrayInputStream bais) throws IOException {
@@ -357,33 +287,6 @@ public class HuellaController implements ActionListener {
 		bais.read(array);
 
 		return array;
-	}
-
-	public void guardarHuellaDB() {
-		// Obtiene los datos del template de la huella actual
-		ByteArrayInputStream datosHuella = new ByteArrayInputStream(template.serialize());
-		Integer tamañoHuella = template.serialize().length;
-
-		// Pregunta el nombre de la persona a la cual corresponde dicha huella
-		String nombre = JOptionPane.showInputDialog("Nombre:");
-		try {
-			// Establece los valores para la sentencia SQL
-			Connection c = con.getConexion();
-			PreparedStatement guardarStmt = c.prepareStatement("INSERT INTO huella(huenombre, huehuella) values(?,?)");
-			guardarStmt.setString(1, nombre);
-			guardarStmt.setBinaryStream(2, datosHuella, tamañoHuella);
-			// Ejecuta la sentencia
-			guardarStmt.execute();
-			guardarStmt.close();
-			JOptionPane.showMessageDialog(null, "Huella Guardada Correctamente");
-			con.desconectar();
-			socioRegistroHuella.getBtnGuardar().setEnabled(false);
-		} catch (SQLException ex) {
-			// Si ocurre un error lo indica en la consola
-			System.err.println("Error al guardar los datos de la huella.");
-		} finally {
-			con.desconectar();
-		}
 	}
 
 	public void identificarHuella() throws IOException {
@@ -405,51 +308,16 @@ public class HuellaController implements ActionListener {
 		setTemplate(null);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (socioRegistroHuella != null && e.getSource() == socioRegistroHuella.getBtnGuardar()) {
-			guardarHuella();
-			Reclutador.clear();
-			stop();
-			initLector();
-
-		}
-
-		if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnIdentificar()) {
-
-		}
-
-		if (socioRegistroHuella != null && e.getSource() == socioRegistroHuella.getBtnSalir()) {
-
-		}
-		if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnCancelar()) {
-			viewRegistrarEntrada.setVisible(false);
-		}
-		if (viewRegistrarEntrada != null && e.getSource() == viewRegistrarEntrada.getBtnVerificar()) {
-			String id = viewRegistrarEntrada.getTextFieldIdentificacion().getText();
-
-			Socio socio = socioDao.buscarSocio(id);
-			if (socio != null) {
-				initConsultaEntrada(socio);
-			} else {
-				JOptionPane.showMessageDialog(viewRegistrarEntrada,
-						"No se encontró un socio con este numero de identificación.");
-			}
-
-		}
-
-	}
-
 	private void initConsultaEntrada(Socio socio) {
 		MembresiaDao membresiaDao = new MembresiaDao();
 		Membresia membresia = membresiaDao.verificarEntradaMembresia(socio.getId());
 
-		if (verificarDia(membresia.getDiasPermitidos())) {
+		if (membresia != null && verificarDia(membresia.getDiasPermitidos())) {
 			if (verificarHora(membresia.getHorario())) {
 				asistenciaDao.registrarAsistencia(socio.getId());
 				abrirTorniquete();
-				viewRegistrarEntrada.setVisible(false);
-				viewRegistrarEntrada.dispose();
+				initView.setVisible(false);
+				initView.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "El socio no tiene permitido el ingreso en este horario");
 			}
@@ -495,22 +363,6 @@ public class HuellaController implements ActionListener {
 		return false;
 	}
 
-	public void initLector() {
-		Iniciar();
-		start();
-		EstadoHuellas();
-		if (socioRegistroHuella != null) {
-			socioRegistroHuella.getLblImagenHuella1().setIcon(null);
-			socioRegistroHuella.getLblImagenHuella2().setIcon(null);
-			socioRegistroHuella.getLblImagenHuella3().setIcon(null);
-			socioRegistroHuella.getLblImagenHuella4().setIcon(null);
-		}
-		if (viewRegistrarEntrada != null) {
-			viewRegistrarEntrada.getLblHuella().setIcon(null);
-		}
-
-	}
-
 	public void abrirTorniquete() {
 		PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
 		System.out.println("Mensaje Inicio");
@@ -535,10 +387,8 @@ public class HuellaController implements ActionListener {
 				} catch (ArduinoException ex) {
 					Logger.getLogger(HuellaController.class.getName()).log(Level.SEVERE, null, ex);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SerialPortException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -561,7 +411,4 @@ public class HuellaController implements ActionListener {
 
 	}
 
-	public void mensajeTorniquete() {
-
-	}
 }

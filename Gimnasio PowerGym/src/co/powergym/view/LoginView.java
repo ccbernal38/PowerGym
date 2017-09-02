@@ -23,7 +23,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
-public class Login extends JFrame {
+public class LoginView extends JFrame {
 
 	private JPanel contentPane;
 	private JPasswordField passwordField;
@@ -44,7 +44,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					LoginView frame = new LoginView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +56,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public LoginView() {
 		setTitle("PowerGym");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 500);
@@ -108,6 +108,7 @@ public class Login extends JFrame {
 		textFieldUsername.setBorder(new EmptyBorder(0, 0, 0, 0));
 		textFieldUsername.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textFieldUsername.setBounds(60, 11, 249, 28);
+		textFieldUsername.setText("ccbernal38");
 		PromptSupport.setPrompt("Nombre de usuario", textFieldUsername);
 		PromptSupport.setForeground(Color.LIGHT_GRAY, textFieldUsername);
 		PromptSupport.setFontStyle(Font.PLAIN, textFieldUsername);
@@ -139,6 +140,7 @@ public class Login extends JFrame {
 		passwordField.setBorder(new EmptyBorder(0, 0, 0, 0));
 		passwordField.setFont(new Font("Verdana", Font.PLAIN, 12));
 		passwordField.setBounds(60, 11, 249, 28);
+		passwordField.setText("123456");
 		panel_3.add(passwordField);
 		PromptSupport.setPrompt("Contraseña", passwordField);
 		PromptSupport.setForeground(Color.LIGHT_GRAY, passwordField);

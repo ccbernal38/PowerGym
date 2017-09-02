@@ -39,6 +39,7 @@ public class SocioBusquedaView extends JFrame {
 	private JTable table;
 	private JScrollPane scrollPane_1;
 	private JTable table_1;
+	private JButton btnAgregarPago;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -163,6 +164,11 @@ public class SocioBusquedaView extends JFrame {
 		btnAgregarMembresia.setEnabled(false);
 		btnAgregarMembresia.setBounds(255, 100, 91, 91);
 		contentPane.add(btnAgregarMembresia);
+		
+		btnAgregarPago = new JButton("<html><center>Agregar<br/> Pago</center></html>");
+		btnAgregarPago.setEnabled(false);
+		btnAgregarPago.setBounds(356, 100, 89, 91);
+		contentPane.add(btnAgregarPago);
 	}
 
 	/**
@@ -203,5 +209,8 @@ public class SocioBusquedaView extends JFrame {
 	}
 	public JTable getTableAsistencias() {
 		return table_1;
+	}
+	public JButton getBtnAgregarPago() {
+		return btnAgregarPago;
 	}
 }

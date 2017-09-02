@@ -1,4 +1,4 @@
-package co.powergym.view.entrenador;
+package co.powergym.view.usuario.entrenador;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;

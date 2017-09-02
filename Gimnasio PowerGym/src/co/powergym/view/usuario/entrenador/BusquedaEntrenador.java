@@ -1,33 +1,17 @@
-package co.powergym.view.entrenador;
+package co.powergym.view.usuario.entrenador;
 
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
-public class RegistroEntrenador extends JFrame{
-	
+public class BusquedaEntrenador extends JFrame{
 	/**
 	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public JTextField txtNumeroid;
-	public JTextField txtNombre;
-	public JTextField txtPrimerapellido;
-	public JTextField txtSegundoapellido;
-	public JTextField txtTelefono;
-	public JTextField txtSegundonombre;
-	public JTextField txtCorreoelectronico;
-	public JButton btnRegistrar;
-	public JButton btnCancelar;
-	public JDateChooser dateChooserFechaNa;
-	public JComboBox comboBox_genero;
+	 */public JButton btnBuscar1;
 	
-	public RegistroEntrenador() {
-		setTitle("Registro de entrenador");
+	public BusquedaEntrenador() {
+		setTitle("Buscar entrenador");
 		getContentPane().setLayout(null);
 		
 		txtNumeroid = new JTextField();
@@ -36,21 +20,25 @@ public class RegistroEntrenador extends JFrame{
 		txtNumeroid.setColumns(10);
 		
 		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
 		txtNombre.setBounds(226, 60, 202, 26);
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtPrimerapellido = new JTextField();
+		txtPrimerapellido.setEditable(false);
 		txtPrimerapellido.setBounds(226, 120, 202, 26);
 		getContentPane().add(txtPrimerapellido);
 		txtPrimerapellido.setColumns(10);
 		
 		txtSegundoapellido = new JTextField();
+		txtSegundoapellido.setEditable(false);
 		txtSegundoapellido.setBounds(226, 150, 202, 26);
 		getContentPane().add(txtSegundoapellido);
 		txtSegundoapellido.setColumns(10);
 		
 		txtTelefono = new JTextField();
+		txtTelefono.setEditable(false);
 		txtTelefono.setBounds(226, 240, 202, 26);
 		getContentPane().add(txtTelefono);
 		txtTelefono.setColumns(10);
@@ -75,19 +63,16 @@ public class RegistroEntrenador extends JFrame{
 		lblTelefono.setBounds(53, 240, 61, 16);
 		getContentPane().add(lblTelefono);
 		
-		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
+		/**JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
 		lblFechaDeNacimiento.setBounds(53, 180, 130, 16);
-		getContentPane().add(lblFechaDeNacimiento);
-		
-		dateChooserFechaNa = new JDateChooser();
-		dateChooserFechaNa.setBounds(226, 180, 202, 20);
-		getContentPane().add(dateChooserFechaNa);
+		getContentPane().add(lblFechaDeNacimiento);*/
 		
 		JLabel lblSegundoNombre = new JLabel("Segundo nombre");
 		lblSegundoNombre.setBounds(53, 90, 130, 16);
 		getContentPane().add(lblSegundoNombre);
 		
 		txtSegundonombre = new JTextField();
+		txtSegundonombre.setEditable(false);
 		txtSegundonombre.setBounds(226, 90, 202, 26);
 		getContentPane().add(txtSegundonombre);
 		txtSegundonombre.setColumns(10);
@@ -97,36 +82,56 @@ public class RegistroEntrenador extends JFrame{
 		getContentPane().add(lblCorreoElectrnico);
 		
 		txtCorreoelectronico = new JTextField();
+		txtCorreoelectronico.setEditable(false);
 		txtCorreoelectronico.setBounds(226, 210, 202, 26);
 		getContentPane().add(txtCorreoelectronico);
 		txtCorreoelectronico.setColumns(10);
 		
-		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(236, 300, 100, 29);
-		getContentPane().add(btnRegistrar);
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(453, 24, 100, 29);
+		btnBuscar1 = btnBuscar;
+		getContentPane().add(btnBuscar1);
 		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(121, 300, 100, 29);
-		getContentPane().add(btnCancelar);
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(245, 326, 100, 29);
+		btnCancelar1 = btnCancelar;
+		getContentPane().add(btnCancelar1);
 		
-		JLabel lblGnero = new JLabel("G\u00E9nero:");
-		lblGnero.setBounds(53, 270, 157, 14);
-		getContentPane().add(lblGnero);
+		JLabel label = new JLabel("Género:");
+		label.setBounds(53, 270, 157, 14);
+		getContentPane().add(label);
 		
-		comboBox_genero = new JComboBox();
-		comboBox_genero.setBounds(226, 270, 202, 20);
-		getContentPane().add(comboBox_genero);
-		setSize(470, 380);
+	/**	txtTxtfechanacimiento = new JTextField();
+		txtTxtfechanacimiento.setEditable(false);
+		txtTxtfechanacimiento.setBounds(226, 180, 202, 26);
+		getContentPane().add(txtTxtfechanacimiento);
+		txtTxtfechanacimiento.setColumns(10);*/
+		
+		txtTxtgenero = new JTextField();
+		txtTxtgenero.setEditable(false);
+		txtTxtgenero.setBounds(226, 270, 202, 26);
+		getContentPane().add(txtTxtgenero);
+		txtTxtgenero.setColumns(10);
+		setSize(570, 480);
+	
 	}
 
 	
+	private static final long serialVersionUID = 1L;
+	public JTextField txtNumeroid;
+	public JTextField txtNombre;
+	public JTextField txtPrimerapellido;
+	public JTextField txtSegundoapellido;
+	public JTextField txtTelefono;
+	public JTextField txtSegundonombre;
+	public JTextField txtCorreoelectronico;
 	
-	public JDateChooser getDateChooser_fechaNacimiento() {
-		return dateChooserFechaNa;
-	}
-	public void setDateChooser_fechaNacimiento(JDateChooser dateChooser_fechaNacimiento) {
-		this.dateChooserFechaNa = dateChooser_fechaNacimiento;
-	}
+	public JButton btnCancelar1;
+	//public JTextField txtfechaNacimiento;
+	public JTextField txtgenero;
+	public JTextField txtTxtfechanacimiento;
+	public JTextField txtTxtgenero;
+	
 	public JTextField getTxtNumeroid() {
 		return txtNumeroid;
 	}
@@ -169,22 +174,28 @@ public class RegistroEntrenador extends JFrame{
 	public void setTxtCorreoelectronico(JTextField txtCorreoelectronico) {
 		this.txtCorreoelectronico = txtCorreoelectronico;
 	}
-	public JComboBox getComboBox_genero() {
-		return comboBox_genero;
+	public JButton getBtnBuscar() {
+		return btnBuscar1;
 	}
-	public void setComboBox_genero(JComboBox comboBox_genero) {
-		this.comboBox_genero = comboBox_genero;
-	}
-	public JButton getBtnRegistrar() {
-		return btnRegistrar;
-	}
-	public void setBtnRegistrar(JButton btnRegistrar) {
-		this.btnRegistrar = btnRegistrar;
+	public void setBtnRegistrar(JButton btnBuscar) {
+		this.btnBuscar1 = btnBuscar;
 	}
 	public JButton getBtnCancelar() {
-		return btnCancelar;
+		return btnCancelar1;
 	}
 	public void setBtnCancelar(JButton btnCancelar) {
-		this.btnCancelar = btnCancelar;
+		this.btnCancelar1 = btnCancelar;
+	}
+	/**public JTextField getTxtfechaNacimiento() {
+		return txtfechaNacimiento;
+	}
+	public void setTxtfechaNacimiento(JTextField txtfechaNacimiento) {
+		this.txtfechaNacimiento = txtfechaNacimiento;
+	}*/
+	public JTextField getTxtgenero() {
+		return txtgenero;
+	}
+	public void setTxtgenero(JTextField txtgenero) {
+		this.txtgenero = txtgenero;
 	}
 }
