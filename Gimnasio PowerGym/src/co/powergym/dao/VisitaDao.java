@@ -1,10 +1,11 @@
-package co.powergym.interfacedao;
+package co.powergym.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+import co.powergym.interfacedao.VisitaDaoInterface;
 import co.powergym.model.Conexion;
 
 public class VisitaDao implements VisitaDaoInterface {

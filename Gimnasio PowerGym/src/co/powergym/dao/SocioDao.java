@@ -35,7 +35,8 @@ public class SocioDao implements SocioDaoInterface {
 
 	@Override
 	public boolean registrarSocio(String identificacion, Date fechaNacimiento, String nombre, String apellido,
-			String correo, String telefono, int genero, BufferedImage foto, byte[] tempHuella, String codigo) throws IOException {
+			String correo, String telefono, int genero, BufferedImage foto, byte[] tempHuella, String codigo)
+			throws IOException {
 
 		boolean respuesta = false;
 		try {
@@ -340,6 +341,44 @@ public class SocioDao implements SocioDaoInterface {
 			e.printStackTrace();
 		}
 		return cantSocios;
+	}
+
+	@Override
+	public Socio buscarSocioIdOrCodigo(String id) {
+		Socio socio = null;
+		try {
+			PreparedStatement preparedStatement = null;
+			Connection connection = conexion.getConexion();
+
+			String consulta = "SELECT id, identificacion, nombre, "
+					+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
+					+ " FROM Socio WHERE identificacion = ? OR codigo = ?";
+			preparedStatement = connection.prepareStatement(consulta);
+			preparedStatement.setString(1, id);
+			preparedStatement.setString(2, id);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				socio = new Socio();
+				socio.setId(resultSet.getInt(1));
+				socio.setIdentificacion(resultSet.getString(2));
+				socio.setNombre(resultSet.getString(3));
+				socio.setApellido(resultSet.getString(4));
+				socio.setFechaNacimiento(resultSet.getDate(5));
+				socio.setTelefono(resultSet.getString(6));
+				socio.setCorreo(resultSet.getString(7));
+				socio.setGenero(resultSet.getInt(8));
+				Blob blob = resultSet.getBlob(9);
+				if (blob != null) {
+					InputStream bufferedImage = blob.getBinaryStream();
+					socio.setFoto(ImageIO.read(bufferedImage));
+				}
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			System.out.println("error");
+		}
+		return socio;
 	}
 
 }
