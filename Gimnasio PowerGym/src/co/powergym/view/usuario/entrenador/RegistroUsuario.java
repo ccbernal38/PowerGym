@@ -10,7 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 
-public class RegistroEntrenador extends JFrame{
+public class RegistroUsuario extends JFrame{
 	
 	/**
 	 * 
@@ -28,7 +28,7 @@ public class RegistroEntrenador extends JFrame{
 	public JComboBox comboBox_genero;
 	private JTable tablePermisos;
 	
-	public RegistroEntrenador() {
+	public RegistroUsuario() {
 		setTitle("Registro de usuario");
 		getContentPane().setLayout(null);
 		

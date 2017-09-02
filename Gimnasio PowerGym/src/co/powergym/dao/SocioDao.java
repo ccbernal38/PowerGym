@@ -35,14 +35,14 @@ public class SocioDao implements SocioDaoInterface {
 
 	@Override
 	public boolean registrarSocio(String identificacion, Date fechaNacimiento, String nombre, String apellido,
-			String correo, String telefono, int genero, BufferedImage foto, byte[] tempHuella) throws IOException {
+			String correo, String telefono, int genero, BufferedImage foto, byte[] tempHuella, String codigo) throws IOException {
 
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Socio(identificacion, nombre, "
 					+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto, diaNacimiento,"
-					+ "mesNacimiento, anioNacimiento, huella) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+					+ "mesNacimiento, anioNacimiento, huella, codigo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
 			statement.setString(2, nombre);
 			statement.setString(3, apellido);
@@ -66,6 +66,7 @@ public class SocioDao implements SocioDaoInterface {
 			statement.setInt(10, calendar.get(Calendar.MONTH) + 1);
 			statement.setInt(11, calendar.get(Calendar.YEAR));
 			statement.setBytes(12, tempHuella);
+			statement.setString(13, codigo);
 			statement.execute();
 			respuesta = true;
 			conexion.desconectar();
@@ -322,6 +323,23 @@ public class SocioDao implements SocioDaoInterface {
 			System.out.println("error");
 		}
 		return socios;
+	}
+
+	@Override
+	public int contarSocios() {
+		int cantSocios = 0;
+		try {
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement("Select count(*) from Socio");
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				cantSocios = resultSet.getInt(1);
+			}
+			conexion.desconectar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cantSocios;
 	}
 
 }

@@ -5,12 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class BusquedaEntrenador extends JFrame{
+public class BusquedaUsuario extends JFrame{
 	/**
 	 * 
 	 */public JButton btnBuscar1;
 	
-	public BusquedaEntrenador() {
+	public BusquedaUsuario() {
 		setTitle("Buscar usuario");
 		getContentPane().setLayout(null);
 		

@@ -11,113 +11,192 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import co.powergym.dao.PermisoDao;
+import co.powergym.dao.PermisoUsuarioDao;
 import co.powergym.dao.UsuarioDao;
+import co.powergym.model.Permiso;
+import co.powergym.model.PermisoUsuario;
 import co.powergym.model.Usuario;
-import co.powergym.view.usuario.entrenador.ActualizarEntrenador;
-import co.powergym.view.usuario.entrenador.BusquedaEntrenador;
-import co.powergym.view.usuario.entrenador.ListaEntrenador;
-import co.powergym.view.usuario.entrenador.RegistroEntrenador;
+import co.powergym.view.usuario.entrenador.UsuarioEntrenador;
+import co.powergym.view.usuario.entrenador.BusquedaUsuario;
+import co.powergym.view.usuario.entrenador.ListaUsuario;
+import co.powergym.view.usuario.entrenador.RegistroUsuario;
 
 public class UsuarioController implements ActionListener {
 
 
 	UsuarioDao usuarioDao;
-	RegistroEntrenador viewRegistroEntrenador;
-	BusquedaEntrenador viewBusquedantrenador;
-	ListaEntrenador viewListaEntrenador;
-	ActualizarEntrenador viewActualizarEntrenador;
+	PermisoDao permisoDao;
+	PermisoUsuarioDao permisoUsuarioDao;
+	RegistroUsuario viewRegistroUsuario;
+	BusquedaUsuario viewBusquedaUsuario;
+	ListaUsuario viewListaUsuario;
+	UsuarioEntrenador viewActualizarUsuario;
+	List<PermisoUsuario>permisosAsignados;
 
-	public UsuarioController(UsuarioDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador,
-			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador,
-			ActualizarEntrenador viewActualizarEntrenador) {
-		this.usuarioDao = entrenadorDao;
-		this.viewRegistroEntrenador = viewRegistroEntrenador;
-		this.viewBusquedantrenador = viewBusquedaentrenador;
-		if (viewRegistroEntrenador != null) {
-			this.viewRegistroEntrenador.btnRegistrar.addActionListener(this);
-			this.viewRegistroEntrenador.btnCancelar.addActionListener(this);
-			this.viewRegistroEntrenador.setVisible(true);
+	public UsuarioController(UsuarioDao usuarioDao,PermisoDao permisoDao, PermisoUsuarioDao permisoUsuarioDao, RegistroUsuario viewRegistroUsuario,
+			BusquedaUsuario viewBusquedaUsuario, ListaUsuario viewListaUsuario,
+			UsuarioEntrenador viewActualizarUsuario) {
+		this.usuarioDao = usuarioDao;
+		this.permisoDao = permisoDao;
+		this.viewRegistroUsuario = viewRegistroUsuario;
+		this.viewBusquedaUsuario = viewBusquedaUsuario;
+		
+		if (viewRegistroUsuario != null) {
+			this.viewRegistroUsuario = viewRegistroUsuario;
+			llenarTablaPermisos(viewRegistroUsuario.getTablePermisos());
+			this.viewRegistroUsuario.btnRegistrar.addActionListener(this);
+			this.viewRegistroUsuario.btnCancelar.addActionListener(this);
+			this.viewRegistroUsuario.setVisible(true);
 		}
-		if (viewBusquedaentrenador != null) {
-			this.viewBusquedantrenador.btnBuscar1.addActionListener(this);
-			this.viewBusquedantrenador.btnCancelar1.addActionListener(this);
-			this.viewBusquedantrenador.setVisible(true);
+		if (viewBusquedaUsuario != null) {
+			this.viewBusquedaUsuario.btnBuscar1.addActionListener(this);
+			this.viewBusquedaUsuario.btnCancelar1.addActionListener(this);
+			this.viewBusquedaUsuario.setVisible(true);
 		}
-		if (viewListaEntrenador != null) {
-			this.viewListaEntrenador = viewListaEntrenador;
-			listadoEntrenadoresLlenarTabla(viewListaEntrenador.getJTableListaEntrenador());
-			this.viewListaEntrenador.btnEditar1.addActionListener(this);
-			this.viewListaEntrenador.btnEliminar1.addActionListener(this);
-			this.viewListaEntrenador.setVisible(true);
+		if (viewListaUsuario != null) {
+			this.viewListaUsuario = viewListaUsuario;
+			listadoUsuariosLlenarTabla(viewListaUsuario.getJTableListaEntrenador());
+			this.viewListaUsuario.btnEditar1.addActionListener(this);
+			this.viewListaUsuario.btnEliminar1.addActionListener(this);
+			this.viewListaUsuario.setVisible(true);
 		}
-		if (viewActualizarEntrenador != null) {
-			this.viewActualizarEntrenador = viewActualizarEntrenador;
-			this.viewActualizarEntrenador.btnActualizar1.addActionListener(this);
-			this.viewActualizarEntrenador.setVisible(true);
+		if (viewActualizarUsuario != null) {
+			this.viewActualizarUsuario = viewActualizarUsuario;
+			this.viewActualizarUsuario.btnActualizar1.addActionListener(this);
+			this.viewActualizarUsuario.setVisible(true);
 		}
 
 	}
 
-	public void listadoEntrenadoresLlenarTabla(JTable tablaEntrenadores) {
+	public void listadoUsuariosLlenarTabla(JTable tablaUsuarios) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
 				new String[] { "Nro. identificación", "Nombre", "Dirección", "Correo electronico", "Teléfono" });
 
 		Object[] columna = new Object[5];
-		List<Usuario> listEntrenadores = usuarioDao.listaUsuario();
-		int numeroRegistros = listEntrenadores.size();
+		List<Usuario> listUsuarios = usuarioDao.listaUsuario();
+		int numeroRegistros = listUsuarios.size();
 
 		for (int i = 0; i < numeroRegistros; i++) {
-			columna[0] = listEntrenadores.get(i).getIdentificacion();
+			columna[0] = listUsuarios.get(i).getIdentificacion();
 			// columna[1] = listEntrenadores.get(i).getNombreCompleto();
-			columna[2] = listEntrenadores.get(i).getDireccion();
-			columna[3] = listEntrenadores.get(i).getCorreo();
-			columna[4] = listEntrenadores.get(i).getTelefono();
+			columna[2] = listUsuarios.get(i).getDireccion();
+			columna[3] = listUsuarios.get(i).getCorreo();
+			columna[4] = listUsuarios.get(i).getTelefono();
 			defaultTableModel.addRow(columna);
 		}
-		tablaEntrenadores.setModel(defaultTableModel);
-		tablaEntrenadores.repaint();
+		tablaUsuarios.setModel(defaultTableModel);
+		tablaUsuarios.repaint();
+	}
+	
+	
+	/** Método para listar todos los permisos del sistema*/
+	public void llenarTablaPermisos(JTable tablaPermisos) {
+		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
+				new String[] { "Nombre", "Fecha creación", "Fecha modificación" });
+		
+		Object[] columna = new Object[3];
+		List<Permiso> listPermisos = permisoDao.listaPermisos();
+		int numeroRegistros = listPermisos.size();
+		
+		for (int i = 0; i < numeroRegistros; i++) {
+			columna[0] = listPermisos.get(i).getNombre();
+			columna[2] = listPermisos.get(i).getFechaCreacion();
+			columna[3] = listPermisos.get(i).getFechaModificacion();
+			defaultTableModel.addRow(columna);
+		}
+		tablaPermisos.setModel(defaultTableModel);
+		tablaPermisos.repaint();
+	}
+	
+
+	/**
+	 * @return the permisosAsignados
+	 */
+	public List<PermisoUsuario> getPermisosAsignados() {
+		return permisosAsignados;
+	}
+
+	/**
+	 * @param permisosAsignados the permisosAsignados to set
+	 */
+	public void setPermisosAsignados(List<PermisoUsuario> permisosAsignados) {
+		this.permisosAsignados = permisosAsignados;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (viewRegistroEntrenador != null && e.getSource() == viewRegistroEntrenador.btnRegistrar) {
+		if (viewRegistroUsuario != null && e.getSource() == viewRegistroUsuario.btnRegistrar) {
 			try {
-				String numeroId = viewRegistroEntrenador.getTxtNumeroid().getText();
+				String numeroId = viewRegistroUsuario.getTxtNumeroid().getText();
 				Usuario usuario = usuarioDao.buscarUsuario(numeroId);
 				if (usuario == null) {
 
-					String nombre = viewRegistroEntrenador.getTxtNombre().getText();
+					String nombre = viewRegistroUsuario.getTxtNombre().getText();
 					if (nombre == null || nombre.equals("")) {
-						JOptionPane.showMessageDialog(null, "El campo primer nombre no puede estar vacio.");
+						JOptionPane.showMessageDialog(null, "El campo nombre no puede estar vacio.");
 					} else {
 
-						String apellido = viewRegistroEntrenador.getTxtPrimerapellido().getText();
+						String apellido = viewRegistroUsuario.getTxtPrimerapellido().getText();
 						if (apellido == null || apellido.equals("")) {
-							JOptionPane.showMessageDialog(null, "El campo primer apellido no puede estar vacio.");
+							JOptionPane.showMessageDialog(null, "El campo apellido no puede estar vacio.");
 						} else {
 							Date fechaNacimiento = null;
 
-							if (viewRegistroEntrenador.getDateChooser_fechaNacimiento().getDate() == null) {
+							if (viewRegistroUsuario.getDateChooser_fechaNacimiento().getDate() == null) {
 								JOptionPane.showMessageDialog(null,
 										"El campo fecha de nacimiento no puede estar vacio.");
 							} else {
 								fechaNacimiento = new Date(
-										viewRegistroEntrenador.getDateChooser_fechaNacimiento().getDate().getTime());
+										viewRegistroUsuario.getDateChooser_fechaNacimiento().getDate().getTime());
 
-								String telefono = viewRegistroEntrenador.getTxtTelefono().getText();
+								String telefono = viewRegistroUsuario.getTxtTelefono().getText();
 								if (telefono == null || telefono.equals("")) {
 									JOptionPane.showMessageDialog(null, "El campo telefóno no puede estar vacio.");
 								} else {
-									String correo = viewRegistroEntrenador.getTxtCorreoelectronico().getText();
+									String correo = viewRegistroUsuario.getTxtCorreoelectronico().getText();
 									int genero = 0;
-									if (viewRegistroEntrenador.getComboBox_genero() != null) {
-										genero = viewRegistroEntrenador.getComboBox_genero().getSelectedIndex();
+									if (viewRegistroUsuario.getComboBox_genero() != null) {
+										genero = viewRegistroUsuario.getComboBox_genero().getSelectedIndex();
 									}
 
 									if (correo == null || correo.equals("")) {
 										JOptionPane.showMessageDialog(null,
 												"El campo correo electrónico no puede estar vacio.");
 									}
+									//permiso seleccionado									
+									int filaSeleccionada = viewRegistroUsuario.getTablePermisos().getSelectedRow();
+									ArrayList<Permiso> listaPermiso = permisoDao.listaPermisos();
+									
+									Boolean filaPermisoAsignar;
+									if (filaSeleccionada != -1) {
+										if (listaPermiso != null) {
+											int idPermiso = listaPermiso.get(filaSeleccionada).getId();
+											Permiso permisoSeleccionado = permisoDao.buscarPermiso(idPermiso);
+											
+											//id del usuario que recibe permisos
+											int id_usuario = usuario.getId();
+											
+											//id del permiso asgiando al usuario
+											int id_permiso = permisoSeleccionado.getId();
+											
+											//Nombre del permiso asignado
+											String nombrePermiso = permisoSeleccionado.getNombre();
+											int option = JOptionPane.showConfirmDialog(viewRegistroUsuario,
+													"¿Esta seguro de asignar estos permisos " + nombrePermiso + " ?");
+											if (JOptionPane.YES_OPTION == option) {
+												filaPermisoAsignar = permisoUsuarioDao.registrarPermisoUsuario(id_usuario, id_permiso);
+												//permisosAsignados = permisoUsuarioDao.listaPermisoUsuario();
+												
+												if (filaPermisoAsignar == true) {
+													JOptionPane.showMessageDialog(viewRegistroUsuario,
+															"Los permisos se asignaron exitosamente.");
+													listadoUsuariosLlenarTabla(viewListaUsuario.getJTableListaEntrenador());
+												}
+											}
+										}
+									}
+									
 									// TODO: Completar campos
 									String username = "";
 									String password = "";
@@ -127,7 +206,7 @@ public class UsuarioController implements ActionListener {
 										JOptionPane.showMessageDialog(null, "Registro exitoso");
 									} else {
 										JOptionPane.showMessageDialog(null,
-												"Ocurrio un error registrando un nuevo entrenador.");
+												"Ocurrio un error registrando un nuevo usuario.");
 									}
 								}
 							}
@@ -135,105 +214,105 @@ public class UsuarioController implements ActionListener {
 					}
 
 				} else {
-					JOptionPane.showMessageDialog(null, "El entrenador ya se encuentra registrado");
+					JOptionPane.showMessageDialog(null, "El usuario ya se encuentra registrado");
 				}
 			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
 			}
 
-		} else if (viewRegistroEntrenador != null && e.getSource() == viewRegistroEntrenador.btnCancelar) {
-			viewRegistroEntrenador.setVisible(false);
-			viewRegistroEntrenador.dispose();
-		} else if (viewBusquedantrenador != null && e.getSource() == viewBusquedantrenador.btnBuscar1) {
+		} else if (viewRegistroUsuario != null && e.getSource() == viewRegistroUsuario.btnCancelar) {
+			viewRegistroUsuario.setVisible(false);
+			viewRegistroUsuario.dispose();
+		} else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnBuscar1) {
 
-			String numeroId = viewBusquedantrenador.getTxtNumeroid().getText();
+			String numeroId = viewBusquedaUsuario.getTxtNumeroid().getText();
 			Usuario usuario = usuarioDao.buscarUsuario(numeroId);
 			if (usuario != null) {
 				String primerNombre = usuario.getNombre();
-				viewBusquedantrenador.getTxtNombre().setText(primerNombre);
+				viewBusquedaUsuario.getTxtNombre().setText(primerNombre);
 				String primerApellido = usuario.getApellido();
-				viewBusquedantrenador.getTxtPrimerapellido().setText(primerApellido);
+				viewBusquedaUsuario.getTxtPrimerapellido().setText(primerApellido);
 				// String fechaNacimiento =
 				// String.valueOf(entrenador.getFechaNacimiento());
 				// viewBusquedantrenador.txtfechaNacimiento.setText(fechaNacimiento);
 				String telefono = usuario.getTelefono();
-				viewBusquedantrenador.getTxtTelefono().setText(telefono);
+				viewBusquedaUsuario.getTxtTelefono().setText(telefono);
 				String correo = usuario.getCorreo();
-				viewBusquedantrenador.getTxtCorreoelectronico().setText(correo);
+				viewBusquedaUsuario.getTxtCorreoelectronico().setText(correo);
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"No se encontró un usuario con ese número de identificación, por favor verifique");
 			}
-		} else if (viewBusquedantrenador != null && e.getSource() == viewBusquedantrenador.btnCancelar1) {
-			viewBusquedantrenador.setVisible(false);
-			viewBusquedantrenador.dispose();
-		} else if (viewListaEntrenador != null && e.getSource() == viewListaEntrenador.btnEliminar1) {
-			int filaSeleccionada = viewListaEntrenador.JTableListaEntrenador.getSelectedRow();
-			ArrayList<Usuario> listaEntrenador = usuarioDao.listaUsuario();
+		} else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnCancelar1) {
+			viewBusquedaUsuario.setVisible(false);
+			viewBusquedaUsuario.dispose();
+		} else if (viewListaUsuario != null && e.getSource() == viewListaUsuario.btnEliminar1) {
+			int filaSeleccionada = viewListaUsuario.JTableListaEntrenador.getSelectedRow();
+			ArrayList<Usuario> listaUsuario = usuarioDao.listaUsuario();
 			Boolean filaEliminada;
 			if (filaSeleccionada != -1) {
-				if (listaEntrenador != null) {
-					String identificacion = listaEntrenador.get(filaSeleccionada).getIdentificacion();
-					int optiopn = JOptionPane.showConfirmDialog(viewListaEntrenador,
-							"¿Esta seguro de eliminar el entrenador con identificación " + identificacion + " ?");
+				if (listaUsuario != null) {
+					String identificacion = listaUsuario.get(filaSeleccionada).getIdentificacion();
+					int optiopn = JOptionPane.showConfirmDialog(viewListaUsuario,
+							"¿Esta seguro de eliminar el usuario con identificación " + identificacion + " ?");
 					if (JOptionPane.YES_OPTION == optiopn) {
 						filaEliminada = usuarioDao.eliminarUsuario(identificacion);
 						if (filaEliminada == true) {
 
-							JOptionPane.showMessageDialog(viewListaEntrenador,
-									"El entrenador se ha eliminado correctamente.");
-							listadoEntrenadoresLlenarTabla(viewListaEntrenador.getJTableListaEntrenador());
+							JOptionPane.showMessageDialog(viewListaUsuario,
+									"El usuario se ha eliminado correctamente.");
+							listadoUsuariosLlenarTabla(viewListaUsuario.getJTableListaEntrenador());
 						}
 					}
 				}
 			}
 
 		}
-		if (viewListaEntrenador != null && e.getSource() == viewListaEntrenador.btnEditar1) {
-			int filaSeleccionada = viewListaEntrenador.JTableListaEntrenador.getSelectedRow();
-			ArrayList<Usuario> listaEntrenador = usuarioDao.listaUsuario();
+		if (viewListaUsuario != null && e.getSource() == viewListaUsuario.btnEditar1) {
+			int filaSeleccionada = viewListaUsuario.JTableListaEntrenador.getSelectedRow();
+			ArrayList<Usuario> listaUsuario = usuarioDao.listaUsuario();
 			Boolean filaEditada;
 			if (filaSeleccionada != -1) {
-				if (listaEntrenador != null) {
-					String identificacion = listaEntrenador.get(filaSeleccionada).getIdentificacion();
+				if (listaUsuario != null) {
+					String identificacion = listaUsuario.get(filaSeleccionada).getIdentificacion();
 					Usuario entrenador = usuarioDao.buscarUsuario(identificacion);
 					if (entrenador != null) {
-						viewActualizarEntrenador = new ActualizarEntrenador();
+						viewActualizarUsuario = new UsuarioEntrenador();
 						String numeroId = entrenador.getIdentificacion();
-						viewActualizarEntrenador.getTxtNumeroid().setText(identificacion);
-						viewActualizarEntrenador.getTxtNumeroid().setEditable(false);
-						String primerNombre = entrenador.getNombre();
-						viewActualizarEntrenador.getTxtPrimernombre().setText(primerNombre);
-						viewActualizarEntrenador.getTxtPrimernombre().setEditable(false);
-						String primerApellido = entrenador.getApellido();
-						viewActualizarEntrenador.getTxtPrimerapellido().setText(primerApellido);
-						viewActualizarEntrenador.getTxtPrimerapellido().setEditable(false);
-						String telefono = viewActualizarEntrenador.getTxtTelefono().getText();
+						viewActualizarUsuario.getTxtNumeroid().setText(identificacion);
+						viewActualizarUsuario.getTxtNumeroid().setEditable(false);
+						String nombre = entrenador.getNombre();
+						viewActualizarUsuario.getTxtNombre().setText(nombre);
+						viewActualizarUsuario.getTxtNombre().setEditable(false);
+						String apellido = entrenador.getApellido();
+						viewActualizarUsuario.getTxtApellido().setText(apellido);
+						viewActualizarUsuario.getTxtApellido().setEditable(false);
+						String telefono = viewActualizarUsuario.getTxtTelefono().getText();
 						entrenador.setTelefono(telefono);
-						String correoElectronico = viewActualizarEntrenador.getTxtCorreoelectronico().getText();
+						String correoElectronico = viewActualizarUsuario.getTxtCorreoelectronico().getText();
 						entrenador.setCorreo(correoElectronico);
-						viewActualizarEntrenador.setVisible(true);
-						viewActualizarEntrenador.getBtnActualizar1().addActionListener(this);
+						viewActualizarUsuario.setVisible(true);
+						viewActualizarUsuario.getBtnActualizar1().addActionListener(this);
 					}
 				}
 			}
 		}
-		if (viewActualizarEntrenador != null && e.getSource() == viewActualizarEntrenador.btnActualizar1) {
-			String numeroId = viewActualizarEntrenador.getTxtNumeroid().getText();
-			String primerNombre = viewActualizarEntrenador.getTxtPrimernombre().getText();
-			String primerApellido = viewActualizarEntrenador.getTxtPrimerapellido().getText();
-			String telefono = viewActualizarEntrenador.getTxtTelefono().getText();
-			String correoElectronico = viewActualizarEntrenador.getTxtCorreoelectronico().getText();
+		if (viewActualizarUsuario != null && e.getSource() == viewActualizarUsuario.btnActualizar1) {
+			String numeroId = viewActualizarUsuario.getTxtNumeroid().getText();
+			String nombre = viewActualizarUsuario.getTxtNombre().getText();
+			String apellido = viewActualizarUsuario.getTxtApellido().getText();
+			String telefono = viewActualizarUsuario.getTxtTelefono().getText();
+			String correoElectronico = viewActualizarUsuario.getTxtCorreoelectronico().getText();
 			// TODO: Completar campos
 			String username = "";
 			String password = "";
-			boolean respuesta = usuarioDao.modificarUsuario(numeroId, primerNombre, primerApellido, null,
+			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, null,
 					correoElectronico, telefono, 0, username, password);
 			if (respuesta) {
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
 			} else {
-				JOptionPane.showMessageDialog(null, "Ocurrio un error actualizando los datos del entrenador.");
+				JOptionPane.showMessageDialog(null, "Ocurrio un error actualizando los datos del usuario.");
 			}
 		}
 

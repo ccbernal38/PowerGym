@@ -37,6 +37,8 @@ public class SocioRegistroView extends JFrame {
 	public Webcam webcam;
 	private JPanel panel;
 	private JButton btnTomarHuellas;
+	private JLabel labelCodigoSocio;
+	private JTextField textFieldCodigo;
 	
 
 	
@@ -171,6 +173,17 @@ public class SocioRegistroView extends JFrame {
 		btnTomarHuellas.setBounds(304, 336, 393, 23);
 		contentPane.add(btnTomarHuellas);
 		
+		labelCodigoSocio = new JLabel("C\u00F3digo de acceso:");
+		labelCodigoSocio.setForeground(Color.WHITE);
+		labelCodigoSocio.setBounds(304, 252, 157, 14);
+		contentPane.add(labelCodigoSocio);
+		
+		textFieldCodigo = new JTextField();
+		textFieldCodigo.setEditable(false);
+		textFieldCodigo.setBounds(495, 248, 202, 20);
+		contentPane.add(textFieldCodigo);
+		textFieldCodigo.setColumns(10);
+		
 	}
 	public JTextField getTextField_identificacion() {
 		return textField_identificacion;
@@ -213,5 +226,8 @@ public class SocioRegistroView extends JFrame {
 	}
 	public JButton getBtnTomarHuellas() {
 		return btnTomarHuellas;
+	}
+	public JTextField getTextFieldCodigo() {
+		return textFieldCodigo;
 	}
 }

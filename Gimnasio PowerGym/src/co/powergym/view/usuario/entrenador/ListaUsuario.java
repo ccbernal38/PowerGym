@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
-public class ListaEntrenador extends JFrame{
+public class ListaUsuario extends JFrame{
 	
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class ListaEntrenador extends JFrame{
 	public JButton btnEliminar1;
 	public JButton btnEditar1;
 	
-	public ListaEntrenador() {
+	public ListaUsuario() {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().setLayout(null);

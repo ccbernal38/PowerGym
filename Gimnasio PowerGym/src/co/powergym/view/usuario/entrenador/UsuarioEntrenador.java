@@ -9,14 +9,14 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
 import java.awt.Font;
 
-public class ActualizarEntrenador extends JFrame {
+public class UsuarioEntrenador extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNumeroid;
-	private JTextField txtPrimernombre;
-	private JTextField txtPrimerapellido;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
 	private JTextField txtFechanacimiento;
 	private JTextField txtCorreoelectronico;
 	private JTextField txtTelefono;
@@ -28,7 +28,7 @@ public class ActualizarEntrenador extends JFrame {
 	private JLabel lblApellido;
 	
 	
-	public ActualizarEntrenador() {
+	public UsuarioEntrenador() {
 		getContentPane().setLayout(null);
 		
 		txtNumeroid = new JTextField();
@@ -82,16 +82,16 @@ public class ActualizarEntrenador extends JFrame {
 		lblActualizarDatos.setBounds(199, 21, 230, 16);
 		getContentPane().add(lblActualizarDatos);
 		
-		txtPrimernombre = new JTextField();
-		txtPrimernombre.setBounds(271, 106, 230, 26);
-		getContentPane().add(txtPrimernombre);
-		txtPrimernombre.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(271, 106, 230, 26);
+		getContentPane().add(txtNombre);
+		txtNombre.setColumns(10);
 		
 		
-		txtPrimerapellido = new JTextField();
-		txtPrimerapellido.setBounds(271, 133, 230, 26);
-		getContentPane().add(txtPrimerapellido);
-		txtPrimerapellido.setColumns(10);
+		txtApellido = new JTextField();
+		txtApellido.setBounds(271, 133, 230, 26);
+		getContentPane().add(txtApellido);
+		txtApellido.setColumns(10);
 		
 		lblApellido = new JLabel("Apellido");
 		lblApellido.setBounds(109, 139, 110, 16);
@@ -116,20 +116,20 @@ public class ActualizarEntrenador extends JFrame {
 		this.txtNumeroid = txtNumeroid;
 	}
 
-	public JTextField getTxtPrimernombre() {
-		return txtPrimernombre;
+	public JTextField getTxtNombre() {
+		return txtNombre;
 	}
 
-	public void setTxtPrimernombre(JTextField txtPrimernombre) {
-		this.txtPrimernombre = txtPrimernombre;
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
 	}
 	
-	public JTextField getTxtPrimerapellido() {
-		return txtPrimerapellido;
+	public JTextField getTxtApellido() {
+		return txtApellido;
 	}
 
-	public void setTxtPrimerapellido(JTextField txtPrimerapellido) {
-		this.txtPrimerapellido = txtPrimerapellido;
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
 	}
 	
 	public JTextField getTxtFechanacimiento() {
