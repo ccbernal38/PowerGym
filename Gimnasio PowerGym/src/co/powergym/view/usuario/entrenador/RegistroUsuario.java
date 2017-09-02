@@ -3,13 +3,11 @@ package co.powergym.view.usuario.entrenador;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 
 public class RegistroUsuario extends JFrame{
@@ -29,6 +27,9 @@ public class RegistroUsuario extends JFrame{
 	public JDateChooser dateChooserFechaNa;
 	public JComboBox comboBox_genero;
 	private JTable tablePermisos;
+	private JRadioButton rdbtnEntrenador;
+	private JRadioButton rdbtnAdministrador;
+	
 	
 	public RegistroUsuario() {
 		setTitle("Registro de usuario");
@@ -104,11 +105,11 @@ public class RegistroUsuario extends JFrame{
 		comboBox_genero.setBounds(309, 212, 202, 20);
 		getContentPane().add(comboBox_genero);
 		
-		JRadioButton rdbtnEntrenador = new JRadioButton("Entrenador");
+		rdbtnEntrenador = new JRadioButton("Entrenador");
 		rdbtnEntrenador.setBounds(309, 236, 100, 23);
 		getContentPane().add(rdbtnEntrenador);
 		
-		JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
+		rdbtnAdministrador = new JRadioButton("Administrador");
 		rdbtnAdministrador.setBounds(408, 236, 126, 23);
 		getContentPane().add(rdbtnAdministrador);
 		
@@ -202,4 +203,37 @@ public class RegistroUsuario extends JFrame{
 	public void setBtnCancelar(JButton btnCancelar) {
 		this.btnCancelar = btnCancelar;
 	}
+
+
+	/**
+	 * @return the rdbtnEntrenador
+	 */
+	public JRadioButton getRdbtnEntrenador() {
+		return rdbtnEntrenador;
+	}
+
+
+	/**
+	 * @param rdbtnEntrenador the rdbtnEntrenador to set
+	 */
+	public void setRdbtnEntrenador(JRadioButton rdbtnEntrenador) {
+		this.rdbtnEntrenador = rdbtnEntrenador;
+	}
+
+
+	/**
+	 * @return the rdbtnAdministrador
+	 */
+	public JRadioButton getRdbtnAdministrador() {
+		return rdbtnAdministrador;
+	}
+
+
+	/**
+	 * @param rdbtnAdministrador the rdbtnAdministrador to set
+	 */
+	public void setRdbtnAdministrador(JRadioButton rdbtnAdministrador) {
+		this.rdbtnAdministrador = rdbtnAdministrador;
+	}
+
 }

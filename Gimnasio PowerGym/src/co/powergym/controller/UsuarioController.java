@@ -1,15 +1,22 @@
 package co.powergym.controller;
 
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import co.powergym.dao.PermisoDao;
 import co.powergym.dao.PermisoUsuarioDao;
@@ -21,10 +28,14 @@ import co.powergym.view.usuario.entrenador.ActualizarUsuario;
 import co.powergym.view.usuario.entrenador.BusquedaUsuario;
 import co.powergym.view.usuario.entrenador.ListaUsuario;
 import co.powergym.view.usuario.entrenador.RegistroUsuario;
+import javafx.scene.control.RadioButton;
 
-public class UsuarioController implements ActionListener {
+public class UsuarioController extends JRadioButton implements ActionListener, TableCellRenderer{
 
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	UsuarioDao usuarioDao;
 	PermisoDao permisoDao;
 	PermisoUsuarioDao permisoUsuarioDao;
@@ -32,7 +43,9 @@ public class UsuarioController implements ActionListener {
 	BusquedaUsuario viewBusquedaUsuario;
 	ListaUsuario viewListaUsuario;
 	ActualizarUsuario viewActualizarUsuario;
-	List<PermisoUsuario>permisosAsignados;
+	List<PermisoUsuario>permisosAsignados;	
+	private JRadioButton rBpermisoAsignado = new JRadioButton();
+	
 
 	public UsuarioController(UsuarioDao usuarioDao,PermisoDao permisoDao, PermisoUsuarioDao permisoUsuarioDao, RegistroUsuario viewRegistroUsuario,
 			BusquedaUsuario viewBusquedaUsuario, ListaUsuario viewListaUsuario,
@@ -93,9 +106,12 @@ public class UsuarioController implements ActionListener {
 	/** Método para listar todos los permisos del sistema*/
 	public void llenarTablaPermisos(JTable tablaPermisos) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nombre", "Fecha creación", "Fecha modificación" });
+				new String[] { "Nombre", "Fecha creación", "Fecha modificación", "Asignar" });
+		rBpermisoAsignado.setBounds(0, 0, 126, 23);
 		
-		Object[] columna = new Object[3];
+		Boolean a = false;
+		Boolean b = false;
+		Object[] columna = new Object[4];
 		List<Permiso> listPermisos = permisoDao.listaPermisos();
 		int numeroRegistros = listPermisos.size();
 		
@@ -103,6 +119,7 @@ public class UsuarioController implements ActionListener {
 			columna[0] = listPermisos.get(i).getNombre();
 			columna[1] = listPermisos.get(i).getFechaCreacion();
 			columna[2] = listPermisos.get(i).getFechaModificacion();
+			columna[3] = rBpermisoAsignado;
 			defaultTableModel.addRow(columna);
 		}
 		tablaPermisos.setModel(defaultTableModel);
@@ -164,10 +181,12 @@ public class UsuarioController implements ActionListener {
 										JOptionPane.showMessageDialog(null,
 												"El campo correo electrónico no puede estar vacio.");
 									}
+									int row = viewRegistroUsuario.getTablePermisos().getSelectedRow();
+									int column = 4;
 									//permiso seleccionado									
-									int filaSeleccionada = viewRegistroUsuario.getTablePermisos().getSelectedRow();
+									int filaSeleccionada= (int) viewRegistroUsuario.getTablePermisos().getValueAt(row, column);
 									ArrayList<Permiso> listaPermiso = permisoDao.listaPermisos();
-									
+									System.out.println(filaSeleccionada);
 									Boolean filaPermisoAsignar;
 									if (filaSeleccionada != -1) {
 										if (listaPermiso != null) {
@@ -316,5 +335,13 @@ public class UsuarioController implements ActionListener {
 			}
 		}
 
+	}
+
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		( (JRadioButton) rBpermisoAsignado).setBackground( new Color(0,200,0) );
+	     
+	      return ( (JRadioButton) rBpermisoAsignado);
 	}
 }
