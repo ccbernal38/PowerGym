@@ -63,6 +63,10 @@ CREATE TABLE `caja` (
   `estado` int(1) DEFAULT NULL,
   `fechaCreacion` datetime DEFAULT CURRENT_TIMESTAMP,
   `fechaModificacion` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `totalIngresos` int(11) DEFAULT NULL,
+  `totalEgresos` int(11) DEFAULT NULL,
+  `totalMembresias` int(11) DEFAULT NULL,
+  `totalVisitas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_caja_usuario_idx` (`usuario_id_apertura`),
   KEY `fk_caja_usuario1_idx` (`usuario_id_cierre`),
@@ -124,6 +128,32 @@ CREATE TABLE `duracion` (
 LOCK TABLES `duracion` WRITE;
 /*!40000 ALTER TABLE `duracion` DISABLE KEYS */;
 /*!40000 ALTER TABLE `duracion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `factura`
+--
+
+DROP TABLE IF EXISTS `factura`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `factura` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `paga` varchar(45) DEFAULT NULL,
+  `socio_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_factura_socio1_idx` (`socio_id`),
+  CONSTRAINT `fk_factura_socio1` FOREIGN KEY (`socio_id`) REFERENCES `socio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `factura`
+--
+
+LOCK TABLES `factura` WRITE;
+/*!40000 ALTER TABLE `factura` DISABLE KEYS */;
+/*!40000 ALTER TABLE `factura` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -247,6 +277,36 @@ LOCK TABLES `membresia_socio` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `movimiento`
+--
+
+DROP TABLE IF EXISTS `movimiento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movimiento` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `concepto` varchar(45) DEFAULT NULL,
+  `valor` int(11) DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL,
+  `fechaCreacion` datetime DEFAULT CURRENT_TIMESTAMP,
+  `fechaModificacion` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `caja_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_Movimiento_caja1_idx` (`caja_id`),
+  CONSTRAINT `fk_Movimiento_caja1` FOREIGN KEY (`caja_id`) REFERENCES `caja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movimiento`
+--
+
+LOCK TABLES `movimiento` WRITE;
+/*!40000 ALTER TABLE `movimiento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movimiento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pago`
 --
 
@@ -284,7 +344,7 @@ CREATE TABLE `permiso` (
   `fechaCreacion` datetime DEFAULT CURRENT_TIMESTAMP,
   `fechaModificacion` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +353,7 @@ CREATE TABLE `permiso` (
 
 LOCK TABLES `permiso` WRITE;
 /*!40000 ALTER TABLE `permiso` DISABLE KEYS */;
+INSERT INTO `permiso` VALUES (1,'Crear algo','2017-09-02 09:32:52','2017-09-02 09:32:52'),(2,'rear 2','2017-09-02 09:32:52','2017-09-02 09:32:52');
 /*!40000 ALTER TABLE `permiso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -451,6 +512,39 @@ INSERT INTO `usuario` VALUES (1,'ccbernal38','123456','1094925466','Christian','
 UNLOCK TABLES;
 
 --
+-- Table structure for table `visita`
+--
+
+DROP TABLE IF EXISTS `visita`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `visita` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `apellido` varchar(45) DEFAULT NULL,
+  `valor` int(11) DEFAULT NULL,
+  `fechaCreacion` datetime DEFAULT CURRENT_TIMESTAMP,
+  `fechaModificacion` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `socio_id` int(11) NOT NULL,
+  `caja_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_visita_socio_idx` (`socio_id`),
+  KEY `fk_visita_caja1_idx` (`caja_id`),
+  CONSTRAINT `fk_visita_caja1` FOREIGN KEY (`caja_id`) REFERENCES `caja` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_visita_socio` FOREIGN KEY (`socio_id`) REFERENCES `socio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `visita`
+--
+
+LOCK TABLES `visita` WRITE;
+/*!40000 ALTER TABLE `visita` DISABLE KEYS */;
+/*!40000 ALTER TABLE `visita` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping routines for database 'powergym'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -463,4 +557,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-02  5:53:18
+-- Dump completed on 2017-09-02  9:55:22
