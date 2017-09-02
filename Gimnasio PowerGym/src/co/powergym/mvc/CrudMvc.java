@@ -11,7 +11,7 @@ import java.util.prefs.Preferences;
 import co.powergym.controller.InicioController;
 import co.powergym.controller.LoginController;
 import co.powergym.utils.Preferencias;
-import co.powergym.view.Principal;
+import co.powergym.view.InitView;
 
 /**
  *

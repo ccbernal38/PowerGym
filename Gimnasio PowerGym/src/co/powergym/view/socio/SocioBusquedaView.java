@@ -30,7 +30,7 @@ public class SocioBusquedaView extends JFrame {
 
 	private JPanel contentPane;
 	public JTextField textField_identidad;
-	public JLabel textField_primerNombre;
+	public JLabel textField_nombre;
 	public JLabel textField_telefono;
 	public JLabel textField_fechaNacimiento;
 	public JButton btnBuscar;
@@ -39,6 +39,7 @@ public class SocioBusquedaView extends JFrame {
 	private JTable table;
 	private JScrollPane scrollPane_1;
 	private JTable table_1;
+	private JButton btnAgregarPago;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -54,7 +55,7 @@ public class SocioBusquedaView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNumeroDeIdentidad = new JLabel("Ingrese el número de identidad:");
+		JLabel lblNumeroDeIdentidad = new JLabel("Ingrese el nï¿½mero de identidad:");
 		lblNumeroDeIdentidad.setForeground(Color.WHITE);
 		lblNumeroDeIdentidad.setBounds(25, 69, 210, 20);
 
@@ -83,13 +84,13 @@ public class SocioBusquedaView extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		textField_primerNombre = new JLabel();
-		textField_primerNombre.setForeground(Color.WHITE);
-		textField_primerNombre.setFont(new Font("Avenir Black", Font.BOLD, 11));
-		textField_primerNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_primerNombre.setText("Primer nombre");
-		textField_primerNombre.setBounds(5, 191, 200, 15);
-		panel.add(textField_primerNombre);
+		textField_nombre = new JLabel();
+		textField_nombre.setForeground(Color.WHITE);
+		textField_nombre.setFont(new Font("Avenir Black", Font.BOLD, 11));
+		textField_nombre.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_nombre.setText("Primer nombre");
+		textField_nombre.setBounds(5, 191, 200, 15);
+		panel.add(textField_nombre);
 
 		textField_fechaNacimiento = new JLabel();
 		textField_fechaNacimiento.setForeground(Color.WHITE);
@@ -154,7 +155,7 @@ public class SocioBusquedaView extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Día", "Fecha", "Hora"
+				"Dï¿½a", "Fecha", "Hora"
 			}
 		));
 		scrollPane_1.setViewportView(table_1);
@@ -163,6 +164,11 @@ public class SocioBusquedaView extends JFrame {
 		btnAgregarMembresia.setEnabled(false);
 		btnAgregarMembresia.setBounds(255, 100, 91, 91);
 		contentPane.add(btnAgregarMembresia);
+		
+		btnAgregarPago = new JButton("<html><center>Agregar<br/> Pago</center></html>");
+		btnAgregarPago.setEnabled(false);
+		btnAgregarPago.setBounds(356, 100, 89, 91);
+		contentPane.add(btnAgregarPago);
 	}
 
 	/**
@@ -176,7 +182,7 @@ public class SocioBusquedaView extends JFrame {
 	}
 
 	public JLabel getTextField_primerNombre() {
-		return textField_primerNombre;
+		return textField_nombre;
 	}
 
 	public JLabel getTextField_fechaNacimiento() {
@@ -203,5 +209,8 @@ public class SocioBusquedaView extends JFrame {
 	}
 	public JTable getTableAsistencias() {
 		return table_1;
+	}
+	public JButton getBtnAgregarPago() {
+		return btnAgregarPago;
 	}
 }

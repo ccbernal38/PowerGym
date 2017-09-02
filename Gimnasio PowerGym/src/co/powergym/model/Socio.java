@@ -14,7 +14,7 @@ public class Socio {
 	private int id;
 	private String identificacion;
 	private Date fechaNacimiento;
-	private String primerNombre, segundoNombre, primerApellido, segundoApellido;
+	private String nombre, apellido;
 	private String correo, telefono;
 	private int genero;
 	private String imagen;
@@ -28,16 +28,14 @@ public class Socio {
 
 	}
 
-	public Socio(int id, String identificacion, Date fechaNacimiento, String primerNombre, String segundoNombre,
-			String primerApellido, String segundoApellido, String correo, String telefono, int genero) {
+	public Socio(int id, String identificacion, Date fechaNacimiento, String primerNombre,
+			String primerApellido, String correo, String telefono, int genero) {
 		super();
 		this.id = id;
 		this.identificacion = identificacion;
 		this.fechaNacimiento = fechaNacimiento;
-		this.primerNombre = primerNombre;
-		this.segundoNombre = segundoNombre;
-		this.primerApellido = primerApellido;
-		this.segundoApellido = segundoApellido;
+		this.nombre = primerNombre;
+		this.apellido = primerApellido;
 		this.correo = correo;
 		this.telefono = telefono;
 		this.genero = genero;
@@ -83,36 +81,22 @@ public class Socio {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public String getPrimerNombre() {
-		return primerNombre;
+	
+
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setPrimerNombre(String primerNombre) {
-		this.primerNombre = primerNombre;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getSegundoNombre() {
-		return segundoNombre;
+	public String getApellido() {
+		return apellido;
 	}
 
-	public void setSegundoNombre(String segundoNombre) {
-		this.segundoNombre = segundoNombre;
-	}
-
-	public String getPrimerApellido() {
-		return primerApellido;
-	}
-
-	public void setPrimerApellido(String primerApellido) {
-		this.primerApellido = primerApellido;
-	}
-
-	public String getSegundoApellido() {
-		return segundoApellido;
-	}
-
-	public void setSegundoApellido(String segundoApellido) {
-		this.segundoApellido = segundoApellido;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getCorreo() {
@@ -165,17 +149,11 @@ public class Socio {
 
 	public String getNombreCompleto() {
 		String nombre = "";
-		if (primerNombre != null && !primerNombre.equals("")) {
-			nombre += capitalLetter(primerNombre) + " ";
+		if (nombre != null && !nombre.equals("")) {
+			nombre += capitalLetter(nombre) + " ";
 		}
-		if (segundoNombre != null && !segundoNombre.equals("")) {
-			nombre += capitalLetter(segundoNombre) + " ";
-		}
-		if (primerApellido != null && !primerApellido.equals("")) {
-			nombre += capitalLetter(primerApellido) + " ";
-		}
-		if (segundoApellido != null && !segundoApellido.equals("")) {
-			nombre += capitalLetter(segundoApellido) + " ";
+		if (apellido != null && !apellido.equals("")) {
+			nombre += capitalLetter(apellido) + " ";
 		}
 		return nombre;
 	}
