@@ -41,6 +41,7 @@ import co.powergym.view.InitView;
 import co.powergym.view.config.ConfigPuertoView;
 import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
+import co.powergym.view.membresia.MembresiaRegistroVisitaView;
 import co.powergym.view.socio.SocioBusquedaView;
 import co.powergym.view.socio.SocioConsultaBusquedaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
@@ -80,7 +81,7 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getJMenuItemBuscarEntrenador().addActionListener(this);
 		this.viewPrincipal.getJMenuItemListaEntrenador().addActionListener(this);
 		this.viewPrincipal.getJMenuItemListaMembresias().addActionListener(this);
-		this.viewPrincipal.getJButtonRegistrarEntrada().addActionListener(this);
+		this.viewPrincipal.getBtnRegistrodeVisita().addActionListener(this);
 		this.viewPrincipal.getMntmPuertoTorniquete().addActionListener(this);
 		this.viewPrincipal.getBtnSalir().addActionListener(this);
 		this.viewPrincipal.getjMenuItemAsistencia().addActionListener(this);
@@ -157,8 +158,9 @@ public class InicioController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (viewPrincipal.getJButtonRegistrarEntrada() == e.getSource()) {
-			HuellaController huellaController = new HuellaController(null, new SocioRegistrarEntradaView(), null);
+		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()) {
+			MembresiaRegistroVisitaView registroVisitaView = new MembresiaRegistroVisitaView();
+			registroVisitaView.setVisible(true);
 		} else if (viewPrincipal.getBtnBuscar() == e.getSource()) {
 			String key = viewPrincipal.getTextFieldKey().getText();
 			List<Socio> socios = socioDao.buscarSocioKey(key);

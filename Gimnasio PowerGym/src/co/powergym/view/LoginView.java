@@ -71,8 +71,8 @@ public class LoginView extends JFrame {
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(167, 11, 150, 130);
-		lblNewLabel.setIcon(new ImageIcon(((new ImageIcon("image/avatar_boy.png")).getImage()).getScaledInstance(
-				lblNewLabel.getHeight(), lblNewLabel.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));		
+		lblNewLabel.setIcon(new ImageIcon(((new ImageIcon("image/logo.png")).getImage()).getScaledInstance(
+				lblNewLabel.getWidth(), lblNewLabel.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));		
 		contentPane.add(lblNewLabel);
 		
 		JPanel panel = new JPanel();

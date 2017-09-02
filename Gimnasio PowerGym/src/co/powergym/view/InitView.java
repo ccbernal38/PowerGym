@@ -41,6 +41,7 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
+import java.awt.Dimension;
 
 /**
  *
@@ -200,7 +201,7 @@ public class InitView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnRegistrarSocio.setBounds(28, 623, 150, 50);
+		btnRegistrarSocio.setBounds(408, 623, 150, 50);
 		btnRegistrarSocio.setBorder(null);
 		btnRegistrarSocio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrarSocio.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -211,18 +212,8 @@ public class InitView extends JFrame {
 		btnRegistrarSocio.setText("<html><center>Registro<br />de socio</center></html>");
 		btnRegistrarSocio.setToolTipText("");
 		btnRegistrarSocio.setPreferredSize(new java.awt.Dimension(50, 50));
-		jButtonRegistrarEntrada = new javax.swing.JButton();
-		jButtonRegistrarEntrada.setBounds(188, 623, 150, 50);
-		jButtonRegistrarEntrada.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jButtonRegistrarEntrada.setBorder(null);
-		jButtonRegistrarEntrada.setFont(new Font("Verdana", Font.BOLD, 12));
-		jButtonRegistrarEntrada.setForeground(Color.WHITE);
-		getContentPane().add(jButtonRegistrarEntrada);
-		jButtonRegistrarEntrada.setBackground(new Color(128, 128, 128));
-
-		jButtonRegistrarEntrada.setText("<html><center>Registrar<br />entrada</center></html>");
 		btnMenuMembresia = new javax.swing.JButton();
-		btnMenuMembresia.setBounds(508, 623, 150, 50);
+		btnMenuMembresia.setBounds(728, 623, 150, 50);
 		btnMenuMembresia.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnMenuMembresia.setBorder(null);
 		btnMenuMembresia.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -232,7 +223,7 @@ public class InitView extends JFrame {
 
 		btnMenuMembresia.setText("<html><center>Registrar<br />membresia</center></html>");
 		jButtonPagarMensualidad = new javax.swing.JButton();
-		jButtonPagarMensualidad.setBounds(348, 623, 150, 50);
+		jButtonPagarMensualidad.setBounds(568, 623, 150, 50);
 		jButtonPagarMensualidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonPagarMensualidad.setBorder(null);
 		jButtonPagarMensualidad.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -242,7 +233,7 @@ public class InitView extends JFrame {
 
 		jButtonPagarMensualidad.setText("<html><center>Pagar<br />mensualidad</center></html>");
 		jButtonCierreCaja = new javax.swing.JButton();
-		jButtonCierreCaja.setBounds(668, 623, 150, 50);
+		jButtonCierreCaja.setBounds(888, 623, 150, 50);
 		jButtonCierreCaja.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonCierreCaja.setBorder(null);
 		jButtonCierreCaja.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -366,19 +357,29 @@ public class InitView extends JFrame {
 		getContentPane().add(btnVerificar);
 		
 				JLabel labelBackgroundImage = new JLabel("");
-				labelBackgroundImage.setBounds(398, 153, 520, 520);
+				labelBackgroundImage.setBounds(408, 137, 500, 400);
 				labelBackgroundImage.setIcon(new ImageIcon(
-						((new ImageIcon("image/principal.png")).getImage()).getScaledInstance(labelBackgroundImage.getHeight(),
+						((new ImageIcon("image/logo.png")).getImage()).getScaledInstance(labelBackgroundImage.getWidth(),
 								labelBackgroundImage.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
 				
 						getContentPane().add(labelBackgroundImage);
+						
+						btnRegistrodeVisita = new JButton();
+						btnRegistrodeVisita.setToolTipText("");
+						btnRegistrodeVisita.setText("<html><center>Registro<br />de visita</center></html>");
+						btnRegistrodeVisita.setPreferredSize(new Dimension(50, 50));
+						btnRegistrodeVisita.setForeground(Color.WHITE);
+						btnRegistrodeVisita.setFont(new Font("Verdana", Font.BOLD, 12));
+						btnRegistrodeVisita.setBorder(null);
+						btnRegistrodeVisita.setBackground(Color.GREEN);
+						btnRegistrodeVisita.setBounds(248, 623, 150, 50);
+						getContentPane().add(btnRegistrodeVisita);
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	public javax.swing.JButton btnRegistrarSocio;
-	public javax.swing.JButton jButtonRegistrarEntrada;
 	public javax.swing.JButton btnMenuMembresia;
 	public javax.swing.JButton jButtonPagarMensualidad;
 	public javax.swing.JButton jButtonCierreCaja;
@@ -441,6 +442,7 @@ public class InitView extends JFrame {
 	private JTextArea textArea;
 	private JButton btnPuerta;
 	private JButton btnB;
+	private JButton btnRegistrodeVisita;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -485,10 +487,6 @@ public class InitView extends JFrame {
 
 	public JMenuItem getJMenuItembuscarSocio() {
 		return jMenuItem3buscarSocio;
-	}
-
-	public JButton getJButtonRegistrarEntrada() {
-		return jButtonRegistrarEntrada;
 	}
 
 	public JButton getBtnSalir() {
@@ -556,5 +554,8 @@ public class InitView extends JFrame {
 	}
 	public JTextField getTextFieldKey() {
 		return textFieldKey;
+	}
+	public JButton getBtnRegistrodeVisita() {
+		return btnRegistrodeVisita;
 	}
 }
