@@ -148,14 +148,7 @@ public class Socio {
 	}
 
 	public String getNombreCompleto() {
-		String nombre = "";
-		if (nombre != null && !nombre.equals("")) {
-			nombre += capitalLetter(nombre) + " ";
-		}
-		if (apellido != null && !apellido.equals("")) {
-			nombre += capitalLetter(apellido) + " ";
-		}
-		return nombre;
+		return nombre+" "+apellido;
 	}
 
 	public String capitalLetter(String input) {

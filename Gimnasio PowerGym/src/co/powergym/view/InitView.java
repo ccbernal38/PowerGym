@@ -38,6 +38,8 @@ import javax.swing.border.EmptyBorder;
 import com.digitalpersona.onetouch.DPFPTemplate;
 import com.toedter.components.JSpinField;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -193,7 +195,11 @@ public class InitView extends JFrame {
 		mnAyuda.add(mntmPuertoTorniquete);
 		getContentPane().setLayout(null);
 		btnRegistrarSocio = new javax.swing.JButton();
-		btnRegistrarSocio.setBounds(30, 50, 150, 74);
+		btnRegistrarSocio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRegistrarSocio.setBounds(28, 623, 150, 50);
 		btnRegistrarSocio.setBorder(null);
 		btnRegistrarSocio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrarSocio.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -205,44 +211,40 @@ public class InitView extends JFrame {
 		btnRegistrarSocio.setToolTipText("");
 		btnRegistrarSocio.setPreferredSize(new java.awt.Dimension(50, 50));
 		jButtonRegistrarEntrada = new javax.swing.JButton();
-		jButtonRegistrarEntrada.setBounds(220, 50, 150, 74);
+		jButtonRegistrarEntrada.setBounds(188, 623, 150, 50);
 		jButtonRegistrarEntrada.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonRegistrarEntrada.setBorder(null);
 		jButtonRegistrarEntrada.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnRegistrarSocio.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		jButtonRegistrarEntrada.setForeground(Color.WHITE);
 		getContentPane().add(jButtonRegistrarEntrada);
 		jButtonRegistrarEntrada.setBackground(new Color(128, 128, 128));
 
 		jButtonRegistrarEntrada.setText("<html><center>Registrar<br />entrada</center></html>");
 		btnMenuMembresia = new javax.swing.JButton();
-		btnMenuMembresia.setBounds(220, 135, 150, 74);
+		btnMenuMembresia.setBounds(508, 623, 150, 50);
 		btnMenuMembresia.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnMenuMembresia.setBorder(null);
 		btnMenuMembresia.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnRegistrarSocio.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		btnMenuMembresia.setForeground(Color.WHITE);
 		getContentPane().add(btnMenuMembresia);
 		btnMenuMembresia.setBackground(new Color(0, 208, 0));
 
 		btnMenuMembresia.setText("<html><center>Registrar<br />membresia</center></html>");
 		jButtonPagarMensualidad = new javax.swing.JButton();
-		jButtonPagarMensualidad.setBounds(30, 135, 150, 74);
+		jButtonPagarMensualidad.setBounds(348, 623, 150, 50);
 		jButtonPagarMensualidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonPagarMensualidad.setBorder(null);
 		jButtonPagarMensualidad.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnRegistrarSocio.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		jButtonPagarMensualidad.setForeground(Color.WHITE);
 		getContentPane().add(jButtonPagarMensualidad);
 		jButtonPagarMensualidad.setBackground(new Color(0, 0, 208));
 
 		jButtonPagarMensualidad.setText("<html><center>Pagar<br />mensualidad</center></html>");
 		jButtonCierreCaja = new javax.swing.JButton();
-		jButtonCierreCaja.setBounds(398, 135, 150, 74);
+		jButtonCierreCaja.setBounds(668, 623, 150, 50);
 		jButtonCierreCaja.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonCierreCaja.setBorder(null);
 		jButtonCierreCaja.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnRegistrarSocio.setFont(new Font("Avenir Light", Font.BOLD, 14));
 		jButtonCierreCaja.setForeground(Color.WHITE);
 		getContentPane().add(jButtonCierreCaja);
 		jButtonCierreCaja.setBackground(new Color(208, 208, 0));
@@ -251,7 +253,7 @@ public class InitView extends JFrame {
 
 		JPanel panelCumpleanios = new JPanel();
 		panelCumpleanios.setBounds(1080, 50, 264, 623);
-		panelCumpleanios.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panelCumpleanios.setBorder(null);
 		panelCumpleanios.setBackground(new Color(0, 0, 0, 0));
 		getContentPane().add(panelCumpleanios);
 		panelCumpleanios.setLayout(null);
@@ -289,75 +291,42 @@ public class InitView extends JFrame {
 		listCumpleanios.setForeground(Color.WHITE);
 		listCumpleanios.setBackground(new Color(0, 0, 0, 0));
 
-		JPanel panelMembresias = new JPanel();
-		panelMembresias.setBounds(810, 50, 264, 623);
-		panelMembresias.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panelMembresias.setBackground(new Color(0, 0, 0, 0));
-		getContentPane().add(panelMembresias);
-		panelMembresias.setLayout(null);
-
-		JLabel lblMembresiaProximasA = new JLabel("Membresía a finalizar");
-		lblMembresiaProximasA.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMembresiaProximasA.setForeground(Color.WHITE);
-		lblMembresiaProximasA.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblMembresiaProximasA.setBounds(10, 11, 244, 29);
-		panelMembresias.add(lblMembresiaProximasA);
-
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(10, 51, 244, 137);
-		lblNewLabel_1.setIcon(new ImageIcon(((new ImageIcon("image/vencido.png")).getImage()).getScaledInstance(
-				lblNewLabel_1.getHeight(), lblNewLabel_1.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
-		panelMembresias.add(lblNewLabel_1);
-
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBackground(new Color(0, 0, 0, 0));
-		scrollPane_1.setBounds(10, 199, 244, 413);
-		panelMembresias.add(scrollPane_1);
-
-		JList list = new JList();
-		list.setBackground(new Color(0, 0, 0, 0));
-		list.setFont(new Font("Verdana", Font.PLAIN, 11));
-		scrollPane_1.setViewportView(list);
-
-		JLabel labelBackgroundImage = new JLabel("");
-		labelBackgroundImage.setBounds(398, 153, 520, 520);
-		labelBackgroundImage.setIcon(new ImageIcon(
-				((new ImageIcon("image/principal.png")).getImage()).getScaledInstance(labelBackgroundImage.getHeight(),
-						labelBackgroundImage.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
-
-		getContentPane().add(labelBackgroundImage);
-
 		panelBusqueda = new JPanel();
-		panelBusqueda.setBackground(Color.LIGHT_GRAY);
+		panelBusqueda.setBackground(Color.DARK_GRAY);
 		panelBusqueda.setBorder(new EmptyBorder(0, 0, 3, 0));
-		panelBusqueda.setBounds(0, 0, 1362, 39);
+		panelBusqueda.setBounds(0, 0, 1362, 47);
 		getContentPane().add(panelBusqueda);
 		panelBusqueda.setLayout(null);
 
-		JLabel lblNewLabel_2 = new JLabel("Ingrese el número de identificacion del socio:");
-		lblNewLabel_2.setFont(new Font("Verdana", Font.PLAIN, 14));
-		lblNewLabel_2.setBounds(10, 11, 344, 19);
+		JLabel lblNewLabel_2 = new JLabel("Consultar socio:");
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblNewLabel_2.setBounds(10, 4, 195, 36);
 		panelBusqueda.add(lblNewLabel_2);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(345, 12, 164, 20);
-		panelBusqueda.add(textField_1);
-		textField_1.setColumns(10);
+		textFieldKey = new JTextField();
+		textFieldKey.setFont(new Font("Verdana", Font.BOLD, 12));
+		textFieldKey.setBounds(162, 4, 164, 36);
+		panelBusqueda.add(textFieldKey);
+		textFieldKey.setColumns(10);
 
 		btnSalir = new JButton("Salir");
-		btnSalir.setFont(new Font("Verdana", Font.BOLD, 12));
+		btnSalir.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnSalir.setBounds(1233, 11, 107, 23);
 		panelBusqueda.add(btnSalir);
-
-		JButton btnB = new JButton("b");
-		btnB.setBounds(520, 11, 30, 23);
+		btnB = new JButton("Buscar");
+		btnB.setBounds(336, 4, 121, 36);
 		panelBusqueda.add(btnB);
+		
+		btnPuerta = new JButton("Puerta");
+		btnPuerta.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnPuerta.setBounds(1134, 11, 89, 23);
+		panelBusqueda.add(btnPuerta);
 
 		panel = new JPanel();
 		panel.setBorder(
 				new TitledBorder(null, "Escaneando huella....", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(32, 341, 192, 205);
+		panel.setBounds(28, 177, 192, 205);
 		getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
@@ -367,35 +336,43 @@ public class InitView extends JFrame {
 		label = new JLabel("Ingrese el n\u00FAmero de identificaci\u00F3n del socio:");
 		label.setForeground(Color.WHITE);
 		label.setFont(new Font("Verdana", Font.PLAIN, 12));
-		label.setBounds(32, 270, 312, 14);
+		label.setBounds(26, 105, 312, 14);
 		getContentPane().add(label);
 
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(291, 267, 125, 20);
+		textField.setBounds(348, 103, 125, 20);
 		getContentPane().add(textField);
 
 		label_1 = new JLabel("REGISTRO DE ENTRADA");
 		label_1.setForeground(Color.WHITE);
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setFont(new Font("Verdana", Font.PLAIN, 12));
-		label_1.setBounds(30, 245, 386, 14);
+		label_1.setBounds(26, 80, 447, 14);
 		getContentPane().add(label_1);
 
 		scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(32, 557, 384, 82);
+		scrollPane_2.setBounds(28, 393, 384, 82);
 		getContentPane().add(scrollPane_2);
 
 		textArea = new JTextArea();
 		scrollPane_2.setViewportView(textArea);
 
 		btnVerificar = new JButton("Verificar");
-		btnVerificar.setBounds(291, 295, 125, 23);
+		btnVerificar.setBounds(348, 131, 125, 23);
 		getContentPane().add(btnVerificar);
 
 		separator = new JSeparator();
-		separator.setBounds(32, 329, 384, 2);
+		separator.setBounds(28, 165, 384, 2);
 		getContentPane().add(separator);
+		
+				JLabel labelBackgroundImage = new JLabel("");
+				labelBackgroundImage.setBounds(398, 153, 520, 520);
+				labelBackgroundImage.setIcon(new ImageIcon(
+						((new ImageIcon("image/principal.png")).getImage()).getScaledInstance(labelBackgroundImage.getHeight(),
+								labelBackgroundImage.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
+				
+						getContentPane().add(labelBackgroundImage);
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -454,9 +431,8 @@ public class InitView extends JFrame {
 	private JButton btnSalir;
 	private JMenuItem mntmPuertoTorniquete;
 	private JList listCumpleanios;
-	private JLabel lblNewLabel_1;
 	private JPanel panelBusqueda;
-	private JTextField textField_1;
+	private JTextField textFieldKey;
 	private JPanel panel;
 	private JLabel label;
 	private JTextField textField;
@@ -466,6 +442,8 @@ public class InitView extends JFrame {
 	private JSeparator separator;
 	private JLabel lblHuella;
 	private JTextArea textArea;
+	private JButton btnPuerta;
+	private JButton btnB;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -572,5 +550,14 @@ public class InitView extends JFrame {
 	 */
 	public void setjMenuItemAsistencia(javax.swing.JMenuItem jMenuItemAsistencia) {
 		this.jMenuItemAsistencia = jMenuItemAsistencia;
+	}
+	public JButton getBtnPuerta() {
+		return btnPuerta;
+	}
+	public JButton getBtnBuscar() {
+		return btnB;
+	}
+	public JTextField getTextFieldKey() {
+		return textFieldKey;
 	}
 }

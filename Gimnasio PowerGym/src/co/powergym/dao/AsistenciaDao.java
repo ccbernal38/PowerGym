@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -33,13 +34,15 @@ public class AsistenciaDao implements AsistenciaInterfaceDao {
 		Asistencia asistencia;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, fecha FROM Asistencia Where socio_id = ? order by fecha DESC");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, fechaCreacion FROM Asistencia Where socio_id = ? order by fechaCreacion DESC");
 			preparedStatement.setInt(1, idSocio);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				asistencia = new Asistencia();
 				asistencia.setId(resultSet.getInt(1));
-				asistencia.setFecha(resultSet.getTimestamp(2));
+				Timestamp timestamp = resultSet.getTimestamp(2);
+				Date date = new Date(timestamp.getTime());
+				asistencia.setFecha(date);
 				list.add(asistencia);
 			}
 			conexion.desconectar();
@@ -54,7 +57,7 @@ public class AsistenciaDao implements AsistenciaInterfaceDao {
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
-					.prepareStatement("INSERT INTO Asistencia(fecha, socio_id) VALUES(?,?)");
+					.prepareStatement("INSERT INTO Asistencia(socio_id) VALUES(?,?)");
 			statement.setTimestamp(1, new Timestamp(Calendar.getInstance().getTime().getTime()));
 			statement.setInt(2, idSocio);
 			statement.execute();

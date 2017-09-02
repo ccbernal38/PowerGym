@@ -20,7 +20,9 @@ public interface SocioDaoInterface {
 	public boolean modificarSocio(String identificacion, Date fechaNacimiento, String nombre, String apellido,
             String correo, String telefono, int genero);
 	
-	public Socio buscarSocio(String identificacion);
+	public Socio buscarSocio(String key);
+	
+	public List<Socio> buscarSocioKey(String key);
 	
 	public Socio buscarSocio(int idSocio);
 
