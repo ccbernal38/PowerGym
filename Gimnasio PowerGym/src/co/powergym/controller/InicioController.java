@@ -148,13 +148,13 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
 			MembresiaController membresiaController = new MembresiaController(null, new MembresiaListadoView());
 		} else if (viewPrincipal.getJMenuItemRegistrarEntrenador() == e.getSource()) {
-			EntrenadorController entrenadorController = new EntrenadorController(new UsuarioDao(),
+			UsuarioController entrenadorController = new UsuarioController(new UsuarioDao(),
 					new RegistroEntrenador(), null, null, null);
 		} else if (viewPrincipal.getJMenuItemBuscarEntrenador() == e.getSource()) {
-			EntrenadorController entrenadorController = new EntrenadorController(new UsuarioDao(), null,
+			UsuarioController entrenadorController = new UsuarioController(new UsuarioDao(), null,
 					new BusquedaEntrenador(), null, null);
 		} else if (viewPrincipal.getJMenuItemListaEntrenador() == e.getSource()) {
-			EntrenadorController entrenadorController = new EntrenadorController(new UsuarioDao(), null, null,
+			UsuarioController entrenadorController = new UsuarioController(new UsuarioDao(), null, null,
 					new ListaEntrenador(), null);
 		} else if(viewPrincipal.getjMenuItemAsistencia() == e.getSource()) {
 			
