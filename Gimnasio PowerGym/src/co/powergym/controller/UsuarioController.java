@@ -13,12 +13,13 @@ import javax.swing.table.DefaultTableModel;
 
 import co.powergym.dao.UsuarioDao;
 import co.powergym.model.Usuario;
-import co.powergym.view.entrenador.ActualizarEntrenador;
-import co.powergym.view.entrenador.BusquedaEntrenador;
-import co.powergym.view.entrenador.ListaEntrenador;
-import co.powergym.view.entrenador.RegistroEntrenador;
+import co.powergym.view.usuario.entrenador.ActualizarEntrenador;
+import co.powergym.view.usuario.entrenador.BusquedaEntrenador;
+import co.powergym.view.usuario.entrenador.ListaEntrenador;
+import co.powergym.view.usuario.entrenador.RegistroEntrenador;
 
 public class UsuarioController implements ActionListener {
+
 
 	UsuarioDao usuarioDao;
 	RegistroEntrenador viewRegistroEntrenador;
@@ -67,7 +68,7 @@ public class UsuarioController implements ActionListener {
 
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listEntrenadores.get(i).getIdentificacion();
-			//columna[1] = listEntrenadores.get(i).getNombreCompleto();
+			// columna[1] = listEntrenadores.get(i).getNombreCompleto();
 			columna[2] = listEntrenadores.get(i).getDireccion();
 			columna[3] = listEntrenadores.get(i).getCorreo();
 			columna[4] = listEntrenadores.get(i).getTelefono();
@@ -89,53 +90,49 @@ public class UsuarioController implements ActionListener {
 					if (nombre == null || nombre.equals("")) {
 						JOptionPane.showMessageDialog(null, "El campo primer nombre no puede estar vacio.");
 					} else {
-						
+
 						String apellido = viewRegistroEntrenador.getTxtPrimerapellido().getText();
 						if (apellido == null || apellido.equals("")) {
 							JOptionPane.showMessageDialog(null, "El campo primer apellido no puede estar vacio.");
-						} 
-							else {
-								Date fechaNacimiento = null;
+						} else {
+							Date fechaNacimiento = null;
 
-								if (viewRegistroEntrenador.getDateChooser_fechaNacimiento().getDate() == null) {
-									JOptionPane.showMessageDialog(null,
-											"El campo fecha de nacimiento no puede estar vacio.");
+							if (viewRegistroEntrenador.getDateChooser_fechaNacimiento().getDate() == null) {
+								JOptionPane.showMessageDialog(null,
+										"El campo fecha de nacimiento no puede estar vacio.");
+							} else {
+								fechaNacimiento = new Date(
+										viewRegistroEntrenador.getDateChooser_fechaNacimiento().getDate().getTime());
+
+								String telefono = viewRegistroEntrenador.getTxtTelefono().getText();
+								if (telefono == null || telefono.equals("")) {
+									JOptionPane.showMessageDialog(null, "El campo telefóno no puede estar vacio.");
 								} else {
-									fechaNacimiento = new Date(viewRegistroEntrenador.getDateChooser_fechaNacimiento()
-											.getDate().getTime());
+									String correo = viewRegistroEntrenador.getTxtCorreoelectronico().getText();
+									int genero = 0;
+									if (viewRegistroEntrenador.getComboBox_genero() != null) {
+										genero = viewRegistroEntrenador.getComboBox_genero().getSelectedIndex();
+									}
 
-									String telefono = viewRegistroEntrenador.getTxtTelefono().getText();
-									if (telefono == null || telefono.equals("")) {
-										JOptionPane.showMessageDialog(null, "El campo telefóno no puede estar vacio.");
+									if (correo == null || correo.equals("")) {
+										JOptionPane.showMessageDialog(null,
+												"El campo correo electrónico no puede estar vacio.");
+									}
+									// TODO: Completar campos
+									String username = "";
+									String password = "";
+									boolean respuesta = usuarioDao.registrarUsuario(numeroId, nombre, apellido,
+											fechaNacimiento, correo, telefono, genero, username, password);
+									if (respuesta) {
+										JOptionPane.showMessageDialog(null, "Registro exitoso");
 									} else {
-										String correo = viewRegistroEntrenador.getTxtCorreoelectronico().getText();
-										int genero = 0;
-										if (viewRegistroEntrenador.getComboBox_genero() != null) {
-											genero = viewRegistroEntrenador.getComboBox_genero().getSelectedIndex();
-										}
-
-										if (correo == null || correo.equals("")) {
-											JOptionPane.showMessageDialog(null,
-													"El campo correo electrónico no puede estar vacio.");
-										}
-										// TODO: Completar campos
-										String username = "";
-										String password = "";
-										boolean respuesta = usuarioDao.registrarUsuario(numeroId, nombre,
-												apellido, fechaNacimiento, correo,
-												telefono, genero, username, password);
-										if (respuesta) {
-											JOptionPane.showMessageDialog(null, "Registro exitoso");
-										} else {
-											JOptionPane.showMessageDialog(null,
-													"Ocurrio un error registrando un nuevo entrenador.");
-										}
+										JOptionPane.showMessageDialog(null,
+												"Ocurrio un error registrando un nuevo entrenador.");
 									}
 								}
 							}
 						}
-
-					
+					}
 
 				} else {
 					JOptionPane.showMessageDialog(null, "El entrenador ya se encuentra registrado");
@@ -231,8 +228,8 @@ public class UsuarioController implements ActionListener {
 			// TODO: Completar campos
 			String username = "";
 			String password = "";
-			boolean respuesta = usuarioDao.modificarUsuario(numeroId, primerNombre, primerApellido,
-					null, correoElectronico, telefono, 0, username, password);
+			boolean respuesta = usuarioDao.modificarUsuario(numeroId, primerNombre, primerApellido, null,
+					correoElectronico, telefono, 0, username, password);
 			if (respuesta) {
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
 			} else {

@@ -5,6 +5,8 @@ package co.powergym.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
@@ -15,25 +17,47 @@ import com.sun.nio.file.SensitivityWatchEventModifier;
 import co.powergym.dao.LoginDao;
 import co.powergym.model.Usuario;
 import co.powergym.utils.Preferencias;
-import co.powergym.view.Login;
-import co.powergym.view.Principal;
+import co.powergym.view.LoginView;
+import co.powergym.view.InitView;
 
 /**
  * @author nia
  *
  */
 public class LoginController implements ActionListener {
-	Login viewLogin;
+	LoginView viewLogin;
 	LoginDao loginDao;
 
 	public LoginController() {
 		loginDao = new LoginDao();
-		viewLogin = new Login();
+		viewLogin = new LoginView();
 		this.viewLogin.getBtnIniciar().addActionListener(this);
 		this.viewLogin.getBtnSalir().addActionListener(this);
 		this.viewLogin.setVisible(true);
 		this.viewLogin.setLocationRelativeTo(null);
-		
+		this.viewLogin.getPasswordField().addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					viewLogin.getBtnIniciar().doClick();					
+				}
+			}
+		});
+
 	}
 
 	@Override
@@ -47,7 +71,7 @@ public class LoginController implements ActionListener {
 				if (usuario != null) {
 					viewLogin.setVisible(false);
 					Preferencias.InicioSesionPrefs(usuario);
-					InicioController controller = new InicioController(new Principal());
+					InicioController controller = new InicioController(new InitView());
 					System.out.println(Preferencias.obtenerPreferencia("user_username"));
 
 				} else {
@@ -55,7 +79,7 @@ public class LoginController implements ActionListener {
 					viewLogin.getPasswordField().setText("");
 					JOptionPane.showMessageDialog(viewLogin, "El nombre de usuario y/o contraseña son incorrectos.");
 				}
-			}  else if (viewLogin.getBtnSalir() == e.getSource()) {
+			} else if (viewLogin.getBtnSalir() == e.getSource()) {
 				Preferencias.resetPreferencias();
 				JOptionPane pane = new JOptionPane("Espere, Saliendo......", JOptionPane.INFORMATION_MESSAGE,
 						JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);

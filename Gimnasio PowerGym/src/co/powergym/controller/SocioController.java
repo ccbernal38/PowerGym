@@ -55,9 +55,10 @@ import co.powergym.model.Asistencia;
 import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
 import co.powergym.model.Socio;
+import co.powergym.utils.HuellaInit;
+import co.powergym.view.membresia.PagoMembresiaView;
 import co.powergym.view.socio.SocioAsignarMembresiaView;
 import co.powergym.view.socio.SocioBusquedaView;
-import co.powergym.view.socio.SocioConsultaEntradaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
 import co.powergym.view.socio.SocioRegistroView;
@@ -76,14 +77,14 @@ public class SocioController implements ActionListener, ItemListener {
 	private SocioBusquedaView viewBusquedaSocio;
 	private SocioListadoView viewListadoSocio;
 	private SocioCumpleaniosListadoView viewCumpleaniosListadoView;
-	private SocioConsultaEntradaView viewConsultarEntrada;
 	private BufferedImage fotoTemp;
 	private SocioAsignarMembresiaView viewAsignarMembresia;
 	private byte[] tempHuella;
+	private HuellaInit huellaInit;
 
 	public SocioController(SocioRegistroView viewRegistroSocio, SocioBusquedaView viewBusquedaSocio,
 			SocioListadoView socioListadoView, SocioCumpleaniosListadoView cumpleaniosListadoView,
-			SocioConsultaEntradaView consultaEntradaView, SocioAsignarMembresiaView asignarMembresiaView) {
+			SocioAsignarMembresiaView asignarMembresiaView) {
 		this.socioDao = new SocioDao();
 		this.membresiaDao = new MembresiaDao();
 		this.membresiaSocioDao = new MembresiaSocioDao();
@@ -99,9 +100,6 @@ public class SocioController implements ActionListener, ItemListener {
 		}
 		if (cumpleaniosListadoView != null) {
 			initCumpleaniosListado(cumpleaniosListadoView);
-		}
-		if (consultaEntradaView != null) {
-			initConsultarEntrada(consultaEntradaView);
 		}
 	}
 
@@ -204,8 +202,9 @@ public class SocioController implements ActionListener, ItemListener {
 
 	public void initBusquedaSocio(SocioBusquedaView socioBusquedaView) {
 		this.viewBusquedaSocio = socioBusquedaView;
-		this.viewBusquedaSocio.btnBuscar.addActionListener(this);
+		this.viewBusquedaSocio.getBtnBuscar().addActionListener(this);
 		this.viewBusquedaSocio.getBtnAgregarMembresia().addActionListener(this);
+		this.viewBusquedaSocio.getBtnAgregarPago().addActionListener(this);
 		this.viewBusquedaSocio.setLocationRelativeTo(null);
 		this.viewBusquedaSocio.setVisible(true);
 	}
@@ -220,11 +219,6 @@ public class SocioController implements ActionListener, ItemListener {
 		this.viewCumpleaniosListadoView = cumpleaniosListadoView;
 		listadoCumpleaniosLlenarTabla(viewCumpleaniosListadoView.getTableSocios());
 		this.viewCumpleaniosListadoView.setVisible(true);
-	}
-
-	public void initConsultarEntrada(SocioConsultaEntradaView consultaEntradaView) {
-		this.viewConsultarEntrada = consultaEntradaView;
-		this.viewConsultarEntrada.setVisible(true);
 	}
 
 	@Override
@@ -242,6 +236,7 @@ public class SocioController implements ActionListener, ItemListener {
 			}
 
 			if (e.getSource() == viewRegistroSocio.btnCancelar) {
+				activarHuellaBackground();
 				viewRegistroSocio.dispose();
 			}
 
@@ -267,6 +262,7 @@ public class SocioController implements ActionListener, ItemListener {
 				Socio socio = socioDao.buscarSocio(numeroId);
 				if (socio != null) {
 					viewBusquedaSocio.getBtnAgregarMembresia().setEnabled(true);
+					viewBusquedaSocio.getBtnAgregarPago().setEnabled(true);
 					String primerNombre = socio.getNombreCompleto();
 					viewBusquedaSocio.getTextField_primerNombre().setText(primerNombre);
 					String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
@@ -288,6 +284,9 @@ public class SocioController implements ActionListener, ItemListener {
 			if (e.getSource() == viewBusquedaSocio.getBtnAgregarMembresia()) {
 				String identificacion = viewBusquedaSocio.getTextField_identidad().getText();
 				initAsignarMembresia(new SocioAsignarMembresiaView(), identificacion);
+			}
+			if (e.getSource() == viewBusquedaSocio.getBtnAgregarPago()) {
+				new PagoController(new PagoMembresiaView());
 			}
 		}
 	}
@@ -368,25 +367,24 @@ public class SocioController implements ActionListener, ItemListener {
 							int genero = viewRegistroSocio.getComboBox_genero().getSelectedIndex();
 
 							if (fotoTemp == null) {
-								int random =(int) (Math.random() * 3);
-								if(genero == 0) {
-									if(random == 0) {
-										fotoTemp = ImageIO.read(new File("image/avatar_girl.png"));		
-									}else if(random == 1) {
-										fotoTemp = ImageIO.read(new File("image/avatar_girl_2.png"));		
-									}else {
+								int random = (int) (Math.random() * 3);
+								if (genero == 0) {
+									if (random == 0) {
+										fotoTemp = ImageIO.read(new File("image/avatar_girl.png"));
+									} else if (random == 1) {
+										fotoTemp = ImageIO.read(new File("image/avatar_girl_2.png"));
+									} else {
 										fotoTemp = ImageIO.read(new File("image/avatar_girl_3.png"));
 									}
-								}else {
-									if(random == 0) {
-										fotoTemp = ImageIO.read(new File("image/avatar_boy.png"));		
-									}else if(random == 1) {
-										fotoTemp = ImageIO.read(new File("image/avatar_boy_2.png"));		
-									}else {
+								} else {
+									if (random == 0) {
+										fotoTemp = ImageIO.read(new File("image/avatar_boy.png"));
+									} else if (random == 1) {
+										fotoTemp = ImageIO.read(new File("image/avatar_boy_2.png"));
+									} else {
 										fotoTemp = ImageIO.read(new File("image/avatar_boy_3.png"));
 									}
 								}
-								
 							}
 							if (tempHuella != null) {
 								boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, nombre,
@@ -395,7 +393,9 @@ public class SocioController implements ActionListener, ItemListener {
 								if (respuesta) {
 									JOptionPane.showMessageDialog(null, "Registro exitoso");
 									viewRegistroSocio.setVisible(false);
-									viewRegistroSocio = null;
+									activarHuellaBackground();
+									viewRegistroSocio.dispose();
+									
 								} else {
 									JOptionPane.showMessageDialog(null, "Ocurrio un error registrando un nuevo socio.");
 								}
@@ -580,6 +580,22 @@ public class SocioController implements ActionListener, ItemListener {
 
 	public void setTempHuella(byte[] tempHuella) {
 		this.tempHuella = tempHuella;
+	}
+
+	public HuellaInit getHuellaInit() {
+		return huellaInit;
+	}
+
+	public void setHuellaInit(HuellaInit huellaInit) {
+		this.huellaInit = huellaInit;
+		desactivarHuellaBackground();
+	}
+	
+	public void activarHuellaBackground() {
+		huellaInit.start();
+	}
+	public void desactivarHuellaBackground() {
+		huellaInit.stop();
 	}
 
 }

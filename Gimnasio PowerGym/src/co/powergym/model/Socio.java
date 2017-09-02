@@ -81,20 +81,22 @@ public class Socio {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public String getPrimerNombre() {
+	
+
+	public String getNombre() {
 		return nombre;
 	}
 
-	public void setPrimerNombre(String primerNombre) {
-		this.nombre = primerNombre;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getPrimerApellido() {
+	public String getApellido() {
 		return apellido;
 	}
 
-	public void setPrimerApellido(String primerApellido) {
-		this.apellido = primerApellido;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getCorreo() {

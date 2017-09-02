@@ -51,7 +51,6 @@ import co.powergym.model.Membresia;
 import co.powergym.model.Socio;
 import co.powergym.utils.Constantes;
 import co.powergym.utils.Preferencias;
-import co.powergym.view.socio.SocioConsultaEntradaView;
 import co.powergym.view.socio.SocioRegistrarEntradaView;
 import co.powergym.view.socio.SocioRegistroHuella;
 import jssc.SerialPortException;
@@ -72,7 +71,6 @@ public class HuellaController implements ActionListener {
 	private SocioRegistrarEntradaView viewRegistrarEntrada;
 	private SocioDao socioDao;
 	private AsistenciaDao asistenciaDao;
-	private SocioConsultaEntradaView viewConsultarEntrada;
 
 	public HuellaController(SocioRegistroHuella socioRegistroHuella, SocioRegistrarEntradaView registrarEntradaView,
 			SocioController socioController) {
