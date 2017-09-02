@@ -9,7 +9,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
 import java.awt.Font;
 
-public class UsuarioEntrenador extends JFrame {
+public class ActualizarUsuario extends JFrame {
 	/**
 	 * 
 	 */
@@ -28,7 +28,7 @@ public class UsuarioEntrenador extends JFrame {
 	private JLabel lblApellido;
 	
 	
-	public UsuarioEntrenador() {
+	public ActualizarUsuario() {
 		getContentPane().setLayout(null);
 		
 		txtNumeroid = new JTextField();

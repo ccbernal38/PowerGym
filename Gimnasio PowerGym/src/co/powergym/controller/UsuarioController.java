@@ -1,13 +1,16 @@
 package co.powergym.controller;
 
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,26 +20,31 @@ import co.powergym.dao.UsuarioDao;
 import co.powergym.model.Permiso;
 import co.powergym.model.PermisoUsuario;
 import co.powergym.model.Usuario;
-import co.powergym.view.usuario.entrenador.UsuarioEntrenador;
+import co.powergym.view.usuario.entrenador.ActualizarUsuario;
 import co.powergym.view.usuario.entrenador.BusquedaUsuario;
 import co.powergym.view.usuario.entrenador.ListaUsuario;
 import co.powergym.view.usuario.entrenador.RegistroUsuario;
 
-public class UsuarioController implements ActionListener {
+public class UsuarioController implements ActionListener{
 
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	UsuarioDao usuarioDao;
 	PermisoDao permisoDao;
 	PermisoUsuarioDao permisoUsuarioDao;
 	RegistroUsuario viewRegistroUsuario;
 	BusquedaUsuario viewBusquedaUsuario;
 	ListaUsuario viewListaUsuario;
-	UsuarioEntrenador viewActualizarUsuario;
-	List<PermisoUsuario>permisosAsignados;
+	ActualizarUsuario viewActualizarUsuario;
+	List<PermisoUsuario>permisosAsignados;	
+	private JRadioButton rBpermisoAsignado = new JRadioButton();
+	
 
 	public UsuarioController(UsuarioDao usuarioDao,PermisoDao permisoDao, PermisoUsuarioDao permisoUsuarioDao, RegistroUsuario viewRegistroUsuario,
 			BusquedaUsuario viewBusquedaUsuario, ListaUsuario viewListaUsuario,
-			UsuarioEntrenador viewActualizarUsuario) {
+			ActualizarUsuario viewActualizarUsuario) {
 		this.usuarioDao = usuarioDao;
 		this.permisoDao = permisoDao;
 		this.viewRegistroUsuario = viewRegistroUsuario;
@@ -93,17 +101,18 @@ public class UsuarioController implements ActionListener {
 	/** Método para listar todos los permisos del sistema*/
 	public void llenarTablaPermisos(JTable tablaPermisos) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nombre", "Fecha creación", "Fecha modificación" });
-		
-		Object[] columna = new Object[3];
+				new String[] { "Nombre", "Fecha creación", "Fecha modificación", "Asignar" });
+				
+		Object[] columna = new Object[4];
 		List<Permiso> listPermisos = permisoDao.listaPermisos();
 		int numeroRegistros = listPermisos.size();
-		
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listPermisos.get(i).getNombre();
 			columna[1] = listPermisos.get(i).getFechaCreacion();
 			columna[2] = listPermisos.get(i).getFechaModificacion();
+			columna[3] = new JRadioButton();
 			defaultTableModel.addRow(columna);
+			
 		}
 		tablaPermisos.setModel(defaultTableModel);
 		tablaPermisos.repaint();
@@ -164,10 +173,12 @@ public class UsuarioController implements ActionListener {
 										JOptionPane.showMessageDialog(null,
 												"El campo correo electrónico no puede estar vacio.");
 									}
+									int row = viewRegistroUsuario.getTablePermisos().getSelectedRow();
+									int column = 4;
 									//permiso seleccionado									
-									int filaSeleccionada = viewRegistroUsuario.getTablePermisos().getSelectedRow();
+									int filaSeleccionada= (int) viewRegistroUsuario.getTablePermisos().getValueAt(row, column);
 									ArrayList<Permiso> listaPermiso = permisoDao.listaPermisos();
-									
+									System.out.println(filaSeleccionada);
 									Boolean filaPermisoAsignar;
 									if (filaSeleccionada != -1) {
 										if (listaPermiso != null) {
@@ -278,7 +289,7 @@ public class UsuarioController implements ActionListener {
 					String identificacion = listaUsuario.get(filaSeleccionada).getIdentificacion();
 					Usuario entrenador = usuarioDao.buscarUsuario(identificacion);
 					if (entrenador != null) {
-						viewActualizarUsuario = new UsuarioEntrenador();
+						viewActualizarUsuario = new ActualizarUsuario();
 						String numeroId = entrenador.getIdentificacion();
 						viewActualizarUsuario.getTxtNumeroid().setText(identificacion);
 						viewActualizarUsuario.getTxtNumeroid().setEditable(false);
@@ -317,4 +328,5 @@ public class UsuarioController implements ActionListener {
 		}
 
 	}
+
 }
