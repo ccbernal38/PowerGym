@@ -28,16 +28,10 @@ import com.digitalpersona.onetouch.verification.DPFPVerification;
 import co.powergym.dao.UsuarioDao;
 import co.powergym.dao.AsistenciaDao;
 import co.powergym.dao.MembresiaDao;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import co.powergym.dao.PermisoDao;
 import co.powergym.dao.PermisoUsuarioDao;
-=======
+
 import co.powergym.dao.MembresiaSocioDao;
->>>>>>> 994a913d79312a3316f0022c24ae7f37db24cb84
-=======
-import co.powergym.dao.MembresiaSocioDao;
->>>>>>> 994a913d79312a3316f0022c24ae7f37db24cb84
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Asistencia;
 import co.powergym.model.MembresiaSocio;
@@ -174,7 +168,7 @@ public class InicioController implements ActionListener {
 			if (socios.size() == 1) {
 				mostrarViewBusqueda(socios.get(0));
 			} else if (socios.size() == 0) {
-				JOptionPane.showMessageDialog(null, "No se encontró coincidencia.");
+				JOptionPane.showMessageDialog(null, "No se encontrï¿½ coincidencia.");
 			} else {
 				mostrarViewListSocios(socios);
 			}
