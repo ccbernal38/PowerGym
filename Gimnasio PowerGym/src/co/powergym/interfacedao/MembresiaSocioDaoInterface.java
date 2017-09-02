@@ -2,8 +2,6 @@ package co.powergym.interfacedao;
 
 import java.util.Date;
 import java.util.List;
-
-import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
 
 public interface MembresiaSocioDaoInterface {

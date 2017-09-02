@@ -109,12 +109,12 @@ public class UsuarioDao implements UsuarioDaoInterface {
 						+ "apellido = ?, fechaNacimiento = ?, telefono = ?, correoElectronico = ?, genero = ? "
 						+ "WHERE identificacion = ?");				
 				statement.setString(1, nombre);
-				statement.setString(3, apellido);
-				statement.setDate(5, fechaNacimiento);
-				statement.setString(6, telefono);
-				statement.setString(7, correo);
-				statement.setInt(8, genero);
-				statement.setString(9, identificacion);
+				statement.setString(2, apellido);
+				statement.setDate(3, fechaNacimiento);
+				statement.setString(4, telefono);
+				statement.setString(5, correo);
+				statement.setInt(6, genero);
+				statement.setString(7, identificacion);
 				statement.execute();
 				resultado = true;
 		} catch (Exception e) {
