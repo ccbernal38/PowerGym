@@ -46,6 +46,7 @@ import javax.swing.table.TableColumnModel;
 
 import com.github.sarxos.webcam.Webcam;
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
+import com.sun.xml.internal.ws.api.Cancelable;
 
 import co.powergym.dao.AsistenciaDao;
 import co.powergym.dao.MembresiaDao;
@@ -387,9 +388,18 @@ public class SocioController implements ActionListener, ItemListener {
 								}
 							}
 							if (tempHuella != null) {
+								int cantSocios = socioDao.contarSocios()+1;
+								String codigo = cantSocios+"";
+								if(codigo.length() == 1) {
+									codigo = "000"+codigo;
+								}else if(codigo.length() == 2) {
+									codigo = "00"+codigo;
+								}else if(codigo.length() == 3) {
+									codigo = "0"+codigo;
+								}
 								boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, nombre,
 										apellido, correo, telefono, genero,
-										fotoTemp, tempHuella);
+										fotoTemp, tempHuella, codigo);
 								if (respuesta) {
 									JOptionPane.showMessageDialog(null, "Registro exitoso");
 									viewRegistroSocio.setVisible(false);
