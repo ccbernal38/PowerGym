@@ -1,6 +1,6 @@
 package co.powergym.controller;
 
-import java.awt.Button;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -12,7 +12,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import co.powergym.dao.UsuarioDao;
-import co.powergym.model.Entrenador;
 import co.powergym.model.Usuario;
 import co.powergym.view.entrenador.ActualizarEntrenador;
 import co.powergym.view.entrenador.BusquedaEntrenador;
@@ -226,9 +225,7 @@ public class UsuarioController implements ActionListener {
 		if (viewActualizarEntrenador != null && e.getSource() == viewActualizarEntrenador.btnActualizar1) {
 			String numeroId = viewActualizarEntrenador.getTxtNumeroid().getText();
 			String primerNombre = viewActualizarEntrenador.getTxtPrimernombre().getText();
-			String segundoNombre = viewActualizarEntrenador.getTxtSegundoNombre().getText();
 			String primerApellido = viewActualizarEntrenador.getTxtPrimerapellido().getText();
-			String segundoApellido = viewActualizarEntrenador.getTxtSegundoapellido().getText();
 			String telefono = viewActualizarEntrenador.getTxtTelefono().getText();
 			String correoElectronico = viewActualizarEntrenador.getTxtCorreoelectronico().getText();
 			// TODO: Completar campos
