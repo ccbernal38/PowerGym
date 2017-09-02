@@ -1,22 +1,18 @@
 package co.powergym.controller;
 
 
-import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
+
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import co.powergym.dao.PermisoDao;
 import co.powergym.dao.PermisoUsuarioDao;
@@ -28,9 +24,8 @@ import co.powergym.view.usuario.entrenador.ActualizarUsuario;
 import co.powergym.view.usuario.entrenador.BusquedaUsuario;
 import co.powergym.view.usuario.entrenador.ListaUsuario;
 import co.powergym.view.usuario.entrenador.RegistroUsuario;
-import javafx.scene.control.RadioButton;
 
-public class UsuarioController extends JRadioButton implements ActionListener, TableCellRenderer{
+public class UsuarioController implements ActionListener{
 
 	/**
 	 * 
@@ -107,20 +102,17 @@ public class UsuarioController extends JRadioButton implements ActionListener, T
 	public void llenarTablaPermisos(JTable tablaPermisos) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
 				new String[] { "Nombre", "Fecha creación", "Fecha modificación", "Asignar" });
-		rBpermisoAsignado.setBounds(0, 0, 126, 23);
-		
-		Boolean a = false;
-		Boolean b = false;
+				
 		Object[] columna = new Object[4];
 		List<Permiso> listPermisos = permisoDao.listaPermisos();
 		int numeroRegistros = listPermisos.size();
-		
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listPermisos.get(i).getNombre();
 			columna[1] = listPermisos.get(i).getFechaCreacion();
 			columna[2] = listPermisos.get(i).getFechaModificacion();
-			columna[3] = rBpermisoAsignado;
+			columna[3] = new JRadioButton();
 			defaultTableModel.addRow(columna);
+			
 		}
 		tablaPermisos.setModel(defaultTableModel);
 		tablaPermisos.repaint();
@@ -337,11 +329,4 @@ public class UsuarioController extends JRadioButton implements ActionListener, T
 
 	}
 
-	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int column) {
-		( (JRadioButton) rBpermisoAsignado).setBackground( new Color(0,200,0) );
-	     
-	      return ( (JRadioButton) rBpermisoAsignado);
-	}
 }
