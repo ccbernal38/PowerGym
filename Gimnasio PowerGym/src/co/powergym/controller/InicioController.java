@@ -12,7 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-import co.powergym.dao.EntrenadorDao;
+import co.powergym.dao.UsuarioDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Socio;
@@ -148,13 +148,13 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
 			MembresiaController membresiaController = new MembresiaController(null, new MembresiaListadoView());
 		} else if (viewPrincipal.getJMenuItemRegistrarEntrenador() == e.getSource()) {
-			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(),
+			EntrenadorController entrenadorController = new EntrenadorController(new UsuarioDao(),
 					new RegistroEntrenador(), null, null, null);
 		} else if (viewPrincipal.getJMenuItemBuscarEntrenador() == e.getSource()) {
-			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(), null,
+			EntrenadorController entrenadorController = new EntrenadorController(new UsuarioDao(), null,
 					new BusquedaEntrenador(), null, null);
 		} else if (viewPrincipal.getJMenuItemListaEntrenador() == e.getSource()) {
-			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(), null, null,
+			EntrenadorController entrenadorController = new EntrenadorController(new UsuarioDao(), null, null,
 					new ListaEntrenador(), null);
 		} else if(viewPrincipal.getjMenuItemAsistencia() == e.getSource()) {
 			

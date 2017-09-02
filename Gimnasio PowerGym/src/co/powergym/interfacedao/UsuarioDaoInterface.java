@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 import co.powergym.model.Entrenador;
 
-public interface EntrenadorDaoInterface {
+public interface UsuarioDaoInterface {
 	
 public boolean registrarEntrenador(String identificacion,  String primerNombre, String segundoNombre, String primerApellido,
         String segundoApellido, Date fechaNacimiento,String correo, String telefono, int genero, String username, String password);
 	
-	public ArrayList<Entrenador> listaEntrenador();
+	public ArrayList<Entrenador> listaUsuario();
 	
 	public boolean eliminarEntrenador(String identificacion);
 	

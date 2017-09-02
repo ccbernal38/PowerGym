@@ -6,33 +6,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import co.powergym.interfacedao.EntrenadorDaoInterface;
+import co.powergym.interfacedao.UsuarioDaoInterface;
 import co.powergym.model.Conexion;
 import co.powergym.model.Entrenador;
+import co.powergym.model.Usuario;
 
-public class EntrenadorDao implements EntrenadorDaoInterface {
+public class UsuarioDao implements UsuarioDaoInterface {
 
 	Conexion conexion;
 
-	public EntrenadorDao() {
+	public UsuarioDao() {
 		conexion = new Conexion();
 	}
 
 	@Override
-	public boolean registrarEntrenador(String identificacion, String primerNombre, String segundoNombre,
-			String primerApellido, String segundoApellido, Date fechaNacimiento, String correo, String telefono,
+	public boolean registrarUsuario(String identificacion, String nombre, 
+			String apellido, Date fechaNacimiento, String correo, String telefono,
 			int genero, String username, String password) {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
-					.prepareStatement("INSERT INTO Usuario(identificacion, primerNombre, segundoNombre,"
-							+ "primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO Usuario(identificacion, nombre, "
+							+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
-			statement.setString(2, primerNombre);
-			statement.setString(3, segundoNombre);
-			statement.setString(4, primerApellido);
-			statement.setString(5, segundoApellido);
+			statement.setString(2, nombre);
+			statement.setString(4, apellido);
 			statement.setDate(6, fechaNacimiento);
 			statement.setString(7, telefono);
 			statement.setString(8, correo);
@@ -53,28 +52,26 @@ public class EntrenadorDao implements EntrenadorDaoInterface {
 	}
 
 	@Override
-	public ArrayList<Entrenador> listaEntrenador() {
-		ArrayList<Entrenador> list = new ArrayList<Entrenador>();
-		Entrenador entrenador;
+	public ArrayList<Usuario> listaUsuario() {
+		ArrayList<Usuario> list = new ArrayList<Usuario>();
+		Usuario usuario;
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,"
-					+ "identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, telefono, correoElectronico, genero "
+					+ "identificacion, nombre, apellido, fechaNacimiento, telefono, correoElectronico, genero "
 					+ " FROM Usuario");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				entrenador = new Entrenador();
-				entrenador.setId(resultSet.getInt(1));
-				entrenador.setIdentificacion(resultSet.getString(2));
-				entrenador.setPrimerNombre(resultSet.getString(3));
-				entrenador.setSegundoNombre(resultSet.getString(4));
-				entrenador.setPrimerApellido(resultSet.getString(5));
-				entrenador.setSegundoApellido(resultSet.getString(6));
-				entrenador.setFechaNacimiento(resultSet.getDate(7));
-				entrenador.setTelefono(resultSet.getString(8));
-				entrenador.setCorreo(resultSet.getString(9));
-				entrenador.setGenero(resultSet.getInt(10));
-				list.add(entrenador);
+				usuario = new Usuario();
+				usuario.setId(resultSet.getInt(1));
+				usuario.setIdentificacion(resultSet.getString(2));
+				usuario.setNombre(resultSet.getString(3));
+				usuario.setApellido(resultSet.getString(4));
+				usuario.setFechaNacimiento(resultSet.getDate(5));
+				usuario.setTelefono(resultSet.getString(6));
+				usuario.setCorreo(resultSet.getString(7));
+				usuario.setGenero(resultSet.getInt(8));
+				list.add(usuario);
 			}
 			conexion.desconectar();
 		} catch (Exception e) {

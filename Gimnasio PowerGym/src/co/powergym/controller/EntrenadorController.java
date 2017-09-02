@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import co.powergym.dao.EntrenadorDao;
+import co.powergym.dao.UsuarioDao;
 import co.powergym.model.Entrenador;
 import co.powergym.view.entrenador.ActualizarEntrenador;
 import co.powergym.view.entrenador.BusquedaEntrenador;
@@ -20,13 +20,13 @@ import co.powergym.view.entrenador.RegistroEntrenador;
 
 public class EntrenadorController implements ActionListener {
 
-	EntrenadorDao entrenadorDao;
+	UsuarioDao entrenadorDao;
 	RegistroEntrenador viewRegistroEntrenador;
 	BusquedaEntrenador viewBusquedantrenador;
 	ListaEntrenador viewListaEntrenador;
 	ActualizarEntrenador viewActualizarEntrenador;
 
-	public EntrenadorController(EntrenadorDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador,
+	public EntrenadorController(UsuarioDao entrenadorDao, RegistroEntrenador viewRegistroEntrenador,
 			BusquedaEntrenador viewBusquedaentrenador, ListaEntrenador viewListaEntrenador,
 			ActualizarEntrenador viewActualizarEntrenador) {
 		this.entrenadorDao = entrenadorDao;
