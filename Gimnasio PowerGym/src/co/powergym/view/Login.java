@@ -107,7 +107,7 @@ public class Login extends JFrame {
 		textFieldUsername = new JTextField();
 		textFieldUsername.setBorder(new EmptyBorder(0, 0, 0, 0));
 		textFieldUsername.setFont(new Font("Verdana", Font.PLAIN, 12));
-		textFieldUsername.setBounds(60, 11, 249, 28);
+		textFieldUsername.setBounds(60, 11, 249, 28);textFieldUsername.setText("ccbernal38");
 		PromptSupport.setPrompt("Nombre de usuario", textFieldUsername);
 		PromptSupport.setForeground(Color.LIGHT_GRAY, textFieldUsername);
 		PromptSupport.setFontStyle(Font.PLAIN, textFieldUsername);
@@ -139,6 +139,7 @@ public class Login extends JFrame {
 		passwordField.setBorder(new EmptyBorder(0, 0, 0, 0));
 		passwordField.setFont(new Font("Verdana", Font.PLAIN, 12));
 		passwordField.setBounds(60, 11, 249, 28);
+		passwordField.setText("123456");
 		panel_3.add(passwordField);
 		PromptSupport.setPrompt("Contraseña", passwordField);
 		PromptSupport.setForeground(Color.LIGHT_GRAY, passwordField);

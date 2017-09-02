@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,8 +55,8 @@ public class HorarioDao implements HorarioDaoInterface {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
 					.prepareStatement("INSERT INTO Horario(horaInicio, horaFin, Membresia_id) VALUES(?,?,?)");
-			statement.setDate(1, horaInicio);
-			statement.setDate(2, horaFin);
+			statement.setDate(1, new java.sql.Date( horaInicio.getTime()));
+			statement.setDate(2, new java.sql.Date(horaFin.getTime()));
 			statement.setInt(3, codigoMembresia);
 			statement.execute();
 			respuesta = true;

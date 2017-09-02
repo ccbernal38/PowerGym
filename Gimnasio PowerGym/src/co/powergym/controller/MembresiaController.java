@@ -2,7 +2,11 @@ package co.powergym.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -13,12 +17,18 @@ import javax.swing.table.DefaultTableModel;
 
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
+import com.sun.glass.events.WindowEvent;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
+import co.powergym.dao.DiaMembresiaDao;
+import co.powergym.dao.DiaSemanaDao;
 import co.powergym.dao.DuracionDao;
+import co.powergym.dao.HorarioDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.MembresiaSocioDao;
 import co.powergym.model.DiaSemana;
 import co.powergym.model.Duracion;
+import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
 import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
@@ -29,17 +39,16 @@ public class MembresiaController implements ActionListener {
 	private CrearMembresia membresia;
 	private MembresiaListadoView membresiaListadoView;
 	private MembresiaDao membresiaDao;
-
-	private MembresiaSocioDao membresiaSocioDao;
-
+	private HorarioDao horarioDao;
 	private DuracionDao duracionDao;
-
+	private DiaSemanaDao diaSemanaDao;
+	private DiaMembresiaDao diaMembresiaDao;
 	int contPasos = 1;
 	int contPasosAtras = 5;
 
 	private List<Membresia> listMembresias;
 	private String nombreMembresia;
-	private String precioMembresia;
+	private double precioMembresia;
 	private int duracionMembresia;
 	private Duracion tipoDuracion;
 	private boolean limiteMembresiaDiaSi;
@@ -52,12 +61,21 @@ public class MembresiaController implements ActionListener {
 	private String restriccionHorario = "";
 	private String horaDeAux;
 	private String horaAAux;
-	private List<String> horarios = new ArrayList<>();
+	private List<Horario> horarios = new ArrayList<>();
 	private String dias = "";
-
+	int IdTipoDuracion;
+	
+	/**
+	 * Método constructor
+	 * @param membresia: objeto jframe de crear membresia
+	 * @param membresiaListadoView: objeto jframe de listado de membresias
+	 */
 	public MembresiaController(CrearMembresia membresia, MembresiaListadoView membresiaListadoView) {
 		membresiaDao = new MembresiaDao();
 		this.duracionDao = new DuracionDao();
+		this.horarioDao = new HorarioDao();
+		this.diaSemanaDao = new DiaSemanaDao();
+		this.diaMembresiaDao = new DiaMembresiaDao();
 		if (membresia != null) {
 			this.membresia = membresia;
 			this.membresia.setVisible(true);
@@ -79,6 +97,9 @@ public class MembresiaController implements ActionListener {
 			this.membresia.getBtnAadirHorario().addActionListener(this);
 			this.membresia.getBtnFinalizar().addActionListener(this);
 			this.membresia.getButtonEliminarH().addActionListener(this);
+			this.membresia.getChckbNoProm().addActionListener(this);
+			this.membresia.getChckbxSiProm().addActionListener(this);
+			this.membresia.getFechaPromo().setEnabled(false);
 			llenarRegistroMembresia();
 			llenarComboboxNumeroVisitas();
 			llenarComboboxHorarios();
@@ -94,7 +115,33 @@ public class MembresiaController implements ActionListener {
 		}
 
 	}
-
+	
+	public void registrarMembresia() {
+		
+		boolean respuesta = membresiaDao.registrarMembresia(nombreMembresia, precioMembresia, duracionMembresia, visitasDia, IdTipoDuracion);
+		
+		if(respuesta == true) {
+			
+			int id_membresia = membresiaDao.buscarId(nombreMembresia).getId();
+			for (int i = 0; i < horarios.size(); i++) {
+				horarioDao.registrarHorarioMembresia(horarios.get(i).getHoraInicio(), horarios.get(i).getHoraFin(), id_membresia);				
+			}	
+			
+			int idDiaSemana;
+			if(diasAux.size() != 0) {
+				for (int i = 0; i < diasAux.size(); i++) {
+					idDiaSemana = diaSemanaDao.buscarDiaSemana(diasAux.get(i).getNombre()).getId();
+					diaMembresiaDao.regitrarDiaMembresia(idDiaSemana, id_membresia);
+				}
+			}
+			
+		}
+	}
+	
+	/**
+	 * Método que deshabilita los campos y botones de la vista crear membresía en 
+	 * el modulo de restrición de horario.
+	 */
 	private void inhabilitarRestriccionHorario() {
 		membresia.getComboBoxA().setEnabled(false);
 		membresia.getComboBoxDe().setEnabled(false);
@@ -168,18 +215,26 @@ public class MembresiaController implements ActionListener {
 				membresia.getLbl_costoMembresia().setVisible(false);
 				membresia.getLblPeso().setVisible(false);
 				membresia.getTFPrecio().setVisible(false);
-				membresia.getLabel_vineta_2().setVisible(false);
 
 				membresia.getLbl_pregunta_2().setBounds(30, 118, 285, 16);
 				membresia.getBtnAtras().setBounds(28, 350, 110, 30);
 				membresia.getLblCantidad().setBounds(30, 153, 61, 16);
 				membresia.getTextFieldCantidad().setBounds(97, 149, 61, 27);
 				membresia.getCBXTipoTiempo().setBounds(161, 149, 156, 27);
-
+				membresia.getLabelMPromocional().setBounds(30, 192, 285, 16);
+				membresia.getChckbNoProm().setBounds(30, 223, 97, 23);
+				membresia.getChckbxSiProm().setBounds(30, 255, 224, 23);
+				membresia.getFechaPromo().setBounds(260, 255, 100, 20);
+				
 				membresia.getLbl_pregunta_2().setVisible(true);
 				membresia.getTextFieldCantidad().setVisible(true);
 				membresia.getCBXTipoTiempo().setVisible(true);
 				membresia.getLblCantidad().setVisible(true);
+				membresia.getLabelMPromocional().setVisible(true);
+				membresia.getChckbNoProm().setVisible(true);
+				membresia.getChckbxSiProm().setVisible(true);
+				membresia.getFechaPromo().setVisible(true);
+				
 				contPasosAtras++;
 
 			} else if (contPasos == 2) {
@@ -191,6 +246,11 @@ public class MembresiaController implements ActionListener {
 				membresia.getTextFieldCantidad().setVisible(false);
 				membresia.getCBXTipoTiempo().setVisible(false);
 				membresia.getLblCantidad().setVisible(false);
+				membresia.getLabel_vineta_2().setVisible(false);
+				membresia.getLabelMPromocional().setVisible(false);
+				membresia.getChckbNoProm().setVisible(false);
+				membresia.getChckbxSiProm().setVisible(false);
+				membresia.getFechaPromo().setVisible(false);
 				membresia.getLb_pregunta_3().setBounds(30, 118, 342, 16);
 				membresia.getChckbxNo().setBounds(30, 152, 128, 23);
 				membresia.getChckbxSi().setBounds(30, 187, 320, 23);
@@ -287,9 +347,10 @@ public class MembresiaController implements ActionListener {
 				membresia.getLbl_pregunta5().setVisible(false);
 
 				membresia.getLblResumenMembresia().setBounds(30, 118, 285, 16);
-				membresia.getTableResumenMembresia().setBounds(50, 160, 368, 96);
+				membresia.getScrollPaneResumen().setBounds(28, 160, 418, 126);
 
 				membresia.getLblResumenMembresia().setVisible(true);
+				membresia.getScrollPaneResumen().setVisible(true);
 				membresia.getTableResumenMembresia().setVisible(true);
 
 				membresia.getBtnSiguiente().setVisible(false);
@@ -306,7 +367,7 @@ public class MembresiaController implements ActionListener {
 				contPasos--;
 				membresia.getLblPasoDe().setText("Paso " + contPasos + " de 6");
 				membresia.getLblResumenMembresia().setVisible(false);
-				membresia.getTableResumenMembresia().setVisible(false);
+				membresia.getScrollPaneResumen().setVisible(false);
 
 				membresia.getBtnSiguiente().setVisible(true);
 				membresia.getBtnFinalizar().setVisible(false);
@@ -380,6 +441,11 @@ public class MembresiaController implements ActionListener {
 				membresia.getTextFieldCantidad().setVisible(true);
 				membresia.getCBXTipoTiempo().setVisible(true);
 				membresia.getLblCantidad().setVisible(true);
+				membresia.getLabel_vineta_2().setVisible(true);
+				membresia.getLabelMPromocional().setVisible(true);
+				membresia.getChckbNoProm().setVisible(true);
+				membresia.getChckbxSiProm().setVisible(true);
+				membresia.getFechaPromo().setVisible(true);
 			} else if (contPasos == 2) {
 
 				contPasos--;
@@ -388,6 +454,10 @@ public class MembresiaController implements ActionListener {
 				membresia.getTextFieldCantidad().setVisible(false);
 				membresia.getCBXTipoTiempo().setVisible(false);
 				membresia.getLblCantidad().setVisible(false);
+				membresia.getLabelMPromocional().setVisible(false);
+				membresia.getChckbNoProm().setVisible(false);
+				membresia.getChckbxSiProm().setVisible(false);
+				membresia.getFechaPromo().setVisible(false);
 
 				membresia.getLbl_pregunta_1().setVisible(true);
 				membresia.getTfNombreMembresia().setVisible(true);
@@ -403,6 +473,9 @@ public class MembresiaController implements ActionListener {
 
 			if (joption == JOptionPane.YES_OPTION) {
 				JOptionPane.showMessageDialog(null, "La membresía ha sido creada con éxito");
+				registrarMembresia();
+				membresia.setVisible(false);
+				membresia.dispose();
 			}
 		}
 		if (e.getSource() == membresia.getChckbxNo()) {
@@ -410,6 +483,12 @@ public class MembresiaController implements ActionListener {
 		}
 		if (e.getSource() == membresia.getChckbxSi()) {
 			membresia.getComboBoxVisitas().setEnabled(true);
+		}
+		if(e.getSource() == membresia.getChckbNoProm()) {
+			membresia.getFechaPromo().setEnabled(false);
+		}
+		if(e.getSource() == membresia.getChckbxSiProm()) {
+			membresia.getFechaPromo().setEnabled(true);
 		}
 		if (e.getSource() == membresia.getCheckBox_todosDias()) {
 
@@ -535,7 +614,6 @@ public class MembresiaController implements ActionListener {
 		if (membresia.getBtnAadirHorario() == e.getSource()) {
 
 			JList lista = membresia.getList_listaHorarios();
-
 			DefaultListModel listModel = new DefaultListModel();
 
 			for (int i = 0; i < lista.getModel().getSize(); i++) {
@@ -543,10 +621,17 @@ public class MembresiaController implements ActionListener {
 			}
 			horaDeAux = (String) membresia.getComboBoxDe().getSelectedItem();
 			horaAAux = (String) membresia.getComboBoxA().getSelectedItem();
-
+			
+			try {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+				Date dateDe = dateFormat.parse(horaDeAux);
+				Date dateA = dateFormat.parse(horaAAux); 
+				horarios.add(new Horario(dateDe, dateA));
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			listModel.addElement("De " + horaDeAux + " a " + horaAAux);
-			horarios.add("De " + horaDeAux + " a " + horaAAux);
-
 			lista.setModel(listModel);
 			lista.updateUI();
 
@@ -598,7 +683,9 @@ public class MembresiaController implements ActionListener {
 	public void llenarTabla() {
 
 		nombreMembresia = membresia.getTfNombreMembresia().getText();
-		precioMembresia = membresia.getTFPrecio().getText();
+		if(!membresia.getTFPrecio().getText().equals("")) {
+			precioMembresia = Double.parseDouble(membresia.getTFPrecio().getText());			
+		}
 		if (!membresia.getTextFieldCantidad().getText().equals("")) {
 			duracionMembresia = Integer.parseInt(membresia.getTextFieldCantidad().getText());
 		}
@@ -606,7 +693,11 @@ public class MembresiaController implements ActionListener {
 
 			tipoDuracion = (Duracion) membresia.getCBXTipoTiempo().getSelectedItem();
 		}
-		String tipoDu = tipoDuracion.getNombre();
+		String tipoDu = "";
+		if(tipoDuracion.getNombre() != null) {
+			tipoDu = tipoDuracion.getNombre();
+			IdTipoDuracion = tipoDuracion.getId();
+		}
 		limiteMembresiaDiaNO = membresia.getChckbxNo().isSelected();
 		limiteMembresiaDiaSi = membresia.getChckbxSi().isSelected();
 
@@ -634,9 +725,9 @@ public class MembresiaController implements ActionListener {
 			restriccionHorario = "";
 			for (int i = 0; i < horarios.size(); i++) {
 				if (i == horarios.size() - 1) {
-					restriccionHorario += horarios.get(i) + ". ";
+					restriccionHorario += horarios.get(i).toString()+".";
 				} else {
-					restriccionHorario += horarios.get(i) + ", ";
+					restriccionHorario += horarios.get(i).toString()+", ";
 				}
 			}
 		}
@@ -647,7 +738,7 @@ public class MembresiaController implements ActionListener {
 						{ " Duraci\u00F3n de la membres\u00EDa:", duracionMembresia + " " + tipoDu },
 						{ " N\u00FAmero de visitas por d\u00EDa:", limite }, { " D\u00EDas limite de ingreso:", dias },
 						{ " Horarios de ingreso por d\u00EDa:", restriccionHorario }, },
-				new String[] { "", "" });
+				new String[] { "Información", "Detalle" });
 		membresia.getTableResumenMembresia().setModel(defaultTableModel);
 		membresia.getTableResumenMembresia().repaint();
 	}
