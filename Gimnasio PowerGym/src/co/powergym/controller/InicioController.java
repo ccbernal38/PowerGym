@@ -16,6 +16,7 @@ import co.powergym.dao.EntrenadorDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Socio;
+import co.powergym.reportes.Reporte;
 import co.powergym.utils.Preferencias;
 import co.powergym.utils.SocioPanelCumpleanios;
 import co.powergym.view.Principal;
@@ -35,6 +36,7 @@ public class InicioController implements ActionListener {
 
 	Principal viewPrincipal = new Principal();
 	SocioDao socioDao;
+	Reporte reporte;
 
 	public InicioController(Principal viewPrincipal) {
 		socioDao = new SocioDao();
@@ -52,6 +54,8 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getJButtonRegistrarEntrada().addActionListener(this);
 		this.viewPrincipal.getMntmPuertoTorniquete().addActionListener(this);
 		this.viewPrincipal.getBtnSalir().addActionListener(this);
+		this.viewPrincipal.getjMenuItemAsistencia().addActionListener(this);
+		this.viewPrincipal.getjMenuItemSocioActivo().addActionListener(this);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
@@ -152,6 +156,9 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemListaEntrenador() == e.getSource()) {
 			EntrenadorController entrenadorController = new EntrenadorController(new EntrenadorDao(), null, null,
 					new ListaEntrenador(), null);
+		} else if(viewPrincipal.getjMenuItemAsistencia() == e.getSource()) {
+			
+			
 		} else if (viewPrincipal.getBtnSalir() == e.getSource()) {
 			Preferencias.resetPreferencias();
 			JOptionPane pane = new JOptionPane("Espere, Saliendo......", JOptionPane.INFORMATION_MESSAGE,
