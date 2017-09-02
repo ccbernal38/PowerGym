@@ -1,12 +1,18 @@
 package co.powergym.dao;
 
+import java.io.ByteArrayOutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import co.powergym.interfacedao.MembresiaDaoInterface;
 import co.powergym.model.Conexion;
@@ -26,11 +32,27 @@ public class MembresiaDao implements MembresiaDaoInterface {
 	}
 
 	@Override
-	public boolean registrarMembresia(String codigo, String nombre, double valor, int cantidadDuracion,
-			String tipoDuracion, boolean limiteDias, int numeroVisitas, List<DiaSemana> dias, boolean horarioIngreso,
-			List<Horario> horarios) {
-
-		return false;
+	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion,int visitasxdia,
+			int IdTipoDuracion) {
+		
+		boolean respuesta = false;
+		try {
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD
+					.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio,"
+							+ "visitasxdia, duracion_id) VALUES(?,?,?,?,?)");
+			statement.setString(1, nombre);
+			statement.setInt(2, cantidadDuracion);
+			statement.setDouble(3, valor);
+			statement.setInt(4, visitasxdia);
+			statement.setInt(5, IdTipoDuracion);
+			statement.execute();
+			respuesta = true;
+			conexion.desconectar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return respuesta;
 	}
 
 	@Override
@@ -208,4 +230,25 @@ public class MembresiaDao implements MembresiaDaoInterface {
 		}
 		return membresia;
 	}
+
+	
+	@Override
+	public Membresia buscarId(String nombre) {
+			
+			Membresia membresia = null;
+			try {
+				Connection connection = conexion.getConexion();
+				PreparedStatement preparedStatement = connection.prepareStatement("SELECT m.id as id FROM membresia m WHERE m.nombre = ?");
+				preparedStatement.setString(1, nombre);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					membresia = new Membresia();
+					membresia.setId(resultSet.getInt("id"));
+								}
+				conexion.desconectar();
+			} catch (Exception e) {
+				System.out.println("error");
+			}
+			return membresia;
+		}
 }

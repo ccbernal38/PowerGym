@@ -38,9 +38,9 @@ public class ListaEntrenador extends JFrame{
 		contentPane.setLayout(null);
 		setSize(730, 480);
 		JTableHeader header = new JTableHeader();
-		header.setName("Lista de entrenadores");
+		header.setName("Lista de usuarios");
 		
-		JLabel lblistaEntrenadores = new JLabel("LISTA DE ENTRENADORES");
+		JLabel lblistaEntrenadores = new JLabel("LISTA DE USUARIOS");
 		lblistaEntrenadores.setHorizontalAlignment(SwingConstants.CENTER);
 		lblistaEntrenadores.setBounds(206, 20, 215, 16);
 		contentPane.add(lblistaEntrenadores);

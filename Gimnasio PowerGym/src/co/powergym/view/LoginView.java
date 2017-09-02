@@ -107,6 +107,7 @@ public class LoginView extends JFrame {
 		textFieldUsername = new JTextField();
 		textFieldUsername.setBorder(new EmptyBorder(0, 0, 0, 0));
 		textFieldUsername.setFont(new Font("Verdana", Font.PLAIN, 12));
+
 		textFieldUsername.setBounds(60, 11, 249, 28);
 		textFieldUsername.setText("ccbernal38");
 		PromptSupport.setPrompt("Nombre de usuario", textFieldUsername);

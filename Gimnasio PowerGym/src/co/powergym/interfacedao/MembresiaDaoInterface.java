@@ -9,9 +9,8 @@ import co.powergym.model.MembresiaSocio;
 
 public interface MembresiaDaoInterface {
 
-	public boolean registrarMembresia(String codigo, String nombre, double valor, int cantidadDuracion,
-			String tipoDuracion, boolean limiteDias, int numeroVisitas, List<DiaSemana> dias, boolean horarioIngreso,
-			List<Horario> horarios);
+	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion, int visitasxdia,
+			int IdTipoDuracion);
 
 	public List<Membresia> listaMembresia();
 
@@ -26,4 +25,6 @@ public interface MembresiaDaoInterface {
 	public List<DiaSemana> getDiasPermitidos(int id);
 
 	public Membresia verificarEntradaMembresia(int idSocio);
+	
+	public Membresia buscarId(String nombre);
 }

@@ -20,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.ButtonGroup;
+import javax.swing.JScrollPane;
+import com.toedter.calendar.JDateChooser;
 
 public class CrearMembresia extends JFrame {
 
@@ -66,12 +68,18 @@ public class CrearMembresia extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private JButton btnFinalizar;
+	private JScrollPane scrollPane;
+	private JLabel labelMPromoconal;
+	private JCheckBox chckbNoProm;
+	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
+	private JDateChooser fechaPromo;
+	private JCheckBox chckbxSiProm;
 	
 	/**
 	 * Create the frame.
 	 */
 	public CrearMembresia() {
-		setBounds(100, 100, 489, 435);
+		setBounds(100, 100, 480, 435);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
@@ -100,7 +108,6 @@ public class CrearMembresia extends JFrame {
 		panel_2.setLayout(null);
 		
 		lbl_imagen_m = new JLabel("");
-		lbl_imagen_m.setIcon(new ImageIcon("C:\\Users\\crisd\\Downloads\\membresia.png"));
 		lbl_imagen_m.setBounds(20, 25, 54, 50);
 		panel_2.add(lbl_imagen_m);
 		lbl_imagen_m.setIcon(new ImageIcon("image/membresia.png"));
@@ -270,33 +277,6 @@ public class CrearMembresia extends JFrame {
 		label_vineta_2.setBounds(10, 189, 20, 20);
 		contentPane.add(label_vineta_2);
 		
-		table_resumen_membresia = new JTable();
-		table_resumen_membresia.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		table_resumen_membresia.setModel(new DefaultTableModel(
-			new Object[][] {
-				{" Nombre de la membres\u00EDa:", "(("},
-				{" Costo de la membres\u00EDa:", null},
-				{" Duraci\u00F3n de la membres\u00EDa:", null},
-				{" N\u00FAmero de visitas por d\u00EDa:", null},
-				{" D\u00EDas limite de ingreso:", null},
-				{" Horarios de ingreso por d\u00EDa:", null},
-			},
-			new String[] {
-				"Criterio", "New column"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table_resumen_membresia.getColumnModel().getColumn(0).setPreferredWidth(215);
-		table_resumen_membresia.getColumnModel().getColumn(1).setPreferredWidth(171);
-		table_resumen_membresia.setBounds(59, 535, 389, 96);
-		contentPane.add(table_resumen_membresia);
-		
 		lblResumenMembresia = new JLabel("Resumen de la membres\u00EDa:");
 		lblResumenMembresia.setBounds(55, 559, 165, 14);
 		contentPane.add(lblResumenMembresia);
@@ -304,6 +284,49 @@ public class CrearMembresia extends JFrame {
 		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setBounds(30, 443, 89, 23);
 		contentPane.add(btnFinalizar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
+		scrollPane.setBounds(30, 500, 416, 126);
+		contentPane.add(scrollPane);
+		
+		table_resumen_membresia = new JTable();
+		scrollPane.setViewportView(table_resumen_membresia);
+		table_resumen_membresia.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		table_resumen_membresia.setModel(new DefaultTableModel(
+			new Object[][] {
+				{" Nombre de la membres\u00EDa:", ""},
+				{" Costo de la membres\u00EDa:", null},
+				{" Duraci\u00F3n de la membres\u00EDa:", null},
+				{" N\u00FAmero de visitas por d\u00EDa:", null},
+				{" D\u00EDas limite de ingreso:", null},
+				{" Horarios de ingreso por d\u00EDa:", null},
+			},
+			new String[] {
+				"Criterio", "Valor"
+			}
+		) );
+		
+		labelMPromoconal = new JLabel("Indique si es una membres\u00EDa promocional:");
+		labelMPromoconal.setBounds(100, 500, 285, 16);
+		contentPane.add(labelMPromoconal);
+		
+		chckbNoProm = new JCheckBox("No");
+		buttonGroup_2.add(chckbNoProm);
+		chckbNoProm.setBounds(30, 500, 97, 23);
+		contentPane.add(chckbNoProm);
+		
+		chckbxSiProm = new JCheckBox("Si. Indique la fecha de vencimiento:");
+		buttonGroup_2.add(chckbxSiProm);
+		chckbxSiProm.setBounds(30, 500, 197, 23);
+		contentPane.add(chckbxSiProm);
+		
+		fechaPromo = new JDateChooser();
+		fechaPromo.setBounds(233, 500, 100, 20);
+		contentPane.add(fechaPromo);
+		table_resumen_membresia.getColumnModel().getColumn(0).setPreferredWidth(215);
+		table_resumen_membresia.getColumnModel().getColumn(1).setPreferredWidth(171);
+
 	}
 	public JButton getBtnSiguiente() {
 		return btnSiguiente;
@@ -421,5 +444,20 @@ public class CrearMembresia extends JFrame {
 	}
 	public JButton getBtnFinalizar() {
 		return btnFinalizar;
+	}
+	public JScrollPane getScrollPaneResumen() {
+		return scrollPane;
+	}
+	public JLabel getLabelMPromocional() {
+		return labelMPromoconal;
+	}
+	public JCheckBox getChckbNoProm() {
+		return chckbNoProm;
+	}
+	public JDateChooser getFechaPromo() {
+		return fechaPromo;
+	}
+	public JCheckBox getChckbxSiProm() {
+		return chckbxSiProm;
 	}
 }

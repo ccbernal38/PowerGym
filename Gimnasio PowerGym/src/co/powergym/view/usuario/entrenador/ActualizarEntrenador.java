@@ -24,8 +24,7 @@ public class ActualizarEntrenador extends JFrame {
 	private JLabel lblFechaDeNacimiento;
 	private JLabel lblCorreoElectrnico;
 	private JLabel lblNmeroDeContacto;
-	public JButton btnActualizar1;
-	
+	public JButton btnActualizar1;	
 	private JLabel lblApellido;
 	
 	
@@ -97,10 +96,6 @@ public class ActualizarEntrenador extends JFrame {
 		lblApellido = new JLabel("Apellido");
 		lblApellido.setBounds(109, 139, 110, 16);
 		getContentPane().add(lblApellido);
-		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(137, 293, 110, 26);
-		getContentPane().add(dateChooser);
 		
 		setSize(656, 385);
 	}
