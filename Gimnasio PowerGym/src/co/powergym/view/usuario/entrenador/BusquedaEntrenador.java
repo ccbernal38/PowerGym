@@ -11,7 +11,7 @@ public class BusquedaEntrenador extends JFrame{
 	 */public JButton btnBuscar1;
 	
 	public BusquedaEntrenador() {
-		setTitle("Buscar entrenador");
+		setTitle("Buscar usuario");
 		getContentPane().setLayout(null);
 		
 		txtNumeroid = new JTextField();
@@ -31,12 +31,6 @@ public class BusquedaEntrenador extends JFrame{
 		getContentPane().add(txtPrimerapellido);
 		txtPrimerapellido.setColumns(10);
 		
-		txtSegundoapellido = new JTextField();
-		txtSegundoapellido.setEditable(false);
-		txtSegundoapellido.setBounds(226, 150, 202, 26);
-		getContentPane().add(txtSegundoapellido);
-		txtSegundoapellido.setColumns(10);
-		
 		txtTelefono = new JTextField();
 		txtTelefono.setEditable(false);
 		txtTelefono.setBounds(226, 240, 202, 26);
@@ -47,17 +41,13 @@ public class BusquedaEntrenador extends JFrame{
 		lblDocumentoDeIdentidad.setBounds(53, 30, 162, 16);
 		getContentPane().add(lblDocumentoDeIdentidad);
 		
-		JLabel lblNombre = new JLabel("Primer nombre");
+		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(53, 60, 130, 16);
 		getContentPane().add(lblNombre);
 		
-		JLabel lblPrimerApellido = new JLabel("Primer apellido");
+		JLabel lblPrimerApellido = new JLabel("Apellido");
 		lblPrimerApellido.setBounds(53, 120, 104, 16);
 		getContentPane().add(lblPrimerApellido);
-		
-		JLabel lblSegundoApellido = new JLabel("Segundo apellido");
-		lblSegundoApellido.setBounds(53, 150, 130, 16);
-		getContentPane().add(lblSegundoApellido);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setBounds(53, 240, 61, 16);
@@ -67,15 +57,6 @@ public class BusquedaEntrenador extends JFrame{
 		lblFechaDeNacimiento.setBounds(53, 180, 130, 16);
 		getContentPane().add(lblFechaDeNacimiento);*/
 		
-		JLabel lblSegundoNombre = new JLabel("Segundo nombre");
-		lblSegundoNombre.setBounds(53, 90, 130, 16);
-		getContentPane().add(lblSegundoNombre);
-		
-		txtSegundonombre = new JTextField();
-		txtSegundonombre.setEditable(false);
-		txtSegundonombre.setBounds(226, 90, 202, 26);
-		getContentPane().add(txtSegundonombre);
-		txtSegundonombre.setColumns(10);
 		
 		JLabel lblCorreoElectrnico = new JLabel("Correo electrónico");
 		lblCorreoElectrnico.setBounds(53, 210, 135, 16);
@@ -121,9 +102,7 @@ public class BusquedaEntrenador extends JFrame{
 	public JTextField txtNumeroid;
 	public JTextField txtNombre;
 	public JTextField txtPrimerapellido;
-	public JTextField txtSegundoapellido;
 	public JTextField txtTelefono;
-	public JTextField txtSegundonombre;
 	public JTextField txtCorreoelectronico;
 	
 	public JButton btnCancelar1;
@@ -150,23 +129,12 @@ public class BusquedaEntrenador extends JFrame{
 	public void setTxtPrimerapellido(JTextField txtPrimerapellido) {
 		this.txtPrimerapellido = txtPrimerapellido;
 	}
-	public JTextField getTxtSegundoapellido() {
-		return txtSegundoapellido;
-	}
-	public void setTxtSegundoapellido(JTextField txtSegundoapellido) {
-		this.txtSegundoapellido = txtSegundoapellido;
-	}
+	
 	public JTextField getTxtTelefono() {
 		return txtTelefono;
 	}
 	public void setTxtTelefono(JTextField txtTelefono) {
 		this.txtTelefono = txtTelefono;
-	}
-	public JTextField getTxtSegundonombre() {
-		return txtSegundonombre;
-	}
-	public void setTxtSegundonombre(JTextField txtSegundonombre) {
-		this.txtSegundonombre = txtSegundonombre;
 	}
 	public JTextField getTxtCorreoelectronico() {
 		return txtCorreoelectronico;
