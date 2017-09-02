@@ -195,7 +195,7 @@ public class HuellaInit {
 	}
 
 	public void EstadoHuellas() {
-		enviarTexto("Muestra de Huellas Necesarias para Guardar Template " + Reclutador.getFeaturesNeeded());
+		//enviarTexto("Muestra de Huellas Necesarias para Guardar Template " + Reclutador.getFeaturesNeeded());
 	}
 
 	public void enviarTexto(String string) {
@@ -312,19 +312,23 @@ public class HuellaInit {
 		MembresiaDao membresiaDao = new MembresiaDao();
 		Membresia membresia = membresiaDao.verificarEntradaMembresia(socio.getId());
 
-		if (membresia != null && verificarDia(membresia.getDiasPermitidos())) {
-			if (verificarHora(membresia.getHorario())) {
-				asistenciaDao.registrarAsistencia(socio.getId());
-				abrirTorniquete();
-				initView.setVisible(false);
-				initView.dispose();
+		if (membresia != null) {
+			if(verificarDia(membresia.getDiasPermitidos())) {
+				if (verificarHora(membresia.getHorario())) {
+					asistenciaDao.registrarAsistencia(socio.getId());
+					abrirTorniquete();
+					initView.setVisible(false);
+					initView.dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "El socio no tiene permitido el ingreso en este horario");
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, "El socio no tiene permitido el ingreso en este horario");
+				JOptionPane.showMessageDialog(null, "El socio no tiene permitido hoy el ingreso.");
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "El socio no tiene permitido hoy el ingreso.");
+		}else {
+			JOptionPane.showMessageDialog(null, "El socio no tiene membresias activas.");
 		}
-
+		
 	}
 
 	private boolean verificarHora(List<Horario> horarios) {

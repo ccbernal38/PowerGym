@@ -1,6 +1,7 @@
 package co.powergym.model;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Horario {
 
@@ -41,15 +42,22 @@ public class Horario {
 		this.codigoMembresia = codigoMembresia;
 	}
 
-	public Horario(int id, Date horaInicio, Date horaFin) {
+	public Horario( Date dateDe, Date dateA) {
 		super();
-		this.id = id;
-		this.horaInicio = horaInicio;
-		this.horaFin = horaFin;
+		this.horaInicio = dateDe;
+		this.horaFin = dateA;
 	}
 
 	public Horario() {
 		super();
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+
+		return "De "+ dateFormat.format(horaInicio)+" a "+dateFormat.format(horaFin);
 	}
 
 }
