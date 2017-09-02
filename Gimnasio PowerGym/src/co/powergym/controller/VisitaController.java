@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import co.powergym.dao.SocioDao;
 import co.powergym.dao.VisitaDao;
 import co.powergym.model.Socio;
+import co.powergym.utils.Constantes;
+import co.powergym.utils.Preferencias;
 import co.powergym.view.membresia.MembresiaRegistroVisitaView;
 
 public class VisitaController implements ActionListener {
@@ -27,6 +29,7 @@ public class VisitaController implements ActionListener {
 		this.membresiaRegistroVisitaView.getBtnBuscar().addActionListener(this);
 		this.membresiaRegistroVisitaView.getBtnCancelar().addActionListener(this);
 		this.membresiaRegistroVisitaView.getBtnRegistrar().addActionListener(this);
+		this.membresiaRegistroVisitaView.setVisible(true);
 	}
 
 	@Override
@@ -37,9 +40,14 @@ public class VisitaController implements ActionListener {
 				String key = membresiaRegistroVisitaView.getTextFieldSocio().getText();
 				if (!key.equals("")) {
 					socioTemp = socioDao.buscarSocioIdOrCodigo(key);
-					membresiaRegistroVisitaView.getTextFieldNombres().setText(socioTemp.getNombre());
-					membresiaRegistroVisitaView.getTextFieldApellidos().setText(socioTemp.getApellido());
-				}else {
+					if (socioTemp != null) {
+						membresiaRegistroVisitaView.getTextFieldNombres().setText(socioTemp.getNombre());
+						membresiaRegistroVisitaView.getTextFieldApellidos().setText(socioTemp.getApellido());
+					} else {
+						JOptionPane.showMessageDialog(null, "No se encontró un socio asociado.");
+					}
+
+				} else {
 					JOptionPane.showMessageDialog(null, "El campo codigo no puede estar vacio.");
 				}
 
@@ -47,25 +55,37 @@ public class VisitaController implements ActionListener {
 				membresiaRegistroVisitaView.setVisible(false);
 				membresiaRegistroVisitaView.dispose();
 			} else if (membresiaRegistroVisitaView.getBtnRegistrar() == e.getSource()) {
-				if(membresiaRegistroVisitaView.getTextFieldNombres().getText().equals("") || membresiaRegistroVisitaView.getTextFieldApellidos().getText().equals("")
+				if (membresiaRegistroVisitaView.getTextFieldNombres().getText().equals("")
+						|| membresiaRegistroVisitaView.getTextFieldApellidos().getText().equals("")
 						|| membresiaRegistroVisitaView.getTextFieldValor().getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "No puede dejar vacio el campo nombre, apellido o valor.");
-				}else {
-					if(socioTemp == null) {
+				} else {
+					boolean res = false;
+					int id_caja = Integer.parseInt(Preferencias.obtenerPreferencia(Constantes.CAJA_ID));
+					if (socioTemp == null) {
 						String nombre = membresiaRegistroVisitaView.getTextFieldNombres().getText();
-						String apellido =membresiaRegistroVisitaView.getTextFieldApellidos().getText();
+						String apellido = membresiaRegistroVisitaView.getTextFieldApellidos().getText();
 						int valor = Integer.parseInt(membresiaRegistroVisitaView.getTextFieldValor().getText());
-						int id_caja = 0;
-						visitaDao.registrarVisita(nombre, apellido, valor, -1, id_caja);
-					}else {
+						res = visitaDao.registrarVisita(nombre, apellido, valor, -1, id_caja);
+						membresiaRegistroVisitaView.setVisible(false);
+						membresiaRegistroVisitaView.dispose();
+					} else {
 						String nombre = membresiaRegistroVisitaView.getTextFieldNombres().getText();
-						String apellido =membresiaRegistroVisitaView.getTextFieldApellidos().getText();
+						String apellido = membresiaRegistroVisitaView.getTextFieldApellidos().getText();
 						int valor = Integer.parseInt(membresiaRegistroVisitaView.getTextFieldValor().getText());
-						int id_caja = 0;
-						visitaDao.registrarVisita(nombre, apellido, valor, socioTemp.getId(), id_caja);
+
+						res = visitaDao.registrarVisita(nombre, apellido, valor, socioTemp.getId(), id_caja);
+
+						membresiaRegistroVisitaView.setVisible(false);
+						membresiaRegistroVisitaView.dispose();
+					}
+					if (res == true) {
+						JOptionPane.showMessageDialog(null, "La visita se registro correctamente");
+					} else {
+						JOptionPane.showMessageDialog(null, "Ocurrio un error al tratar de registrar la visita.");
 					}
 				}
-				
+
 			}
 
 		}

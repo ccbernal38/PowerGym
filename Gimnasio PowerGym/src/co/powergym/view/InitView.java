@@ -176,6 +176,15 @@ public class InitView extends JFrame {
 		jMenu5.add(jMenuItem14);
 
 		jMenuBar.add(jMenu5);
+		
+		JSeparator separator = new JSeparator();
+		jMenu5.add(separator);
+		
+		mntmRegistrarEgreso = new JMenuItem("Registrar egreso");
+		jMenu5.add(mntmRegistrarEgreso);
+		
+		mntmRegistrarIngreso = new JMenuItem("Registrar ingreso");
+		jMenu5.add(mntmRegistrarIngreso);
 
 		setJMenuBar(jMenuBar);
 
@@ -314,47 +323,6 @@ public class InitView extends JFrame {
 		btnPuerta.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnPuerta.setBounds(1134, 11, 89, 23);
 		panelBusqueda.add(btnPuerta);
-
-		panel = new JPanel();
-		panel.setBackground(new Color(0, 0, 0, 0));
-		panel.setBorder(
-				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaneando huella....", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
-		panel.setBounds(28, 177, 192, 205);
-		getContentPane().add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
-
-		lblHuella = new JLabel("");
-		panel.add(lblHuella, BorderLayout.CENTER);
-
-		lblingreseElNmero = new JLabel("<html><center>Ingrese el número <br>de identificación del socio:</center></html>");
-		lblingreseElNmero.setForeground(Color.WHITE);
-		lblingreseElNmero.setFont(new Font("Verdana", Font.PLAIN, 12));
-		lblingreseElNmero.setBounds(244, 177, 168, 50);
-		getContentPane().add(lblingreseElNmero);
-
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(263, 238, 125, 20);
-		getContentPane().add(textField);
-
-		scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBackground(Color.LIGHT_GRAY);
-		scrollPane_2.setBounds(28, 393, 384, 82);
-		getContentPane().add(scrollPane_2);
-
-		textArea = new JTextArea();
-		textArea.setFont(new Font("Verdana", Font.BOLD, 13));
-		textArea.setForeground(Color.WHITE);
-		textArea.setBackground(Color.DARK_GRAY);
-		scrollPane_2.setViewportView(textArea);
-
-		btnVerificar = new JButton("Verificar");
-		btnVerificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnVerificar.setBounds(263, 266, 125, 23);
-		getContentPane().add(btnVerificar);
 		
 				JLabel labelBackgroundImage = new JLabel("");
 				labelBackgroundImage.setBounds(408, 137, 500, 400);
@@ -374,6 +342,62 @@ public class InitView extends JFrame {
 						btnRegistrodeVisita.setBackground(Color.GREEN);
 						btnRegistrodeVisita.setBounds(248, 623, 150, 50);
 						getContentPane().add(btnRegistrodeVisita);
+						
+						JPanel panel_1 = new JPanel();
+						panel_1.setBackground(Color.DARK_GRAY);
+						panel_1.setBounds(10, 71, 404, 380);
+						getContentPane().add(panel_1);
+						panel_1.setLayout(null);
+						
+								panel = new JPanel();
+								panel.setBounds(10, 66, 192, 205);
+								panel_1.add(panel);
+								panel.setFont(new Font("Verdana", Font.BOLD, 11));
+								panel.setBackground(new Color(0, 0, 0, 0));
+								panel.setBorder(
+										new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaneando huella....", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
+								panel.setLayout(new BorderLayout(0, 0));
+								
+										lblHuella = new JLabel("");
+										lblHuella.setFont(new Font("Verdana", Font.BOLD, 11));
+										panel.add(lblHuella, BorderLayout.CENTER);
+										
+												lblingreseElNmero = new JLabel("<html><center>Ingrese el número <br>de identificación del socio:</center></html>");
+												lblingreseElNmero.setBounds(226, 66, 168, 50);
+												panel_1.add(lblingreseElNmero);
+												lblingreseElNmero.setForeground(Color.WHITE);
+												lblingreseElNmero.setFont(new Font("Verdana", Font.PLAIN, 12));
+												
+														textField = new JTextField();
+														textField.setBounds(245, 127, 125, 20);
+														panel_1.add(textField);
+														textField.setColumns(10);
+														
+																scrollPane_2 = new JScrollPane();
+																scrollPane_2.setBounds(10, 282, 384, 82);
+																panel_1.add(scrollPane_2);
+																scrollPane_2.setBackground(Color.LIGHT_GRAY);
+																
+																		textArea = new JTextArea();
+																		textArea.setFont(new Font("Verdana", Font.BOLD, 13));
+																		textArea.setForeground(Color.WHITE);
+																		textArea.setBackground(Color.DARK_GRAY);
+																		scrollPane_2.setViewportView(textArea);
+																		
+																				btnVerificar = new JButton("Verificar");
+																				btnVerificar.setBounds(245, 155, 125, 23);
+																				panel_1.add(btnVerificar);
+																				
+																				JLabel lblNewLabel_1 = new JLabel("Registro de asistencia");
+																				lblNewLabel_1.setForeground(Color.WHITE);
+																				lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+																				lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 18));
+																				lblNewLabel_1.setBounds(10, 19, 384, 36);
+																				panel_1.add(lblNewLabel_1);
+																				btnVerificar.addActionListener(new ActionListener() {
+																					public void actionPerformed(ActionEvent e) {
+																					}
+																				});
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -443,6 +467,8 @@ public class InitView extends JFrame {
 	private JButton btnPuerta;
 	private JButton btnB;
 	private JButton btnRegistrodeVisita;
+	private JMenuItem mntmRegistrarEgreso;
+	private JMenuItem mntmRegistrarIngreso;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -505,7 +531,7 @@ public class InitView extends JFrame {
 		return btnVerificar;
 	}
 
-	public JTextField getTextField() {
+	public JTextField getTextFieldCodigo() {
 		return textField;
 	}
 
@@ -557,5 +583,11 @@ public class InitView extends JFrame {
 	}
 	public JButton getBtnRegistrodeVisita() {
 		return btnRegistrodeVisita;
+	}
+	public JMenuItem getMntmRegistrarEgreso() {
+		return mntmRegistrarEgreso;
+	}
+	public JMenuItem getMntmRegistrarIngreso() {
+		return mntmRegistrarIngreso;
 	}
 }

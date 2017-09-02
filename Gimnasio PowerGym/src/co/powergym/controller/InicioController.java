@@ -1,5 +1,6 @@
 package co.powergym.controller;
 
+import java.awt.Dialog;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ import com.digitalpersona.onetouch.verification.DPFPVerification;
 
 import co.powergym.dao.UsuarioDao;
 import co.powergym.dao.AsistenciaDao;
+import co.powergym.dao.CajaDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.PermisoDao;
 import co.powergym.dao.PermisoUsuarioDao;
@@ -37,10 +39,14 @@ import co.powergym.model.Asistencia;
 import co.powergym.model.MembresiaSocio;
 import co.powergym.model.Socio;
 import co.powergym.reportes.Reporte;
+import co.powergym.utils.Constantes;
 import co.powergym.utils.HuellaInit;
 import co.powergym.utils.Preferencias;
 import co.powergym.utils.SocioPanelCumpleanios;
 import co.powergym.view.InitView;
+import co.powergym.view.caja.AperturaCajaView;
+import co.powergym.view.caja.CajaRegistroEgresoView;
+import co.powergym.view.caja.CajaRegistroIngresoView;
 import co.powergym.view.config.ConfigPuertoView;
 import co.powergym.view.membresia.CrearMembresia;
 import co.powergym.view.membresia.MembresiaListadoView;
@@ -60,6 +66,7 @@ public class InicioController implements ActionListener {
 
 	InitView viewPrincipal = new InitView();
 	SocioDao socioDao;
+	CajaDao cajaDao;
 	Reporte reporte;
 
 	private DPFPCapture Lector;
@@ -70,9 +77,11 @@ public class InicioController implements ActionListener {
 	public DPFPFeatureSet featuresinscripcion;
 	public DPFPFeatureSet featuresverificacion;
 	private HuellaInit huellaInit;
+	private AperturaCajaView aperturaCajaView;
 
 	public InicioController(InitView viewPrincipal) {
 		socioDao = new SocioDao();
+		cajaDao = new CajaDao();
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.getJMenuItemRegistrarSocio().addActionListener(this);
 		this.viewPrincipal.btnRegistrarSocio.addActionListener(this);
@@ -91,6 +100,9 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getjMenuItemSocioActivo().addActionListener(this);
 		this.viewPrincipal.getBtnPuerta().addActionListener(this);
 		this.viewPrincipal.getBtnBuscar().addActionListener(this);
+		this.viewPrincipal.getMntmRegistrarIngreso().addActionListener(this);
+		this.viewPrincipal.getMntmRegistrarEgreso().addActionListener(this);
+		this.viewPrincipal.getBtnVerificar().addActionListener(this);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
@@ -157,20 +169,52 @@ public class InicioController implements ActionListener {
 			}
 		});
 		huellaInit = new HuellaInit(viewPrincipal);
+		if (cajaDao.verificarCajaAbierta() == -1) {
+			aperturaCajaView = new AperturaCajaView();
+			aperturaCajaView.getLblNombreResponsable()
+					.setText(Preferencias.obtenerPreferencia(Constantes.NOMBRE_RESPONSABLE));
+			aperturaCajaView.getBtnAbrir().addActionListener(this);
+			aperturaCajaView.setLocationRelativeTo(null);
+			viewPrincipal.setEnabled(false);
+			aperturaCajaView.setVisible(true);
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (aperturaCajaView != null) {
+			if (aperturaCajaView.getBtnAbrir() == e.getSource()) {
+				Date fechaApertura = aperturaCajaView.getFecha().getDate();
+				int saldoInicial = Integer.parseInt(aperturaCajaView.getSaldoInicio().getText().substring(1,
+						aperturaCajaView.getSaldoInicio().getText().length()));
+				boolean res = cajaDao.aperturaCaja(
+						Integer.parseInt(Preferencias.obtenerPreferencia(Constantes.ID_RESPONSABLE)), fechaApertura,
+						saldoInicial);
+				if (res == true) {
+					JOptionPane.showMessageDialog(null, "La apertura de caja se ha realizado correctamente.");
+				}
+				int id = cajaDao.verificarCajaAbierta();
+				Preferencias.datosCajaActiva(id);
+				viewPrincipal.setEnabled(true);
+				aperturaCajaView.setVisible(false);
+				aperturaCajaView.dispose();
+			}
+		}
+		if (viewPrincipal.getMntmRegistrarIngreso() == e.getSource()) {
+			MovimientoController movimientoController = new MovimientoController(new CajaRegistroIngresoView(), null);
+		}
+		if (viewPrincipal.getMntmRegistrarEgreso() == e.getSource()) {
+			MovimientoController movimientoController = new MovimientoController(null, new CajaRegistroEgresoView());
+		}
 		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()) {
-			MembresiaRegistroVisitaView registroVisitaView = new MembresiaRegistroVisitaView();
-			registroVisitaView.setVisible(true);
+			VisitaController visitaController = new VisitaController(new MembresiaRegistroVisitaView());
 		} else if (viewPrincipal.getBtnBuscar() == e.getSource()) {
 			String key = viewPrincipal.getTextFieldKey().getText();
 			List<Socio> socios = socioDao.buscarSocioKey(key);
 			if (socios.size() == 1) {
 				mostrarViewBusqueda(socios.get(0));
 			} else if (socios.size() == 0) {
-				JOptionPane.showMessageDialog(null, "No se encontrï¿½ coincidencia.");
+				JOptionPane.showMessageDialog(null, "No se encontró coincidencia.");
 			} else {
 				mostrarViewListSocios(socios);
 			}
@@ -198,14 +242,14 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
 			MembresiaController membresiaController = new MembresiaController(null, new MembresiaListadoView());
 		} else if (viewPrincipal.getJMenuItemRegistrarUsuario() == e.getSource()) {
-			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), new RegistroUsuario(),
-					null, null, null);
+			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
+					new PermisoUsuarioDao(), new RegistroUsuario(), null, null, null);
 		} else if (viewPrincipal.getJMenuItemBuscarUsuario() == e.getSource()) {
-			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), null,
-					new BusquedaUsuario(), null, null);
+			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
+					new PermisoUsuarioDao(), null, new BusquedaUsuario(), null, null);
 		} else if (viewPrincipal.getJMenuItemListaUsuario() == e.getSource()) {
-			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), null, null,
-					new ListaUsuario(), null);
+			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
+					new PermisoUsuarioDao(), null, null, new ListaUsuario(), null);
 		} else if (viewPrincipal.getjMenuItemAsistencia() == e.getSource()) {
 
 		} else if (viewPrincipal.getBtnSalir() == e.getSource()) {
@@ -227,6 +271,12 @@ public class InicioController implements ActionListener {
 			dialog.setVisible(true);
 		} else if (viewPrincipal.getMntmPuertoTorniquete() == e.getSource()) {
 			new ConfigController(new ConfigPuertoView());
+		} else if (viewPrincipal.getBtnVerificar() == e.getSource()) {
+			String id = viewPrincipal.getTextFieldCodigo().getText();
+			if (!id.equals("")) {
+				Socio socio = socioDao.buscarSocioIdOrCodigo(id);
+				huellaInit.initConsultaEntrada(socio);
+			}
 		}
 	}
 
@@ -272,7 +322,7 @@ public class InicioController implements ActionListener {
 			viewBusquedaSocio.setLocationRelativeTo(null);
 			viewBusquedaSocio.setVisible(true);
 		} else {
-			JOptionPane.showMessageDialog(null, "No se encontrï¿½ un socio con ese nï¿½mero de identificaciï¿½n, "
+			JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
 					+ "por favor verifique e intente de nuevo");
 		}
 

@@ -25,43 +25,21 @@ public class AperturaCajaView extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblEstado;
-	private JLabel lblNewLabel;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AperturaCajaView frame = new AperturaCajaView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JLabel lblResponsable;
+	private JButton btnNewButton;
+	private JFormattedTextField formattedTextField;
+	private JDateChooser dateChooser;
 
 	/**
 	 * Create the frame.
 	 */
 	public AperturaCajaView() {
-		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
-		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
-		}
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 529, 296);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(new Color(27, 43, 56));
+		contentPane.setBackground(new Color(42, 45, 52));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
@@ -78,8 +56,8 @@ public class AperturaCajaView extends JFrame {
 		lblFechaYHora.setBounds(31, 18, 198, 28);
 		panel.add(lblFechaYHora);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("d/MM/yyyy HH:mm:ss a");
+		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("d/MM/yyyy");
 		dateChooser.setBounds(241, 18, 214, 28);
 		panel.add(dateChooser);
 		
@@ -102,7 +80,7 @@ public class AperturaCajaView extends JFrame {
 		lblNewLabel_1.setBounds(241, 60, 214, 28);
 		panel.add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("Abrir Caja");
+		btnNewButton = new JButton("Abrir Caja");
 		btnNewButton.setBounds(405, 145, 90, 28);
 		panel.add(btnNewButton);
 		
@@ -115,7 +93,7 @@ public class AperturaCajaView extends JFrame {
 		formatter.setAllowsInvalid(true);
 		formatter.setOverwriteMode(true);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField(formatter);
+		formattedTextField = new JFormattedTextField(formatter);
 		formattedTextField.setHorizontalAlignment(SwingConstants.RIGHT);
 		formattedTextField.setFont(new Font("Dialog", Font.BOLD, 14));
 		formattedTextField.setBounds(241, 101, 214, 28);
@@ -156,18 +134,18 @@ public class AperturaCajaView extends JFrame {
 		panel_1.add(panel_3);
 		panel_3.setLayout(null);
 		
-		lblNewLabel = new JLabel("Christian Camilo Bernal Rojas");
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(6, 31, 209, 16);
-		panel_3.add(lblNewLabel);
-		
-		JLabel lblResponsable = new JLabel("Responsable:");
-		lblResponsable.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblResponsable.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblResponsable = new JLabel("Christian Camilo Bernal Rojas");
+		lblResponsable.setVerticalAlignment(SwingConstants.TOP);
 		lblResponsable.setForeground(Color.WHITE);
-		lblResponsable.setBounds(6, 3, 209, 24);
+		lblResponsable.setBounds(6, 31, 209, 16);
 		panel_3.add(lblResponsable);
+		
+		JLabel lblRes = new JLabel("Responsable:");
+		lblRes.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblRes.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblRes.setForeground(Color.WHITE);
+		lblRes.setBounds(6, 3, 209, 24);
+		panel_3.add(lblRes);
 
 	}
 
@@ -175,6 +153,15 @@ public class AperturaCajaView extends JFrame {
 		return lblEstado;
 	}
 	public JLabel getLblNombreResponsable() {
-		return lblNewLabel;
+		return lblResponsable;
+	}
+	public JButton getBtnAbrir() {
+		return btnNewButton;
+	}
+	public JFormattedTextField getSaldoInicio() {
+		return formattedTextField;
+	}
+	public JDateChooser getFecha() {
+		return dateChooser;
 	}
 }
