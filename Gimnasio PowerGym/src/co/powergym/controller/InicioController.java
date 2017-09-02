@@ -80,9 +80,9 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.btnMenuMembresia.addActionListener(this);
 		this.viewPrincipal.getMntmListadoDeSocios().addActionListener(this);
 		this.viewPrincipal.getJMenuItemCumpleanios().addActionListener(this);
-		this.viewPrincipal.getJMenuItemRegistrarEntrenador().addActionListener(this);
-		this.viewPrincipal.getJMenuItemBuscarEntrenador().addActionListener(this);
-		this.viewPrincipal.getJMenuItemListaEntrenador().addActionListener(this);
+		this.viewPrincipal.getJMenuItemRegistrarUsuario().addActionListener(this);
+		this.viewPrincipal.getJMenuItemBuscarUsuario().addActionListener(this);
+		this.viewPrincipal.getJMenuItemListaUsuario().addActionListener(this);
 		this.viewPrincipal.getJMenuItemListaMembresias().addActionListener(this);
 		this.viewPrincipal.getBtnRegistrodeVisita().addActionListener(this);
 		this.viewPrincipal.getMntmPuertoTorniquete().addActionListener(this);
@@ -197,14 +197,14 @@ public class InicioController implements ActionListener {
 					null);
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
 			MembresiaController membresiaController = new MembresiaController(null, new MembresiaListadoView());
-		} else if (viewPrincipal.getJMenuItemRegistrarEntrenador() == e.getSource()) {
-			UsuarioController entrenadorController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), new RegistroUsuario(),
+		} else if (viewPrincipal.getJMenuItemRegistrarUsuario() == e.getSource()) {
+			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), new RegistroUsuario(),
 					null, null, null);
-		} else if (viewPrincipal.getJMenuItemBuscarEntrenador() == e.getSource()) {
-			UsuarioController entrenadorController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), null,
+		} else if (viewPrincipal.getJMenuItemBuscarUsuario() == e.getSource()) {
+			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), null,
 					new BusquedaUsuario(), null, null);
-		} else if (viewPrincipal.getJMenuItemListaEntrenador() == e.getSource()) {
-			UsuarioController entrenadorController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), null, null,
+		} else if (viewPrincipal.getJMenuItemListaUsuario() == e.getSource()) {
+			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), null, null,
 					new ListaUsuario(), null);
 		} else if (viewPrincipal.getjMenuItemAsistencia() == e.getSource()) {
 

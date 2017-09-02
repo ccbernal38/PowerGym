@@ -179,16 +179,16 @@ public class InitView extends JFrame {
 
 		setJMenuBar(jMenuBar);
 
-		jMenuEntrenador = new JMenu("Entrenador");
-		jMenuBar.add(jMenuEntrenador);
-		jMenuItemRegistrarEntrenador = new JMenuItem("Registrar entrenador");
-		jMenuEntrenador.add(jMenuItemRegistrarEntrenador);
+		jMenuUsuario = new JMenu("Usuario");
+		jMenuBar.add(jMenuUsuario);
+		jMenuItemRegistrarUsuario = new JMenuItem("Registrar usuario");
+		jMenuUsuario.add(jMenuItemRegistrarUsuario);
 
-		jMenuItemBuscarEntrenador = new JMenuItem("Buscar entrenador");
-		jMenuEntrenador.add(jMenuItemBuscarEntrenador);
+		jMenuItemBuscarUsuario = new JMenuItem("Buscar usuario");
+		jMenuUsuario.add(jMenuItemBuscarUsuario);
 
-		jMenuItemListaEntrenador = new JMenuItem("Lista de entrenadores");
-		jMenuEntrenador.add(jMenuItemListaEntrenador);
+		jMenuItemListaUsuario = new JMenuItem("Lista de usuarios");
+		jMenuUsuario.add(jMenuItemListaUsuario);
 
 		JMenu mnAyuda = new JMenu("Ayuda");
 		jMenuBar.add(mnAyuda);
@@ -424,10 +424,10 @@ public class InitView extends JFrame {
 
 	private JMenuItem mntmListadoDeSocios;
 
-	private JMenu jMenuEntrenador;
-	private JMenuItem jMenuItemRegistrarEntrenador;
-	private JMenuItem jMenuItemBuscarEntrenador;
-	private JMenuItem jMenuItemListaEntrenador;
+	private JMenu jMenuUsuario;
+	private JMenuItem jMenuItemRegistrarUsuario;
+	private JMenuItem jMenuItemBuscarUsuario;
+	private JMenuItem jMenuItemListaUsuario;
 	private JButton btnSalir;
 	private JMenuItem mntmPuertoTorniquete;
 	private JList listCumpleanios;
@@ -465,16 +465,16 @@ public class InitView extends JFrame {
 		return jMenuItem5;
 	}
 
-	public JMenuItem getJMenuItemRegistrarEntrenador() {
-		return jMenuItemRegistrarEntrenador;
+	public JMenuItem getJMenuItemRegistrarUsuario() {
+		return jMenuItemRegistrarUsuario;
 	}
 
-	public JMenuItem getJMenuItemBuscarEntrenador() {
-		return jMenuItemBuscarEntrenador;
+	public JMenuItem getJMenuItemBuscarUsuario() {
+		return jMenuItemBuscarUsuario;
 	}
 
-	public JMenuItem getJMenuItemListaEntrenador() {
-		return jMenuItemListaEntrenador;
+	public JMenuItem getJMenuItemListaUsuario() {
+		return jMenuItemListaUsuario;
 	}
 
 	public JMenuItem getJMenuItemListaMembresias() {
