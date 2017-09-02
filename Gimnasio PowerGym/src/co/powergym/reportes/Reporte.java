@@ -20,7 +20,7 @@ import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Membresia;
 import co.powergym.model.Socio;
-import co.powergym.view.Principal;
+import co.powergym.view.InitView;
 import co.powergym.view.reporte.GenerarReporte;
 
 
@@ -28,7 +28,7 @@ public class Reporte {
 	
 	//Atributos
 	GenerarReporte viewGenerarReporte;
-	Principal viewPrincipal;
+	InitView viewPrincipal;
 	JTable tablaVistaPrevia = viewGenerarReporte.getTable_vista_informe();
 	
 	String rutaArchivo = System.getProperty("user.home")+"/reporte.xls";

@@ -40,30 +40,30 @@ public class SocioDao implements SocioDaoInterface {
 			PreparedStatement statement = accesoBD
 					.prepareStatement("INSERT INTO Socio(identificacion, nombre, "
 							+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto, diaNacimiento,"
-							+ "mesNacimiento, anioNacimiento, huella) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+							+ "mesNacimiento, anioNacimiento, huella) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
 			statement.setString(2, nombre);
-			statement.setString(4, apellido);
-			statement.setDate(6, new java.sql.Date(fechaNacimiento.getTime()));
-			statement.setString(7, telefono);
-			statement.setString(8, correo);
-			statement.setInt(9, genero);
+			statement.setString(3, apellido);
+			statement.setDate(4, new java.sql.Date(fechaNacimiento.getTime()));
+			statement.setString(5, telefono);
+			statement.setString(6, correo);
+			statement.setInt(7, genero);
 			if (foto != null) {
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ImageIO.write(foto, "jpg", baos);
 				byte[] imageInByte = baos.toByteArray();
 				Blob blob = accesoBD.createBlob();
 				blob.setBytes(1, imageInByte);
-				statement.setBlob(10, blob);
+				statement.setBlob(8, blob);
 			}
 
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fechaNacimiento);
 
-			statement.setInt(11, calendar.get(Calendar.DAY_OF_MONTH));
-			statement.setInt(12, calendar.get(Calendar.MONTH) + 1);
-			statement.setInt(13, calendar.get(Calendar.YEAR));
-			statement.setBytes(14, tempHuella);
+			statement.setInt(9, calendar.get(Calendar.DAY_OF_MONTH));
+			statement.setInt(10, calendar.get(Calendar.MONTH) + 1);
+			statement.setInt(11, calendar.get(Calendar.YEAR));
+			statement.setBytes(12, tempHuella);
 			statement.execute();
 			respuesta = true;
 			conexion.desconectar();
@@ -87,8 +87,8 @@ public class SocioDao implements SocioDaoInterface {
 				socio = new Socio();
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
-				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setNombre(resultSet.getString(3));
+				socio.setApellido(resultSet.getString(4));
 				socio.setFechaNacimiento(resultSet.getDate(5));
 				socio.setTelefono(resultSet.getString(6));
 				socio.setCorreo(resultSet.getString(7));
@@ -147,8 +147,8 @@ public class SocioDao implements SocioDaoInterface {
 				socio = new Socio();
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
-				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setNombre(resultSet.getString(3));
+				socio.setApellido(resultSet.getString(4));
 				socio.setFechaNacimiento(resultSet.getDate(5));
 				socio.setTelefono(resultSet.getString(6));
 				socio.setCorreo(resultSet.getString(7));
@@ -185,8 +185,8 @@ public class SocioDao implements SocioDaoInterface {
 				socio = new Socio();
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
-				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setNombre(resultSet.getString(3));
+				socio.setApellido(resultSet.getString(4));
 				socio.setFechaNacimiento(resultSet.getDate(5));
 				socio.setTelefono(resultSet.getString(6));
 				socio.setCorreo(resultSet.getString(7));
@@ -220,8 +220,8 @@ public class SocioDao implements SocioDaoInterface {
 				socio = new Socio();
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
-				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setNombre(resultSet.getString(3));
+				socio.setApellido(resultSet.getString(4));
 				socio.setFechaNacimiento(resultSet.getDate(5));
 				socio.setTelefono(resultSet.getString(6));
 				socio.setCorreo(resultSet.getString(7));
@@ -260,8 +260,8 @@ public class SocioDao implements SocioDaoInterface {
 				socio = new Socio();
 				socio.setId(resultSet.getInt(1));
 				socio.setIdentificacion(resultSet.getString(2));
-				socio.setPrimerNombre(resultSet.getString(3));
-				socio.setPrimerApellido(resultSet.getString(4));
+				socio.setNombre(resultSet.getString(3));
+				socio.setApellido(resultSet.getString(4));
 				socio.setFechaNacimiento(resultSet.getDate(5));
 				socio.setTelefono(resultSet.getString(6));
 				socio.setCorreo(resultSet.getString(7));

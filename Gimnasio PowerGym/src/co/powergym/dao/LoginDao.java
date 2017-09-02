@@ -40,8 +40,8 @@ public class LoginDao implements LoginInterfaceDao {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement(
-					"SELECT  user.id, user.identificacion, user.primerNombre, user.segundoNombre, user.primerApellido, "
-							+ "user.segundoApellido, user.fechaNacimiento, user.telefono, "
+					"SELECT  user.id, user.identificacion, user.nombre, "
+							+ "user.apellido, user.fechaNacimiento, user.telefono, "
 							+ "user.correoElectronico, user.genero, r.id, r.nombre, user.username FROM Usuario AS user "
 							+ "JOIN RolAsignado AS ra ON ra.usuario_id = user.id "
 							+ "JOIN Rol AS r ON r.id = ra.rol_id " + "WHERE username=? AND password=?");
