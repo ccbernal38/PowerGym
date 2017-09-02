@@ -18,7 +18,7 @@ public class Usuario {
 
 	private String identificacion;
 	private Date fechaNacimiento;
-	private String primerNombre, segundoNombre, primerApellido, segundoApellido;
+	private String nombre, apellido;
 	private String correo, telefono;
 	private int genero;
 	private String direccion;
@@ -103,38 +103,22 @@ public class Usuario {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public String getPrimerNombre() {
-		return primerNombre;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setPrimerNombre(String primerNombre) {
-		this.primerNombre = primerNombre;
+	public void setNombre(String primerNombre) {
+		this.nombre = primerNombre;
 	}
 
-	public String getSegundoNombre() {
-		return segundoNombre;
+	public String getApellido() {
+		return apellido;
 	}
 
-	public void setSegundoNombre(String segundoNombre) {
-		this.segundoNombre = segundoNombre;
+	public void setApellido(String primerApellido) {
+		this.apellido = primerApellido;
 	}
-
-	public String getPrimerApellido() {
-		return primerApellido;
-	}
-
-	public void setPrimerApellido(String primerApellido) {
-		this.primerApellido = primerApellido;
-	}
-
-	public String getSegundoApellido() {
-		return segundoApellido;
-	}
-
-	public void setSegundoApellido(String segundoApellido) {
-		this.segundoApellido = segundoApellido;
-	}
-
+	
 	public String getCorreo() {
 		return correo;
 	}
