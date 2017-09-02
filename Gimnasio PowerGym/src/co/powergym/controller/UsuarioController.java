@@ -17,7 +17,7 @@ import co.powergym.dao.UsuarioDao;
 import co.powergym.model.Permiso;
 import co.powergym.model.PermisoUsuario;
 import co.powergym.model.Usuario;
-import co.powergym.view.usuario.entrenador.UsuarioEntrenador;
+import co.powergym.view.usuario.entrenador.ActualizarUsuario;
 import co.powergym.view.usuario.entrenador.BusquedaUsuario;
 import co.powergym.view.usuario.entrenador.ListaUsuario;
 import co.powergym.view.usuario.entrenador.RegistroUsuario;
@@ -31,12 +31,12 @@ public class UsuarioController implements ActionListener {
 	RegistroUsuario viewRegistroUsuario;
 	BusquedaUsuario viewBusquedaUsuario;
 	ListaUsuario viewListaUsuario;
-	UsuarioEntrenador viewActualizarUsuario;
+	ActualizarUsuario viewActualizarUsuario;
 	List<PermisoUsuario>permisosAsignados;
 
 	public UsuarioController(UsuarioDao usuarioDao,PermisoDao permisoDao, PermisoUsuarioDao permisoUsuarioDao, RegistroUsuario viewRegistroUsuario,
 			BusquedaUsuario viewBusquedaUsuario, ListaUsuario viewListaUsuario,
-			UsuarioEntrenador viewActualizarUsuario) {
+			ActualizarUsuario viewActualizarUsuario) {
 		this.usuarioDao = usuarioDao;
 		this.permisoDao = permisoDao;
 		this.viewRegistroUsuario = viewRegistroUsuario;
@@ -278,7 +278,7 @@ public class UsuarioController implements ActionListener {
 					String identificacion = listaUsuario.get(filaSeleccionada).getIdentificacion();
 					Usuario entrenador = usuarioDao.buscarUsuario(identificacion);
 					if (entrenador != null) {
-						viewActualizarUsuario = new UsuarioEntrenador();
+						viewActualizarUsuario = new ActualizarUsuario();
 						String numeroId = entrenador.getIdentificacion();
 						viewActualizarUsuario.getTxtNumeroid().setText(identificacion);
 						viewActualizarUsuario.getTxtNumeroid().setEditable(false);
