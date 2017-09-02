@@ -199,6 +199,7 @@ public class SocioController implements ActionListener, ItemListener {
 		this.viewRegistroSocio.getBtnTomarHuellas().addActionListener(this);
 		this.viewRegistroSocio.setVisible(true);
 		this.viewRegistroSocio.setWebcam(webcam);
+		generarCódigo();
 	}
 
 	public void initBusquedaSocio(SocioBusquedaView socioBusquedaView) {
@@ -388,18 +389,10 @@ public class SocioController implements ActionListener, ItemListener {
 								}
 							}
 							if (tempHuella != null) {
-								int cantSocios = socioDao.contarSocios()+1;
-								String codigo = cantSocios+"";
-								if(codigo.length() == 1) {
-									codigo = "000"+codigo;
-								}else if(codigo.length() == 2) {
-									codigo = "00"+codigo;
-								}else if(codigo.length() == 3) {
-									codigo = "0"+codigo;
-								}
+								
 								boolean respuesta = socioDao.registrarSocio(numeroId, fechaNacimiento, nombre,
 										apellido, correo, telefono, genero,
-										fotoTemp, tempHuella, codigo);
+										fotoTemp, tempHuella, generarCódigo());
 								if (respuesta) {
 									JOptionPane.showMessageDialog(null, "Registro exitoso");
 									viewRegistroSocio.setVisible(false);
@@ -583,7 +576,22 @@ public class SocioController implements ActionListener, ItemListener {
 		}
 
 	}
-
+	
+	public String generarCódigo() {
+		
+		int cantSocios = socioDao.contarSocios()+1;
+		String codigo = cantSocios+"";
+		if(codigo.length() == 1) {
+			codigo = "000"+codigo;
+		}else if(codigo.length() == 2) {
+			codigo = "00"+codigo;
+		}else if(codigo.length() == 3) {
+			codigo = "0"+codigo;
+		}
+		viewRegistroSocio.getTextFieldCodigo().setText(codigo);
+		return codigo;
+	}
+	
 	public byte[] getTempHuella() {
 		return tempHuella;
 	}
