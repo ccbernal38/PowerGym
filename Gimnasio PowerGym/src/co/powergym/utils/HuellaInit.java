@@ -308,7 +308,7 @@ public class HuellaInit {
 		setTemplate(null);
 	}
 
-	private void initConsultaEntrada(Socio socio) {
+	public void initConsultaEntrada(Socio socio) {
 		MembresiaDao membresiaDao = new MembresiaDao();
 		Membresia membresia = membresiaDao.verificarEntradaMembresia(socio.getId());
 

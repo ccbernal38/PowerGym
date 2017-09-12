@@ -36,6 +36,7 @@ public class LoginView extends JFrame {
 	private JLabel label;
 	private JLabel label_1;
 	private JLabel lblNewLabel;
+	private JButton btnCambiarContrasea;
 
 	/**
 	 * Launch the application.
@@ -163,6 +164,13 @@ public class LoginView extends JFrame {
 		btnIniciar.setRequestFocusEnabled(true);
 		btnIniciar.setFocusPainted(false);
 		panel.add(btnIniciar);
+		
+		btnCambiarContrasea = new JButton("Cambiar contrase\u00F1a");
+		btnCambiarContrasea.setForeground(new Color(0, 0, 0));
+		btnCambiarContrasea.setBackground(Color.DARK_GRAY);
+		btnCambiarContrasea.setFont(new Font("Verdana", Font.BOLD, 11));
+		btnCambiarContrasea.setBounds(280, 365, 180, 23);
+		contentPane.add(btnCambiarContrasea);
 		this.addWindowListener(new WindowAdapter() {
 		    public void windowGainedFocus(WindowEvent e) {
 		        btnIniciar.requestFocusInWindow();
