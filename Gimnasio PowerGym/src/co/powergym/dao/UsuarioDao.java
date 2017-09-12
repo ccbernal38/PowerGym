@@ -21,21 +21,23 @@ public class UsuarioDao implements UsuarioDaoInterface {
 
 	@Override
 	public boolean registrarUsuario(String identificacion, String nombre, 
-			String apellido, Date fechaNacimiento, String correo, String telefono,
+			String apellido, Date fechaNacimiento, String telefono,String correo,
 			int genero, String username, String password) {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
 					.prepareStatement("INSERT INTO Usuario(identificacion, nombre, "
-							+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+							+ "apellido, fechaNacimiento, correoElectronico, telefono, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
 			statement.setString(2, nombre);
 			statement.setString(3, apellido);
 			statement.setDate(4, fechaNacimiento);
-			statement.setString(5, telefono);
-			statement.setString(6, correo);
+			statement.setString(5, correo);
+			statement.setString(6, telefono);
 			statement.setInt(7, genero);
+			statement.setString(8, username);
+			statement.setString(9, password);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fechaNacimiento);
 
@@ -58,7 +60,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,"
-					+ "identificacion, nombre, apellido, fechaNacimiento, telefono, correoElectronico, genero "
+					+ "identificacion, nombre, apellido, fechaNacimiento, correoElectronico, telefono, genero "
 					+ " FROM Usuario");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -68,8 +70,8 @@ public class UsuarioDao implements UsuarioDaoInterface {
 				usuario.setNombre(resultSet.getString(3));
 				usuario.setApellido(resultSet.getString(4));
 				usuario.setFechaNacimiento(resultSet.getDate(5));
-				usuario.setTelefono(resultSet.getString(6));
-				usuario.setCorreo(resultSet.getString(7));
+				usuario.setCorreo(resultSet.getString(6));
+				usuario.setTelefono(resultSet.getString(7));
 				usuario.setGenero(resultSet.getInt(8));
 				list.add(usuario);
 			}
@@ -99,20 +101,20 @@ public class UsuarioDao implements UsuarioDaoInterface {
 
 	@Override
 	public boolean modificarUsuario(String identificacion, String nombre, 
-			String apellido, Date fechaNacimiento, String correo, String telefono,
+			String apellido, Date fechaNacimiento, String telefono,String correo, 
 			int genero, String username, String password) {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
 
 			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set nombre = ?, "
-						+ "apellido = ?, fechaNacimiento = ?, telefono = ?, correoElectronico = ?, genero = ? "
+						+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ?, genero = ? "
 						+ "WHERE identificacion = ?");				
 				statement.setString(1, nombre);
 				statement.setString(2, apellido);
 				statement.setDate(3, fechaNacimiento);
-				statement.setString(4, telefono);
-				statement.setString(5, correo);
+				statement.setString(4, correo);
+				statement.setString(5,telefono );
 				statement.setInt(6, genero);
 				statement.setString(7, identificacion);
 				statement.execute();
@@ -130,7 +132,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("SELECT id, identificacion, nombre, "
-							+ "apellido, telefono, correoElectronico, genero"
+							+ "apellido, correoElectronico, telefono, genero"
 							+ " FROM Usuario WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -140,8 +142,8 @@ public class UsuarioDao implements UsuarioDaoInterface {
 				usuario.setIdentificacion(resultSet.getString(2));
 				usuario.setNombre(resultSet.getString(3));
 				usuario.setApellido(resultSet.getString(4));
-				usuario.setTelefono(resultSet.getString(5));
-				usuario.setCorreo(resultSet.getString(6));
+				usuario.setCorreo(resultSet.getString(5));
+				usuario.setTelefono(resultSet.getString(6));
 				usuario.setGenero(resultSet.getInt(7));
 			}
 			conexion.desconectar();
