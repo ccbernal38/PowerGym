@@ -5,6 +5,7 @@
  */
 package co.powergym.mvc;
 
+import java.util.Calendar;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -26,7 +27,6 @@ public class CrudMvc {
 	public static void main(String[] args) {
 		CrudMvc crudMvc = new CrudMvc();
 		crudMvc.cargarLogin();
-		
 	}
 
 	public void cargarLogin() {

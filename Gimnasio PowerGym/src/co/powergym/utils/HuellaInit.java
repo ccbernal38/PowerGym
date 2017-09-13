@@ -124,7 +124,7 @@ public class HuellaInit {
 			public void readerDisconnected(final DPFPReaderStatusEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						enviarTexto("El Sensor de Huella Digital esta Desactivado o no Conecatado");
+						enviarTexto("El Sensor de Huella Digital esta Desactivado o no Conectado");
 					}
 				});
 			}
