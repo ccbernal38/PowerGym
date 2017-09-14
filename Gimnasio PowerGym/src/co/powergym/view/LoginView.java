@@ -190,4 +190,7 @@ public class LoginView extends JFrame {
 	public JButton getBtnSalir() {
 		return btnSalir;
 	}
+	public JButton getBtnCambiarContrasenia() {
+		return btnCambiarContrasea;
+	}
 }

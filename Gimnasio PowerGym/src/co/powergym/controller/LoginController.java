@@ -11,6 +11,7 @@ import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.ViewportUI;
 
 import com.sun.nio.file.SensitivityWatchEventModifier;
 
@@ -18,6 +19,7 @@ import co.powergym.dao.LoginDao;
 import co.powergym.model.Usuario;
 import co.powergym.utils.Preferencias;
 import co.powergym.view.LoginView;
+import co.powergym.view.usuario.administrador.UsuarioCambiarContraseniaView;
 import co.powergym.view.InitView;
 
 /**
@@ -33,6 +35,7 @@ public class LoginController implements ActionListener {
 		viewLogin = new LoginView();
 		this.viewLogin.getBtnIniciar().addActionListener(this);
 		this.viewLogin.getBtnSalir().addActionListener(this);
+		this.viewLogin.getBtnCambiarContrasenia().addActionListener(this);
 		this.viewLogin.setVisible(true);
 		this.viewLogin.setLocationRelativeTo(null);
 		this.viewLogin.getPasswordField().addKeyListener(new KeyListener() {
@@ -53,7 +56,7 @@ public class LoginController implements ActionListener {
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					viewLogin.getBtnIniciar().doClick();					
+					viewLogin.getBtnIniciar().doClick();
 				}
 			}
 		});
@@ -99,8 +102,57 @@ public class LoginController implements ActionListener {
 				dialog.setVisible(true);
 
 			}
+			if (viewLogin.getBtnCambiarContrasenia() == e.getSource()) {
+				UsuarioCambiarContraseniaView cambiarContraseniaView = new UsuarioCambiarContraseniaView();
+				cambiarContraseniaView.getBtnCambiar().addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String usuario = cambiarContraseniaView.getTextFieldUsuario().getText();
+						String password = cambiarContraseniaView.getTextFieldPassword().getText();
+						String passwordNew = cambiarContraseniaView.getTextFieldPassworNew().getText();
+						String passwordNewRepeat = cambiarContraseniaView.getTextFieldPasswordNewRepeat().getText();
+						if (!usuario.equals("")) {
+							if (!password.equals("")) {
+								if (!passwordNew.equals("")) {
+									if (!passwordNew.equals(passwordNewRepeat)) {
+										cambiarContrasena(usuario, password, passwordNew);
+									} else {
+										JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.");
+									}
+								} else {
+									JOptionPane.showMessageDialog(null,
+											"El campo de nueva contraseña no puede estar vacio.");
+								}
+							} else {
+								JOptionPane.showMessageDialog(null,
+										"El campo de contraseña actual no puede estar vacio.");
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "El campo de nombre de usuario no puede estar vacio.");
+						}
+
+					}
+				});
+				cambiarContraseniaView.getBtnCancelar().addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						viewLogin.setEnabled(true);
+						cambiarContraseniaView.setVisible(false);
+						cambiarContraseniaView.dispose();
+					}
+				});
+				viewLogin.setEnabled(false);
+				cambiarContraseniaView.setLocationRelativeTo(null);
+				cambiarContraseniaView.setVisible(true);
+			}
 
 		}
+	}
+
+	public void cambiarContrasena(String usuario, String password, String passwordNew) {
+		
 	}
 
 }

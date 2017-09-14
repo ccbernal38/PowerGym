@@ -180,11 +180,29 @@ public class InitView extends JFrame {
 		JSeparator separator = new JSeparator();
 		jMenu5.add(separator);
 		
-		mntmRegistrarEgreso = new JMenuItem("Registrar egreso");
-		jMenu5.add(mntmRegistrarEgreso);
+		JMenu mnIngresos = new JMenu("Ingresos");
+		jMenu5.add(mnIngresos);
+		
+		JMenuItem mntmHistoricoDeIngresos = new JMenuItem("Historico de ingresos");
+		mnIngresos.add(mntmHistoricoDeIngresos);
+		
+		JMenuItem mntmIngresosDelDia = new JMenuItem("Ingresos del dia");
+		mnIngresos.add(mntmIngresosDelDia);
 		
 		mntmRegistrarIngreso = new JMenuItem("Registrar ingreso");
-		jMenu5.add(mntmRegistrarIngreso);
+		mnIngresos.add(mntmRegistrarIngreso);
+		
+		JMenu mnEgresos = new JMenu("Egresos");
+		jMenu5.add(mnEgresos);
+		
+		JMenuItem mntmEgresosDelDia = new JMenuItem("Egresos del dia");
+		mnEgresos.add(mntmEgresosDelDia);
+		
+		JMenuItem mntmHistoricoDeEgresos = new JMenuItem("Historico de egresos");
+		mnEgresos.add(mntmHistoricoDeEgresos);
+		
+		mntmRegistrarEgreso = new JMenuItem("Registrar egreso");
+		mnEgresos.add(mntmRegistrarEgreso);
 
 		setJMenuBar(jMenuBar);
 
