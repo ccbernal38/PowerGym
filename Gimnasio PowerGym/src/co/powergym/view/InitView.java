@@ -176,45 +176,33 @@ public class InitView extends JFrame {
 		jMenu5.add(jMenuItem14);
 
 		jMenuBar.add(jMenu5);
-		
+
 		JSeparator separator = new JSeparator();
 		jMenu5.add(separator);
-		
-		JMenu mnIngresos = new JMenu("Ingresos");
-		jMenu5.add(mnIngresos);
-		
-		mntmHistoricoDeIngresos = new JMenuItem("Historico de ingresos");
-		mnIngresos.add(mntmHistoricoDeIngresos);
-		
-		mntmIngresosDelDia = new JMenuItem("Ingresos del dia");
-		mnIngresos.add(mntmIngresosDelDia);
-		
-		mntmRegistrarIngreso = new JMenuItem("Registrar ingreso");
-		mnIngresos.add(mntmRegistrarIngreso);
-		
+
 		JMenu mnEgresos = new JMenu("Egresos");
 		jMenu5.add(mnEgresos);
-		
+
 		mntmHistoricoDeEgresos = new JMenuItem("Historico de egresos");
 		mnEgresos.add(mntmHistoricoDeEgresos);
-		
+
 		mntmEgresosDelDia = new JMenuItem("Egresos del dia");
 		mnEgresos.add(mntmEgresosDelDia);
-		
+
 		mntmRegistrarEgreso = new JMenuItem("Registrar egreso");
 		mnEgresos.add(mntmRegistrarEgreso);
 
 		setJMenuBar(jMenuBar);
-		
+
 		mnVisitas = new JMenu("Visitas");
 		jMenuBar.add(mnVisitas);
-		
+
 		mntmHistoricoDeVisitas = new JMenuItem("Historico de visitas");
 		mnVisitas.add(mntmHistoricoDeVisitas);
-		
+
 		mntmRegistroDeVisitas = new JMenuItem("Registro de visitas");
 		mnVisitas.add(mntmRegistroDeVisitas);
-		
+
 		mntmVisitasDeHoy = new JMenuItem("Visitas del dia");
 		mnVisitas.add(mntmVisitasDeHoy);
 
@@ -348,86 +336,87 @@ public class InitView extends JFrame {
 		btnB = new JButton("Buscar");
 		btnB.setBounds(336, 11, 121, 25);
 		panelBusqueda.add(btnB);
-		
+
 		btnPuerta = new JButton("Puerta");
 		btnPuerta.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnPuerta.setBounds(1134, 11, 89, 23);
 		panelBusqueda.add(btnPuerta);
-		
-				JLabel labelBackgroundImage = new JLabel("");
-				labelBackgroundImage.setBounds(408, 137, 500, 400);
-				labelBackgroundImage.setIcon(new ImageIcon(
-						((new ImageIcon("image/logo.png")).getImage()).getScaledInstance(labelBackgroundImage.getWidth(),
-								labelBackgroundImage.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
-				
-						getContentPane().add(labelBackgroundImage);
-						
-						btnRegistrodeVisita = new JButton();
-						btnRegistrodeVisita.setToolTipText("");
-						btnRegistrodeVisita.setText("<html><center>Registro<br />de visita</center></html>");
-						btnRegistrodeVisita.setPreferredSize(new Dimension(50, 50));
-						btnRegistrodeVisita.setForeground(Color.WHITE);
-						btnRegistrodeVisita.setFont(new Font("Verdana", Font.BOLD, 12));
-						btnRegistrodeVisita.setBorder(null);
-						btnRegistrodeVisita.setBackground(Color.GREEN);
-						btnRegistrodeVisita.setBounds(248, 623, 150, 50);
-						getContentPane().add(btnRegistrodeVisita);
-						
-						JPanel panel_1 = new JPanel();
-						panel_1.setBackground(Color.DARK_GRAY);
-						panel_1.setBounds(10, 71, 404, 380);
-						getContentPane().add(panel_1);
-						panel_1.setLayout(null);
-						
-								panel = new JPanel();
-								panel.setBounds(10, 66, 192, 205);
-								panel_1.add(panel);
-								panel.setFont(new Font("Verdana", Font.BOLD, 11));
-								panel.setBackground(new Color(0, 0, 0, 0));
-								panel.setBorder(
-										new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaneando huella....", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
-								panel.setLayout(new BorderLayout(0, 0));
-								
-										lblHuella = new JLabel("");
-										lblHuella.setFont(new Font("Verdana", Font.BOLD, 11));
-										panel.add(lblHuella, BorderLayout.CENTER);
-										
-												lblingreseElNmero = new JLabel("<html><center>Ingrese el número <br>de identificación del socio:</center></html>");
-												lblingreseElNmero.setBounds(226, 66, 168, 50);
-												panel_1.add(lblingreseElNmero);
-												lblingreseElNmero.setForeground(Color.WHITE);
-												lblingreseElNmero.setFont(new Font("Verdana", Font.PLAIN, 12));
-												
-														textField = new JTextField();
-														textField.setBounds(245, 127, 125, 20);
-														panel_1.add(textField);
-														textField.setColumns(10);
-														
-																scrollPane_2 = new JScrollPane();
-																scrollPane_2.setBounds(10, 282, 384, 82);
-																panel_1.add(scrollPane_2);
-																scrollPane_2.setBackground(Color.LIGHT_GRAY);
-																
-																		textArea = new JTextArea();
-																		textArea.setFont(new Font("Verdana", Font.BOLD, 13));
-																		textArea.setForeground(Color.WHITE);
-																		textArea.setBackground(Color.DARK_GRAY);
-																		scrollPane_2.setViewportView(textArea);
-																		
-																				btnVerificar = new JButton("Verificar");
-																				btnVerificar.setBounds(245, 155, 125, 23);
-																				panel_1.add(btnVerificar);
-																				
-																				JLabel lblNewLabel_1 = new JLabel("Registro de asistencia");
-																				lblNewLabel_1.setForeground(Color.WHITE);
-																				lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-																				lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 18));
-																				lblNewLabel_1.setBounds(10, 19, 384, 36);
-																				panel_1.add(lblNewLabel_1);
-																				btnVerificar.addActionListener(new ActionListener() {
-																					public void actionPerformed(ActionEvent e) {
-																					}
-																				});
+
+		JLabel labelBackgroundImage = new JLabel("");
+		labelBackgroundImage.setBounds(408, 137, 500, 400);
+		labelBackgroundImage.setIcon(new ImageIcon(
+				((new ImageIcon("image/logo.png")).getImage()).getScaledInstance(labelBackgroundImage.getWidth(),
+						labelBackgroundImage.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
+
+		getContentPane().add(labelBackgroundImage);
+
+		btnRegistrodeVisita = new JButton();
+		btnRegistrodeVisita.setToolTipText("");
+		btnRegistrodeVisita.setText("<html><center>Registro<br />de visita</center></html>");
+		btnRegistrodeVisita.setPreferredSize(new Dimension(50, 50));
+		btnRegistrodeVisita.setForeground(Color.WHITE);
+		btnRegistrodeVisita.setFont(new Font("Verdana", Font.BOLD, 12));
+		btnRegistrodeVisita.setBorder(null);
+		btnRegistrodeVisita.setBackground(Color.GREEN);
+		btnRegistrodeVisita.setBounds(248, 623, 150, 50);
+		getContentPane().add(btnRegistrodeVisita);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.DARK_GRAY);
+		panel_1.setBounds(10, 71, 404, 380);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+
+		panel = new JPanel();
+		panel.setBounds(10, 66, 192, 205);
+		panel_1.add(panel);
+		panel.setFont(new Font("Verdana", Font.BOLD, 11));
+		panel.setBackground(new Color(0, 0, 0, 0));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaneando huella....",
+				TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
+		panel.setLayout(new BorderLayout(0, 0));
+
+		lblHuella = new JLabel("");
+		lblHuella.setFont(new Font("Verdana", Font.BOLD, 11));
+		panel.add(lblHuella, BorderLayout.CENTER);
+
+		lblingreseElNmero = new JLabel(
+				"<html><center>Ingrese el número <br>de identificación del socio:</center></html>");
+		lblingreseElNmero.setBounds(226, 66, 168, 50);
+		panel_1.add(lblingreseElNmero);
+		lblingreseElNmero.setForeground(Color.WHITE);
+		lblingreseElNmero.setFont(new Font("Verdana", Font.PLAIN, 12));
+
+		textField = new JTextField();
+		textField.setBounds(245, 127, 125, 20);
+		panel_1.add(textField);
+		textField.setColumns(10);
+
+		scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(10, 282, 384, 82);
+		panel_1.add(scrollPane_2);
+		scrollPane_2.setBackground(Color.LIGHT_GRAY);
+
+		textArea = new JTextArea();
+		textArea.setFont(new Font("Verdana", Font.BOLD, 13));
+		textArea.setForeground(Color.WHITE);
+		textArea.setBackground(Color.DARK_GRAY);
+		scrollPane_2.setViewportView(textArea);
+
+		btnVerificar = new JButton("Verificar");
+		btnVerificar.setBounds(245, 155, 125, 23);
+		panel_1.add(btnVerificar);
+
+		JLabel lblNewLabel_1 = new JLabel("Registro de asistencia");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblNewLabel_1.setBounds(10, 19, 384, 36);
+		panel_1.add(lblNewLabel_1);
+		btnVerificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
@@ -498,11 +487,8 @@ public class InitView extends JFrame {
 	private JButton btnB;
 	private JButton btnRegistrodeVisita;
 	private JMenuItem mntmRegistrarEgreso;
-	private JMenuItem mntmRegistrarIngreso;
-	private JMenuItem mntmIngresosDelDia;
 	private JMenuItem mntmEgresosDelDia;
 	private JMenuItem mntmHistoricoDeEgresos;
-	private JMenuItem mntmHistoricoDeIngresos;
 	private JMenu mnVisitas;
 	private JMenuItem mntmHistoricoDeVisitas;
 	private JMenuItem mntmRegistroDeVisitas;
@@ -610,42 +596,43 @@ public class InitView extends JFrame {
 	public void setjMenuItemAsistencia(javax.swing.JMenuItem jMenuItemAsistencia) {
 		this.jMenuItemAsistencia = jMenuItemAsistencia;
 	}
+
 	public JButton getBtnPuerta() {
 		return btnPuerta;
 	}
+
 	public JButton getBtnBuscar() {
 		return btnB;
 	}
+
 	public JTextField getTextFieldKey() {
 		return textFieldKey;
 	}
+
 	public JButton getBtnRegistrodeVisita() {
 		return btnRegistrodeVisita;
 	}
+
 	public JMenuItem getMntmRegistrarEgreso() {
 		return mntmRegistrarEgreso;
 	}
-	public JMenuItem getMntmRegistrarIngreso() {
-		return mntmRegistrarIngreso;
-	}
-	public JMenuItem getMntmIngresosDelDia() {
-		return mntmIngresosDelDia;
-	}
+
 	public JMenuItem getMntmEgresosDelDia() {
 		return mntmEgresosDelDia;
 	}
+
 	public JMenuItem getMntmHistoricoDeEgresos() {
 		return mntmHistoricoDeEgresos;
 	}
-	public JMenuItem getMntmHistoricoDeIngresos() {
-		return mntmHistoricoDeIngresos;
-	}
+
 	public JMenuItem getMntmHistoricoDeVisitas() {
 		return mntmHistoricoDeVisitas;
 	}
+
 	public JMenuItem getMntmRegistroDeVisitas() {
 		return mntmRegistroDeVisitas;
 	}
+
 	public JMenuItem getMntmVisitasDeHoy() {
 		return mntmVisitasDeHoy;
 	}
