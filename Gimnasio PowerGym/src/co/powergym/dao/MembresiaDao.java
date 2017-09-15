@@ -32,7 +32,7 @@ public class MembresiaDao implements MembresiaDaoInterface {
 
 	@Override
 	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion, int visitasxdia,
-			int IdTipoDuracion, int promocional, Date fechaFinalización) {
+			int IdTipoDuracion, int promocional, Date fechaFinalizacion) {
 
 		boolean respuesta = false;
 		try {
@@ -45,8 +45,8 @@ public class MembresiaDao implements MembresiaDaoInterface {
 			statement.setInt(4, visitasxdia);
 			statement.setInt(5, IdTipoDuracion);
 			statement.setInt(6, promocional);
-			if (fechaFinalización != null) {
-				statement.setDate(7, new java.sql.Date(fechaFinalización.getTime()));
+			if (fechaFinalizacion != null) {
+				statement.setDate(7, new java.sql.Date(fechaFinalizacion.getTime()));
 			}else {
 				statement.setDate(7, null);
 			}
