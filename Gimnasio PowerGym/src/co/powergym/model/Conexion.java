@@ -14,7 +14,7 @@ public class Conexion {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/powergym", "root", "");
+			con = DriverManager.getConnection("jdbc:mysql://192.168.0.22:3306/powergym", "root", "root");
 		} catch (Exception e) {
 		}
 
