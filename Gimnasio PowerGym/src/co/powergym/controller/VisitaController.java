@@ -17,6 +17,7 @@ public class VisitaController implements ActionListener {
 	VisitaDao visitaDao;
 	SocioDao socioDao;
 	MembresiaRegistroVisitaView membresiaRegistroVisitaView;
+	
 	Socio socioTemp;
 
 	/**

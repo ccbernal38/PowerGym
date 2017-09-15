@@ -205,6 +205,18 @@ public class InitView extends JFrame {
 		mnEgresos.add(mntmRegistrarEgreso);
 
 		setJMenuBar(jMenuBar);
+		
+		mnVisitas = new JMenu("Visitas");
+		jMenuBar.add(mnVisitas);
+		
+		mntmHistoricoDeVisitas = new JMenuItem("Historico de visitas");
+		mnVisitas.add(mntmHistoricoDeVisitas);
+		
+		mntmRegistroDeVisitas = new JMenuItem("Registro de visitas");
+		mnVisitas.add(mntmRegistroDeVisitas);
+		
+		mntmVisitasDeHoy = new JMenuItem("Visitas del dia");
+		mnVisitas.add(mntmVisitasDeHoy);
 
 		jMenuUsuario = new JMenu("Usuario");
 		jMenuBar.add(jMenuUsuario);
@@ -491,6 +503,10 @@ public class InitView extends JFrame {
 	private JMenuItem mntmEgresosDelDia;
 	private JMenuItem mntmHistoricoDeEgresos;
 	private JMenuItem mntmHistoricoDeIngresos;
+	private JMenu mnVisitas;
+	private JMenuItem mntmHistoricoDeVisitas;
+	private JMenuItem mntmRegistroDeVisitas;
+	private JMenuItem mntmVisitasDeHoy;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -623,5 +639,14 @@ public class InitView extends JFrame {
 	}
 	public JMenuItem getMntmHistoricoDeIngresos() {
 		return mntmHistoricoDeIngresos;
+	}
+	public JMenuItem getMntmHistoricoDeVisitas() {
+		return mntmHistoricoDeVisitas;
+	}
+	public JMenuItem getMntmRegistroDeVisitas() {
+		return mntmRegistroDeVisitas;
+	}
+	public JMenuItem getMntmVisitasDeHoy() {
+		return mntmVisitasDeHoy;
 	}
 }

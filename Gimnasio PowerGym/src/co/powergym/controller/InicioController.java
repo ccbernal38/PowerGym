@@ -111,6 +111,9 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getMntmHistoricoDeIngresos().addActionListener(this);
 		this.viewPrincipal.getMntmEgresosDelDia().addActionListener(this);
 		this.viewPrincipal.getMntmIngresosDelDia().addActionListener(this);
+		this.viewPrincipal.getMntmHistoricoDeVisitas().addActionListener(this);
+		this.viewPrincipal.getMntmVisitasDeHoy().addActionListener(this);
+		this.viewPrincipal.getMntmRegistroDeVisitas().addActionListener(this);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
@@ -216,7 +219,8 @@ public class InicioController implements ActionListener {
 			MovimientoController movimientoController = new MovimientoController(null, new CajaRegistroEgresoView(),
 					null, null, null, null);
 		}
-		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()) {
+		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()
+				|| viewPrincipal.getMntmRegistroDeVisitas() == e.getSource()) {
 			VisitaController visitaController = new VisitaController(new MembresiaRegistroVisitaView());
 		} else if (viewPrincipal.getBtnBuscar() == e.getSource()) {
 			String key = viewPrincipal.getTextFieldKey().getText();
@@ -299,6 +303,10 @@ public class InicioController implements ActionListener {
 				Socio socio = socioDao.buscarSocioIdOrCodigo(id);
 				huellaInit.initConsultaEntrada(socio);
 			}
+		} else if (viewPrincipal.getMntmHistoricoDeVisitas() == e.getSource()) {
+
+		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
+
 		}
 	}
 
