@@ -39,6 +39,7 @@ public class RegistroUsuario extends JFrame{
 	private JTextField textUsername;
 	private JTextField textContrasena;
 	private JLabel label;
+	private JTextField textConfirmaC;
 	
 	
 	public RegistroUsuario() {
@@ -111,11 +112,11 @@ public class RegistroUsuario extends JFrame{
 		lblGnero.setBounds(469, 97, 157, 14);
 		getContentPane().add(lblGnero);
 		
-		comboBox_genero = new JComboBox();
+		comboBox_genero = new JComboBox<String>();
 		comboBox_genero.setBounds(598, 95, 202, 20);
-		getContentPane().add(comboBox_genero);
 		comboBox_genero.addItem("Masculino");
 		comboBox_genero.addItem("Femenino");
+		getContentPane().add(comboBox_genero);
 		
 		rdbtnEntrenador = new JRadioButton("Entrenador");
 		rdbtnEntrenador.setBounds(598, 120, 100, 23);
@@ -143,6 +144,8 @@ public class RegistroUsuario extends JFrame{
 		getContentPane().add(lblListaDePermisos);
 		
 		Panel panelCredenciales = new Panel();
+		panelCredenciales.setForeground(Color.WHITE);
+		panelCredenciales.setBackground(Color.WHITE);
 		panelCredenciales.setBounds(67, 185, 733, 90);
 		getContentPane().add(panelCredenciales);
 		panelCredenciales.setLayout(null);
@@ -166,6 +169,15 @@ public class RegistroUsuario extends JFrame{
 		JLabel lblContrasea = new JLabel("Contraseña:");
 		lblContrasea.setBounds(216, 5, 86, 16);
 		panelCredenciales.add(lblContrasea);
+		
+		JLabel lblConfirmeLaContrsea = new JLabel("Confirme la contraseña:");
+		lblConfirmeLaContrsea.setBounds(451, 5, 162, 16);
+		panelCredenciales.add(lblConfirmeLaContrsea);
+		
+		textConfirmaC = new JPasswordField();
+		textConfirmaC.setBounds(451, 33, 210, 26);
+		panelCredenciales.add(textConfirmaC);
+		textConfirmaC.setColumns(10);
 		
 		label = new JLabel("Lista de permisos");
 		label.setBounds(71, 281, 130, 16);
@@ -239,6 +251,22 @@ public class RegistroUsuario extends JFrame{
 	 */
 	public void setTextContrasena(JTextField textContrasena) {
 		this.textContrasena = textContrasena;
+	}
+
+
+	/**
+	 * @return the textConfirmaC
+	 */
+	public JTextField getTextConfirmaC() {
+		return textConfirmaC;
+	}
+
+
+	/**
+	 * @param textConfirmaC the textConfirmaC to set
+	 */
+	public void setTextConfirmaC(JTextField textConfirmaC) {
+		this.textConfirmaC = textConfirmaC;
 	}
 
 

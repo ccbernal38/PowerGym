@@ -25,7 +25,7 @@ public class PermisoUsuarioDao implements PermisoUsuarioDaoInterface {
 	 * 
 	 */
 	public PermisoUsuarioDao() {
-		// TODO Auto-generated constructor stub
+		conexion = new Conexion();
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class PermisoUsuarioDao implements PermisoUsuarioDaoInterface {
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD.prepareStatement(
-					"INSERT INTO permisoasignado(usuario_id, permiso_id) " + "VALUES(?,?)");
+					"INSERT INTO permisoasignado(usuario_id, permiso_id) VALUES(?,?)");
 			statement.setInt(1, usuario_id);
 			statement.setInt(2, permiso_id);
 			statement.execute();

@@ -1,7 +1,5 @@
 package co.powergym.controller;
 
-
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,8 +30,9 @@ import co.powergym.view.usuario.entrenador.BusquedaUsuario;
 import co.powergym.view.usuario.entrenador.ListaUsuario;
 import co.powergym.view.usuario.entrenador.RegistroUsuario;
 import javafx.scene.control.RadioButton;
+import jdk.nashorn.internal.runtime.ListAdapter;
 
-public class UsuarioController implements ActionListener{
+public class UsuarioController implements ActionListener {
 
 	/**
 	 * 
@@ -46,18 +45,17 @@ public class UsuarioController implements ActionListener{
 	BusquedaUsuario viewBusquedaUsuario;
 	ListaUsuario viewListaUsuario;
 	ActualizarUsuario viewActualizarUsuario;
-	List<PermisoUsuario>permisosAsignados;	
-	private JRadioButton rBpermisoAsignado = new JRadioButton();
-	
+	List<PermisoUsuario> permisosAsignados;
 
-	public UsuarioController(UsuarioDao usuarioDao,PermisoDao permisoDao, PermisoUsuarioDao permisoUsuarioDao, RegistroUsuario viewRegistroUsuario,
-			BusquedaUsuario viewBusquedaUsuario, ListaUsuario viewListaUsuario,
+	public UsuarioController(UsuarioDao usuarioDao, PermisoDao permisoDao, PermisoUsuarioDao permisoUsuarioDao,
+			RegistroUsuario viewRegistroUsuario, BusquedaUsuario viewBusquedaUsuario, ListaUsuario viewListaUsuario,
 			ActualizarUsuario viewActualizarUsuario) {
 		this.usuarioDao = usuarioDao;
 		this.permisoDao = permisoDao;
+		this.permisoUsuarioDao = new PermisoUsuarioDao();
 		this.viewRegistroUsuario = viewRegistroUsuario;
 		this.viewBusquedaUsuario = viewBusquedaUsuario;
-		
+
 		if (viewRegistroUsuario != null) {
 			this.viewRegistroUsuario = viewRegistroUsuario;
 			llenarTablaPermisos(viewRegistroUsuario.getTablePermisos());
@@ -96,21 +94,20 @@ public class UsuarioController implements ActionListener{
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listUsuarios.get(i).getIdentificacion();
 			// columna[1] = listEntrenadores.get(i).getNombreCompleto();
-			columna[2] = listUsuarios.get(i).getDireccion();
-			columna[3] = listUsuarios.get(i).getCorreo();
-			columna[4] = listUsuarios.get(i).getTelefono();
+			columna[1] = listUsuarios.get(i).getDireccion();
+			columna[2] = listUsuarios.get(i).getCorreo();
+			columna[3] = listUsuarios.get(i).getTelefono();
 			defaultTableModel.addRow(columna);
 		}
 		tablaUsuarios.setModel(defaultTableModel);
 		tablaUsuarios.repaint();
 	}
-	
-	
+
 	/** Método para listar todos los permisos del sistema */
 	public void llenarTablaPermisos(JTable tablaPermisos) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
 				new String[] { "Nombre", "Fecha creación", "Fecha modificación", "Asignar" });
-		
+
 		Object[] columna = new Object[4];
 		List<Permiso> listPermisos = permisoDao.listaPermisos();
 		int numeroRegistros = listPermisos.size();
@@ -120,15 +117,15 @@ public class UsuarioController implements ActionListener{
 			columna[2] = listPermisos.get(i).getFechaModificacion();
 			columna[3] = new JRadioButton("");
 			defaultTableModel.addRow(columna);
-			
+
 		}
 		tablaPermisos.setModel(defaultTableModel);
 		tablaPermisos.repaint();
 		tablaPermisos.getColumn("Asignar").setCellRenderer(new Radiorender());
 		tablaPermisos.getColumn("Asignar").setCellEditor(new Radio(new JCheckBox()));
-		
+
 	}
-	
+
 	/**
 	 * @return the permisosAsignados
 	 */
@@ -137,7 +134,8 @@ public class UsuarioController implements ActionListener{
 	}
 
 	/**
-	 * @param permisosAsignados the permisosAsignados to set
+	 * @param permisosAsignados
+	 *            the permisosAsignados to set
 	 */
 	public void setPermisosAsignados(List<PermisoUsuario> permisosAsignados) {
 		this.permisosAsignados = permisosAsignados;
@@ -148,94 +146,107 @@ public class UsuarioController implements ActionListener{
 		if (viewRegistroUsuario != null && e.getSource() == viewRegistroUsuario.btnRegistrar) {
 			try {
 				String numeroId = viewRegistroUsuario.getTxtNumeroid().getText();
-				
-				String username = "";
-				String password = "";
-				boolean respuesta = false;			
 
-					String nombre = viewRegistroUsuario.getTxtNombre().getText();
-					if (nombre == null || nombre.equals("")) {
-						JOptionPane.showMessageDialog(null, "El campo nombre no puede estar vacio.");
+				String username = "";
+				String correo = "";
+				String contrasena = "";
+				String confirmaC = "";
+				String telefono = "";
+				String apellido = "";
+				int genero = 0;
+				Date fechaNacimiento = null;
+				boolean respuesta = false;
+
+				String nombre = viewRegistroUsuario.getTxtNombre().getText();
+				if (nombre == null || nombre.equals("")) {
+					JOptionPane.showMessageDialog(null, "El campo nombre no puede estar vacio.");
+				} else {
+
+					apellido = viewRegistroUsuario.getTxtPrimerapellido().getText();
+					if (apellido == null || apellido.equals("")) {
+						JOptionPane.showMessageDialog(null, "El campo apellido no puede estar vacio.");
 					} else {
 
-						String apellido = viewRegistroUsuario.getTxtPrimerapellido().getText();
-						if (apellido == null || apellido.equals("")) {
-							JOptionPane.showMessageDialog(null, "El campo apellido no puede estar vacio.");
+						if (viewRegistroUsuario.getDateChooser_fechaNacimiento().getDate() == null) {
+							JOptionPane.showMessageDialog(null, "El campo fecha de nacimiento no puede estar vacio.");
 						} else {
-							Date fechaNacimiento = null;
+							fechaNacimiento = new Date(
+									viewRegistroUsuario.getDateChooser_fechaNacimiento().getDate().getTime());
+						}
+					}
+					telefono = viewRegistroUsuario.getTxtTelefono().getText();
+					if (telefono == null || telefono.equals("")) {
+						JOptionPane.showMessageDialog(null, "El campo telefóno no puede estar vacio.");
+					} else {
+						correo = viewRegistroUsuario.getTxtCorreoelectronico().getText();
+						genero = 0;
+						if (viewRegistroUsuario.getComboBox_genero() != null) {
+							genero = viewRegistroUsuario.getComboBox_genero().getSelectedIndex();
+						}
 
-							if (viewRegistroUsuario.getDateChooser_fechaNacimiento().getDate() == null) {
-								JOptionPane.showMessageDialog(null,
-										"El campo fecha de nacimiento no puede estar vacio.");
-							} else {
-								fechaNacimiento = new Date(
-										viewRegistroUsuario.getDateChooser_fechaNacimiento().getDate().getTime());
-								}
-								String telefono = viewRegistroUsuario.getTxtTelefono().getText();
-								if (telefono == null || telefono.equals("")) {
-									JOptionPane.showMessageDialog(null, "El campo telefóno no puede estar vacio.");
-								} else {
-									String correo = viewRegistroUsuario.getTxtCorreoelectronico().getText();
-									int genero = 0;
-									if (viewRegistroUsuario.getComboBox_genero() != null) {
-										genero = viewRegistroUsuario.getComboBox_genero().getSelectedIndex();
-									}
+						if (correo == null || correo.equals("")) {
+							JOptionPane.showMessageDialog(null, "El campo correo electrónico no puede estar vacio.");
+						}
 
-									if (correo == null || correo.equals("")) {
-										JOptionPane.showMessageDialog(null,
-												"El campo correo electrónico no puede estar vacio.");
-									}
-									respuesta = usuarioDao.registrarUsuario(numeroId, nombre, apellido,
-											fechaNacimiento, correo, telefono, genero, username, password);
+					}
+					username = viewRegistroUsuario.getTextUsername().getText();
+					contrasena = viewRegistroUsuario.getTextContrasena().getText();
+					confirmaC = viewRegistroUsuario.getTextConfirmaC().getText();
+					if (contrasena == null || contrasena.equals("")) {
+						JOptionPane.showMessageDialog(null, "El campo contraseña no puede estar vacio.");
+					} else if (!contrasena.equals(confirmaC)) {
+						JOptionPane.showMessageDialog(null,
+								"La contraseña no incide con los datos ingresados en el campo contrseña, por favor verifique.");
+					}
+				}
+				respuesta = usuarioDao.registrarUsuario(numeroId, nombre, apellido, fechaNacimiento, correo, telefono,
+						genero, username, contrasena);
+				int row = viewRegistroUsuario.getTablePermisos().getSelectedRow();
+				int column = 3;
+				Usuario usuario = usuarioDao.buscarUsuario(numeroId);
+
+				/** permiso seleccionado
+				JRadioButton jRadioButton =  (viewRegistroUsuario.getTablePermisos().getValueAt(row,
+						column));
+				boolean filaSeleccionada = jRadioButton.isSelected();**/
+				ArrayList<Permiso> listaPermiso = permisoDao.listaPermisos();
+				JRadioButton jRadioButton;
+				ArrayList<Integer>seleccionados = new ArrayList<>();
+				int idPermiso = 0;
+				Permiso permisoSeleccionado;
+				for (int i = 0; i < listaPermiso.size(); i++) {
+					jRadioButton = (JRadioButton)viewRegistroUsuario.getTablePermisos().getValueAt(i, 3);
+					if(jRadioButton.isSelected() == true)	{
+						idPermiso = listaPermiso.get(i).getId();
+						seleccionados.add(idPermiso);
+					}
+				}
+				
+				Boolean filaPermisoAsignar = false;
+				if (usuario != null) {
+					
+							int id_usuario = usuario.getId();
+							int option = JOptionPane.showConfirmDialog(viewRegistroUsuario,
+									"¿Esta seguro de asignar estos permisos?");
+							if (JOptionPane.YES_OPTION == option) {
+								for (int i = 0; i < seleccionados.size(); i++) {
+									filaPermisoAsignar = permisoUsuarioDao.registrarPermisoUsuario(id_usuario, seleccionados.get(i));
 								}
-						}}
-									int row = viewRegistroUsuario.getTablePermisos().getSelectedRow();
-									int column = 3;
-									Usuario usuario = usuarioDao.buscarUsuario(numeroId);
-									//permiso seleccionado	
-									JRadioButton jRadioButton = (JRadioButton) (viewRegistroUsuario.getTablePermisos().getValueAt(row, column));
-									boolean filaSeleccionada= jRadioButton.isSelected();
-									ArrayList<Permiso> listaPermiso = permisoDao.listaPermisos();
-									Boolean filaPermisoAsignar;
-									if (usuario != null) {
-									if (filaSeleccionada != false) {
-										if (listaPermiso != null) {
-											int idPermiso = listaPermiso.get(row).getId();
-											Permiso permisoSeleccionado = permisoDao.buscarPermiso(idPermiso);
-											
-											//id del usuario que recibe permisos
-											int id_usuario = usuario.getId();
-											
-											//id del permiso asgiando al usuario
-											int id_permiso = permisoSeleccionado.getId();
-											
-											//Nombre del permiso asignado
-											String nombrePermiso = permisoSeleccionado.getNombre();
-											int option = JOptionPane.showConfirmDialog(viewRegistroUsuario,
-													"¿Esta seguro de asignar estos permisos " + nombrePermiso + " ?");
-											if (JOptionPane.YES_OPTION == option) {
-												filaPermisoAsignar = permisoUsuarioDao.registrarPermisoUsuario(id_usuario, id_permiso);
-												//permisosAsignados = permisoUsuarioDao.listaPermisoUsuario();
-												
-												if (filaPermisoAsignar == true) {
-													JOptionPane.showMessageDialog(viewRegistroUsuario,
-															"Los permisos se asignaron exitosamente.");
-													listadoUsuariosLlenarTabla(viewListaUsuario.getJTableListaEntrenador());
-												}
-											}
-										}
-									}
-									}
-									else {
-										JOptionPane.showMessageDialog(null, "Ocurrió un error al registrar el usuario");
-									}
-									if (respuesta == true) {
-										JOptionPane.showMessageDialog(null, "Registro exitoso");
-									} else {
-										JOptionPane.showMessageDialog(null,
-												"Ocurrio un error registrando un nuevo usuario.");
-									}
-								
+								// permisosAsignados = permisoUsuarioDao.listaPermisoUsuario();
+								if (filaPermisoAsignar == true) {
+									JOptionPane.showMessageDialog(viewRegistroUsuario,
+											"Los permisos se asignaron exitosamente.");
+									// listadoUsuariosLlenarTabla(viewListaUsuario.getJTableListaEntrenador());
+								}
+							}
+				}
+
+				if (respuesta == true) {
+					JOptionPane.showMessageDialog(null, "Registro exitoso");
+				} else {
+					JOptionPane.showMessageDialog(null, "Ocurrio un error registrando un nuevo usuario.");
+				}
+
 			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
@@ -244,8 +255,7 @@ public class UsuarioController implements ActionListener{
 		} else if (viewRegistroUsuario != null && e.getSource() == viewRegistroUsuario.btnCancelar) {
 			viewRegistroUsuario.setVisible(false);
 			viewRegistroUsuario.dispose();
-		} 
-		else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnBuscar1) {
+		} else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnBuscar1) {
 
 			String numeroId = viewBusquedaUsuario.getTxtNumeroid().getText();
 			Usuario usuario = usuarioDao.buscarUsuario(numeroId);
@@ -265,11 +275,10 @@ public class UsuarioController implements ActionListener{
 				JOptionPane.showMessageDialog(null,
 						"No se encontró un usuario con ese número de identificación, por favor verifique");
 			}
-		}else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnCancelar1) {
+		} else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnCancelar1) {
 			viewBusquedaUsuario.setVisible(false);
 			viewBusquedaUsuario.dispose();
-		} 
-		else if (viewListaUsuario != null && e.getSource() == viewListaUsuario.btnEliminar1) {
+		} else if (viewListaUsuario != null && e.getSource() == viewListaUsuario.btnEliminar1) {
 			int filaSeleccionada = viewListaUsuario.JTableListaEntrenador.getSelectedRow();
 			ArrayList<Usuario> listaUsuario = usuarioDao.listaUsuario();
 			Boolean filaEliminada;
@@ -329,8 +338,8 @@ public class UsuarioController implements ActionListener{
 			// TODO: Completar campos
 			String username = "";
 			String password = "";
-			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, null,
-					correoElectronico, telefono, 0, username, password);
+			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, null, correoElectronico,
+					telefono, 0, username, password);
 			if (respuesta) {
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
 			} else {
@@ -340,56 +349,56 @@ public class UsuarioController implements ActionListener{
 
 	}
 
-	
-	
-public class Radiorender implements TableCellRenderer{
-	
-	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int column) {
-		if(value == null) {
-			return null;
-		}
-		return (Component)value;
-	}
-}
-	
-//Clases para pintar radiobutton en JTable de permisos que se asignan a un usuario
+	public class Radiorender implements TableCellRenderer {
 
-public class Radio extends DefaultCellEditor implements ItemListener{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	JRadioButton radioB;
-	public Radio(JCheckBox checkBox) {
-		super(checkBox);
-		
-	}
-	
-	
-	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-		
-		if(value == null) {
-			return null;
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			if (value == null) {
+				return null;
+			}
+			return (Component) value;
 		}
-		radioB = (JRadioButton) value;
-		radioB.addItemListener(this);
-		return (Component)value;
 	}
-	
-	public Object getCellEditorValue() {
-		radioB.removeItemListener(this);
-		return radioB;
-	}
-	
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		super.fireEditingStopped();
-	}
-	
+
+	// Clases para pintar radiobutton en JTable de permisos que se asignan a un
+	// usuario
+
+	public class Radio extends DefaultCellEditor implements ItemListener {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		JRadioButton radioB;
+
+		public Radio(JCheckBox checkBox) {
+			super(checkBox);
+
+		}
+
+		@Override
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+				int column) {
+
+			if (value == null) {
+				return null;
+			}
+			radioB = (JRadioButton) value;
+			radioB.addItemListener(this);
+			return (Component) value;
+		}
+
+		public Object getCellEditorValue() {
+			radioB.removeItemListener(this);
+			return radioB;
+		}
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			super.fireEditingStopped();
+		}
+
 	}
 
 }
