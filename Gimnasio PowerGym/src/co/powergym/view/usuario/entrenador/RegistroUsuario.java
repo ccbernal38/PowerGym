@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
 import java.awt.Panel;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 public class RegistroUsuario extends JFrame{
 	
@@ -38,8 +40,9 @@ public class RegistroUsuario extends JFrame{
 	private JScrollPane scrollPane;
 	private JTextField textUsername;
 	private JTextField textContrasena;
-	private JLabel label;
 	private JTextField textConfirmaC;
+	private JPanel panel;
+	private JPanel panel_1;
 	
 	
 	public RegistroUsuario() {
@@ -101,11 +104,11 @@ public class RegistroUsuario extends JFrame{
 		txtCorreoelectronico.setColumns(10);
 		
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(430, 443, 100, 29);
+		btnRegistrar.setBounds(430, 489, 100, 29);
 		getContentPane().add(btnRegistrar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(315, 443, 100, 29);
+		btnCancelar.setBounds(315, 489, 100, 29);
 		getContentPane().add(btnCancelar);
 		
 		JLabel lblGnero = new JLabel("G\u00E9nero:");
@@ -130,59 +133,56 @@ public class RegistroUsuario extends JFrame{
 		lblTipoDeUsuario.setBounds(469, 123, 130, 16);
 		getContentPane().add(lblTipoDeUsuario);
 		
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Credenciales de acceso", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(33, 173, 779, 96);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		textUsername = new JTextField();
+		textUsername.setBounds(18, 47, 199, 26);
+		panel.add(textUsername);
+		textUsername.setColumns(10);
+		
+		textContrasena = new JPasswordField();
+		textContrasena.setBounds(229, 47, 254, 26);
+		panel.add(textContrasena);
+		textContrasena.setColumns(10);
+		
+		textConfirmaC = new JPasswordField();
+		textConfirmaC.setBounds(495, 47, 262, 26);
+		panel.add(textConfirmaC);
+		textConfirmaC.setColumns(10);
+		
+		JLabel lblConfirmeLaContrsea = new JLabel("Confirme la contraseña:");
+		lblConfirmeLaContrsea.setBounds(495, 30, 162, 16);
+		panel.add(lblConfirmeLaContrsea);
+		
+		JLabel lblContrasea = new JLabel("Contraseña:");
+		lblContrasea.setBounds(229, 30, 86, 16);
+		panel.add(lblContrasea);
+		
+		
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setBounds(18, 30, 72, 16);
+		panel.add(lblUsername);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Permisos de acceso", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(33, 278, 779, 199);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(71, 297, 729, 135);
-		getContentPane().add(scrollPane);
+		scrollPane.setBounds(18, 43, 738, 135);
+		panel_1.add(scrollPane);
+		scrollPane.setToolTipText("");
 		
 		tablePermisos = new JTable();
 		tablePermisos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablePermisos.setBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPane.setViewportView(tablePermisos);
-		
-		JLabel lblListaDePermisos = new JLabel("Credenciales");
-		lblListaDePermisos.setBounds(71, 163, 130, 16);
-		getContentPane().add(lblListaDePermisos);
-		
-		Panel panelCredenciales = new Panel();
-		panelCredenciales.setForeground(Color.WHITE);
-		panelCredenciales.setBackground(Color.WHITE);
-		panelCredenciales.setBounds(67, 185, 733, 90);
-		getContentPane().add(panelCredenciales);
-		panelCredenciales.setLayout(null);
-		panelCredenciales.setName("Credenciales de ingreso");
-		
-		textUsername = new JTextField();
-		textUsername.setBounds(16, 33, 188, 26);
-		panelCredenciales.add(textUsername);
-		textUsername.setColumns(10);
-		
-		textContrasena = new JPasswordField();
-		textContrasena.setBounds(216, 33, 210, 26);
-		panelCredenciales.add(textContrasena);
-		textContrasena.setColumns(10);
-		
-		
-		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(16, 5, 72, 16);
-		panelCredenciales.add(lblUsername);
-		
-		JLabel lblContrasea = new JLabel("Contraseña:");
-		lblContrasea.setBounds(216, 5, 86, 16);
-		panelCredenciales.add(lblContrasea);
-		
-		JLabel lblConfirmeLaContrsea = new JLabel("Confirme la contraseña:");
-		lblConfirmeLaContrsea.setBounds(451, 5, 162, 16);
-		panelCredenciales.add(lblConfirmeLaContrsea);
-		
-		textConfirmaC = new JPasswordField();
-		textConfirmaC.setBounds(451, 33, 210, 26);
-		panelCredenciales.add(textConfirmaC);
-		textConfirmaC.setColumns(10);
-		
-		label = new JLabel("Lista de permisos");
-		label.setBounds(71, 281, 130, 16);
-		getContentPane().add(label);
-		setSize(861, 510);
+		setSize(861, 558);
 	}
 
 		
