@@ -49,7 +49,7 @@ public class LoginDao implements LoginInterfaceDao {
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			
+
 			if (resultSet.next()) {
 				usuario = new Usuario();
 				usuario.setId(resultSet.getInt(1));
@@ -68,9 +68,32 @@ public class LoginDao implements LoginInterfaceDao {
 			}
 			conexion.desconectar();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "No se ha podido realizar la conexi�n con la base de datos, por favor intente de nuevo.");
+			JOptionPane.showMessageDialog(null,
+					"No se ha podido realizar la conexi�n con la base de datos, por favor intente de nuevo.");
 		}
 		return usuario;
+	}
+
+	@Override
+	public boolean cambiarContrasena(String usuario, String password, String passwordNew) {
+		try {
+			// create our java preparedstatement using a sql update query
+			PreparedStatement ps = conexion.getConexion()
+					.prepareStatement("UPDATE Usuario SET password = ? WHERE username = ? AND password = ?");
+
+			// set the preparedstatement parameters
+			ps.setString(1, passwordNew);
+			ps.setString(2, password);
+			ps.setString(3, usuario);
+			// call executeUpdate to execute our sql update statement
+			ps.executeUpdate();
+			ps.close();
+			return true;
+		} catch (SQLException se) {
+			// log the exception
+			System.out.println(se);
+		}
+		return false;
 	}
 
 }

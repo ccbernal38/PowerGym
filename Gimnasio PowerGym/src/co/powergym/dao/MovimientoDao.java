@@ -59,7 +59,6 @@ public class MovimientoDao implements MovimientoDaoInterface {
 			statement.setInt(2, valor);
 			statement.setInt(3, caja_id);
 			statement.setInt(4, Movimiento.EGRESO);
-
 			statement.execute();
 			respuesta = true;
 			conexion.desconectar();
@@ -75,8 +74,8 @@ public class MovimientoDao implements MovimientoDaoInterface {
 		Movimiento movimiento;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, concepto, valor, tipo FROM Movimiento WHERE tipo = ?");
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"SELECT id, concepto, valor, tipo, fechaCreacion FROM Movimiento WHERE tipo = ? ORDER BY fechaCreacion DESC");
 			preparedStatement.setInt(1, Movimiento.INGRESO);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -86,6 +85,7 @@ public class MovimientoDao implements MovimientoDaoInterface {
 				movimiento.setConcepto(resultSet.getString(2));
 				movimiento.setValor(resultSet.getInt(3));
 				movimiento.setTipo(resultSet.getInt(4));
+				movimiento.setFecha(resultSet.getTimestamp(5));
 
 				list.add(movimiento);
 
@@ -104,7 +104,7 @@ public class MovimientoDao implements MovimientoDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, concepto, valor, tipo FROM Movimiento "
+					.prepareStatement("SELECT id, concepto, valor, tipo, fechaCreacion FROM Movimiento "
 							+ "WHERE tipo = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion) = ? AND YEAR(fechaCreacion) = ?");
 			preparedStatement.setInt(1, Movimiento.INGRESO);
 			Calendar calendar = Calendar.getInstance();
@@ -119,6 +119,7 @@ public class MovimientoDao implements MovimientoDaoInterface {
 				movimiento.setConcepto(resultSet.getString(2));
 				movimiento.setValor(resultSet.getInt(3));
 				movimiento.setTipo(resultSet.getInt(4));
+				movimiento.setFecha(resultSet.getTimestamp(5));
 
 				list.add(movimiento);
 
@@ -136,8 +137,8 @@ public class MovimientoDao implements MovimientoDaoInterface {
 		Movimiento movimiento;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, concepto, valor, tipo FROM Movimiento WHERE tipo = ?");
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"SELECT id, concepto, valor, tipo, fechaCreacion FROM Movimiento WHERE tipo = ? ORDER BY fechaCreacion DESC");
 			preparedStatement.setInt(1, Movimiento.EGRESO);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -147,6 +148,7 @@ public class MovimientoDao implements MovimientoDaoInterface {
 				movimiento.setConcepto(resultSet.getString(2));
 				movimiento.setValor(resultSet.getInt(3));
 				movimiento.setTipo(resultSet.getInt(4));
+				movimiento.setFecha(resultSet.getTimestamp(5));
 
 				list.add(movimiento);
 
@@ -165,8 +167,8 @@ public class MovimientoDao implements MovimientoDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, concepto, valor, tipo FROM Movimiento "
-							+ "WHERE tipo = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion)=? AND YEAR(fechaCreacion) = ?");
+					.prepareStatement("SELECT id, concepto, valor, tipo, fechaCreacion FROM Movimiento "
+							+ "WHERE tipo = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion) = ? AND YEAR(fechaCreacion) = ?");
 			preparedStatement.setInt(1, Movimiento.EGRESO);
 			Calendar calendar = Calendar.getInstance();
 			preparedStatement.setInt(2, calendar.get(Calendar.MONTH) + 1);
@@ -180,6 +182,7 @@ public class MovimientoDao implements MovimientoDaoInterface {
 				movimiento.setConcepto(resultSet.getString(2));
 				movimiento.setValor(resultSet.getInt(3));
 				movimiento.setTipo(resultSet.getInt(4));
+				movimiento.setFecha(resultSet.getTimestamp(5));
 
 				list.add(movimiento);
 
