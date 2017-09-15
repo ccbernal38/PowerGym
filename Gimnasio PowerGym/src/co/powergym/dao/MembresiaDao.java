@@ -31,22 +31,26 @@ public class MembresiaDao implements MembresiaDaoInterface {
 	}
 
 	@Override
-	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion,int visitasxdia,
+	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion, int visitasxdia,
 			int IdTipoDuracion, int promocional, Date fechaFinalización) {
-		
+
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD
-					.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio,"
-							+ "visitasxdia, duracion_id, promocional, fechaFinalizacion) VALUES(?,?,?,?,?,?,?)");
+			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio,"
+					+ "visitasxdia, duracion_id, promocional, fechaFinalizacion) VALUES(?,?,?,?,?,?,?)");
 			statement.setString(1, nombre);
 			statement.setInt(2, cantidadDuracion);
 			statement.setDouble(3, valor);
 			statement.setInt(4, visitasxdia);
 			statement.setInt(5, IdTipoDuracion);
 			statement.setInt(6, promocional);
-			statement.setDate(7, new java.sql.Date(fechaFinalización.getTime()));
+			if (fechaFinalización != null) {
+				statement.setDate(7, new java.sql.Date(fechaFinalización.getTime()));
+			}else {
+				statement.setDate(7, null);
+			}
+
 			statement.execute();
 			respuesta = true;
 			conexion.desconectar();
@@ -194,8 +198,8 @@ public class MembresiaDao implements MembresiaDaoInterface {
 		Membresia membresia = null;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT m.id as idMembresia, ds.id as idDia, ds.nombre as nombre, h.id as idHora, "
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"SELECT m.id as idMembresia, ds.id as idDia, ds.nombre as nombre, h.id as idHora, "
 							+ " 	h.horaInicio as horaInicio, h.horaFin as horaFin FROM membresia_socio ms "
 							+ "		JOIN Membresia m ON m.id = ms.id "
 							+ "		JOIN Membresia_diasemana md ON md.membresia_id = m.id "
@@ -206,23 +210,23 @@ public class MembresiaDao implements MembresiaDaoInterface {
 			preparedStatement.setInt(1, idSocio);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				if(membresia == null) {
+				if (membresia == null) {
 					membresia = new Membresia();
 					membresia.setHorario(new ArrayList<>());
 					membresia.setDiasPermitidos(new ArrayList<>());
 				}
-				
+
 				DiaSemana diaSemana = new DiaSemana();
 				diaSemana.setId(resultSet.getInt("idDia"));
 				diaSemana.setNombre(resultSet.getString("nombre"));
-				if(!membresia.getDiasPermitidos().contains(diaSemana))
+				if (!membresia.getDiasPermitidos().contains(diaSemana))
 					membresia.getDiasPermitidos().add(diaSemana);
-				
+
 				Horario horario = new Horario();
 				horario.setId(resultSet.getInt("idHora"));
 				horario.setHoraInicio(new Date(resultSet.getTimestamp("horaInicio").getTime()));
 				horario.setHoraFin(new Date(resultSet.getTimestamp("horaFin").getTime()));
-				if(!membresia.getHorario().contains(horario))
+				if (!membresia.getHorario().contains(horario))
 					membresia.getHorario().add(horario);
 			}
 			conexion.desconectar();
@@ -232,25 +236,25 @@ public class MembresiaDao implements MembresiaDaoInterface {
 		return membresia;
 	}
 
-	
 	@Override
 	public Membresia buscarId(String nombre) {
-			
-			Membresia membresia = null;
-			try {
-				Connection connection = conexion.getConexion();
-				PreparedStatement preparedStatement = connection.prepareStatement("SELECT m.id as id FROM membresia m WHERE m.nombre = ?");
-				preparedStatement.setString(1, nombre);
-				ResultSet resultSet = preparedStatement.executeQuery();
-				if (resultSet.next()) {
-					membresia = new Membresia();
-					membresia.setId(resultSet.getInt("id"));
-								}
-				conexion.desconectar();
-			} catch (Exception e) {
-				System.out.println("error");
+
+		Membresia membresia = null;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT m.id as id FROM membresia m WHERE m.nombre = ?");
+			preparedStatement.setString(1, nombre);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				membresia = new Membresia();
+				membresia.setId(resultSet.getInt("id"));
 			}
-			return membresia;
+			conexion.desconectar();
+		} catch (Exception e) {
+			System.out.println("error");
 		}
+		return membresia;
+	}
 
 }
