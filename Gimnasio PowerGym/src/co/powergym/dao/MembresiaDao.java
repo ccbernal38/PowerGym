@@ -3,15 +3,14 @@ package co.powergym.dao;
 import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 
 import co.powergym.interfacedao.MembresiaDaoInterface;
@@ -33,19 +32,21 @@ public class MembresiaDao implements MembresiaDaoInterface {
 
 	@Override
 	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion,int visitasxdia,
-			int IdTipoDuracion) {
+			int IdTipoDuracion, int promocional, Date fechaFinalización) {
 		
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
 					.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio,"
-							+ "visitasxdia, duracion_id) VALUES(?,?,?,?,?)");
+							+ "visitasxdia, duracion_id, promocional, fechaFinalizacion) VALUES(?,?,?,?,?,?,?)");
 			statement.setString(1, nombre);
 			statement.setInt(2, cantidadDuracion);
 			statement.setDouble(3, valor);
 			statement.setInt(4, visitasxdia);
 			statement.setInt(5, IdTipoDuracion);
+			statement.setInt(6, promocional);
+			statement.setDate(7, new java.sql.Date(fechaFinalización.getTime()));
 			statement.execute();
 			respuesta = true;
 			conexion.desconectar();
@@ -251,4 +252,5 @@ public class MembresiaDao implements MembresiaDaoInterface {
 			}
 			return membresia;
 		}
+
 }

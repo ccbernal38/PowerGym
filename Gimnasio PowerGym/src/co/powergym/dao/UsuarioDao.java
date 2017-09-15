@@ -41,9 +41,6 @@ public class UsuarioDao implements UsuarioDaoInterface {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fechaNacimiento);
 
-			// statement.setInt(11, calendar.get(Calendar.DAY_OF_MONTH));
-			// statement.setInt(12, calendar.get(Calendar.MONTH) + 1);
-			// statement.setInt(13, calendar.get(Calendar.YEAR));
 			statement.execute();
 			respuesta = true;
 			conexion.desconectar();
