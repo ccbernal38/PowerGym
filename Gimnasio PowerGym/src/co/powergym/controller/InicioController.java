@@ -104,13 +104,10 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getjMenuItemSocioActivo().addActionListener(this);
 		this.viewPrincipal.getBtnPuerta().addActionListener(this);
 		this.viewPrincipal.getBtnBuscar().addActionListener(this);
-		this.viewPrincipal.getMntmRegistrarIngreso().addActionListener(this);
 		this.viewPrincipal.getMntmRegistrarEgreso().addActionListener(this);
 		this.viewPrincipal.getBtnVerificar().addActionListener(this);
 		this.viewPrincipal.getMntmHistoricoDeEgresos().addActionListener(this);
-		this.viewPrincipal.getMntmHistoricoDeIngresos().addActionListener(this);
 		this.viewPrincipal.getMntmEgresosDelDia().addActionListener(this);
-		this.viewPrincipal.getMntmIngresosDelDia().addActionListener(this);
 		this.viewPrincipal.getMntmHistoricoDeVisitas().addActionListener(this);
 		this.viewPrincipal.getMntmVisitasDeHoy().addActionListener(this);
 		this.viewPrincipal.getMntmRegistroDeVisitas().addActionListener(this);
@@ -211,10 +208,7 @@ public class InicioController implements ActionListener {
 				aperturaCajaView.dispose();
 			}
 		}
-		if (viewPrincipal.getMntmRegistrarIngreso() == e.getSource()) {
-			MovimientoController movimientoController = new MovimientoController(new CajaRegistroIngresoView(), null,
-					null, null, null, null);
-		}
+
 		if (viewPrincipal.getMntmRegistrarEgreso() == e.getSource()) {
 			MovimientoController movimientoController = new MovimientoController(null, new CajaRegistroEgresoView(),
 					null, null, null, null);
@@ -269,15 +263,9 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getMntmEgresosDelDia() == e.getSource()) {
 			MovimientoController movimientoController = new MovimientoController(null, null,
 					new CajaListaEgresosHoyView(), null, null, null);
-		} else if (viewPrincipal.getMntmIngresosDelDia() == e.getSource()) {
-			MovimientoController movimientoController = new MovimientoController(null, null, null,
-					new CajaListaIngresosHoyView(), null, null);
 		} else if (viewPrincipal.getMntmHistoricoDeEgresos() == e.getSource()) {
 			MovimientoController movimientoController = new MovimientoController(null, null, null, null,
 					new CajaListaHistoricoEgresosView(), null);
-		} else if (viewPrincipal.getMntmHistoricoDeIngresos() == e.getSource()) {
-			MovimientoController movimientoController = new MovimientoController(null, null, null, null, null,
-					new CajaListaHistoricosIngresosView());
 		} else if (viewPrincipal.getBtnSalir() == e.getSource()) {
 			Preferencias.resetPreferencias();
 			JOptionPane pane = new JOptionPane("Espere, Saliendo......", JOptionPane.INFORMATION_MESSAGE,
