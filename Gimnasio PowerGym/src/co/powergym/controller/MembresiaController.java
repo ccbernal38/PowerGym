@@ -43,6 +43,8 @@ public class MembresiaController implements ActionListener {
 	private DuracionDao duracionDao;
 	private DiaSemanaDao diaSemanaDao;
 	private DiaMembresiaDao diaMembresiaDao;
+	private Date fechaFinalizacion;
+	private int promocional = 0;
 	int contPasos = 1;
 	int contPasosAtras = 5;
 
@@ -118,7 +120,8 @@ public class MembresiaController implements ActionListener {
 	
 	public void registrarMembresia() {
 		
-		boolean respuesta = membresiaDao.registrarMembresia(nombreMembresia, precioMembresia, duracionMembresia, visitasDia, IdTipoDuracion);
+		boolean respuesta = membresiaDao.registrarMembresia(nombreMembresia, precioMembresia, duracionMembresia, 
+				visitasDia, IdTipoDuracion, promocional, fechaFinalizacion);
 		
 		if(respuesta == true) {
 			
@@ -470,7 +473,7 @@ public class MembresiaController implements ActionListener {
 		}
 		if (e.getSource() == membresia.getBtnFinalizar()) {
 			int joption = JOptionPane.showConfirmDialog(null, "¿Desea finalizar la creación de esta membresía?");
-
+			fechaFinalizacion = membresia.getFechaPromo().getDate();
 			if (joption == JOptionPane.YES_OPTION) {
 				JOptionPane.showMessageDialog(null, "La membresía ha sido creada con éxito");
 				registrarMembresia();
@@ -486,9 +489,11 @@ public class MembresiaController implements ActionListener {
 		}
 		if(e.getSource() == membresia.getChckbNoProm()) {
 			membresia.getFechaPromo().setEnabled(false);
+			promocional = 0;
 		}
 		if(e.getSource() == membresia.getChckbxSiProm()) {
 			membresia.getFechaPromo().setEnabled(true);
+			promocional = 1;
 		}
 		if (e.getSource() == membresia.getCheckBox_todosDias()) {
 

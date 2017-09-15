@@ -1,5 +1,6 @@
 package co.powergym.interfacedao;
 
+import java.util.Date;
 import java.util.List;
 
 import co.powergym.model.DiaSemana;
@@ -10,7 +11,7 @@ import co.powergym.model.MembresiaSocio;
 public interface MembresiaDaoInterface {
 
 	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion, int visitasxdia,
-			int IdTipoDuracion);
+			int IdTipoDuracion, int promocional, Date fechaFinalizacion);
 
 	public List<Membresia> listaMembresia();
 

@@ -45,6 +45,10 @@ import co.powergym.utils.Preferencias;
 import co.powergym.utils.SocioPanelCumpleanios;
 import co.powergym.view.InitView;
 import co.powergym.view.caja.AperturaCajaView;
+import co.powergym.view.caja.CajaListaEgresosHoyView;
+import co.powergym.view.caja.CajaListaHistoricoEgresosView;
+import co.powergym.view.caja.CajaListaHistoricosIngresosView;
+import co.powergym.view.caja.CajaListaIngresosHoyView;
 import co.powergym.view.caja.CajaRegistroEgresoView;
 import co.powergym.view.caja.CajaRegistroIngresoView;
 import co.powergym.view.config.ConfigPuertoView;
@@ -103,6 +107,13 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getMntmRegistrarIngreso().addActionListener(this);
 		this.viewPrincipal.getMntmRegistrarEgreso().addActionListener(this);
 		this.viewPrincipal.getBtnVerificar().addActionListener(this);
+		this.viewPrincipal.getMntmHistoricoDeEgresos().addActionListener(this);
+		this.viewPrincipal.getMntmHistoricoDeIngresos().addActionListener(this);
+		this.viewPrincipal.getMntmEgresosDelDia().addActionListener(this);
+		this.viewPrincipal.getMntmIngresosDelDia().addActionListener(this);
+		this.viewPrincipal.getMntmHistoricoDeVisitas().addActionListener(this);
+		this.viewPrincipal.getMntmVisitasDeHoy().addActionListener(this);
+		this.viewPrincipal.getMntmRegistroDeVisitas().addActionListener(this);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
@@ -201,12 +212,15 @@ public class InicioController implements ActionListener {
 			}
 		}
 		if (viewPrincipal.getMntmRegistrarIngreso() == e.getSource()) {
-			MovimientoController movimientoController = new MovimientoController(new CajaRegistroIngresoView(), null);
+			MovimientoController movimientoController = new MovimientoController(new CajaRegistroIngresoView(), null,
+					null, null, null, null);
 		}
 		if (viewPrincipal.getMntmRegistrarEgreso() == e.getSource()) {
-			MovimientoController movimientoController = new MovimientoController(null, new CajaRegistroEgresoView());
+			MovimientoController movimientoController = new MovimientoController(null, new CajaRegistroEgresoView(),
+					null, null, null, null);
 		}
-		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()) {
+		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()
+				|| viewPrincipal.getMntmRegistroDeVisitas() == e.getSource()) {
 			VisitaController visitaController = new VisitaController(new MembresiaRegistroVisitaView());
 		} else if (viewPrincipal.getBtnBuscar() == e.getSource()) {
 			String key = viewPrincipal.getTextFieldKey().getText();
@@ -252,6 +266,18 @@ public class InicioController implements ActionListener {
 					new PermisoUsuarioDao(), null, null, new ListaUsuario(), null);
 		} else if (viewPrincipal.getjMenuItemAsistencia() == e.getSource()) {
 
+		} else if (viewPrincipal.getMntmEgresosDelDia() == e.getSource()) {
+			MovimientoController movimientoController = new MovimientoController(null, null,
+					new CajaListaEgresosHoyView(), null, null, null);
+		} else if (viewPrincipal.getMntmIngresosDelDia() == e.getSource()) {
+			MovimientoController movimientoController = new MovimientoController(null, null, null,
+					new CajaListaIngresosHoyView(), null, null);
+		} else if (viewPrincipal.getMntmHistoricoDeEgresos() == e.getSource()) {
+			MovimientoController movimientoController = new MovimientoController(null, null, null, null,
+					new CajaListaHistoricoEgresosView(), null);
+		} else if (viewPrincipal.getMntmHistoricoDeIngresos() == e.getSource()) {
+			MovimientoController movimientoController = new MovimientoController(null, null, null, null, null,
+					new CajaListaHistoricosIngresosView());
 		} else if (viewPrincipal.getBtnSalir() == e.getSource()) {
 			Preferencias.resetPreferencias();
 			JOptionPane pane = new JOptionPane("Espere, Saliendo......", JOptionPane.INFORMATION_MESSAGE,
@@ -277,6 +303,10 @@ public class InicioController implements ActionListener {
 				Socio socio = socioDao.buscarSocioIdOrCodigo(id);
 				huellaInit.initConsultaEntrada(socio);
 			}
+		} else if (viewPrincipal.getMntmHistoricoDeVisitas() == e.getSource()) {
+
+		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
+
 		}
 	}
 

@@ -152,7 +152,12 @@ public class LoginController implements ActionListener {
 	}
 
 	public void cambiarContrasena(String usuario, String password, String passwordNew) {
-		
+		boolean res = loginDao.cambiarContrasena(usuario, password, passwordNew);
+		if(res == false) {
+			JOptionPane.showMessageDialog(null, "Los datos ingresados son incorrectos.");
+		}else {
+			JOptionPane.showMessageDialog(null, "La contraseña se cambio con exito.");
+		}
 	}
 
 }
