@@ -250,7 +250,7 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.btnMenuMembresia == e.getSource()) {
 			MembresiaDao membresiaDao = new MembresiaDao();
 			CrearMembresia crearMembresia = new CrearMembresia();
-			MembresiaController Mcontroller = new MembresiaController(crearMembresia, null);
+			MembresiaController Mcontroller = new MembresiaController(crearMembresia, null, null);
 		} else if (viewPrincipal.getMntmListadoDeSocios() == e.getSource()) {
 			SocioListadoView socioListadoView = new SocioListadoView();
 			SocioController socioController = new SocioController(null, null, socioListadoView, null, null);
@@ -258,7 +258,7 @@ public class InicioController implements ActionListener {
 			SocioController socioController = new SocioController(null, null, null, new SocioCumpleaniosListadoView(),
 					null);
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
-			MembresiaController membresiaController = new MembresiaController(null, new MembresiaListadoView());
+			MembresiaController membresiaController = new MembresiaController(null, new MembresiaListadoView(),null);
 		} else if (viewPrincipal.getJMenuItemRegistrarUsuario() == e.getSource()) {
 			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
 					new PermisoUsuarioDao(), new RegistroUsuario(), null, null, null);

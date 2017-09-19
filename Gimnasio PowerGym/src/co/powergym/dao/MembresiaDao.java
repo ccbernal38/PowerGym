@@ -1,7 +1,6 @@
 package co.powergym.dao;
 
-import java.io.ByteArrayOutputStream;
-import java.sql.Blob;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,17 +8,13 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Calendar;
 import java.util.List;
-import javax.imageio.ImageIO;
-
 import co.powergym.interfacedao.MembresiaDaoInterface;
 import co.powergym.model.Conexion;
 import co.powergym.model.DiaSemana;
 import co.powergym.model.Duracion;
 import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
-import co.powergym.model.MembresiaSocio;
 
 public class MembresiaDao implements MembresiaDaoInterface {
 
@@ -32,7 +27,7 @@ public class MembresiaDao implements MembresiaDaoInterface {
 
 	@Override
 	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion, int visitasxdia,
-			int IdTipoDuracion, int promocional, Date fechaFinalización) {
+			int IdTipoDuracion, int promocional, Date fechaFinalizacion) {
 
 		boolean respuesta = false;
 		try {
@@ -45,8 +40,8 @@ public class MembresiaDao implements MembresiaDaoInterface {
 			statement.setInt(4, visitasxdia);
 			statement.setInt(5, IdTipoDuracion);
 			statement.setInt(6, promocional);
-			if (fechaFinalización != null) {
-				statement.setDate(7, new java.sql.Date(fechaFinalización.getTime()));
+			if (fechaFinalizacion != null) {
+				statement.setDate(7, new java.sql.Date(fechaFinalizacion.getTime()));
 			}else {
 				statement.setDate(7, null);
 			}
@@ -106,9 +101,22 @@ public class MembresiaDao implements MembresiaDaoInterface {
 	}
 
 	@Override
-	public boolean modificarMembresia(int id, String nombre, double valor) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean modificarMembresia(String nombre, int valor, int visitasDia) {
+		boolean resultado = false;
+		try {
+			Connection connection = conexion.getConexion();
+
+			PreparedStatement statement = connection.prepareStatement("UPDATE Membresia Set nombre = ?, "
+						+ "precio = ?, visitasxdia = ?");				
+				statement.setString(1, nombre);
+				statement.setInt(2, valor);
+				statement.setInt(3, visitasDia);
+				statement.execute();
+				resultado = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
 	}
 
 	@Override

@@ -35,3 +35,8 @@ hs_err_pid*
 *.class
 *.class
 *.class
+*.class
+<<<<<<< HEAD
+=======
+*.class
+>>>>>>> 4a6a92eec0fafddbc18667905be981cd8ae8b38d
