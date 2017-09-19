@@ -636,4 +636,10 @@ public class InitView extends JFrame {
 	public JMenuItem getMntmVisitasDeHoy() {
 		return mntmVisitasDeHoy;
 	}
+	public JMenuItem getJMenuItemVentasDia() {
+		return jMenuItem14;
+	}
+	public JMenuItem getJMenuItemCierreCaja() {
+		return jMenuItem13;
+	}
 }

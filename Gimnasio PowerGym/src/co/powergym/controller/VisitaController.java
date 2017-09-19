@@ -2,35 +2,106 @@ package co.powergym.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
+import co.powergym.dao.AsistenciaDao;
+import co.powergym.dao.CajaDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.dao.VisitaDao;
+import co.powergym.model.Asistencia;
 import co.powergym.model.Socio;
+import co.powergym.model.Visita;
 import co.powergym.utils.Constantes;
 import co.powergym.utils.Preferencias;
+import co.powergym.view.membresia.MembresiaListaDiaVisitasView;
+import co.powergym.view.membresia.MembresiaListaVisitasView;
 import co.powergym.view.membresia.MembresiaRegistroVisitaView;
 
 public class VisitaController implements ActionListener {
 
-	VisitaDao visitaDao;
-	SocioDao socioDao;
-	MembresiaRegistroVisitaView membresiaRegistroVisitaView;
-	
-	Socio socioTemp;
+	private VisitaDao visitaDao;
+	private SocioDao socioDao;
+	private MembresiaRegistroVisitaView membresiaRegistroVisitaView;
+	private MembresiaListaVisitasView membresiaListaVisitasView;
+	private MembresiaListaDiaVisitasView membresiaDiaVisitaView;
+	private Socio socioTemp;
+	private CajaDao cajaDao;
 
 	/**
 	 * @param membresiaRegistroVisitaView
 	 */
-	public VisitaController(MembresiaRegistroVisitaView membresiaRegistroVisitaView) {
+	public VisitaController(MembresiaRegistroVisitaView membresiaRegistroVisitaView,
+			MembresiaListaVisitasView membresiaListaVisita, MembresiaListaDiaVisitasView membresiaDiaVisitaView) {
 		visitaDao = new VisitaDao();
 		socioDao = new SocioDao();
+		cajaDao = new CajaDao();
 		this.membresiaRegistroVisitaView = membresiaRegistroVisitaView;
-		this.membresiaRegistroVisitaView.getBtnBuscar().addActionListener(this);
-		this.membresiaRegistroVisitaView.getBtnCancelar().addActionListener(this);
-		this.membresiaRegistroVisitaView.getBtnRegistrar().addActionListener(this);
-		this.membresiaRegistroVisitaView.setVisible(true);
+		this.membresiaListaVisitasView = membresiaListaVisita;
+		this.membresiaDiaVisitaView = membresiaDiaVisitaView;
+		if (this.membresiaRegistroVisitaView != null) {
+			this.membresiaRegistroVisitaView.getBtnBuscar().addActionListener(this);
+			this.membresiaRegistroVisitaView.getBtnCancelar().addActionListener(this);
+			this.membresiaRegistroVisitaView.getBtnRegistrar().addActionListener(this);
+			this.membresiaRegistroVisitaView.setVisible(true);
+		}
+		if (this.membresiaListaVisitasView != null) {
+			cargarHistoricoVisitas();
+			this.membresiaListaVisitasView.getBtnSalir().addActionListener(this);
+			this.membresiaListaVisitasView.setVisible(true);
+		}
+		if (this.membresiaDiaVisitaView != null) {
+			cargarDiaVisitas();
+			this.membresiaDiaVisitaView.getBtnSalir().addActionListener(this);
+			this.membresiaDiaVisitaView.setVisible(true);
+		}
+	}
+
+	private void cargarDiaVisitas() {
+		List<Visita> list = visitaDao.visitasDelDia();
+
+		DefaultTableModel defaultTableModel = (DefaultTableModel) this.membresiaDiaVisitaView.getTable().getModel();
+
+		Object[] columna = new Object[4];
+		int numeroRegistros = list.size();
+
+		for (int i = 0; i < numeroRegistros; i++) {
+			columna[0] = list.get(i).getNombre();
+			columna[1] = list.get(i).getApellido();
+			NumberFormat format = NumberFormat.getInstance();
+			columna[2] = "$ " + format.format(Integer.parseInt(list.get(i).getValor()));
+			columna[3] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFecha());
+
+			defaultTableModel.addRow(columna);
+		}
+		this.membresiaDiaVisitaView.getTable().setModel(defaultTableModel);
+		this.membresiaDiaVisitaView.getTable().repaint();
+
+	}
+
+	private void cargarHistoricoVisitas() {
+		List<Visita> list = visitaDao.historicoVisitas();
+
+		DefaultTableModel defaultTableModel = (DefaultTableModel) this.membresiaListaVisitasView.getTable().getModel();
+
+		Object[] columna = new Object[4];
+		int numeroRegistros = list.size();
+
+		for (int i = 0; i < numeroRegistros; i++) {
+			columna[0] = list.get(i).getNombre();
+			columna[1] = list.get(i).getApellido();
+			NumberFormat format = NumberFormat.getInstance();
+			columna[2] = "$ " + format.format(Integer.parseInt(list.get(i).getValor()));
+			columna[3] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFecha());
+
+			defaultTableModel.addRow(columna);
+		}
+		this.membresiaListaVisitasView.getTable().setModel(defaultTableModel);
+		this.membresiaListaVisitasView.getTable().repaint();
 	}
 
 	@Override
@@ -62,7 +133,7 @@ public class VisitaController implements ActionListener {
 					JOptionPane.showMessageDialog(null, "No puede dejar vacio el campo nombre, apellido o valor.");
 				} else {
 					boolean res = false;
-					int id_caja = Integer.parseInt(Preferencias.obtenerPreferencia(Constantes.CAJA_ID));
+					int id_caja = cajaDao.verificarCajaAbierta();
 					if (socioTemp == null) {
 						String nombre = membresiaRegistroVisitaView.getTextFieldNombres().getText();
 						String apellido = membresiaRegistroVisitaView.getTextFieldApellidos().getText();
@@ -89,6 +160,18 @@ public class VisitaController implements ActionListener {
 
 			}
 
+		}
+		if (membresiaDiaVisitaView != null) {
+			if (membresiaDiaVisitaView.getBtnSalir() == e.getSource()) {
+				membresiaDiaVisitaView.setVisible(false);
+				membresiaDiaVisitaView.dispose();
+			}
+		}
+		if (membresiaListaVisitasView != null) {
+			if (membresiaListaVisitasView.getBtnSalir() == e.getSource()) {
+				membresiaListaVisitasView.setVisible(false);
+				membresiaListaVisitasView.dispose();
+			}
 		}
 	}
 

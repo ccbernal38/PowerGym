@@ -1,4 +1,5 @@
 package co.powergym.dao;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -20,15 +21,13 @@ public class UsuarioDao implements UsuarioDaoInterface {
 	}
 
 	@Override
-	public boolean registrarUsuario(String identificacion, String nombre, 
-			String apellido, Date fechaNacimiento, String telefono,String correo,
-			int genero, String username, String password) {
+	public boolean registrarUsuario(String identificacion, String nombre, String apellido, Date fechaNacimiento,
+			String telefono, String correo, int genero, String username, String password) {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD
-					.prepareStatement("INSERT INTO Usuario(identificacion, nombre, "
-							+ "apellido, fechaNacimiento, correoElectronico, telefono, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?)");
+			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Usuario(identificacion, nombre, "
+					+ "apellido, fechaNacimiento, correoElectronico, telefono, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
 			statement.setString(2, nombre);
 			statement.setString(3, apellido);
@@ -84,8 +83,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement statement = connection
-					.prepareStatement("DELETE FROM Usuario WHERE identificacion = ?");
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM Usuario WHERE identificacion = ?");
 			statement.setString(1, identificacion);
 			resultado = statement.execute();
 			resultado = true;
@@ -97,25 +95,24 @@ public class UsuarioDao implements UsuarioDaoInterface {
 	}
 
 	@Override
-	public boolean modificarUsuario(String identificacion, String nombre, 
-			String apellido, Date fechaNacimiento, String telefono,String correo, 
-			int genero, String username, String password) {
+	public boolean modificarUsuario(String identificacion, String nombre, String apellido, Date fechaNacimiento,
+			String telefono, String correo, int genero, String username, String password) {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
 
 			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set nombre = ?, "
-						+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ?, genero = ? "
-						+ "WHERE identificacion = ?");				
-				statement.setString(1, nombre);
-				statement.setString(2, apellido);
-				statement.setDate(3, fechaNacimiento);
-				statement.setString(4, correo);
-				statement.setString(5,telefono );
-				statement.setInt(6, genero);
-				statement.setString(7, identificacion);
-				statement.execute();
-				resultado = true;
+					+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ?, genero = ? "
+					+ "WHERE identificacion = ?");
+			statement.setString(1, nombre);
+			statement.setString(2, apellido);
+			statement.setDate(3, fechaNacimiento);
+			statement.setString(4, correo);
+			statement.setString(5, telefono);
+			statement.setInt(6, genero);
+			statement.setString(7, identificacion);
+			statement.execute();
+			resultado = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -127,11 +124,35 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		Usuario usuario = null;
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT id, identificacion, nombre, "
-							+ "apellido, correoElectronico, telefono, genero"
-							+ " FROM Usuario WHERE identificacion = ?");
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre, "
+					+ "apellido, correoElectronico, telefono, genero" + " FROM Usuario WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				usuario = new Usuario();
+				usuario.setId(resultSet.getInt(1));
+				usuario.setIdentificacion(resultSet.getString(2));
+				usuario.setNombre(resultSet.getString(3));
+				usuario.setApellido(resultSet.getString(4));
+				usuario.setCorreo(resultSet.getString(5));
+				usuario.setTelefono(resultSet.getString(6));
+				usuario.setGenero(resultSet.getInt(7));
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			System.out.println("error");
+		}
+		return usuario;
+	}
+
+	@Override
+	public Usuario buscarUsuarioId(int id) {
+		Usuario usuario = null;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre, "
+					+ "apellido, correoElectronico, telefono, genero FROM Usuario WHERE id = ?");
+			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				usuario = new Usuario();

@@ -45,14 +45,18 @@ import co.powergym.utils.Preferencias;
 import co.powergym.utils.SocioPanelCumpleanios;
 import co.powergym.view.InitView;
 import co.powergym.view.caja.AperturaCajaView;
+import co.powergym.view.caja.CajaCierreView;
 import co.powergym.view.caja.CajaListaEgresosHoyView;
 import co.powergym.view.caja.CajaListaHistoricoEgresosView;
 import co.powergym.view.caja.CajaListaHistoricosIngresosView;
 import co.powergym.view.caja.CajaListaIngresosHoyView;
+import co.powergym.view.caja.CajaMembresiaVentaDiaView;
 import co.powergym.view.caja.CajaRegistroEgresoView;
 import co.powergym.view.caja.CajaRegistroIngresoView;
 import co.powergym.view.config.ConfigPuertoView;
 import co.powergym.view.membresia.CrearMembresia;
+import co.powergym.view.membresia.MembresiaListaDiaVisitasView;
+import co.powergym.view.membresia.MembresiaListaVisitasView;
 import co.powergym.view.membresia.MembresiaListadoView;
 import co.powergym.view.membresia.MembresiaRegistroVisitaView;
 import co.powergym.view.socio.SocioBusquedaView;
@@ -111,6 +115,8 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getMntmHistoricoDeVisitas().addActionListener(this);
 		this.viewPrincipal.getMntmVisitasDeHoy().addActionListener(this);
 		this.viewPrincipal.getMntmRegistroDeVisitas().addActionListener(this);
+		this.viewPrincipal.getJMenuItemVentasDia().addActionListener(this);
+		this.viewPrincipal.getJMenuItemCierreCaja().addActionListener(this);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
@@ -215,7 +221,11 @@ public class InicioController implements ActionListener {
 		}
 		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()
 				|| viewPrincipal.getMntmRegistroDeVisitas() == e.getSource()) {
-			VisitaController visitaController = new VisitaController(new MembresiaRegistroVisitaView());
+			VisitaController visitaController = new VisitaController(new MembresiaRegistroVisitaView(), null, null);
+		} else if (viewPrincipal.getMntmHistoricoDeVisitas() == e.getSource()) {
+			VisitaController controller = new VisitaController(null, new MembresiaListaVisitasView(), null);
+		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
+			VisitaController controller = new VisitaController(null, null, new MembresiaListaDiaVisitasView());
 		} else if (viewPrincipal.getBtnBuscar() == e.getSource()) {
 			String key = viewPrincipal.getTextFieldKey().getText();
 			List<Socio> socios = socioDao.buscarSocioKey(key);
@@ -292,9 +302,13 @@ public class InicioController implements ActionListener {
 				huellaInit.initConsultaEntrada(socio);
 			}
 		} else if (viewPrincipal.getMntmHistoricoDeVisitas() == e.getSource()) {
-
+			VisitaController controller = new VisitaController(null, new MembresiaListaVisitasView(), null);
 		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
-
+			VisitaController controller = new VisitaController(null, null, new MembresiaListaDiaVisitasView());
+		} else if (viewPrincipal.getJMenuItemVentasDia() == e.getSource()) {
+			CajaController cajaController = new CajaController(new CajaMembresiaVentaDiaView(), null);
+		} else if (viewPrincipal.getJMenuItemCierreCaja() == e.getSource()) {
+			CajaController cajaController = new CajaController(null, new CajaCierreView());
 		}
 	}
 

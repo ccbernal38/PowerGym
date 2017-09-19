@@ -3,6 +3,8 @@ package co.powergym.interfacedao;
 import java.util.Date;
 import java.util.List;
 
+import co.powergym.model.Caja;
+import co.powergym.model.MembresiaSocio;
 import co.powergym.model.Movimiento;
 
 public interface CajaInterfaceDao {
@@ -12,12 +14,9 @@ public interface CajaInterfaceDao {
 	public int verificarCajaAbierta();
 	// public boolean cierreCaja(int responsableCierre, Date fechaCierre);
 
-	public List<Movimiento> listaIngresosHoy();
+	public List<MembresiaSocio> ventasDelDia();
 
-	public List<Movimiento> listaEgresosHoy();
+	public Caja ultimoRegistro();
 
-	public List<Movimiento> historicoIngresos();
-
-	public List<Movimiento> historicoEgresos();
-	
+	public int totalVentasMembresiasDia();
 }
