@@ -18,6 +18,8 @@ public class Membresia {
 	private Date fecha_creacion;
 	private Duracion duracionValor;
 	private boolean renovar;
+	public int estado;
+
 
 	public Membresia(String nombre, int valor) {
 		super();
@@ -124,6 +126,14 @@ public class Membresia {
 		this.horario = horario;
 	}
 
+	public int getEstado() {
+		return estado;
+	}
+	
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+	
 	public String getDias() {
 		String dias = "";
 		for (int i = 0; i < diasPermitidos.size(); i++) {

@@ -126,6 +126,7 @@ public class MembresiaController implements ActionListener {
 			this.editarMembresia.getBtnGuardar().addActionListener(this);
 			this.editarMembresia.getBtnCancelar().addActionListener(this);
 			this.editarMembresia.setVisible(true);
+			this.editarMembresia.getChckbxDesactivar().addActionListener(this);
 		}
 
 	}
@@ -200,16 +201,17 @@ public class MembresiaController implements ActionListener {
 	private void listadoMembresiasLlenarTabla(JTable tableListMembresias) {
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nombre de la membresia", "Precio", "Duracion" });
+				new String[] { "Id","Nombre de la membresia", "Precio", "Duracion" });
 
-		Object[] columna = new Object[3];
+		Object[] columna = new Object[4];
 		listMembresias = membresiaDao.listaMembresia();
 		int numeroRegistros = listMembresias.size();
 
 		for (int i = 0; i < numeroRegistros; i++) {
-			columna[0] = listMembresias.get(i).getNombre();
-			columna[1] = listMembresias.get(i).getValor();
-			columna[2] = listMembresias.get(i).getDuracion() + " " + listMembresias.get(i).getDuracionValor();
+			columna[0] = listMembresias.get(i).getId();
+			columna[1] = listMembresias.get(i).getNombre();
+			columna[2] = listMembresias.get(i).getValor();
+			columna[3] = listMembresias.get(i).getDuracion() + " " + listMembresias.get(i).getDuracionValor();
 			defaultTableModel.addRow(columna);
 		}
 		tableListMembresias.setModel(defaultTableModel);
@@ -672,6 +674,7 @@ public class MembresiaController implements ActionListener {
 
 				if (membresia != null) {
 					editarMembresia = new editarMembresia();
+					editarMembresia.setId(id);
 					String nombre = membresia.getNombre();
 					editarMembresia.getTextFieldNuevoNombreM().setText(nombre);
 					int valor = membresia.getValor();
@@ -684,37 +687,28 @@ public class MembresiaController implements ActionListener {
 				}
 			}
 		}
+		
 		if(editarMembresia != null && editarMembresia.getBtnCancelar() == e.getSource()) {
 			editarMembresia.setVisible(false);
 			editarMembresia.dispose();
 		}
+		
 		if(editarMembresia != null && editarMembresia.getBtnGuardar() == e.getSource()) {
 			
 			String nombre = editarMembresia.getTextFieldNuevoNombreM().getText();
 			int valor = Integer.parseInt(editarMembresia.getTextFieldNuevoValor().getText());
 			int visitasDia = Integer.parseInt(editarMembresia.getTextFieldNuevaCantidad().getText());
-			membresiaDao.modificarMembresia(nombre, valor, visitasDia);
-		}
-		if (membresiaListadoView != null && e.getSource() == membresiaListadoView.getBtnEliminar()) {
-			int select = membresiaListadoView.getTableListMembresias().getSelectedRow();
-			if (select != -1) {
-				if (listMembresias != null) {
-					int id = listMembresias.get(select).getId();
-					if (JOptionPane.showConfirmDialog(membresiaListadoView, "¿Desea eliminar esta membresia?",
-							"Eliminar membresia", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						boolean remove = membresiaDao.eliminarMembresia(id);
-						if (remove == true) {
-
-							JOptionPane.showMessageDialog(membresiaListadoView,
-									"La membresia se ha eliminado correctamente.");
-							listadoMembresiasLlenarTabla(membresiaListadoView.getTableListMembresias());
-						}
-					}
-				}
-			} else {
-				JOptionPane.showMessageDialog(membresiaListadoView,
-						"Primero debe Seleccionar una membresia de la tabla.", "Atención", JOptionPane.ERROR_MESSAGE);
+			
+			boolean desactivado = editarMembresia.getChckbxDesactivar().isSelected();
+			int estado = 1;
+			if(desactivado == true) {
+				estado = 0;
 			}
+			membresiaDao.modificarMembresia(nombre, valor, visitasDia, editarMembresia.getId(), estado);
+			JOptionPane.showMessageDialog(null, "Membresía editada con éxito");
+			editarMembresia.setVisible(false);
+			editarMembresia.dispose();
+			listadoMembresiasLlenarTabla(membresiaListadoView.getTableListMembresias());
 		}
 	}
 

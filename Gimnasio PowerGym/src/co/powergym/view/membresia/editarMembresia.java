@@ -12,6 +12,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 
 public class editarMembresia extends JFrame {
 
@@ -21,6 +22,16 @@ public class editarMembresia extends JFrame {
 	private JTextField textFieldNuevaCantidad;
 	private JButton btnGuardar;
 	private JButton btnCancelar;
+	private int id;
+	private JCheckBox chckbxDesactivar;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * Launch the application.
@@ -43,7 +54,7 @@ public class editarMembresia extends JFrame {
 	 */
 	public editarMembresia() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 446, 355);
+		setBounds(100, 100, 446, 419);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,7 +74,7 @@ public class editarMembresia extends JFrame {
 		lblEditarMembresia.setBounds(10, 22, 217, 26);
 		contentPane.add(lblEditarMembresia);
 		
-		JLabel labelNuevoValor = new JLabel("Asigne un nuevo nombre a la membres\u00EDa:");
+		JLabel labelNuevoValor = new JLabel("Asigne un nuevo valor a la membres\u00EDa:");
 		labelNuevoValor.setBounds(33, 136, 285, 16);
 		contentPane.add(labelNuevoValor);
 		
@@ -105,12 +116,26 @@ public class editarMembresia extends JFrame {
 		contentPane.add(textFieldNuevaCantidad);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(318, 282, 89, 23);
+		btnGuardar.setBounds(318, 346, 89, 23);
 		contentPane.add(btnGuardar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(219, 282, 89, 23);
+		btnCancelar.setBounds(219, 346, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		JLabel lblDesactivarEstaMembresa = new JLabel("Desactivar esta membres\u00EDa:");
+		lblDesactivarEstaMembresa.setBounds(33, 272, 285, 16);
+		contentPane.add(lblDesactivarEstaMembresa);
+		
+		JLabel label_5 = new JLabel("\u2022");
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		label_5.setBounds(10, 269, 20, 20);
+		contentPane.add(label_5);
+		
+		chckbxDesactivar = new JCheckBox("Desactivar");
+		chckbxDesactivar.setBounds(33, 300, 97, 23);
+		contentPane.add(chckbxDesactivar);
 	}
 	public JTextField getTextFieldNuevaCantidad() {
 		return textFieldNuevaCantidad;
@@ -126,5 +151,8 @@ public class editarMembresia extends JFrame {
 	}
 	public JTextField getTextFieldNuevoNombreM() {
 		return textFieldNuevoNombreM;
+	}
+	public JCheckBox getChckbxDesactivar() {
+		return chckbxDesactivar;
 	}
 }

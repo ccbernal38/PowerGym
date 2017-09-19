@@ -17,7 +17,7 @@ public interface MembresiaDaoInterface {
 
 	public boolean eliminarMembresia(int id);
 
-	public boolean modificarMembresia(String nombre, int valor, int visitasDia);
+	public boolean modificarMembresia(String nombre, int valor, int visitasDia, int id, int estado);
 
 	public Membresia buscarMembresia(int id);
 

@@ -101,16 +101,18 @@ public class MembresiaDao implements MembresiaDaoInterface {
 	}
 
 	@Override
-	public boolean modificarMembresia(String nombre, int valor, int visitasDia) {
+	public boolean modificarMembresia(String nombre, int valor, int visitasDia, int id, int estado) {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
 
 			PreparedStatement statement = connection.prepareStatement("UPDATE Membresia Set nombre = ?, "
-						+ "precio = ?, visitasxdia = ?");				
+						+ "precio = ?, visitasxdia = ? WHERE id = ? ");				
 				statement.setString(1, nombre);
 				statement.setInt(2, valor);
 				statement.setInt(3, visitasDia);
+				statement.setInt(4, id);
+				statement.setInt(5, estado);
 				statement.execute();
 				resultado = true;
 		} catch (Exception e) {
