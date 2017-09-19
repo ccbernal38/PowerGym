@@ -37,7 +37,7 @@ public class MembresiaDao implements MembresiaDaoInterface {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio,"
+			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio, "
 					+ "visitasxdia, duracion_id, promocional, fechaFinalizacion) VALUES(?,?,?,?,?,?,?)");
 			statement.setString(1, nombre);
 			statement.setInt(2, cantidadDuracion);

@@ -14,6 +14,47 @@ public class Caja {
 	private int estado;
 	private Date fechaApertura;
 	private Date fechaCierre;
+	private int totalIngresos, totalEgresos, totalMembresias, totalVisitas, saldoFinal;
+
+	public int getTotalIngresos() {
+		return totalIngresos;
+	}
+
+	public void setTotalIngresos(int totalIngresos) {
+		this.totalIngresos = totalIngresos;
+	}
+
+	public int getTotalEgresos() {
+		return totalEgresos;
+	}
+
+	public void setTotalEgresos(int totalEgresos) {
+		this.totalEgresos = totalEgresos;
+	}
+
+	public int getTotalMembresias() {
+		return totalMembresias;
+	}
+
+	public void setTotalMembresias(int totalMembresias) {
+		this.totalMembresias = totalMembresias;
+	}
+
+	public int getTotalVisitas() {
+		return totalVisitas;
+	}
+
+	public void setTotalVisitas(int totalVisitas) {
+		this.totalVisitas = totalVisitas;
+	}
+
+	public int getSaldoFinal() {
+		return saldoFinal;
+	}
+
+	public void setSaldoFinal(int saldoFinal) {
+		this.saldoFinal = saldoFinal;
+	}
 
 	public int getId() {
 		return id;
@@ -63,7 +104,6 @@ public class Caja {
 		this.fechaCierre = fechaCierre;
 	}
 
-	
 	/**
 	 * @param responsableApertura
 	 * @param responsableCierre

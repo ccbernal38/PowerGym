@@ -11,7 +11,17 @@ public class MembresiaSocio {
 	private Date fechaInicial;
 	private Date fechaFinal;
 	private boolean isActiva;
+	private int descuento;
 	private Pago pago;
+	private int valor;
+
+	public int getValor() {
+		return valor;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
 
 	public Membresia getMembresia() {
 		return membresia;
@@ -51,6 +61,16 @@ public class MembresiaSocio {
 
 	public void setFechaInicial(Date fechaInicial) {
 		this.fechaInicial = fechaInicial;
+	}
+	
+	
+
+	public int getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(int descuento) {
+		this.descuento = descuento;
 	}
 
 	public Date getFechaFinal() {
