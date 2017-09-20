@@ -98,7 +98,6 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getMntmListadoDeSocios().addActionListener(this);
 		this.viewPrincipal.getJMenuItemCumpleanios().addActionListener(this);
 		this.viewPrincipal.getJMenuItemRegistrarUsuario().addActionListener(this);
-		this.viewPrincipal.getJMenuItemBuscarUsuario().addActionListener(this);
 		this.viewPrincipal.getJMenuItemListaUsuario().addActionListener(this);
 		this.viewPrincipal.getJMenuItemListaMembresias().addActionListener(this);
 		this.viewPrincipal.getBtnRegistrodeVisita().addActionListener(this);
@@ -262,9 +261,6 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getJMenuItemRegistrarUsuario() == e.getSource()) {
 			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
 					new PermisoUsuarioDao(), new RegistroUsuario(), null, null, null);
-		} else if (viewPrincipal.getJMenuItemBuscarUsuario() == e.getSource()) {
-			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
-					new PermisoUsuarioDao(), null, new BusquedaUsuario(), null, null);
 		} else if (viewPrincipal.getJMenuItemListaUsuario() == e.getSource()) {
 			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
 					new PermisoUsuarioDao(), null, null, new ListaUsuario(), null);

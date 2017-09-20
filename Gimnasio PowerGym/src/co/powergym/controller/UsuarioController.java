@@ -249,47 +249,6 @@ public class UsuarioController implements ActionListener {
 		} else if (viewRegistroUsuario != null && e.getSource() == viewRegistroUsuario.btnCancelar) {
 			viewRegistroUsuario.setVisible(false);
 			viewRegistroUsuario.dispose();
-		} else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnBuscar1) {
-
-			String numeroId = viewBusquedaUsuario.getTxtNumeroid().getText();
-			Usuario usuario = usuarioDao.buscarUsuario(numeroId);
-			if (usuario != null) {
-				String primerNombre = usuario.getNombre();
-				viewBusquedaUsuario.getTxtNombre().setText(primerNombre);
-				String primerApellido = usuario.getApellido();
-				viewBusquedaUsuario.getTxtPrimerapellido().setText(primerApellido);
-				String telefono = usuario.getTelefono();
-				viewBusquedaUsuario.getTxtTelefono().setText(telefono);
-				String correo = usuario.getCorreo();
-				viewBusquedaUsuario.getTxtCorreoelectronico().setText(correo);
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"No se encontró un usuario con ese número de identificación, por favor verifique");
-			}
-		} else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnCancelar1) {
-			viewBusquedaUsuario.setVisible(false);
-			viewBusquedaUsuario.dispose();
-		} else if (viewListaUsuario != null && e.getSource() == viewListaUsuario.btnEliminar1) {
-			int filaSeleccionada = viewListaUsuario.JTableListaEntrenador.getSelectedRow();
-			ArrayList<Usuario> listaUsuario = usuarioDao.listaUsuario();
-			Boolean filaEliminada;
-			if (filaSeleccionada != -1) {
-				if (listaUsuario != null) {
-					String identificacion = listaUsuario.get(filaSeleccionada).getIdentificacion();
-					int optiopn = JOptionPane.showConfirmDialog(viewListaUsuario,
-							"¿Esta seguro de eliminar el usuario con identificación " + identificacion + " ?");
-					if (JOptionPane.YES_OPTION == optiopn) {
-						filaEliminada = usuarioDao.eliminarUsuario(identificacion);
-						if (filaEliminada == true) {
-
-							JOptionPane.showMessageDialog(viewListaUsuario,
-									"El usuario se ha eliminado correctamente.");
-							listadoUsuariosLlenarTabla(viewListaUsuario.getJTableListaEntrenador());
-						}
-					}
-				}
-			}
-
 		}
 		if (viewListaUsuario != null && e.getSource() == viewListaUsuario.btnEditar1) {
 			int filaSeleccionada = viewListaUsuario.JTableListaEntrenador.getSelectedRow();
@@ -302,21 +261,20 @@ public class UsuarioController implements ActionListener {
 						viewActualizarUsuario = new ActualizarUsuario();
 						String numeroId = usuario.getIdentificacion();
 						viewActualizarUsuario.getTxtNumeroid().setText(identificacion);
-						viewActualizarUsuario.getTxtNumeroid().setEditable(false);
 						String nombre = usuario.getNombre();
 						viewActualizarUsuario.getTxtNombre().setText(nombre);
-						viewActualizarUsuario.getTxtNombre().setEditable(false);
 						String apellido = usuario.getApellido();
 						viewActualizarUsuario.getTxtApellido().setText(apellido);
-						viewActualizarUsuario.getTxtApellido().setEditable(false);
-						String telefono = viewActualizarUsuario.getTxtTelefono().getText();
-						usuario.setTelefono(telefono);
-						String username = viewActualizarUsuario.getTextUsuario().getText();
-						usuario.setUsuario(username);
-						String contrasena = viewActualizarUsuario.getTextContrasena().getText();
-						usuario.setContrasena(contrasena);
-						String correoElectronico = viewActualizarUsuario.getTxtCorreoelectronico().getText();
-						usuario.setCorreo(correoElectronico);
+						String telefono = usuario.getTelefono();
+						viewActualizarUsuario.getTxtTelefono().setText(telefono);
+						String username = usuario.getUsuario();
+						viewActualizarUsuario.getTextUsuario().setText(username);
+						String correoElectronico = usuario.getCorreo();
+						viewActualizarUsuario.getTxtCorreoelectronico().setText(correoElectronico);
+						//El administrador la actualiza, y no la debe verificar
+						String contrasena =  usuario.getContrasena();
+						viewActualizarUsuario.getTextContrasena().setText(contrasena);;
+						
 						viewActualizarUsuario.setVisible(true);
 						viewActualizarUsuario.getBtnActualizar1().addActionListener(this);
 					}
