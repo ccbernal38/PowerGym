@@ -32,7 +32,7 @@ public class CrudMvc {
 	public void cargarLogin() {
 		Preferencias.initPreferencia();
 		LoginController controller = new LoginController();
-
+		
 	}
 
 }

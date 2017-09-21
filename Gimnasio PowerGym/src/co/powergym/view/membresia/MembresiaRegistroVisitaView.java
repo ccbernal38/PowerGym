@@ -29,7 +29,7 @@ public class MembresiaRegistroVisitaView extends JFrame {
 	 */
 	public MembresiaRegistroVisitaView() {
 		setTitle("Registrar visita");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 535, 232);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(42, 45, 52));

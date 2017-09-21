@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CajaListaVisitasView extends JFrame {
+public class CajaMembresiaVentaDiaView extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -27,8 +27,8 @@ public class CajaListaVisitasView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CajaListaVisitasView() {
-		setTitle("Ingresos del dia");
+	public CajaMembresiaVentaDiaView() {
+		setTitle("Ventas del dia");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 658, 470);
 		contentPane = new JPanel();
@@ -36,7 +36,7 @@ public class CajaListaVisitasView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("VISITAS DE HOY");
+		JLabel lblNewLabel = new JLabel("VENTAS DE HOY");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblNewLabel.setBounds(10, 11, 622, 56);
@@ -47,8 +47,18 @@ public class CajaListaVisitasView extends JFrame {
 		contentPane.add(scrollPane);
 
 		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nombres", "Apellidos", "Valor", "Fecha Visita" }));
-		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Nombres y Apellidos", "Membresia", "Valor", "Descuento", "Fecha"
+				}
+			));
+			table.getColumnModel().getColumn(0).setPreferredWidth(200);
+			table.getColumnModel().getColumn(0).setMinWidth(10);
+			table.getColumnModel().getColumn(1).setPreferredWidth(150);
+			table.getColumnModel().getColumn(1).setMinWidth(10);
+			scrollPane.setViewportView(table);
 
 		btnSalir = new JButton("Cancelar");
 		btnSalir.addActionListener(new ActionListener() {

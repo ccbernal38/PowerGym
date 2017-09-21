@@ -55,6 +55,10 @@ public class MembresiaListadoView extends JFrame {
 
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnEditar.setForeground(SystemColor.text);
 		btnEditar.setBackground(Color.GRAY);
 		btnEditar.setBounds(434, 66, 90, 50);

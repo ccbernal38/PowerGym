@@ -32,7 +32,7 @@ public class MembresiaDao implements MembresiaDaoInterface {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio,"
+			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio, "
 					+ "visitasxdia, duracion_id, promocional, fechaFinalizacion) VALUES(?,?,?,?,?,?,?)");
 			statement.setString(1, nombre);
 			statement.setInt(2, cantidadDuracion);
@@ -101,9 +101,24 @@ public class MembresiaDao implements MembresiaDaoInterface {
 	}
 
 	@Override
-	public boolean modificarMembresia(int id, String nombre, double valor) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean modificarMembresia(String nombre, int valor, int visitasDia, int id, int estado) {
+		boolean resultado = false;
+		try {
+			Connection connection = conexion.getConexion();
+
+			PreparedStatement statement = connection.prepareStatement("UPDATE Membresia Set nombre = ?, "
+						+ "precio = ?, visitasxdia = ? WHERE id = ? ");				
+				statement.setString(1, nombre);
+				statement.setInt(2, valor);
+				statement.setInt(3, visitasDia);
+				statement.setInt(4, id);
+				statement.setInt(5, estado);
+				statement.execute();
+				resultado = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
 	}
 
 	@Override

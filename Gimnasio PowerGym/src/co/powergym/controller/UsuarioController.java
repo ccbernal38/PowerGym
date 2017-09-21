@@ -5,9 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+<<<<<<< HEAD
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+=======
+import java.util.Date;
+>>>>>>> 46c0f968f8d8db3cc60ffdae7e39878b95a139ae
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.Date;
@@ -93,9 +97,16 @@ public class UsuarioController implements ActionListener {
 
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listUsuarios.get(i).getIdentificacion();
+<<<<<<< HEAD
 			columna[1] = listUsuarios.get(i).getDireccion();
 			columna[2] = listUsuarios.get(i).getCorreo();
 			columna[3] = listUsuarios.get(i).getTelefono();
+=======
+			columna[1] = listUsuarios.get(i).getNombre();
+			columna[2] = listUsuarios.get(i).getDireccion();
+			columna[3] = listUsuarios.get(i).getCorreo();
+			columna[4] = listUsuarios.get(i).getTelefono();
+>>>>>>> 46c0f968f8d8db3cc60ffdae7e39878b95a139ae
 			defaultTableModel.addRow(columna);
 		}
 		tablaUsuarios.setModel(defaultTableModel);
@@ -246,47 +257,6 @@ public class UsuarioController implements ActionListener {
 		} else if (viewRegistroUsuario != null && e.getSource() == viewRegistroUsuario.btnCancelar) {
 			viewRegistroUsuario.setVisible(false);
 			viewRegistroUsuario.dispose();
-		} else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnBuscar1) {
-
-			String numeroId = viewBusquedaUsuario.getTxtNumeroid().getText();
-			Usuario usuario = usuarioDao.buscarUsuario(numeroId);
-			if (usuario != null) {
-				String primerNombre = usuario.getNombre();
-				viewBusquedaUsuario.getTxtNombre().setText(primerNombre);
-				String primerApellido = usuario.getApellido();
-				viewBusquedaUsuario.getTxtPrimerapellido().setText(primerApellido);
-				String telefono = usuario.getTelefono();
-				viewBusquedaUsuario.getTxtTelefono().setText(telefono);
-				String correo = usuario.getCorreo();
-				viewBusquedaUsuario.getTxtCorreoelectronico().setText(correo);
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"No se encontró un usuario con ese número de identificación, por favor verifique");
-			}
-		} else if (viewBusquedaUsuario != null && e.getSource() == viewBusquedaUsuario.btnCancelar1) {
-			viewBusquedaUsuario.setVisible(false);
-			viewBusquedaUsuario.dispose();
-		} else if (viewListaUsuario != null && e.getSource() == viewListaUsuario.btnEliminar1) {
-			int filaSeleccionada = viewListaUsuario.JTableListaEntrenador.getSelectedRow();
-			ArrayList<Usuario> listaUsuario = usuarioDao.listaUsuario();
-			Boolean filaEliminada;
-			if (filaSeleccionada != -1) {
-				if (listaUsuario != null) {
-					String identificacion = listaUsuario.get(filaSeleccionada).getIdentificacion();
-					int optiopn = JOptionPane.showConfirmDialog(viewListaUsuario,
-							"¿Esta seguro de eliminar el usuario con identificación " + identificacion + " ?");
-					if (JOptionPane.YES_OPTION == optiopn) {
-						filaEliminada = usuarioDao.eliminarUsuario(identificacion);
-						if (filaEliminada == true) {
-
-							JOptionPane.showMessageDialog(viewListaUsuario,
-									"El usuario se ha eliminado correctamente.");
-							listadoUsuariosLlenarTabla(viewListaUsuario.getJTableListaEntrenador());
-						}
-					}
-				}
-			}
-
 		}
 		if (viewListaUsuario != null && e.getSource() == viewListaUsuario.btnEditar1) {
 			int filaSeleccionada = viewListaUsuario.JTableListaEntrenador.getSelectedRow();
@@ -298,12 +268,11 @@ public class UsuarioController implements ActionListener {
 					if (usuario != null) {
 						viewActualizarUsuario = new ActualizarUsuario();
 						viewActualizarUsuario.getTxtNumeroid().setText(identificacion);
-						viewActualizarUsuario.getTxtNumeroid().setEditable(false);
 						String nombre = usuario.getNombre();
 						viewActualizarUsuario.getTxtNombre().setText(nombre);
-						viewActualizarUsuario.getTxtNombre().setEditable(false);
 						String apellido = usuario.getApellido();
 						viewActualizarUsuario.getTxtApellido().setText(apellido);
+<<<<<<< HEAD
 						viewActualizarUsuario.getTxtApellido().setEditable(false);
 						Date fechaN = (Date) usuario.getFechaNacimiento();
 
@@ -317,6 +286,20 @@ public class UsuarioController implements ActionListener {
 						usuario.setContrasena(contrasena);
 						String correoElectronico = viewActualizarUsuario.getTxtCorreoelectronico().getText();
 						usuario.setCorreo(correoElectronico);
+=======
+						String telefono = usuario.getTelefono();
+						viewActualizarUsuario.getTxtTelefono().setText(telefono);
+						String username = usuario.getUsuario();
+						viewActualizarUsuario.getTextUsuario().setText(username);
+						String correoElectronico = usuario.getCorreo();
+						viewActualizarUsuario.getTxtCorreoelectronico().setText(correoElectronico);
+						Date fecha = usuario.getFechaNacimiento();
+						viewActualizarUsuario.getFechaNacimiento().setDate(fecha);
+						//El administrador la actualiza, y no la debe verificar
+						String contrasena =  usuario.getContrasena();
+						viewActualizarUsuario.getTextContrasena().setText(contrasena);;
+						
+>>>>>>> 46c0f968f8d8db3cc60ffdae7e39878b95a139ae
 						viewActualizarUsuario.setVisible(true);
 						viewActualizarUsuario.getBtnActualizar1().addActionListener(this);
 					}
@@ -332,9 +315,14 @@ public class UsuarioController implements ActionListener {
 			String usuario = viewActualizarUsuario.getTextUsuario().getText();
 			String confirmaC = viewActualizarUsuario.getTextconfirmaC().getText();
 			String contrasena = viewActualizarUsuario.getTextContrasena().getText();
+<<<<<<< HEAD
 			String fechaNac = viewActualizarUsuario.getTxtFechanacimiento().getText();
 			JOptionPane.showMessageDialog(viewActualizarUsuario, ""+correoElectronico);
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+=======
+			Date fecha = viewActualizarUsuario.getFechaNacimiento().getDate();
+
+>>>>>>> 46c0f968f8d8db3cc60ffdae7e39878b95a139ae
 			// Permisos del usuario
 			int row = viewActualizarUsuario.getTablePermisos().getSelectedRow();
 			int column = 3;
@@ -346,6 +334,7 @@ public class UsuarioController implements ActionListener {
 				JOptionPane.showMessageDialog(viewActualizarUsuario,
 						"La contraseña y la confirmación no coinciden, por favor verifique.");
 			}
+<<<<<<< HEAD
 			Date fechaNacimiento = null;
 			try {
 				fechaNacimiento = (Date) formatter.parse(fechaNac);
@@ -354,6 +343,11 @@ public class UsuarioController implements ActionListener {
 			}
 			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, fechaNacimiento, telefono,
 					correoElectronico, 0, usuario, password);
+=======
+
+			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, fecha, correoElectronico,
+					telefono, 0, usuario, password);
+>>>>>>> 46c0f968f8d8db3cc60ffdae7e39878b95a139ae
 			if (respuesta) {
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
 			} else {
