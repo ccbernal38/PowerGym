@@ -30,16 +30,16 @@ import co.powergym.model.DiaSemana;
 import co.powergym.model.Duracion;
 import co.powergym.model.Horario;
 import co.powergym.model.Membresia;
-import co.powergym.view.membresia.CrearMembresia;
+import co.powergym.view.membresia.MembresiaRegistroView;
 import co.powergym.view.membresia.MembresiaListadoView;
-import co.powergym.view.membresia.editarMembresia;
+import co.powergym.view.membresia.MembresiaEditarView;
 import jssc.SerialPortException;
 
 public class MembresiaController implements ActionListener {
 
-	private CrearMembresia membresia;
+	private MembresiaRegistroView membresia;
 	private MembresiaListadoView membresiaListadoView;
-	private editarMembresia editarMembresia;
+	private MembresiaEditarView editarMembresia;
 	private MembresiaDao membresiaDao;
 	private HorarioDao horarioDao;
 	private DuracionDao duracionDao;
@@ -77,8 +77,8 @@ public class MembresiaController implements ActionListener {
 	 * @param membresiaListadoView:
 	 *            objeto jframe de listado de membresias
 	 */
-	public MembresiaController(CrearMembresia membresia, MembresiaListadoView membresiaListadoView,
-			editarMembresia editarMembresia) {
+	public MembresiaController(MembresiaRegistroView membresia, MembresiaListadoView membresiaListadoView,
+			MembresiaEditarView editarMembresia) {
 		membresiaDao = new MembresiaDao();
 		this.duracionDao = new DuracionDao();
 		this.horarioDao = new HorarioDao();
@@ -624,7 +624,7 @@ public class MembresiaController implements ActionListener {
 			membresia.getLblDe().setEnabled(true);
 		}
 		if (membresiaListadoView != null && e.getSource() == membresiaListadoView.getBtnNuevo()) {
-			CrearMembresia crearMembresia = new CrearMembresia();
+			MembresiaRegistroView crearMembresia = new MembresiaRegistroView();
 			crearMembresia.setVisible(true);
 			crearMembresia.getBtnSiguiente().addActionListener(this);
 			crearMembresia.getBtnAtras().addActionListener(this);
@@ -673,7 +673,7 @@ public class MembresiaController implements ActionListener {
 				Membresia membresia = membresiaDao.buscarMembresia(id);
 
 				if (membresia != null) {
-					editarMembresia = new editarMembresia();
+					editarMembresia = new MembresiaEditarView();
 					editarMembresia.setId(id);
 					String nombre = membresia.getNombre();
 					editarMembresia.getTextFieldNuevoNombreM().setText(nombre);

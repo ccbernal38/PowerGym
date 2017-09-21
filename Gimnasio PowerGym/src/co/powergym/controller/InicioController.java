@@ -60,7 +60,7 @@ import co.powergym.view.caja.CajaMembresiaVentaDiaView;
 import co.powergym.view.caja.CajaRegistroEgresoView;
 import co.powergym.view.caja.CajaRegistroIngresoView;
 import co.powergym.view.config.ConfigPuertoView;
-import co.powergym.view.membresia.CrearMembresia;
+import co.powergym.view.membresia.MembresiaRegistroView;
 import co.powergym.view.membresia.MembresiaListaDiaVisitasView;
 import co.powergym.view.membresia.MembresiaListaVisitasView;
 import co.powergym.view.membresia.MembresiaListadoView;
@@ -134,14 +134,14 @@ public class InicioController implements ActionListener {
 					}
 					if (e.getKeyCode() == KeyEvent.VK_F3) {
 						SocioController socioController = new SocioController(new SocioRegistroView(), null, null, null,
-								null);
+								null, null);
 						socioController.setHuellaInit(huellaInit);
 					}
 					if (e.getKeyCode() == KeyEvent.VK_F4) {
 
 					}
 					if (e.getKeyCode() == KeyEvent.VK_F5) {
-						new MembresiaController(new CrearMembresia(), null, null);
+						new MembresiaController(new MembresiaRegistroView(), null, null);
 					}
 					if (e.getKeyCode() == KeyEvent.VK_F6) {
 						new CajaController(null, new CajaCierreView(), null);
@@ -277,20 +277,20 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.btnRegistrarSocio == e.getSource()
 				|| viewPrincipal.getJMenuItemRegistrarSocio() == e.getSource()) {
 			SocioRegistroView viewRegistroSocio = new SocioRegistroView();
-			SocioController socioController = new SocioController(viewRegistroSocio, null, null, null, null);
+			SocioController socioController = new SocioController(viewRegistroSocio, null, null, null, null, null);
 			socioController.setHuellaInit(huellaInit);
 		} else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
 			SocioBusquedaView viewBusquedaSocio = new SocioBusquedaView();
-			new SocioController(null, viewBusquedaSocio, null, null, null);
+			new SocioController(null, viewBusquedaSocio, null, null, null, null);
 		} else if (viewPrincipal.btnMenuMembresia == e.getSource()) {
 			new MembresiaDao();
-			CrearMembresia crearMembresia = new CrearMembresia();
+			MembresiaRegistroView crearMembresia = new MembresiaRegistroView();
 			new MembresiaController(crearMembresia, null, null);
 		} else if (viewPrincipal.getMntmListadoDeSocios() == e.getSource()) {
 			SocioListadoView socioListadoView = new SocioListadoView();
-			new SocioController(null, null, socioListadoView, null, null);
+			new SocioController(null, null, socioListadoView, null, null, null);
 		} else if (viewPrincipal.getJMenuItemCumpleanios() == e.getSource()) {
-			new SocioController(null, null, null, new SocioCumpleaniosListadoView(), null);
+			new SocioController(null, null, null, new SocioCumpleaniosListadoView(), null, null);
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
 			new MembresiaController(null, new MembresiaListadoView(), null);
 		} else if (viewPrincipal.getJMenuItemRegistrarUsuario() == e.getSource()) {
@@ -365,30 +365,8 @@ public class InicioController implements ActionListener {
 	}
 
 	private void mostrarViewBusqueda(Socio socio) {
-		SocioConsultaBusquedaView viewBusquedaSocio = new SocioConsultaBusquedaView();
-		if (socio != null) {
-			viewBusquedaSocio.getBtnAgregarMembresia().setEnabled(true);
-			viewBusquedaSocio.getBtnAgregarPago().setEnabled(true);
-			String primerNombre = socio.getNombreCompleto();
-			viewBusquedaSocio.getTextField_primerNombre().setText(primerNombre);
-			String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
-			viewBusquedaSocio.getTextField_fechaNacimiento().setText(fechaNacimiento);
-			String telefono = socio.getTelefono();
-			viewBusquedaSocio.getTextField_telefono().setText(telefono);
-			if (socio.getFoto() != null) {
-				Image dimg = socio.getFoto().getScaledInstance(viewBusquedaSocio.getLblFoto().getWidth(),
-						viewBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
-				viewBusquedaSocio.getLblFoto().setIcon(new ImageIcon(dimg));
-			}
-			llenarTablaHistorico(socio.getId(), viewBusquedaSocio);
-			llenarTablaAsistencia(socio.getId(), viewBusquedaSocio);
-			viewBusquedaSocio.setLocationRelativeTo(null);
-			viewBusquedaSocio.setVisible(true);
-		} else {
-			JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
-					+ "por favor verifique e intente de nuevo");
-		}
-
+		SocioController controller = new SocioController(null, null, null, null, null, new SocioConsultaBusquedaView());
+		controller.cargarConsultaBusquedaSocio(socio);
 	}
 
 	public void listadoCumpleaniosDia() {

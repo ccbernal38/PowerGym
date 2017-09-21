@@ -1,4 +1,4 @@
-package co.powergym.model;
+ package co.powergym.model;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -63,8 +63,6 @@ public class MembresiaSocio {
 		this.fechaInicial = fechaInicial;
 	}
 	
-	
-
 	public int getDescuento() {
 		return descuento;
 	}

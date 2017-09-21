@@ -2,7 +2,7 @@ package co.powergym.model;
 
 public class Duracion {
 
-	public static final String DIA = "Dias";
+	public static final String DIA = "Días";
 	public static final String MES = "Meses";
 	public static final String SEMANA = "Semanas";
 	public static final String ANIO = "Años";
