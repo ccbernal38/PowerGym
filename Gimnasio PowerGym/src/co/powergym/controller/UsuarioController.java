@@ -6,11 +6,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+//import java.util.Date;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -29,15 +30,12 @@ import co.powergym.view.usuario.entrenador.ActualizarUsuario;
 import co.powergym.view.usuario.entrenador.BusquedaUsuario;
 import co.powergym.view.usuario.entrenador.ListaUsuario;
 import co.powergym.view.usuario.entrenador.RegistroUsuario;
-import javafx.scene.control.RadioButton;
-import jdk.nashorn.internal.runtime.ListAdapter;
 
 public class UsuarioController implements ActionListener {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	UsuarioDao usuarioDao;
 	PermisoDao permisoDao;
 	PermisoUsuarioDao permisoUsuarioDao;
@@ -78,6 +76,7 @@ public class UsuarioController implements ActionListener {
 		}
 		if (viewActualizarUsuario != null) {
 			this.viewActualizarUsuario = viewActualizarUsuario;
+			llenarTablaPermisos(viewActualizarUsuario.getTablePermisos());
 			this.viewActualizarUsuario.btnActualizar1.addActionListener(this);
 			this.viewActualizarUsuario.setVisible(true);
 		}
@@ -94,7 +93,6 @@ public class UsuarioController implements ActionListener {
 
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listUsuarios.get(i).getIdentificacion();
-			// columna[1] = listEntrenadores.get(i).getNombreCompleto();
 			columna[1] = listUsuarios.get(i).getDireccion();
 			columna[2] = listUsuarios.get(i).getCorreo();
 			columna[3] = listUsuarios.get(i).getTelefono();
@@ -202,8 +200,7 @@ public class UsuarioController implements ActionListener {
 				}
 				respuesta = usuarioDao.registrarUsuario(numeroId, nombre, apellido, fechaNacimiento, correo, telefono,
 						genero, username, contrasena);
-				int row = viewRegistroUsuario.getTablePermisos().getSelectedRow();
-				int column = 3;
+
 				Usuario usuario = usuarioDao.buscarUsuario(numeroId);
 
 				listaPermiso = permisoDao.listaPermisos();
@@ -300,7 +297,6 @@ public class UsuarioController implements ActionListener {
 					Usuario usuario = usuarioDao.buscarUsuario(identificacion);
 					if (usuario != null) {
 						viewActualizarUsuario = new ActualizarUsuario();
-						String numeroId = usuario.getIdentificacion();
 						viewActualizarUsuario.getTxtNumeroid().setText(identificacion);
 						viewActualizarUsuario.getTxtNumeroid().setEditable(false);
 						String nombre = usuario.getNombre();
@@ -309,6 +305,10 @@ public class UsuarioController implements ActionListener {
 						String apellido = usuario.getApellido();
 						viewActualizarUsuario.getTxtApellido().setText(apellido);
 						viewActualizarUsuario.getTxtApellido().setEditable(false);
+						Date fechaN = (Date) usuario.getFechaNacimiento();
+
+						// viewActualizarUsuario.getTxtFechanacimiento().setText(fechaN.toString());
+						viewActualizarUsuario.getTxtFechanacimiento().setEditable(false);
 						String telefono = viewActualizarUsuario.getTxtTelefono().getText();
 						usuario.setTelefono(telefono);
 						String username = viewActualizarUsuario.getTextUsuario().getText();
@@ -332,7 +332,9 @@ public class UsuarioController implements ActionListener {
 			String usuario = viewActualizarUsuario.getTextUsuario().getText();
 			String confirmaC = viewActualizarUsuario.getTextconfirmaC().getText();
 			String contrasena = viewActualizarUsuario.getTextContrasena().getText();
-
+			String fechaNac = viewActualizarUsuario.getTxtFechanacimiento().getText();
+			JOptionPane.showMessageDialog(viewActualizarUsuario, ""+correoElectronico);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			// Permisos del usuario
 			int row = viewActualizarUsuario.getTablePermisos().getSelectedRow();
 			int column = 3;
@@ -344,9 +346,14 @@ public class UsuarioController implements ActionListener {
 				JOptionPane.showMessageDialog(viewActualizarUsuario,
 						"La contraseña y la confirmación no coinciden, por favor verifique.");
 			}
-
-			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, null, correoElectronico,
-					telefono, 0, usuario, password);
+			Date fechaNacimiento = null;
+			try {
+				fechaNacimiento = (Date) formatter.parse(fechaNac);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, fechaNacimiento, telefono,
+					correoElectronico, 0, usuario, password);
 			if (respuesta) {
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
 			} else {
@@ -368,9 +375,10 @@ public class UsuarioController implements ActionListener {
 		}
 	}
 
-	// Clases para pintar radiobutton en JTable de permisos que se asignan a un usuario
+	// Clases para pintar radiobutton en JTable de permisos que se asignan a un
+	// usuario
 	public class Radio extends DefaultCellEditor implements ItemListener {
-		
+
 		private static final long serialVersionUID = 1L;
 		JRadioButton radioB;
 

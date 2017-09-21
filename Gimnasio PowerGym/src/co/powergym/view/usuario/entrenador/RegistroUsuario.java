@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.ListSelectionModel;
-import java.awt.Panel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -270,10 +269,10 @@ public class RegistroUsuario extends JFrame{
 	}
 
 
-	public JComboBox getComboBox_genero() {
+	public JComboBox<String> getComboBox_genero() {
 		return comboBox_genero;
 	}
-	public void setComboBox_genero(JComboBox comboBox_genero) {
+	public void setComboBox_genero(JComboBox<String> comboBox_genero) {
 		this.comboBox_genero = comboBox_genero;
 	}
 	/**

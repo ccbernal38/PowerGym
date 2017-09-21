@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import co.powergym.interfacedao.UsuarioDaoInterface;
 import co.powergym.model.Conexion;
-import co.powergym.model.Entrenador;
 import co.powergym.model.Usuario;
 
 public class UsuarioDao implements UsuarioDaoInterface {
@@ -27,17 +26,18 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
-					.prepareStatement("INSERT INTO Usuario(identificacion, nombre, "
-							+ "apellido, fechaNacimiento, correoElectronico, telefono, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?)");
-			statement.setString(1, identificacion);
-			statement.setString(2, nombre);
-			statement.setString(3, apellido);
-			statement.setDate(4, fechaNacimiento);
-			statement.setString(5, correo);
-			statement.setString(6, telefono);
-			statement.setInt(7, genero);
-			statement.setString(8, username);
-			statement.setString(9, password);
+					.prepareStatement("INSERT INTO Usuario(username, password, "
+							+ "identificacion, nombre, apellido, correoElectronico, telefono, genero, fechaNacimiento) VALUES(?,?,?,?,?,?,?,?,?)");
+			
+			statement.setString(1, username);
+			statement.setString(2, password);
+			statement.setString(3, identificacion);
+			statement.setString(4, nombre);
+			statement.setString(5, apellido);
+			statement.setString(6, correo);
+			statement.setString(7, telefono);
+			statement.setInt(8, genero);
+			statement.setDate(9, fechaNacimiento);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fechaNacimiento);
 
@@ -104,16 +104,19 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 
-			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set nombre = ?, "
-						+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ?, genero = ? "
-						+ "WHERE identificacion = ?");				
-				statement.setString(1, nombre);
-				statement.setString(2, apellido);
-				statement.setDate(3, fechaNacimiento);
-				statement.setString(4, correo);
-				statement.setString(5,telefono );
-				statement.setInt(6, genero);
-				statement.setString(7, identificacion);
+			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set username = ?, "
+						+ "password = ?, identificacion = ?, nombre = ?, apellido = ?, correoElectronico = ?, telefono = ?, genero = ?, fechaNacimiento = ? "
+						+ "WHERE identificacion = ?");	
+			
+				statement.setString(1, username);
+				statement.setString(2, password);
+				statement.setString(3, identificacion);
+				statement.setString(4, nombre);
+				statement.setString(5,apellido );
+				statement.setString(6, correo);
+				statement.setString(7, telefono);
+				statement.setInt(8, genero);
+				statement.setDate(9, fechaNacimiento);
 				statement.execute();
 				resultado = true;
 		} catch (Exception e) {
