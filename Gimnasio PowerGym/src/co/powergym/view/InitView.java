@@ -214,9 +214,6 @@ public class InitView extends JFrame {
 		jMenuItemRegistrarUsuario = new JMenuItem("Registrar usuario");
 		jMenuUsuario.add(jMenuItemRegistrarUsuario);
 
-		jMenuItemBuscarUsuario = new JMenuItem("Buscar usuario");
-		jMenuUsuario.add(jMenuItemBuscarUsuario);
-
 		jMenuItemListaUsuario = new JMenuItem("Lista de usuarios");
 		jMenuUsuario.add(jMenuItemListaUsuario);
 
@@ -476,7 +473,6 @@ public class InitView extends JFrame {
 
 	private JMenu jMenuUsuario;
 	private JMenuItem jMenuItemRegistrarUsuario;
-	private JMenuItem jMenuItemBuscarUsuario;
 	private JMenuItem jMenuItemListaUsuario;
 	private JButton btnSalir;
 	private JMenuItem mntmPuertoTorniquete;
@@ -525,10 +521,6 @@ public class InitView extends JFrame {
 
 	public JMenuItem getJMenuItemRegistrarUsuario() {
 		return jMenuItemRegistrarUsuario;
-	}
-
-	public JMenuItem getJMenuItemBuscarUsuario() {
-		return jMenuItemBuscarUsuario;
 	}
 
 	public JMenuItem getJMenuItemListaUsuario() {

@@ -56,7 +56,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,"
-					+ "identificacion, nombre, apellido, fechaNacimiento, correoElectronico, telefono, genero "
+					+ "identificacion, nombre, apellido, fechaNacimiento, correoElectronico, telefono, genero, username, password "
 					+ " FROM Usuario");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -69,6 +69,8 @@ public class UsuarioDao implements UsuarioDaoInterface {
 				usuario.setCorreo(resultSet.getString(6));
 				usuario.setTelefono(resultSet.getString(7));
 				usuario.setGenero(resultSet.getInt(8));
+				usuario.setUsuario(resultSet.getString(9));
+				usuario.setContrasena(resultSet.getString(10));
 				list.add(usuario);
 			}
 			conexion.desconectar();
@@ -125,7 +127,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre, "
-					+ "apellido, correoElectronico, telefono, genero" + " FROM Usuario WHERE identificacion = ?");
+					+ "apellido, correoElectronico, telefono, genero, username, password" + " FROM Usuario WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -137,6 +139,8 @@ public class UsuarioDao implements UsuarioDaoInterface {
 				usuario.setCorreo(resultSet.getString(5));
 				usuario.setTelefono(resultSet.getString(6));
 				usuario.setGenero(resultSet.getInt(7));
+				usuario.setUsuario(resultSet.getString(8));
+				usuario.setContrasena(resultSet.getString(9));
 			}
 			conexion.desconectar();
 		} catch (Exception e) {
