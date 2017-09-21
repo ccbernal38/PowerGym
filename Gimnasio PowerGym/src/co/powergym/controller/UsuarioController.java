@@ -94,10 +94,10 @@ public class UsuarioController implements ActionListener {
 
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = listUsuarios.get(i).getIdentificacion();
-			// columna[1] = listEntrenadores.get(i).getNombreCompleto();
-			columna[1] = listUsuarios.get(i).getDireccion();
-			columna[2] = listUsuarios.get(i).getCorreo();
-			columna[3] = listUsuarios.get(i).getTelefono();
+			columna[1] = listUsuarios.get(i).getNombre();
+			columna[2] = listUsuarios.get(i).getDireccion();
+			columna[3] = listUsuarios.get(i).getCorreo();
+			columna[4] = listUsuarios.get(i).getTelefono();
 			defaultTableModel.addRow(columna);
 		}
 		tablaUsuarios.setModel(defaultTableModel);

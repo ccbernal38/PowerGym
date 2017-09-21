@@ -56,7 +56,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,"
-					+ "identificacion, nombre, apellido, fechaNacimiento, correoElectronico, telefono, genero, username, password "
+					+ "identificacion, nombre, apellido, fechaNacimiento, correoElectronico, telefono, genero, username, password, direccion "
 					+ " FROM Usuario");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -71,6 +71,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 				usuario.setGenero(resultSet.getInt(8));
 				usuario.setUsuario(resultSet.getString(9));
 				usuario.setContrasena(resultSet.getString(10));
+				usuario.setDireccion(resultSet.getString(11));
 				list.add(usuario);
 			}
 			conexion.desconectar();
