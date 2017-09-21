@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import com.toedter.calendar.JCalendar;
 
 public class ActualizarUsuario extends JFrame {
 	/**
@@ -22,7 +23,6 @@ public class ActualizarUsuario extends JFrame {
 	private JTextField txtNumeroid;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JTextField txtFechanacimiento;
 	private JTextField txtCorreoelectronico;
 	private JTextField txtTelefono;
 	private JLabel lblNombre;
@@ -35,6 +35,7 @@ public class ActualizarUsuario extends JFrame {
 	private JTextField textContrasena;
 	private JTextField textconfirmaC;
 	private JTable tablePermisos;
+	private JDateChooser fechaNacimiento;
 	
 	
 	public ActualizarUsuario() {
@@ -44,12 +45,6 @@ public class ActualizarUsuario extends JFrame {
 		txtNumeroid.setBounds(201, 73, 177, 26);
 		getContentPane().add(txtNumeroid);
 		txtNumeroid.setColumns(10);
-		
-		
-		txtFechanacimiento = new JTextField();
-		txtFechanacimiento.setBounds(558, 109, 216, 26);
-		getContentPane().add(txtFechanacimiento);
-		txtFechanacimiento.setColumns(10);
 		
 		txtCorreoelectronico = new JTextField();
 		txtCorreoelectronico.setBounds(158, 148, 220, 26);
@@ -64,10 +59,6 @@ public class ActualizarUsuario extends JFrame {
 		JLabel lblNmeroDeIdentificacion = new JLabel("Número de identificación:");
 		lblNmeroDeIdentificacion.setBounds(35, 78, 166, 16);
 		getContentPane().add(lblNmeroDeIdentificacion);
-		
-		lblNombre = new JLabel("Nombres:");
-		lblNombre.setBounds(416, 78, 61, 16);
-		getContentPane().add(lblNombre);
 		
 		lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
 		lblFechaDeNacimiento.setBounds(416, 114, 140, 16);
@@ -91,6 +82,10 @@ public class ActualizarUsuario extends JFrame {
 		lblActualizarDatos.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblActualizarDatos.setBounds(289, 19, 230, 16);
 		getContentPane().add(lblActualizarDatos);
+		
+		lblNombre = new JLabel("Nombres:");
+		lblNombre.setBounds(416, 78, 61, 16);
+		getContentPane().add(lblNombre);
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(477, 73, 297, 26);
@@ -153,6 +148,10 @@ public class ActualizarUsuario extends JFrame {
 		
 		tablePermisos = new JTable();
 		scrollPane.setColumnHeaderView(tablePermisos);
+		
+		fechaNacimiento = new JDateChooser();
+		fechaNacimiento.setBounds(558, 110, 102, 26);
+		getContentPane().add(fechaNacimiento);
 		
 		setSize(818, 569);
 	}
@@ -245,13 +244,6 @@ public class ActualizarUsuario extends JFrame {
 		this.txtApellido = txtApellido;
 	}
 	
-	public JTextField getTxtFechanacimiento() {
-		return txtFechanacimiento;
-	}
-
-	public void setTxtFechanacimiento(JTextField txtFechanacimiento) {
-		this.txtFechanacimiento = txtFechanacimiento;
-	}
 
 	public JTextField getTxtCorreoelectronico() {
 		return txtCorreoelectronico;
@@ -267,5 +259,8 @@ public class ActualizarUsuario extends JFrame {
 
 	public void setTxtTelefono(JTextField txtTelefono) {
 		this.txtTelefono = txtTelefono;
+	}
+	public JDateChooser getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 }

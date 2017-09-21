@@ -1,7 +1,7 @@
 package co.powergym.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +31,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 			statement.setString(1, identificacion);
 			statement.setString(2, nombre);
 			statement.setString(3, apellido);
-			statement.setDate(4, fechaNacimiento);
+			statement.setDate(4, new java.sql.Date(fechaNacimiento.getTime()));
 			statement.setString(5, correo);
 			statement.setString(6, telefono);
 			statement.setInt(7, genero);
@@ -109,7 +109,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 					+ "WHERE identificacion = ?");
 			statement.setString(1, nombre);
 			statement.setString(2, apellido);
-			statement.setDate(3, fechaNacimiento);
+			statement.setDate(3, new java.sql.Date(fechaNacimiento.getTime()));
 			statement.setString(4, correo);
 			statement.setString(5, telefono);
 			statement.setInt(6, genero);

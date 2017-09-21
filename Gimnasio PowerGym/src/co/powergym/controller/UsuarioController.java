@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -271,6 +271,8 @@ public class UsuarioController implements ActionListener {
 						viewActualizarUsuario.getTextUsuario().setText(username);
 						String correoElectronico = usuario.getCorreo();
 						viewActualizarUsuario.getTxtCorreoelectronico().setText(correoElectronico);
+						Date fecha = usuario.getFechaNacimiento();
+						viewActualizarUsuario.getFechaNacimiento().setDate(fecha);
 						//El administrador la actualiza, y no la debe verificar
 						String contrasena =  usuario.getContrasena();
 						viewActualizarUsuario.getTextContrasena().setText(contrasena);;
@@ -290,6 +292,7 @@ public class UsuarioController implements ActionListener {
 			String usuario = viewActualizarUsuario.getTextUsuario().getText();
 			String confirmaC = viewActualizarUsuario.getTextconfirmaC().getText();
 			String contrasena = viewActualizarUsuario.getTextContrasena().getText();
+			Date fecha = viewActualizarUsuario.getFechaNacimiento().getDate();
 
 			// Permisos del usuario
 			int row = viewActualizarUsuario.getTablePermisos().getSelectedRow();
@@ -303,7 +306,7 @@ public class UsuarioController implements ActionListener {
 						"La contraseña y la confirmación no coinciden, por favor verifique.");
 			}
 
-			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, null, correoElectronico,
+			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, fecha, correoElectronico,
 					telefono, 0, usuario, password);
 			if (respuesta) {
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
