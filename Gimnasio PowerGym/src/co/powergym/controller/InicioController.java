@@ -2,10 +2,15 @@ package co.powergym.controller;
 
 import java.awt.Dialog;
 import java.awt.Image;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -43,8 +48,9 @@ import co.powergym.utils.Constantes;
 import co.powergym.utils.HuellaInit;
 import co.powergym.utils.Preferencias;
 import co.powergym.utils.SocioPanelCumpleanios;
+import co.powergym.view.BackupView;
 import co.powergym.view.InitView;
-import co.powergym.view.caja.AperturaCajaView;
+import co.powergym.view.caja.CajaAperturaView;
 import co.powergym.view.caja.CajaCierreView;
 import co.powergym.view.caja.CajaListaEgresosHoyView;
 import co.powergym.view.caja.CajaListaHistoricoEgresosView;
@@ -77,15 +83,11 @@ public class InicioController implements ActionListener {
 	CajaDao cajaDao;
 	Reporte reporte;
 
-	private DPFPCapture Lector;
-	private DPFPEnrollment Reclutador;
-	private DPFPVerification Verificador;
-	private DPFPTemplate template;
 	public static String TEMPLATE_PROPERTY = "template";
 	public DPFPFeatureSet featuresinscripcion;
 	public DPFPFeatureSet featuresverificacion;
 	private HuellaInit huellaInit;
-	private AperturaCajaView aperturaCajaView;
+	private CajaAperturaView aperturaCajaView;
 
 	public InicioController(InitView viewPrincipal) {
 		socioDao = new SocioDao();
@@ -117,9 +119,38 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getMntmRegistroDeVisitas().addActionListener(this);
 		this.viewPrincipal.getJMenuItemVentasDia().addActionListener(this);
 		this.viewPrincipal.getJMenuItemCierreCaja().addActionListener(this);
+		this.viewPrincipal.getMntmCopiaDeSeguridad().addActionListener(this);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
+		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+		manager.addKeyEventDispatcher(new KeyEventDispatcher() {
+
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getID() == KeyEvent.KEY_PRESSED) {
+					if (e.getKeyCode() == KeyEvent.VK_F2) {
+						new VisitaController(new MembresiaRegistroVisitaView(), null, null);
+					}
+					if (e.getKeyCode() == KeyEvent.VK_F3) {
+						SocioController socioController = new SocioController(new SocioRegistroView(), null, null, null,
+								null);
+						socioController.setHuellaInit(huellaInit);
+					}
+					if (e.getKeyCode() == KeyEvent.VK_F4) {
+
+					}
+					if (e.getKeyCode() == KeyEvent.VK_F5) {
+						new MembresiaController(new CrearMembresia(), null, null);
+					}
+					if (e.getKeyCode() == KeyEvent.VK_F6) {
+						new CajaController(null, new CajaCierreView(), null);
+					}
+				}
+				return false;
+			}
+		});
 		this.viewPrincipal.addWindowListener(new WindowListener() {
 
 			@Override
@@ -184,7 +215,7 @@ public class InicioController implements ActionListener {
 		});
 		huellaInit = new HuellaInit(viewPrincipal);
 		if (cajaDao.verificarCajaAbierta() == -1) {
-			aperturaCajaView = new AperturaCajaView();
+			aperturaCajaView = new CajaAperturaView();
 			aperturaCajaView.getLblNombreResponsable()
 					.setText(Preferencias.obtenerPreferencia(Constantes.NOMBRE_RESPONSABLE));
 			aperturaCajaView.getBtnAbrir().addActionListener(this);
@@ -198,7 +229,13 @@ public class InicioController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (aperturaCajaView != null) {
 			if (aperturaCajaView.getBtnAbrir() == e.getSource()) {
-				Date fechaApertura = aperturaCajaView.getFecha().getDate();
+				Date fechaApertura = null;
+				try {
+					fechaApertura = new SimpleDateFormat("dd/MM/yyyy").parse(aperturaCajaView.getFecha().getText());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				int saldoInicial = Integer.parseInt(aperturaCajaView.getSaldoInicio().getText().substring(1,
 						aperturaCajaView.getSaldoInicio().getText().length()));
 				boolean res = cajaDao.aperturaCaja(
@@ -216,16 +253,15 @@ public class InicioController implements ActionListener {
 		}
 
 		if (viewPrincipal.getMntmRegistrarEgreso() == e.getSource()) {
-			MovimientoController movimientoController = new MovimientoController(null, new CajaRegistroEgresoView(),
-					null, null, null, null);
+			new MovimientoController(null, new CajaRegistroEgresoView(), null, null, null, null);
 		}
 		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()
 				|| viewPrincipal.getMntmRegistroDeVisitas() == e.getSource()) {
-			VisitaController visitaController = new VisitaController(new MembresiaRegistroVisitaView(), null, null);
+			new VisitaController(new MembresiaRegistroVisitaView(), null, null);
 		} else if (viewPrincipal.getMntmHistoricoDeVisitas() == e.getSource()) {
-			VisitaController controller = new VisitaController(null, new MembresiaListaVisitasView(), null);
+			new VisitaController(null, new MembresiaListaVisitasView(), null);
 		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
-			VisitaController controller = new VisitaController(null, null, new MembresiaListaDiaVisitasView());
+			new VisitaController(null, null, new MembresiaListaDiaVisitasView());
 		} else if (viewPrincipal.getBtnBuscar() == e.getSource()) {
 			String key = viewPrincipal.getTextFieldKey().getText();
 			List<Socio> socios = socioDao.buscarSocioKey(key);
@@ -246,36 +282,33 @@ public class InicioController implements ActionListener {
 			socioController.setHuellaInit(huellaInit);
 		} else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
 			SocioBusquedaView viewBusquedaSocio = new SocioBusquedaView();
-			SocioController socioController = new SocioController(null, viewBusquedaSocio, null, null, null);
+			new SocioController(null, viewBusquedaSocio, null, null, null);
 		} else if (viewPrincipal.btnMenuMembresia == e.getSource()) {
-			MembresiaDao membresiaDao = new MembresiaDao();
+			new MembresiaDao();
 			CrearMembresia crearMembresia = new CrearMembresia();
-			MembresiaController Mcontroller = new MembresiaController(crearMembresia, null, null);
+			new MembresiaController(crearMembresia, null, null);
 		} else if (viewPrincipal.getMntmListadoDeSocios() == e.getSource()) {
 			SocioListadoView socioListadoView = new SocioListadoView();
-			SocioController socioController = new SocioController(null, null, socioListadoView, null, null);
+			new SocioController(null, null, socioListadoView, null, null);
 		} else if (viewPrincipal.getJMenuItemCumpleanios() == e.getSource()) {
-			SocioController socioController = new SocioController(null, null, null, new SocioCumpleaniosListadoView(),
-					null);
+			new SocioController(null, null, null, new SocioCumpleaniosListadoView(), null);
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
-			MembresiaController membresiaController = new MembresiaController(null, new MembresiaListadoView(),null);
+			new MembresiaController(null, new MembresiaListadoView(), null);
 		} else if (viewPrincipal.getJMenuItemRegistrarUsuario() == e.getSource()) {
-			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
-					new PermisoUsuarioDao(), new RegistroUsuario(), null, null, null);
+			new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), new RegistroUsuario(),
+					null, null, null);
 		} else if (viewPrincipal.getJMenuItemBuscarUsuario() == e.getSource()) {
-			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
-					new PermisoUsuarioDao(), null, new BusquedaUsuario(), null, null);
+			new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), null,
+					new BusquedaUsuario(), null, null);
 		} else if (viewPrincipal.getJMenuItemListaUsuario() == e.getSource()) {
-			UsuarioController usuarioController = new UsuarioController(new UsuarioDao(), new PermisoDao(),
-					new PermisoUsuarioDao(), null, null, new ListaUsuario(), null);
+			new UsuarioController(new UsuarioDao(), new PermisoDao(), new PermisoUsuarioDao(), null, null,
+					new ListaUsuario(), null);
 		} else if (viewPrincipal.getjMenuItemAsistencia() == e.getSource()) {
 
 		} else if (viewPrincipal.getMntmEgresosDelDia() == e.getSource()) {
-			MovimientoController movimientoController = new MovimientoController(null, null,
-					new CajaListaEgresosHoyView(), null, null, null);
+			new MovimientoController(null, null, new CajaListaEgresosHoyView(), null, null, null);
 		} else if (viewPrincipal.getMntmHistoricoDeEgresos() == e.getSource()) {
-			MovimientoController movimientoController = new MovimientoController(null, null, null, null,
-					new CajaListaHistoricoEgresosView(), null);
+			new MovimientoController(null, null, null, null, new CajaListaHistoricoEgresosView(), null);
 		} else if (viewPrincipal.getBtnSalir() == e.getSource()) {
 			Preferencias.resetPreferencias();
 			JOptionPane pane = new JOptionPane("Espere, Saliendo......", JOptionPane.INFORMATION_MESSAGE,
@@ -302,13 +335,15 @@ public class InicioController implements ActionListener {
 				huellaInit.initConsultaEntrada(socio);
 			}
 		} else if (viewPrincipal.getMntmHistoricoDeVisitas() == e.getSource()) {
-			VisitaController controller = new VisitaController(null, new MembresiaListaVisitasView(), null);
+			new VisitaController(null, new MembresiaListaVisitasView(), null);
 		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
-			VisitaController controller = new VisitaController(null, null, new MembresiaListaDiaVisitasView());
+			new VisitaController(null, null, new MembresiaListaDiaVisitasView());
 		} else if (viewPrincipal.getJMenuItemVentasDia() == e.getSource()) {
-			CajaController cajaController = new CajaController(new CajaMembresiaVentaDiaView(), null);
+			new CajaController(new CajaMembresiaVentaDiaView(), null, null);
 		} else if (viewPrincipal.getJMenuItemCierreCaja() == e.getSource()) {
-			CajaController cajaController = new CajaController(null, new CajaCierreView());
+			new CajaController(null, new CajaCierreView(), null);
+		} else if (viewPrincipal.getMntmCopiaDeSeguridad() == e.getSource()) {
+			new CajaController(null, null, new BackupView());
 		}
 	}
 
@@ -419,4 +454,5 @@ public class InicioController implements ActionListener {
 		viewBusquedaSocio.getTableHistorico().setModel(defaultTableModel);
 		viewBusquedaSocio.getTableHistorico().repaint();
 	}
+
 }

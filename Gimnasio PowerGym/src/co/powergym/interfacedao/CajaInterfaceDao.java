@@ -18,5 +18,11 @@ public interface CajaInterfaceDao {
 
 	public Caja ultimoRegistro();
 
-	public int totalVentasMembresiasDia();
+	public int totalVentasMembresiasDia(int caja_id);
+
+	public int totalVentasVisitasDia(int caja_id);
+
+	public int totalEgresosDia(int caja_id);
+	
+	public boolean cerrarCaja(int caja_id, int usuario_cierre, int totalEgresos, int totalMembresia, int totalVisita, int dineroCaja);
 }

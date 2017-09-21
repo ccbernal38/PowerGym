@@ -103,6 +103,9 @@ public class InitView extends JFrame {
 		setExtendedState(6);
 
 		jMenu1.setText("Archivo");
+		
+		mntmCopiaDeSeguridad = new JMenuItem("Copia de seguridad");
+		jMenu1.add(mntmCopiaDeSeguridad);
 
 		jMenuItem1.setText("Salir");
 
@@ -236,7 +239,7 @@ public class InitView extends JFrame {
 		btnRegistrarSocio.setForeground(Color.WHITE);
 		btnRegistrarSocio.setBackground(new Color(208, 0, 0));
 
-		btnRegistrarSocio.setText("<html><center>Registro<br />de socio</center></html>");
+		btnRegistrarSocio.setText("<html><center>Registro<br />de socio (F3)</center></html>");
 		btnRegistrarSocio.setToolTipText("");
 		btnRegistrarSocio.setPreferredSize(new java.awt.Dimension(50, 50));
 		btnMenuMembresia = new javax.swing.JButton();
@@ -248,7 +251,7 @@ public class InitView extends JFrame {
 		getContentPane().add(btnMenuMembresia);
 		btnMenuMembresia.setBackground(new Color(0, 208, 0));
 
-		btnMenuMembresia.setText("<html><center>Registrar<br />membresia</center></html>");
+		btnMenuMembresia.setText("<html><center>Registrar<br />membresia (F5)</center></html>");
 		jButtonPagarMensualidad = new javax.swing.JButton();
 		jButtonPagarMensualidad.setBounds(568, 623, 150, 50);
 		jButtonPagarMensualidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -258,7 +261,7 @@ public class InitView extends JFrame {
 		getContentPane().add(jButtonPagarMensualidad);
 		jButtonPagarMensualidad.setBackground(new Color(0, 0, 208));
 
-		jButtonPagarMensualidad.setText("<html><center>Pagar<br />mensualidad</center></html>");
+		jButtonPagarMensualidad.setText("<html><center>Pagar<br />mensualidad (F4)</center></html>");
 		jButtonCierreCaja = new javax.swing.JButton();
 		jButtonCierreCaja.setBounds(888, 623, 150, 50);
 		jButtonCierreCaja.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -268,7 +271,7 @@ public class InitView extends JFrame {
 		getContentPane().add(jButtonCierreCaja);
 		jButtonCierreCaja.setBackground(new Color(208, 208, 0));
 
-		jButtonCierreCaja.setText("<html>Cierre<br />de caja</html>");
+		jButtonCierreCaja.setText("<html>Cierre<br />de caja (F6)</html>");
 
 		JPanel panelCumpleanios = new JPanel();
 		panelCumpleanios.setBounds(1080, 50, 264, 623);
@@ -351,8 +354,12 @@ public class InitView extends JFrame {
 		getContentPane().add(labelBackgroundImage);
 
 		btnRegistrodeVisita = new JButton();
+		btnRegistrodeVisita.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnRegistrodeVisita.setToolTipText("");
-		btnRegistrodeVisita.setText("<html><center>Registro<br />de visita</center></html>");
+		btnRegistrodeVisita.setText("<html><center>Registro<br />de visita (F2)</center></html>");
 		btnRegistrodeVisita.setPreferredSize(new Dimension(50, 50));
 		btnRegistrodeVisita.setForeground(Color.WHITE);
 		btnRegistrodeVisita.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -493,6 +500,7 @@ public class InitView extends JFrame {
 	private JMenuItem mntmHistoricoDeVisitas;
 	private JMenuItem mntmRegistroDeVisitas;
 	private JMenuItem mntmVisitasDeHoy;
+	private JMenuItem mntmCopiaDeSeguridad;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -641,5 +649,8 @@ public class InitView extends JFrame {
 	}
 	public JMenuItem getJMenuItemCierreCaja() {
 		return jMenuItem13;
+	}
+	public JMenuItem getMntmCopiaDeSeguridad() {
+		return mntmCopiaDeSeguridad;
 	}
 }

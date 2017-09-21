@@ -44,6 +44,7 @@ public class VisitaController implements ActionListener {
 		this.membresiaListaVisitasView = membresiaListaVisita;
 		this.membresiaDiaVisitaView = membresiaDiaVisitaView;
 		if (this.membresiaRegistroVisitaView != null) {
+			this.membresiaRegistroVisitaView.setLocationRelativeTo(null);
 			this.membresiaRegistroVisitaView.getBtnBuscar().addActionListener(this);
 			this.membresiaRegistroVisitaView.getBtnCancelar().addActionListener(this);
 			this.membresiaRegistroVisitaView.getBtnRegistrar().addActionListener(this);
@@ -51,11 +52,13 @@ public class VisitaController implements ActionListener {
 		}
 		if (this.membresiaListaVisitasView != null) {
 			cargarHistoricoVisitas();
+			this.membresiaListaVisitasView.setLocationRelativeTo(null);
 			this.membresiaListaVisitasView.getBtnSalir().addActionListener(this);
 			this.membresiaListaVisitasView.setVisible(true);
 		}
 		if (this.membresiaDiaVisitaView != null) {
 			cargarDiaVisitas();
+			this.membresiaDiaVisitaView.setLocationRelativeTo(null);
 			this.membresiaDiaVisitaView.getBtnSalir().addActionListener(this);
 			this.membresiaDiaVisitaView.setVisible(true);
 		}

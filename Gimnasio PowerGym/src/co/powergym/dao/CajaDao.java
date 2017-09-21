@@ -36,12 +36,11 @@ public class CajaDao implements CajaInterfaceDao {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD.prepareStatement(
-					"INSERT INTO Caja(fechaApertura, saldoInicial, usuario_id_apertura, estado) values(?, ?, ?, ?)");
-			statement.setTimestamp(1, new Timestamp(fechaApertura.getTime()));
-			statement.setInt(2, saldoInicial);
-			statement.setInt(3, responsableApertura);
-			statement.setInt(4, Caja.ABIERTA);
+			PreparedStatement statement = accesoBD
+					.prepareStatement("INSERT INTO Caja(saldoInicial, usuario_id_apertura, estado) values(?, ?, ?)");
+			statement.setInt(1, saldoInicial);
+			statement.setInt(2, responsableApertura);
+			statement.setInt(3, Caja.ABIERTA);
 
 			statement.execute();
 			respuesta = true;
@@ -58,10 +57,13 @@ public class CajaDao implements CajaInterfaceDao {
 		try {
 			Calendar calendar = Calendar.getInstance();
 			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD
-					.prepareStatement("SELECT id FROM Caja WHERE fechaApertura = ? AND estado = ?");
-			statement.setDate(1, new java.sql.Date(calendar.getTimeInMillis()));
-			statement.setInt(2, Caja.ABIERTA);
+			PreparedStatement statement = accesoBD.prepareStatement(
+					"SELECT id FROM Caja WHERE DAY(fechaApertura) = ? AND MONTH(fechaApertura) = ? AND YEAR(fechaApertura) = ? AND estado = ?");
+
+			statement.setInt(1, calendar.get(Calendar.DAY_OF_MONTH));
+			statement.setInt(2, calendar.get(Calendar.MONTH) + 1);
+			statement.setInt(3, calendar.get(Calendar.YEAR));
+			statement.setInt(4, Caja.ABIERTA);
 			ResultSet resultSet = statement.executeQuery();
 			if (resultSet.next()) {
 				id = resultSet.getInt(1);
@@ -123,7 +125,9 @@ public class CajaDao implements CajaInterfaceDao {
 			if (resultSet.next()) {
 				caja = new Caja();
 				caja.setId(resultSet.getInt(1));
-				caja.setFechaApertura(resultSet.getDate(2));
+				Date date = resultSet.getTimestamp(2);
+				caja.setFechaApertura(date);
+				System.out.println(caja.getFechaApertura());
 				caja.setResponsableApertura(resultSet.getInt(3));
 				caja.setEstado(resultSet.getInt(4));
 				caja.setTotalEgresos(resultSet.getInt(5));
@@ -139,16 +143,17 @@ public class CajaDao implements CajaInterfaceDao {
 	}
 
 	@Override
-	public int totalVentasMembresiasDia() {
+	public int totalVentasMembresiasDia(int caja_id) {
 		int caja = 0;
 		try {
 			Calendar calendar = Calendar.getInstance();
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD.prepareStatement("SELECT SUM(valor) FROM membresia_socio "
-					+ "WHERE YEAR(fechaCreacion) = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion) = ?;");
+					+ "WHERE YEAR(fechaCreacion) = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion) = ? AND caja_id = ?;");
 			statement.setInt(1, calendar.get(Calendar.YEAR));
 			statement.setInt(2, calendar.get(Calendar.MONTH) + 1);
 			statement.setInt(3, calendar.get(Calendar.DAY_OF_MONTH));
+			statement.setInt(4, caja_id);
 			ResultSet resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
@@ -160,5 +165,84 @@ public class CajaDao implements CajaInterfaceDao {
 			System.out.println(e);
 		}
 		return caja;
+	}
+
+	@Override
+	public int totalVentasVisitasDia(int caja_id) {
+		int caja = 0;
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement("SELECT SUM(valor) FROM visita "
+					+ "WHERE YEAR(fechaCreacion) = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion) = ? AND caja_id = ?;");
+			statement.setInt(1, calendar.get(Calendar.YEAR));
+			statement.setInt(2, calendar.get(Calendar.MONTH) + 1);
+			statement.setInt(3, calendar.get(Calendar.DAY_OF_MONTH));
+			statement.setInt(4, caja_id);
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				caja = resultSet.getInt(1);
+			}
+			return caja;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		return caja;
+	}
+
+	@Override
+	public int totalEgresosDia(int caja_id) {
+		int caja = 0;
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement("SELECT SUM(valor) FROM movimiento "
+					+ "WHERE YEAR(fechaCreacion) = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion) = ? AND caja_id = ?;");
+			statement.setInt(1, calendar.get(Calendar.YEAR));
+			statement.setInt(2, calendar.get(Calendar.MONTH) + 1);
+			statement.setInt(3, calendar.get(Calendar.DAY_OF_MONTH));
+			statement.setInt(4, caja_id);
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				caja = resultSet.getInt(1);
+			}
+			return caja;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		return caja;
+	}
+
+	@Override
+	public boolean cerrarCaja(int caja_id, int usuario_cierre, int totalEgresos, int totalMembresia, int totalVisita,
+			int dineroCaja) {
+		boolean respuesta = false;
+		try {
+			Connection conn = conexion.getConexion();
+			PreparedStatement ps = conn.prepareStatement(
+					"UPDATE Caja SET usuario_id_cierre = ?, totalEgresos = ?, totalMembresias = ?, totalVisitas = ?, saldoFinal = ?, fechaCierre = ?, estado = 0"
+							+ " WHERE id = ?;");
+
+			ps.setInt(1, usuario_cierre);
+			ps.setInt(2, totalEgresos);
+			ps.setInt(3, totalMembresia);
+			ps.setInt(4, totalVisita);
+			ps.setInt(5, dineroCaja);
+			ps.setTimestamp(6, new Timestamp(Calendar.getInstance().getTime().getTime()));
+			ps.setInt(7, caja_id);
+
+			// call executeUpdate to execute our sql update statement
+			ps.executeUpdate();
+			respuesta = true;
+			ps.close();
+		} catch (SQLException se) {
+			// log the exception
+			return respuesta;
+		}
+		return respuesta;
 	}
 }
