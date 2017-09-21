@@ -11,6 +11,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 public class ActualizarUsuario extends JFrame {
 	/**
