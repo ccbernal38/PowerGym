@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import co.powergym.interfacedao.PermisoUsuarioDaoInterface;
 import co.powergym.model.Conexion;
@@ -69,12 +70,52 @@ public class PermisoUsuarioDao implements PermisoUsuarioDaoInterface {
 		}
 		return list;
 	}
+
 	
 	@Override
 	public boolean modificarUsuario(int usuario_id, int permiso_id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public List<PermisoUsuario> permisosPorUsuario(int idUsuario) {
+		
+		ArrayList<PermisoUsuario> list = new ArrayList<PermisoUsuario>();
+		PermisoUsuario permisoUsuario;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT permiso_id "
+					+ " FROM permisoasignado WHERE usuario_id = ?");
+			preparedStatement.setInt(1, idUsuario);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				permisoUsuario = new PermisoUsuario();
+				permisoUsuario.setPermiso_id(resultSet.getInt(1));
+				list.add(permisoUsuario);
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void eliminarPermisosusuario(int id_usuario) {
+		try {
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement(
+					"DELETE FROM permisoasignado WHERE usuario_id=?");
+			statement.setInt(1, id_usuario);
+			statement.execute();
+			conexion.desconectar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 
 	
 

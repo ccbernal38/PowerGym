@@ -99,22 +99,21 @@ public class UsuarioDao implements UsuarioDaoInterface {
 
 	@Override
 	public boolean modificarUsuario(String identificacion, String nombre, String apellido, Date fechaNacimiento,
-			String telefono, String correo, int genero, String username, String password) {
+			String telefono, String correo, String username, String password) {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
 
 
 			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set nombre = ?, "
-					+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ?, genero = ? "
+					+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ? "
 					+ "WHERE identificacion = ?");
 			statement.setString(1, nombre);
 			statement.setString(2, apellido);
 			statement.setDate(3, new java.sql.Date(fechaNacimiento.getTime()));
 			statement.setString(4, correo);
 			statement.setString(5, telefono);
-			statement.setInt(6, genero);
-			statement.setString(7, identificacion);
+			statement.setString(6, identificacion);
 			statement.execute();
 			resultado = true;
 		} catch (Exception e) {
@@ -129,7 +128,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre, "
-					+ "apellido, correoElectronico, telefono, genero, username, password" + " FROM Usuario WHERE identificacion = ?");
+					+ "apellido, correoElectronico, telefono, genero, username, password, fechaNacimiento" + " FROM Usuario WHERE identificacion = ?");
 			preparedStatement.setString(1, identificacion);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -143,6 +142,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 				usuario.setGenero(resultSet.getInt(7));
 				usuario.setUsuario(resultSet.getString(8));
 				usuario.setContrasena(resultSet.getString(9));
+				usuario.setFechaNacimiento(resultSet.getDate(10));
 			}
 			conexion.desconectar();
 		} catch (Exception e) {

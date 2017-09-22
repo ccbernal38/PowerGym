@@ -8,7 +8,6 @@ import java.awt.event.ItemListener;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
@@ -140,6 +139,72 @@ public class UsuarioController implements ActionListener {
 		this.permisosAsignados = permisosAsignados;
 	}
 
+	public void registrarAsignarPermiso(String numeroId) {
+		Usuario usuario = usuarioDao.buscarUsuario(numeroId);
+
+		listaPermiso = permisoDao.listaPermisos();
+		JRadioButton jRadioButton;
+		ArrayList<Integer> seleccionados = new ArrayList<>();
+		int idPermiso = 0;
+		for (int i = 0; i < listaPermiso.size(); i++) {
+			jRadioButton = (JRadioButton) viewRegistroUsuario.getTablePermisos().getValueAt(i, 3);
+			if (jRadioButton.isSelected() == true) {
+				idPermiso = listaPermiso.get(i).getId();
+				seleccionados.add(idPermiso);
+			}
+		}
+		Boolean filaPermisoAsignar = false;
+		if (usuario != null) {
+
+			int id_usuario = usuario.getId();
+			int option = JOptionPane.showConfirmDialog(viewRegistroUsuario,
+					"¿Esta seguro de asignar estos permisos?");
+			if (JOptionPane.YES_OPTION == option) {
+				for (int i = 0; i < seleccionados.size(); i++) {
+					filaPermisoAsignar = permisoUsuarioDao.registrarPermisoUsuario(id_usuario,
+							seleccionados.get(i));
+				}
+				if (filaPermisoAsignar == true) {
+					JOptionPane.showMessageDialog(viewRegistroUsuario,
+							"Los permisos se asignaron exitosamente.");
+				}
+			}
+		}
+	}
+
+	public void actualizarAsignarPermiso(String numeroId) {
+		Usuario usuario = usuarioDao.buscarUsuario(numeroId);
+
+		listaPermiso = permisoDao.listaPermisos();
+		JRadioButton jRadioButton;
+		ArrayList<Integer> seleccionados = new ArrayList<>();
+		int idPermiso = 0;
+		for (int i = 0; i < listaPermiso.size(); i++) {
+			jRadioButton = (JRadioButton) viewActualizarUsuario.getTablePermisos().getValueAt(i, 3);
+			if (jRadioButton.isSelected() == true) {
+				idPermiso = listaPermiso.get(i).getId();
+				seleccionados.add(idPermiso);
+			}
+		}
+		Boolean filaPermisoAsignar = false;
+		if (usuario != null) {
+
+			int id_usuario = usuario.getId();
+			int option = JOptionPane.showConfirmDialog(viewRegistroUsuario,
+					"¿Esta seguro de asignar estos permisos?");
+			if (JOptionPane.YES_OPTION == option) {
+				for (int i = 0; i < seleccionados.size(); i++) {
+					filaPermisoAsignar = permisoUsuarioDao.registrarPermisoUsuario(id_usuario,
+							seleccionados.get(i));
+				}
+				if (filaPermisoAsignar == true) {
+					JOptionPane.showMessageDialog(viewRegistroUsuario,
+							"Los permisos se asignaron exitosamente.");
+				}
+			}
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (viewRegistroUsuario != null && e.getSource() == viewRegistroUsuario.btnRegistrar) {
@@ -201,6 +266,7 @@ public class UsuarioController implements ActionListener {
 				respuesta = usuarioDao.registrarUsuario(numeroId, nombre, apellido, fechaNacimiento, correo, telefono,
 						genero, username, contrasena);
 
+
 				Usuario usuario = usuarioDao.buscarUsuario(numeroId);
 
 				listaPermiso = permisoDao.listaPermisos();
@@ -237,7 +303,8 @@ public class UsuarioController implements ActionListener {
 				} else {
 					JOptionPane.showMessageDialog(null, "Ocurrio un error registrando un nuevo usuario.");
 				}
-
+				
+				registrarAsignarPermiso(numeroId);
 			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
@@ -276,6 +343,22 @@ public class UsuarioController implements ActionListener {
 						
 						viewActualizarUsuario.setVisible(true);
 						viewActualizarUsuario.getBtnActualizar1().addActionListener(this);
+						llenarTablaPermisos(viewActualizarUsuario.getTablePermisos());
+						
+						List<PermisoUsuario>permisos = permisoUsuarioDao.permisosPorUsuario(usuario.getId());
+						List<Permiso> permisosGenerales = permisoDao.listaPermisos();
+						List<Integer>coincidentes = new ArrayList<>(); 
+						
+						JRadioButton buttonR;
+						for (int i = 0; i < permisosGenerales.size(); i++) {
+							for (int j = 0; j < permisos.size(); j++) {
+								if(permisosGenerales.get(i).getId() == permisos.get(j).getPermiso_id()) {
+									coincidentes.add(permisos.get(j).getPermiso_id());
+									buttonR = (JRadioButton) viewActualizarUsuario.getTablePermisos().getValueAt(i, 3);
+									buttonR.setSelected(true);
+								}
+							}
+						}
 					}
 				}
 			}
@@ -286,16 +369,13 @@ public class UsuarioController implements ActionListener {
 			String apellido = viewActualizarUsuario.getTxtApellido().getText();
 			String telefono = viewActualizarUsuario.getTxtTelefono().getText();
 			String correoElectronico = viewActualizarUsuario.getTxtCorreoelectronico().getText();
-			String usuario = viewActualizarUsuario.getTextUsuario().getText();
+			String user = viewActualizarUsuario.getTextUsuario().getText();
 			String confirmaC = viewActualizarUsuario.getTextconfirmaC().getText();
 			String contrasena = viewActualizarUsuario.getTextContrasena().getText();
 
 			Date fecha = viewActualizarUsuario.getFechaNacimiento().getDate();
-
+			Usuario usuario = usuarioDao.buscarUsuario(numeroId);	
 			// Permisos del usuario
-			int row = viewActualizarUsuario.getTablePermisos().getSelectedRow();
-			int column = 3;
-			JRadioButton JRadioseleccion;
 			String password = null;
 			if (contrasena.equals(confirmaC)) {
 				password = contrasena;
@@ -303,12 +383,15 @@ public class UsuarioController implements ActionListener {
 				JOptionPane.showMessageDialog(viewActualizarUsuario,
 						"La contraseña y la confirmación no coinciden, por favor verifique.");
 			}
+			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, fecha, telefono, correoElectronico, 
+					user, password);
+			permisoUsuarioDao.eliminarPermisosusuario(usuario.getId());
+			actualizarAsignarPermiso(usuario.getIdentificacion());
 
-
-			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, fecha, correoElectronico,
-					telefono, 0, usuario, password);
 			if (respuesta) {
+				listadoUsuariosLlenarTabla(viewListaUsuario.getJTableListaEntrenador());
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
+				
 			} else {
 				JOptionPane.showMessageDialog(null, "Ocurrio un error actualizando los datos del usuario.");
 			}
