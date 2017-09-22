@@ -38,35 +38,20 @@ public class LoginView extends JFrame {
 	private JLabel lblNewLabel;
 	private JButton btnCambiarContrasea;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginView frame = new LoginView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public LoginView() {
 		setTitle("PowerGym");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 500);
+		setBounds(100, 100, 500, 476);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		getContentPane().setBackground(new Color(42, 45, 52));
+		getContentPane().setBackground(new Color(218, 227, 229));
 
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -77,7 +62,7 @@ public class LoginView extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(22, 149, 438, 208);
+		panel.setBounds(22, 149, 438, 239);
 		panel.setBackground(new Color(0, 0, 0, 0));
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -148,13 +133,15 @@ public class LoginView extends JFrame {
 		PromptSupport.setForeground(Color.LIGHT_GRAY, passwordField);
 		PromptSupport.setFontStyle(Font.PLAIN, passwordField);
 		btnSalir = new JButton("Salir");
+		btnSalir.setForeground(new Color(74, 74, 72));
 		btnSalir.setBorder(new LineBorder(Color.LIGHT_GRAY, 3, true));
-		btnSalir.setBackground(Color.GRAY);
-		btnSalir.setFont(new Font("Verdana", Font.BOLD, 14));
-		btnSalir.setBounds(321, 399, 139, 51);
+		btnSalir.setBackground(Color.LIGHT_GRAY);
+		btnSalir.setFont(new Font("Verdana", Font.BOLD, 11));
+		btnSalir.setBounds(356, 399, 104, 25);
 		contentPane.add(btnSalir);
 		
 		btnIniciar = new JButton("Iniciar");
+		btnIniciar.setForeground(new Color(74, 74, 72));
 		btnIniciar.setFont(new Font("Verdana", Font.BOLD, 14));
 		btnIniciar.setBackground(Color.ORANGE);
 		btnIniciar.setBorder(new LineBorder(new Color(255, 255, 153), 3, true));
@@ -166,11 +153,11 @@ public class LoginView extends JFrame {
 		panel.add(btnIniciar);
 		
 		btnCambiarContrasea = new JButton("Cambiar contrase\u00F1a");
-		btnCambiarContrasea.setForeground(new Color(0, 0, 0));
-		btnCambiarContrasea.setBackground(Color.DARK_GRAY);
+		btnCambiarContrasea.setBounds(130, 206, 180, 23);
+		panel.add(btnCambiarContrasea);
+		btnCambiarContrasea.setForeground(new Color(74, 74, 72));
+		btnCambiarContrasea.setBackground(Color.LIGHT_GRAY);
 		btnCambiarContrasea.setFont(new Font("Verdana", Font.BOLD, 11));
-		btnCambiarContrasea.setBounds(280, 365, 180, 23);
-		contentPane.add(btnCambiarContrasea);
 		this.addWindowListener(new WindowAdapter() {
 		    public void windowGainedFocus(WindowEvent e) {
 		        btnIniciar.requestFocusInWindow();

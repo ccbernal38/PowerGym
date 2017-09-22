@@ -40,6 +40,8 @@ public class PagoMembresiaView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 693, 511);
 		contentPane = new JPanel();
+		contentPane.setForeground(new Color(74, 74, 72));
+		contentPane.setBackground((new Color(127, 190, 235)));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -49,6 +51,7 @@ public class PagoMembresiaView extends JFrame {
 		contentPane.add(scrollPane);
 
 		table = new JTable();
+		table.setForeground(new Color(74, 74, 72));
 		table.setFont(new Font("Verdana", Font.PLAIN, 11));
 		scrollPane.setViewportView(table);
 		table.setCellSelectionEnabled(true);
@@ -58,16 +61,19 @@ public class PagoMembresiaView extends JFrame {
 				new String[] { "Fecha Asignacion", "Producto Adquirido", "Costo Membresia" }));
 
 		JLabel lblBalanceAPagar = new JLabel("Balance a pagar:");
+		lblBalanceAPagar.setForeground(new Color(74, 74, 72));
 		lblBalanceAPagar.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblBalanceAPagar.setBounds(388, 230, 172, 14);
 		contentPane.add(lblBalanceAPagar);
 
 		JLabel lblNuevoPago = new JLabel("Saldo a favor:");
+		lblNuevoPago.setForeground(new Color(74, 74, 72));
 		lblNuevoPago.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblNuevoPago.setBounds(388, 255, 172, 14);
 		contentPane.add(lblNuevoPago);
 
 		JLabel lblElNuevoBalance = new JLabel("El nuevo balance ser\u00E1:");
+		lblElNuevoBalance.setForeground(new Color(74, 74, 72));
 		lblElNuevoBalance.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblElNuevoBalance.setBounds(388, 280, 172, 14);
 		contentPane.add(lblElNuevoBalance);
@@ -79,6 +85,7 @@ public class PagoMembresiaView extends JFrame {
 		panel.setLayout(null);
 
 		JLabel lblNuevoPago_1 = new JLabel("NUEVO PAGO");
+		lblNuevoPago_1.setForeground(new Color(74, 74, 72));
 		lblNuevoPago_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNuevoPago_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblNuevoPago_1.setBounds(10, 11, 259, 23);
@@ -107,22 +114,28 @@ public class PagoMembresiaView extends JFrame {
 		contentPane.add(lblSaldoFavor);
 
 		lblNuevoBalance = new JLabel("$0");
+		lblNuevoBalance.setForeground(new Color(74, 74, 72));
 		lblNuevoBalance.setFont(new Font("Verdana", Font.BOLD, 11));
 		lblNuevoBalance.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNuevoBalance.setBounds(529, 280, 138, 14);
 		contentPane.add(lblNuevoBalance);
 
 		JLabel lblPagoDe = new JLabel("Pago de balances pendientes");
+		lblPagoDe.setForeground(new Color(74, 74, 72));
 		lblPagoDe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPagoDe.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblPagoDe.setBounds(10, 21, 657, 38);
 		contentPane.add(lblPagoDe);
 
 		btnPagar = new JButton("Pagar");
+		btnPagar.setForeground(new Color(74, 74, 72));
+		btnPagar.setBackground(Color.LIGHT_GRAY);
 		btnPagar.setBounds(537, 438, 130, 23);
 		contentPane.add(btnPagar);
 
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(74, 74, 72));
+		btnCancelar.setBackground(Color.LIGHT_GRAY);
 		btnCancelar.setBounds(388, 438, 130, 23);
 		contentPane.add(btnCancelar);
 
@@ -133,16 +146,19 @@ public class PagoMembresiaView extends JFrame {
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("\u00BFDesea utilizar el saldo a favor?");
+		lblNewLabel.setForeground(new Color(74, 74, 72));
 		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 11));
 		lblNewLabel.setBounds(10, 39, 187, 14);
 		panel_1.add(lblNewLabel);
 
 		chckbxSi = new JCheckBox("Si");
+		chckbxSi.setForeground(new Color(74, 74, 72));
 		chckbxSi.setFont(new Font("Verdana", Font.PLAIN, 11));
 		chckbxSi.setBounds(203, 35, 97, 23);
 		panel_1.add(chckbxSi);
 
 		JLabel lblSaldoAFavor = new JLabel("SALDO A FAVOR");
+		lblSaldoAFavor.setForeground(new Color(74, 74, 72));
 		lblSaldoAFavor.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSaldoAFavor.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblSaldoAFavor.setBounds(10, 11, 187, 23);
@@ -155,6 +171,7 @@ public class PagoMembresiaView extends JFrame {
 		panel_1.add(lblSaldoFavorActual);
 		
 		textFieldSaldoUsar = new JTextField();
+		textFieldSaldoUsar.setForeground(new Color(74, 74, 72));
 		textFieldSaldoUsar.setText("0");
 		textFieldSaldoUsar.setEnabled(false);
 		textFieldSaldoUsar.setFont(new Font("Verdana", Font.PLAIN, 11));
@@ -163,6 +180,7 @@ public class PagoMembresiaView extends JFrame {
 		textFieldSaldoUsar.setColumns(10);
 		
 		JLabel lblValorAUtilizar = new JLabel("Valor a utilizar:");
+		lblValorAUtilizar.setForeground(new Color(74, 74, 72));
 		lblValorAUtilizar.setFont(new Font("Verdana", Font.PLAIN, 11));
 		lblValorAUtilizar.setBounds(10, 68, 187, 14);
 		panel_1.add(lblValorAUtilizar);

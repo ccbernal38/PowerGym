@@ -3,7 +3,6 @@
  */
 package co.powergym.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,14 +73,15 @@ public class LoginDao implements LoginInterfaceDao {
 			PreparedStatement ps = conexion.getConexion()
 					.prepareStatement("UPDATE Usuario SET password = ? WHERE username = ? AND password = ?");
 
-			// set the preparedstatement parameters
 			ps.setString(1, passwordNew);
-			ps.setString(2, password);
-			ps.setString(3, usuario);
-			// call executeUpdate to execute our sql update statement
-			ps.executeUpdate();
+			ps.setString(2, usuario);
+			ps.setString(3, password);
+			int res = ps.executeUpdate();
 			ps.close();
-			return true;
+			if (res == 0)
+				return false;
+			else
+				return true;
 		} catch (SQLException se) {
 			// log the exception
 			System.out.println(se);

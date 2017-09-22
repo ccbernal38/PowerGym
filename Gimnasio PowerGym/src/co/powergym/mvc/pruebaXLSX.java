@@ -2,48 +2,53 @@ package co.powergym.mvc;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
- 
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 public class pruebaXLSX {
 
 	public static void main(String[] args) throws IOException {
-        String excelFilePath = "Books.xlsx";
-        FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-         
-        Workbook workbook = new XSSFWorkbook(inputStream);
-        Sheet firstSheet = workbook.getSheetAt(0);
-        Iterator<Row> iterator = firstSheet.iterator();
-         
-        while (iterator.hasNext()) {
-            Row nextRow = iterator.next();
-            Iterator<Cell> cellIterator = nextRow.cellIterator();
-             
-            while (cellIterator.hasNext()) {
-                Cell cell = cellIterator.next();
-                 
-                switch (cell.getCellType()) {
-                    case Cell.CELL_TYPE_STRING:
-                        System.out.print(cell.getStringCellValue());
-                        break;
-                    case Cell.CELL_TYPE_BOOLEAN:
-                        System.out.print(cell.getBooleanCellValue());
-                        break;
-                    case Cell.CELL_TYPE_NUMERIC:
-                        System.out.print(cell.getNumericCellValue());
-                        break;
-                }
-                System.out.print(" - ");
-            }
-            System.out.println();
-        }
-         
-        workbook.close();
-        inputStream.close();
-    }
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet("Java Books");
+
+		Object[][] bookData = { { "Head First Java", "Kathy Serria", 79 }, { "Effective Java", "Joshua Bloch", 36 },
+				{ "Clean Code", "Robert martin", 42 }, { "Thinking in Java", "Bruce Eckel", 35 }, };
+
+		int rowCount = 0;
+
+		for (Object[] aBook : bookData) {
+			Row row = sheet.createRow(++rowCount);
+
+			int columnCount = 0;
+
+			for (Object field : aBook) {
+				Cell cell = row.createCell(++columnCount);
+				if (field instanceof String) {
+					cell.setCellValue((String) field);
+				} else if (field instanceof Integer) {
+					cell.setCellValue((Integer) field);
+				}
+			}
+
+		}
+
+		try (FileOutputStream outputStream = new FileOutputStream("JavaBooks.xlsx")) {
+			workbook.write(outputStream);
+		}
+	}
+
 }

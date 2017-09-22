@@ -21,6 +21,7 @@ import java.awt.ScrollPane;
 import java.util.Calendar;
 
 import com.toedter.calendar.JYearChooser;
+import javax.swing.SwingConstants;
 
 public class SocioCumpleaniosListadoView extends JFrame {
 
@@ -67,8 +68,9 @@ public class SocioCumpleaniosListadoView extends JFrame {
 			mes = "Diciembre";
 		}
 		JLabel lblNewLabel = new JLabel("CUMPLEAÑOS DEL MES DE " + mes.toUpperCase());
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel.setBounds(162, 11, 317, 42);
+		lblNewLabel.setBounds(10, 11, 610, 42);
 		contentPane.add(lblNewLabel);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 127, 614, 265);

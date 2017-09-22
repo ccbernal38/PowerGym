@@ -115,8 +115,12 @@ public class LoginController implements ActionListener {
 						if (!usuario.equals("")) {
 							if (!password.equals("")) {
 								if (!passwordNew.equals("")) {
-									if (!passwordNew.equals(passwordNewRepeat)) {
+									if (passwordNew.equals(passwordNewRepeat)) {
 										cambiarContrasena(usuario, password, passwordNew);
+										viewLogin.setEnabled(true);
+										cambiarContraseniaView.setVisible(false);
+										cambiarContraseniaView.dispose();
+										
 									} else {
 										JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.");
 									}
@@ -157,6 +161,7 @@ public class LoginController implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Los datos ingresados son incorrectos.");
 		}else {
 			JOptionPane.showMessageDialog(null, "La contraseña se cambio con exito.");
+			
 		}
 	}
 

@@ -42,6 +42,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import java.awt.Dimension;
+import javax.swing.border.SoftBevelBorder;
 
 /**
  *
@@ -62,7 +63,7 @@ public class InitView extends JFrame {
 
 		setTitle("PowerGym");
 
-		getContentPane().setBackground(new Color(42, 45, 52));
+		getContentPane().setBackground(new Color(127, 190, 235));
 		initComponents();
 	}
 
@@ -236,7 +237,7 @@ public class InitView extends JFrame {
 		btnRegistrarSocio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrarSocio.setFont(new Font("Verdana", Font.BOLD, 12));
 		getContentPane().add(btnRegistrarSocio);
-		btnRegistrarSocio.setForeground(Color.WHITE);
+		btnRegistrarSocio.setForeground(new Color(74, 74, 72));
 		btnRegistrarSocio.setBackground(new Color(208, 0, 0));
 
 		btnRegistrarSocio.setText("<html><center>Registro<br />de socio (F3)</center></html>");
@@ -247,7 +248,7 @@ public class InitView extends JFrame {
 		btnMenuMembresia.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnMenuMembresia.setBorder(null);
 		btnMenuMembresia.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnMenuMembresia.setForeground(Color.WHITE);
+		btnMenuMembresia.setForeground(new Color(74, 74, 72));
 		getContentPane().add(btnMenuMembresia);
 		btnMenuMembresia.setBackground(new Color(0, 208, 0));
 
@@ -257,7 +258,7 @@ public class InitView extends JFrame {
 		jButtonPagarMensualidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonPagarMensualidad.setBorder(null);
 		jButtonPagarMensualidad.setFont(new Font("Verdana", Font.BOLD, 12));
-		jButtonPagarMensualidad.setForeground(Color.WHITE);
+		jButtonPagarMensualidad.setForeground(new Color(74, 74, 72));
 		getContentPane().add(jButtonPagarMensualidad);
 		jButtonPagarMensualidad.setBackground(new Color(0, 0, 208));
 
@@ -267,7 +268,7 @@ public class InitView extends JFrame {
 		jButtonCierreCaja.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonCierreCaja.setBorder(null);
 		jButtonCierreCaja.setFont(new Font("Verdana", Font.BOLD, 12));
-		jButtonCierreCaja.setForeground(Color.WHITE);
+		jButtonCierreCaja.setForeground(new Color(74, 74, 72));
 		getContentPane().add(jButtonCierreCaja);
 		jButtonCierreCaja.setBackground(new Color(208, 208, 0));
 
@@ -281,7 +282,7 @@ public class InitView extends JFrame {
 		panelCumpleanios.setLayout(null);
 
 		JLabel lblCumpleaosDelDa = new JLabel("Cumpleaños del Día");
-		lblCumpleaosDelDa.setForeground(Color.WHITE);
+		lblCumpleaosDelDa.setForeground(new Color(74, 74, 72));
 		lblCumpleaosDelDa.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCumpleaosDelDa.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblCumpleaosDelDa.setBounds(10, 11, 244, 29);
@@ -314,34 +315,42 @@ public class InitView extends JFrame {
 		listCumpleanios.setBackground(new Color(0, 0, 0, 0));
 
 		panelBusqueda = new JPanel();
-		panelBusqueda.setBackground(Color.DARK_GRAY);
-		panelBusqueda.setBorder(new EmptyBorder(0, 0, 3, 0));
+		panelBusqueda.setBackground(new Color( 255,255,255));
+		panelBusqueda.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelBusqueda.setBounds(0, 0, 1362, 47);
 		getContentPane().add(panelBusqueda);
 		panelBusqueda.setLayout(null);
 
 		JLabel lblNewLabel_2 = new JLabel("Consultar socio:");
-		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setForeground(new Color(74, 74, 72));
 		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(10, 3, 195, 36);
 		panelBusqueda.add(lblNewLabel_2);
 
 		textFieldKey = new JTextField();
+		textFieldKey.setForeground(new Color(74, 74, 72));
 		textFieldKey.setFont(new Font("Verdana", Font.BOLD, 12));
 		textFieldKey.setBounds(162, 8, 164, 29);
 		panelBusqueda.add(textFieldKey);
 		textFieldKey.setColumns(10);
 
 		btnSalir = new JButton("Salir");
-		btnSalir.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnSalir.setBackground(Color.LIGHT_GRAY);
+		btnSalir.setForeground(new Color(74, 74, 72));
+		btnSalir.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnSalir.setBounds(1233, 11, 107, 23);
 		panelBusqueda.add(btnSalir);
 		btnB = new JButton("Buscar");
+		btnB.setBackground(Color.LIGHT_GRAY);
+		btnB.setFont(new Font("Verdana", Font.BOLD, 12));
+		btnB.setForeground(new Color(74, 74, 72));
 		btnB.setBounds(336, 11, 121, 25);
 		panelBusqueda.add(btnB);
 
 		btnPuerta = new JButton("Puerta");
-		btnPuerta.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnPuerta.setBackground(Color.LIGHT_GRAY);
+		btnPuerta.setForeground(new Color(74, 74, 72));
+		btnPuerta.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnPuerta.setBounds(1134, 11, 89, 23);
 		panelBusqueda.add(btnPuerta);
 
@@ -361,7 +370,7 @@ public class InitView extends JFrame {
 		btnRegistrodeVisita.setToolTipText("");
 		btnRegistrodeVisita.setText("<html><center>Registro<br />de visita (F2)</center></html>");
 		btnRegistrodeVisita.setPreferredSize(new Dimension(50, 50));
-		btnRegistrodeVisita.setForeground(Color.WHITE);
+		btnRegistrodeVisita.setForeground(new Color(74, 74, 72));
 		btnRegistrodeVisita.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnRegistrodeVisita.setBorder(null);
 		btnRegistrodeVisita.setBackground(Color.GREEN);
@@ -369,8 +378,9 @@ public class InitView extends JFrame {
 		getContentPane().add(btnRegistrodeVisita);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.DARK_GRAY);
-		panel_1.setBounds(10, 71, 404, 380);
+		panel_1.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panel_1.setBackground(new Color( 255, 255, 255));
+		panel_1.setBounds(0, 70, 404, 380);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -379,8 +389,7 @@ public class InitView extends JFrame {
 		panel_1.add(panel);
 		panel.setFont(new Font("Verdana", Font.BOLD, 11));
 		panel.setBackground(new Color(0, 0, 0, 0));
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaneando huella....",
-				TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaner de huella", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, new Color(74, 74, 72)));
 		panel.setLayout(new BorderLayout(0, 0));
 
 		lblHuella = new JLabel("");
@@ -391,10 +400,11 @@ public class InitView extends JFrame {
 				"<html><center>Ingrese el número <br>de identificación del socio:</center></html>");
 		lblingreseElNmero.setBounds(226, 66, 168, 50);
 		panel_1.add(lblingreseElNmero);
-		lblingreseElNmero.setForeground(Color.WHITE);
+		lblingreseElNmero.setForeground(new Color(74, 74, 72));
 		lblingreseElNmero.setFont(new Font("Verdana", Font.PLAIN, 12));
 
 		textField = new JTextField();
+		textField.setForeground(new Color(74, 74, 72));
 		textField.setBounds(245, 127, 125, 20);
 		panel_1.add(textField);
 		textField.setColumns(10);
@@ -406,16 +416,19 @@ public class InitView extends JFrame {
 
 		textArea = new JTextArea();
 		textArea.setFont(new Font("Verdana", Font.BOLD, 13));
-		textArea.setForeground(Color.WHITE);
-		textArea.setBackground(Color.DARK_GRAY);
+		textArea.setForeground(new Color(74, 74, 72));
+		textArea.setBackground(new Color( 255,255,255));
 		scrollPane_2.setViewportView(textArea);
 
 		btnVerificar = new JButton("Verificar");
+		btnVerificar.setBackground(Color.LIGHT_GRAY);
+		btnVerificar.setFont(new Font("Verdana", Font.BOLD, 12));
+		btnVerificar.setForeground(new Color(74, 74, 72));
 		btnVerificar.setBounds(245, 155, 125, 23);
 		panel_1.add(btnVerificar);
 
 		JLabel lblNewLabel_1 = new JLabel("Registro de asistencia");
-		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setForeground(new Color(74, 74, 72));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblNewLabel_1.setBounds(10, 19, 384, 36);

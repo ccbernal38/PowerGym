@@ -196,7 +196,7 @@ public class SocioDao implements SocioDaoInterface {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre, "
 					+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
-					+ " FROM Socio WHERE mesNacimiento = ?");
+					+ " FROM Socio WHERE Month(fechaNacimiento) = ?");
 			int mes = calendar.get(Calendar.MONTH) + 1;
 			preparedStatement.setInt(1, mes);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -267,7 +267,7 @@ public class SocioDao implements SocioDaoInterface {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre, "
 					+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
-					+ " FROM Socio WHERE mesNacimiento = ? AND diaNacimiento = ?");
+					+ " FROM Socio WHERE MONTH(fechaNacimiento) = ? AND DAY(fechaNacimiento) = ?");
 			int mes = calendar.get(Calendar.MONTH) + 1;
 			int dia = calendar.get(Calendar.DAY_OF_MONTH);
 			preparedStatement.setInt(1, mes);

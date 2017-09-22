@@ -69,7 +69,7 @@ public class RegistroUsuario extends JFrame{
 		getContentPane().add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
-		JLabel lblDocumentoDeIdentidad = new JLabel("Número de identificación:");
+		JLabel lblDocumentoDeIdentidad = new JLabel("N\u00FAmero de identificaci\u00F3n:");
 		lblDocumentoDeIdentidad.setBounds(33, 39, 168, 16);
 		getContentPane().add(lblDocumentoDeIdentidad);
 		
@@ -93,7 +93,7 @@ public class RegistroUsuario extends JFrame{
 		dateChooserFechaNa.setBounds(207, 123, 202, 20);
 		getContentPane().add(dateChooserFechaNa);
 		
-		JLabel lblCorreoElectrnico = new JLabel("Correo electrónico:");
+		JLabel lblCorreoElectrnico = new JLabel("Correo electr\u00F3nico:");
 		lblCorreoElectrnico.setBounds(469, 39, 135, 16);
 		getContentPane().add(lblCorreoElectrnico);
 		
@@ -153,11 +153,11 @@ public class RegistroUsuario extends JFrame{
 		panel.add(textConfirmaC);
 		textConfirmaC.setColumns(10);
 		
-		JLabel lblConfirmeLaContrsea = new JLabel("Confirme la contraseña:");
+		JLabel lblConfirmeLaContrsea = new JLabel("Confirme la contrase\u00F1a:");
 		lblConfirmeLaContrsea.setBounds(495, 30, 162, 16);
 		panel.add(lblConfirmeLaContrsea);
 		
-		JLabel lblContrasea = new JLabel("Contraseña:");
+		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setBounds(229, 30, 86, 16);
 		panel.add(lblContrasea);
 		

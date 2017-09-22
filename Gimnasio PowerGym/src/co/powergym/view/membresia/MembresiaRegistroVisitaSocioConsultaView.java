@@ -16,9 +16,9 @@ import javax.swing.JButton;
 public class MembresiaRegistroVisitaSocioConsultaView extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textFieldSocio;
-	private JTextField textFieldNombres;
-	private JTextField textFieldApellidos;
+	private JLabel textFieldSocio;
+	private JLabel textFieldNombres;
+	private JLabel textFieldApellidos;
 	private JTextField textFieldValor;
 	private JButton btnCancelar;
 	private JButton btnRegistrar;
@@ -31,7 +31,7 @@ public class MembresiaRegistroVisitaSocioConsultaView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 535, 232);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(42, 45, 52));
+		contentPane.setBackground(new Color(127, 190, 235));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -42,45 +42,39 @@ public class MembresiaRegistroVisitaSocioConsultaView extends JFrame {
 		panel_1.setLayout(null);
 
 		JLabel lblSocio = new JLabel("Socio:");
-		lblSocio.setForeground(Color.WHITE);
-		lblSocio.setFont(new Font("Verdana", Font.PLAIN, 11));
+		lblSocio.setForeground(new Color(74, 74, 72));;
+		lblSocio.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblSocio.setBounds(10, 30, 93, 14);
 		panel_1.add(lblSocio);
 
-		textFieldSocio = new JTextField();
-		textFieldSocio.setEditable(false);
-		textFieldSocio.setEnabled(false);
-		textFieldSocio.setFont(new Font("Verdana", Font.PLAIN, 11));
+		textFieldSocio = new JLabel();
+		textFieldSocio.setForeground(new Color(74, 74, 72));
+		textFieldSocio.setFont(new Font("Verdana", Font.BOLD, 12));
 		textFieldSocio.setBounds(113, 28, 135, 20);
 		panel_1.add(textFieldSocio);
-		textFieldSocio.setColumns(10);
 
 		JLabel lblNombre = new JLabel("Nombres:");
-		lblNombre.setForeground(Color.WHITE);
-		lblNombre.setFont(new Font("Verdana", Font.BOLD, 11));
+		lblNombre.setForeground(new Color(74, 74, 72));;
+		lblNombre.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblNombre.setBounds(10, 62, 93, 14);
 		panel_1.add(lblNombre);
 
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setForeground(Color.WHITE);
-		lblApellidos.setFont(new Font("Verdana", Font.BOLD, 11));
+		lblApellidos.setForeground(new Color(74, 74, 72));;
+		lblApellidos.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblApellidos.setBounds(258, 62, 93, 14);
 		panel_1.add(lblApellidos);
 
-		textFieldNombres = new JTextField();
-		textFieldNombres.setEnabled(false);
-		textFieldNombres.setEditable(false);
+		textFieldNombres = new JLabel();
+		textFieldNombres.setForeground(new Color(74, 74, 72));
 		textFieldNombres.setFont(new Font("Verdana", Font.PLAIN, 11));
-		textFieldNombres.setColumns(10);
 		textFieldNombres.setBounds(113, 59, 135, 20);
 		panel_1.add(textFieldNombres);
 
-		textFieldApellidos = new JTextField();
-		textFieldApellidos.setEnabled(false);
-		textFieldApellidos.setEditable(false);
+		textFieldApellidos = new JLabel();
+		textFieldApellidos.setForeground(new Color(74, 74, 72));
 		textFieldApellidos.setFont(new Font("Verdana", Font.PLAIN, 11));
-		textFieldApellidos.setColumns(10);
-		textFieldApellidos.setBounds(361, 59, 135, 20);
+		textFieldApellidos.setBounds(390, 59, 135, 20);
 		panel_1.add(textFieldApellidos);
 
 		textFieldValor = new JTextField();
@@ -89,27 +83,29 @@ public class MembresiaRegistroVisitaSocioConsultaView extends JFrame {
 		textFieldValor.setColumns(10);
 
 		JLabel lblValor = new JLabel("Valor:");
-		lblValor.setForeground(Color.WHITE);
-		lblValor.setFont(new Font("Verdana", Font.BOLD, 11));
+		lblValor.setForeground(new Color(74, 74, 72));;
+		lblValor.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblValor.setBounds(10, 92, 93, 14);
 		panel_1.add(lblValor);
 
 		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setBackground(Color.LIGHT_GRAY);
 		btnRegistrar.setBounds(258, 121, 89, 23);
 		panel_1.add(btnRegistrar);
 
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBackground(Color.LIGHT_GRAY);
 		btnCancelar.setBounds(159, 121, 89, 23);
 		panel_1.add(btnCancelar);
 
 		JLabel lblNewLabel = new JLabel("Registrar Visita");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setForeground(new Color(74, 74, 72));;
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
 	}
 
-	public JTextField getTextFieldApellidos() {
+	public JLabel getTextFieldApellidos() {
 		return textFieldApellidos;
 	}
 
@@ -117,11 +113,11 @@ public class MembresiaRegistroVisitaSocioConsultaView extends JFrame {
 		return btnCancelar;
 	}
 
-	public JTextField getTextFieldSocio() {
+	public JLabel getTextFieldSocio() {
 		return textFieldSocio;
 	}
 
-	public JTextField getTextFieldNombres() {
+	public JLabel getTextFieldNombres() {
 		return textFieldNombres;
 	}
 

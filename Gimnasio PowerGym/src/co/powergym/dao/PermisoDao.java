@@ -66,7 +66,7 @@ public class PermisoDao implements PermisoDaoInterface{
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,"
 					+ "nombre, fechaCreacion, fechaModificacion "
-					+ " FROM Permiso");
+					+ " FROM Permiso ORDER BY nombre ASC");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				permiso = new Permiso();

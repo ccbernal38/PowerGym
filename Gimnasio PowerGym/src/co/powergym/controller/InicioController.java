@@ -257,8 +257,7 @@ public class InicioController implements ActionListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				int saldoInicial = Integer.parseInt(aperturaCajaView.getSaldoInicio().getText().substring(1,
-						aperturaCajaView.getSaldoInicio().getText().length()));
+				int saldoInicial = 0;
 				boolean res = cajaDao.aperturaCaja(
 						Integer.parseInt(Preferencias.obtenerPreferencia(Constantes.ID_RESPONSABLE)), fechaApertura,
 						saldoInicial);
