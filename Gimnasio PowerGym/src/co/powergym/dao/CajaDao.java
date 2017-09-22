@@ -58,7 +58,8 @@ public class CajaDao implements CajaInterfaceDao {
 			Calendar calendar = Calendar.getInstance();
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD.prepareStatement(
-					"SELECT id FROM Caja WHERE DAY(fechaApertura) = ? AND MONTH(fechaApertura) = ? AND YEAR(fechaApertura) = ? AND estado = ?");
+					"SELECT id FROM Caja WHERE DAY(fechaApertura) = ? AND MONTH(fechaApertura) = ? AND YEAR(fechaApertura) = ? AND estado = ? "
+							+ "ORDER BY id DESC LIMIT 1");
 
 			statement.setInt(1, calendar.get(Calendar.DAY_OF_MONTH));
 			statement.setInt(2, calendar.get(Calendar.MONTH) + 1);

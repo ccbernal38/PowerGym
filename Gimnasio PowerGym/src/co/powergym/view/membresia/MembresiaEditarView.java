@@ -14,7 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
-public class editarMembresia extends JFrame {
+public class MembresiaEditarView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldNuevoNombreM;
@@ -33,27 +33,12 @@ public class editarMembresia extends JFrame {
 		this.id = id;
 	}
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					editarMembresia frame = new editarMembresia();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
-	public editarMembresia() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public MembresiaEditarView() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 446, 419);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
