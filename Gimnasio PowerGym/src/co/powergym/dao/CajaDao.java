@@ -115,7 +115,7 @@ public class CajaDao implements CajaInterfaceDao {
 	public Caja ultimoRegistro() {
 		Caja caja = null;
 		try {
-			Calendar calendar = Calendar.getInstance();
+			Calendar.getInstance();
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD
 					.prepareStatement("SELECT c.id, c.fechaApertura, c.usuario_id_apertura, c.estado, "
@@ -220,13 +220,13 @@ public class CajaDao implements CajaInterfaceDao {
 
 	@Override
 	public boolean cerrarCaja(int caja_id, int usuario_cierre, int totalEgresos, int totalMembresia, int totalVisita,
-			int dineroCaja) {
+			int totalAdeudosDia, int totalSaldoFavorDia, int dineroCaja) {
 		boolean respuesta = false;
 		try {
 			Connection conn = conexion.getConexion();
 			PreparedStatement ps = conn.prepareStatement(
 					"UPDATE Caja SET usuario_id_cierre = ?, totalEgresos = ?, totalMembresias = ?, totalVisitas = ?, saldoFinal = ?, fechaCierre = ?, estado = 0"
-							+ " WHERE id = ?;");
+							+ ", totalSaldoFavor = ?, totalAdeudos = ?  WHERE id = ?;");
 
 			ps.setInt(1, usuario_cierre);
 			ps.setInt(2, totalEgresos);
@@ -234,7 +234,9 @@ public class CajaDao implements CajaInterfaceDao {
 			ps.setInt(4, totalVisita);
 			ps.setInt(5, dineroCaja);
 			ps.setTimestamp(6, new Timestamp(Calendar.getInstance().getTime().getTime()));
-			ps.setInt(7, caja_id);
+			ps.setInt(7, totalSaldoFavorDia);
+			ps.setInt(8, totalAdeudosDia);
+			ps.setInt(9, caja_id);
 
 			// call executeUpdate to execute our sql update statement
 			ps.executeUpdate();
@@ -245,5 +247,92 @@ public class CajaDao implements CajaInterfaceDao {
 			return respuesta;
 		}
 		return respuesta;
+	}
+
+	@Override
+	public int totalDeudasDia(int caja_id) {
+		int caja = 0;
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement("SELECT SUM(valor) FROM Deuda "
+					+ "WHERE YEAR(fechaCreacion) = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion) = ? AND caja_id = ?;");
+			statement.setInt(1, calendar.get(Calendar.YEAR));
+			statement.setInt(2, calendar.get(Calendar.MONTH) + 1);
+			statement.setInt(3, calendar.get(Calendar.DAY_OF_MONTH));
+			statement.setInt(4, caja_id);
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				caja = resultSet.getInt(1);
+			}
+			return caja;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		return caja;
+	}
+
+	@Override
+	public int totalSaldoFavorDia(int caja_id) {
+		int caja = 0;
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement("SELECT SUM(valor) FROM SaldoAFavor "
+					+ "WHERE YEAR(fechaCreacion) = ? AND MONTH(fechaCreacion) = ? AND DAY(fechaCreacion) = ? AND caja_id = ?;");
+			statement.setInt(1, calendar.get(Calendar.YEAR));
+			statement.setInt(2, calendar.get(Calendar.MONTH) + 1);
+			statement.setInt(3, calendar.get(Calendar.DAY_OF_MONTH));
+			statement.setInt(4, caja_id);
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				caja = resultSet.getInt(1);
+			}
+			return caja;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		return caja;
+	}
+
+	@Override
+	public List<Caja> historicoCaja() {
+		List<Caja> list = new ArrayList<>();
+		try {
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement(
+					"SELECT c.id, c.fechaApertura, c.fechaCierre, c.totalVisitas, c.totalMembresias,  "
+							+ "c.totalSaldoFavor, c.totalAdeudos, c.totalEgresos, c.saldoFinal, "
+							+ "Concat(u.nombre,\" \",u.apellido), Concat(u2.nombre,\" \",u2.apellido) "
+							+ "FROM Caja AS c " + "JOIN Usuario AS u On c.usuario_id_apertura = u.id "
+							+ "JOIN Usuario AS u2 On c.usuario_id_cierre = u2.id " + "WHERE c.estado = 0;");
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				Caja caja = new Caja();
+				caja.setId(resultSet.getInt(1));
+				caja.setFechaApertura(resultSet.getTimestamp(2));
+				caja.setFechaCierre(resultSet.getTimestamp(3));
+				caja.setTotalVisitas(resultSet.getInt(4));
+				caja.setTotalMembresias(resultSet.getInt(5));
+				caja.setTotalSaldoFavor(resultSet.getInt(6));
+				caja.setTotalAdeudos(resultSet.getInt(7));
+				caja.setTotalEgresos(resultSet.getInt(8));
+				caja.setSaldoFinal(resultSet.getInt(9));
+				caja.setNombreApertura(resultSet.getString(10));
+				caja.setNombreCierre(resultSet.getString(11));
+				list.add(caja);
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		return list;
 	}
 }

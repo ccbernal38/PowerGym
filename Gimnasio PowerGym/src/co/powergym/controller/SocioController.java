@@ -54,12 +54,15 @@ import com.sun.xml.internal.ws.api.Cancelable;
 
 import co.powergym.dao.AsistenciaDao;
 import co.powergym.dao.CajaDao;
+import co.powergym.dao.DeudaDao;
 import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.MembresiaSocioDao;
+import co.powergym.dao.SaldoFavorDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Asistencia;
 import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
+import co.powergym.model.SaldoAFavor;
 import co.powergym.model.Socio;
 import co.powergym.utils.HuellaInit;
 import co.powergym.view.membresia.PagoMembresiaView;
@@ -79,6 +82,8 @@ public class SocioController implements ActionListener, ItemListener {
 	private Webcam webcam;
 	private SocioDao socioDao;
 	private MembresiaDao membresiaDao;
+	private DeudaDao deudaDao;
+	private SaldoFavorDao saldoFavorDao;
 	private MembresiaSocioDao membresiaSocioDao;
 	private SocioRegistroView viewRegistroSocio;
 	private SocioBusquedaView viewBusquedaSocio;
@@ -97,6 +102,8 @@ public class SocioController implements ActionListener, ItemListener {
 		this.socioDao = new SocioDao();
 		this.membresiaDao = new MembresiaDao();
 		this.membresiaSocioDao = new MembresiaSocioDao();
+		this.saldoFavorDao = new SaldoFavorDao();
+		this.deudaDao = new DeudaDao();
 		this.viewConsultaBusquedaSocio = consultaBusquedaView;
 
 		if (viewRegistroSocio != null) {
@@ -143,6 +150,10 @@ public class SocioController implements ActionListener, ItemListener {
 			viewConsultaBusquedaSocio.getTextField_fechaNacimiento().setText(fechaNacimiento);
 			String telefono = socio.getTelefono();
 			viewConsultaBusquedaSocio.getTextField_telefono().setText(telefono);
+			int deuda = deudaDao.totalDeudasSocio(socio.getId());
+			viewConsultaBusquedaSocio.getLabelDeuda().setText("$ "+deuda);
+			int saldoFavor = saldoFavorDao.saldoFavorSocio(socio.getId());
+			viewConsultaBusquedaSocio.getLabelSaldoFavor().setText("$ "+saldoFavor);
 			if (socio.getFoto() != null) {
 				Image dimg = socio.getFoto().getScaledInstance(viewConsultaBusquedaSocio.getLblFoto().getWidth(),
 						viewConsultaBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);

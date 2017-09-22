@@ -51,7 +51,7 @@ public class PagoMembresiaView extends JFrame {
 		table.setColumnSelectionAllowed(true);
 
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Fecha Asignacion", "Producto Adquirido", "Costo Membresia", "Saldo" }));
+				new String[] { "Fecha Asignacion", "Producto Adquirido", "Costo Membresia" }));
 
 		JLabel lblBalanceAPagar = new JLabel("Balance a pagar:");
 		lblBalanceAPagar.setFont(new Font("Verdana", Font.BOLD, 12));

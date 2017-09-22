@@ -40,6 +40,10 @@ public class SocioConsultaBusquedaView extends JFrame {
 	private JTable table_1;
 	private JButton btnAgregarPago;
 	private JButton btnRegistrarVisita;
+	private JLabel lblSaldoAFavor;
+	private JLabel labelSaldoFavor;
+	private JLabel lblDeudas;
+	private JLabel labelDeuda;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -106,12 +110,12 @@ public class SocioConsultaBusquedaView extends JFrame {
 
 		btnAgregarMembresia = new JButton("<html><center>Agregar<br/> Membresia</center></html>");
 		btnAgregarMembresia.setEnabled(false);
-		btnAgregarMembresia.setBounds(185, 207, 91, 91);
+		btnAgregarMembresia.setBounds(185, 254, 91, 91);
 		contentPane.add(btnAgregarMembresia);
 
 		btnAgregarPago = new JButton("<html><center>Agregar<br/> Pago</center></html>");
 		btnAgregarPago.setEnabled(false);
-		btnAgregarPago.setBounds(286, 207, 89, 91);
+		btnAgregarPago.setBounds(286, 254, 89, 91);
 		contentPane.add(btnAgregarPago);
 
 		lblFoto = new JLabel("");
@@ -138,7 +142,7 @@ public class SocioConsultaBusquedaView extends JFrame {
 		textField_fechaNacimiento.setText("19/08/2999");
 
 		textField_telefono = new JLabel();
-		textField_telefono.setBounds(297, 166, 200, 30);
+		textField_telefono.setBounds(297, 154, 200, 30);
 		contentPane.add(textField_telefono);
 		textField_telefono.setForeground(Color.WHITE);
 		textField_telefono.setFont(new Font("Verdana", Font.BOLD, 14));
@@ -158,13 +162,45 @@ public class SocioConsultaBusquedaView extends JFrame {
 		lblTelfono.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTelfono.setForeground(Color.WHITE);
 		lblTelfono.setFont(new Font("Verdana", Font.BOLD, 14));
-		lblTelfono.setBounds(185, 166, 102, 30);
+		lblTelfono.setBounds(185, 154, 102, 30);
 		contentPane.add(lblTelfono);
 		
 		btnRegistrarVisita = new JButton("<html><center>Registrar<br/> Visita</center></html>");
 		btnRegistrarVisita.setEnabled(false);
-		btnRegistrarVisita.setBounds(385, 207, 89, 91);
+		btnRegistrarVisita.setBounds(385, 254, 89, 91);
 		contentPane.add(btnRegistrarVisita);
+		
+		lblSaldoAFavor = new JLabel();
+		lblSaldoAFavor.setText("Saldo a favor:");
+		lblSaldoAFavor.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSaldoAFavor.setForeground(Color.WHITE);
+		lblSaldoAFavor.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblSaldoAFavor.setBounds(185, 179, 126, 30);
+		contentPane.add(lblSaldoAFavor);
+		
+		labelSaldoFavor = new JLabel();
+		labelSaldoFavor.setText("$ 0");
+		labelSaldoFavor.setHorizontalAlignment(SwingConstants.LEFT);
+		labelSaldoFavor.setForeground(new Color(34, 139, 34));
+		labelSaldoFavor.setFont(new Font("Verdana", Font.BOLD, 14));
+		labelSaldoFavor.setBounds(297, 179, 200, 30);
+		contentPane.add(labelSaldoFavor);
+		
+		lblDeudas = new JLabel();
+		lblDeudas.setText("Deudas:");
+		lblDeudas.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDeudas.setForeground(Color.WHITE);
+		lblDeudas.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblDeudas.setBounds(185, 204, 126, 30);
+		contentPane.add(lblDeudas);
+		
+		labelDeuda = new JLabel();
+		labelDeuda.setText("$ 0");
+		labelDeuda.setHorizontalAlignment(SwingConstants.LEFT);
+		labelDeuda.setForeground(new Color(128, 0, 0));
+		labelDeuda.setFont(new Font("Verdana", Font.BOLD, 14));
+		labelDeuda.setBounds(297, 204, 200, 30);
+		contentPane.add(labelDeuda);
 	}
 
 	/**
@@ -206,5 +242,11 @@ public class SocioConsultaBusquedaView extends JFrame {
 	}
 	public JButton getBtnRegistrarVisita() {
 		return btnRegistrarVisita;
+	}
+	public JLabel getLabelSaldoFavor() {
+		return labelSaldoFavor;
+	}
+	public JLabel getLabelDeuda() {
+		return labelDeuda;
 	}
 }

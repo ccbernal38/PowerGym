@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 import co.powergym.interfacedao.PagoDaoInterface;
 import co.powergym.model.Conexion;
-import co.powergym.model.Pago;
+import co.powergym.model.Factura;
 
 public class PagoDao implements PagoDaoInterface{
 
@@ -31,7 +31,7 @@ public class PagoDao implements PagoDaoInterface{
 	}
 
 	@Override
-	public List<Pago> listaPagos() {
+	public List<Factura> listaPagos() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -2,14 +2,16 @@ package co.powergym.model;
 
 import java.sql.Date;
 
-public class Pago {
-	
+public class Factura {
+
 	private int id;
 	private Double valor;
 	private Date fecha;
-	
-	public Pago(){
-		
+	private int socio_id;
+	private int caja_id;
+
+	public Factura() {
+
 	}
 
 	public int getId() {
@@ -34,5 +36,21 @@ public class Pago {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public int getCaja_id() {
+		return caja_id;
+	}
+
+	public void setCaja_id(int caja_id) {
+		this.caja_id = caja_id;
+	}
+
+	public int getSocio_id() {
+		return socio_id;
+	}
+
+	public void setSocio_id(int socio_id) {
+		this.socio_id = socio_id;
 	}
 }
