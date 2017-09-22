@@ -1,7 +1,6 @@
 package co.powergym.dao;
 
-import java.io.InputStream;
-import java.sql.Blob;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,11 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import co.powergym.interfacedao.VisitaDaoInterface;
 import co.powergym.model.Conexion;
-import co.powergym.model.Socio;
 import co.powergym.model.Visita;
 
 public class VisitaDao implements VisitaDaoInterface {

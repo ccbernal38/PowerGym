@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import co.powergym.interfacedao.DiaSemanaDaoInterface;
 import co.powergym.model.Conexion;
 import co.powergym.model.DiaSemana;
-import co.powergym.model.Membresia;
 
 /**
  * @author crisd

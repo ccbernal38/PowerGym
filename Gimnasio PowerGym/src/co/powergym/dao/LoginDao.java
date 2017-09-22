@@ -3,23 +3,16 @@
  */
 package co.powergym.dao;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.sql.Blob;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import co.powergym.interfacedao.LoginInterfaceDao;
 import co.powergym.model.Conexion;
-import co.powergym.model.Entrenador;
 import co.powergym.model.Rol;
-import co.powergym.model.Socio;
 import co.powergym.model.Usuario;
 
 /**

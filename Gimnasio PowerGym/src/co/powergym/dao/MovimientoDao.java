@@ -1,8 +1,6 @@
 package co.powergym.dao;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.sql.Blob;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,13 +9,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import co.powergym.interfacedao.MovimientoDaoInterface;
 import co.powergym.model.Conexion;
 import co.powergym.model.Movimiento;
-import co.powergym.model.Socio;
-import co.powergym.utils.Constantes;
 
 public class MovimientoDao implements MovimientoDaoInterface {
 

@@ -136,7 +136,7 @@ public class InicioController implements ActionListener {
 					}
 					if (e.getKeyCode() == KeyEvent.VK_F3) {
 						SocioController socioController = new SocioController(new SocioRegistroView(), null, null, null,
-								null, null);
+								null, null, null);
 						socioController.setHuellaInit(huellaInit);
 					}
 					if (e.getKeyCode() == KeyEvent.VK_F4) {
@@ -269,7 +269,7 @@ public class InicioController implements ActionListener {
 			if (socios.size() == 1) {
 				mostrarViewBusqueda(socios.get(0));
 			} else if (socios.size() == 0) {
-				JOptionPane.showMessageDialog(null, "No se encontró coincidencia.");
+				JOptionPane.showMessageDialog(null, "No se encontrï¿½ coincidencia.");
 			} else {
 				mostrarViewListSocios(socios);
 			}
@@ -279,20 +279,21 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.btnRegistrarSocio == e.getSource()
 				|| viewPrincipal.getJMenuItemRegistrarSocio() == e.getSource()) {
 			SocioRegistroView viewRegistroSocio = new SocioRegistroView();
-			SocioController socioController = new SocioController(viewRegistroSocio, null, null, null, null, null);
+			SocioController socioController = new SocioController(viewRegistroSocio, null, null, null, null, null, null);
 			socioController.setHuellaInit(huellaInit);
-		} else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
+		}
+		else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
 			SocioBusquedaView viewBusquedaSocio = new SocioBusquedaView();
-			new SocioController(null, viewBusquedaSocio, null, null, null, null);
+			new SocioController(null,null, viewBusquedaSocio, null, null, null, null);
 		} else if (viewPrincipal.btnMenuMembresia == e.getSource()) {
 			new MembresiaDao();
 			MembresiaRegistroView crearMembresia = new MembresiaRegistroView();
 			new MembresiaController(crearMembresia, null, null);
 		} else if (viewPrincipal.getMntmListadoDeSocios() == e.getSource()) {
 			SocioListadoView socioListadoView = new SocioListadoView();
-			new SocioController(null, null, socioListadoView, null, null, null);
+			new SocioController(null, null, null, socioListadoView, null, null, null);
 		} else if (viewPrincipal.getJMenuItemCumpleanios() == e.getSource()) {
-			new SocioController(null, null, null, new SocioCumpleaniosListadoView(), null, null);
+			new SocioController(null, null, null, null, new SocioCumpleaniosListadoView(), null, null);
 		} else if (viewPrincipal.getJMenuItemListaMembresias() == e.getSource()) {
 			new MembresiaController(null, new MembresiaListadoView(), null);
 		} else if (viewPrincipal.getJMenuItemRegistrarUsuario() == e.getSource()) {
@@ -369,7 +370,7 @@ public class InicioController implements ActionListener {
 	}
 
 	private void mostrarViewBusqueda(Socio socio) {
-		SocioController controller = new SocioController(null, null, null, null, null, new SocioConsultaBusquedaView());
+		SocioController controller = new SocioController(null, null, null, null, null, null, new SocioConsultaBusquedaView());
 		controller.cargarConsultaBusquedaSocio(socio);
 	}
 
