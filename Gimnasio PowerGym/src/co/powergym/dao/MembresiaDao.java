@@ -211,7 +211,7 @@ public class MembresiaDao implements MembresiaDaoInterface {
 			PreparedStatement preparedStatement = connection.prepareStatement(
 					"SELECT m.id as idMembresia, ds.id as idDia, ds.nombre as nombre, h.id as idHora, "
 							+ " 	h.horaInicio as horaInicio, h.horaFin as horaFin FROM membresia_socio ms "
-							+ "		JOIN Membresia m ON m.id = ms.id "
+							+ "		JOIN Membresia m ON m.id = ms.membresia_id  "
 							+ "		JOIN Membresia_diasemana md ON md.membresia_id = m.id "
 							+ "		JOIN DiaSemana ds ON ds.id = md.diassemana_id "
 							+ "		JOIN Horario h ON h.membresia_id = m.id "

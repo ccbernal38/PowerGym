@@ -1,56 +1,34 @@
 package co.powergym.controller;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.EventQueue;
+
 import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.text.FieldPosition;
-import java.text.Format;
-import java.text.Normalizer.Form;
 import java.text.NumberFormat;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 
 import com.github.sarxos.webcam.Webcam;
-import com.sun.java_cup.internal.runtime.virtual_parse_stack;
-import com.sun.xml.internal.ws.api.Cancelable;
 
 import co.powergym.dao.AsistenciaDao;
 import co.powergym.dao.CajaDao;
@@ -59,22 +37,23 @@ import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.MembresiaSocioDao;
 import co.powergym.dao.SaldoFavorDao;
 import co.powergym.dao.SocioDao;
+import co.powergym.dao.VisitaDao;
 import co.powergym.model.Asistencia;
+import co.powergym.model.Deuda;
 import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
-import co.powergym.model.SaldoAFavor;
 import co.powergym.model.Socio;
+import co.powergym.model.Visita;
 import co.powergym.utils.HuellaInit;
+import co.powergym.view.membresia.MembresiaRegistroVisitaSocioConsultaView;
 import co.powergym.view.membresia.PagoMembresiaView;
+import co.powergym.view.socio.SocioActualizarView;
 import co.powergym.view.socio.SocioAsignarMembresiaView;
 import co.powergym.view.socio.SocioBusquedaView;
 import co.powergym.view.socio.SocioConsultaBusquedaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
 import co.powergym.view.socio.SocioListadoView;
 import co.powergym.view.socio.SocioRegistroView;
-import javafx.scene.control.ComboBox;
-import jdk.nashorn.internal.runtime.arrays.NumericElements;
-import co.powergym.view.socio.SocioRegistrarEntradaView;
 import co.powergym.view.socio.SocioRegistroHuella;
 
 public class SocioController implements ActionListener, ItemListener {
@@ -88,6 +67,7 @@ public class SocioController implements ActionListener, ItemListener {
 	private SocioRegistroView viewRegistroSocio;
 	private SocioBusquedaView viewBusquedaSocio;
 	private SocioListadoView viewListadoSocio;
+	private SocioActualizarView viewActualizarSocio;
 	private SocioCumpleaniosListadoView viewCumpleaniosListadoView;
 	private BufferedImage fotoTemp;
 	private SocioAsignarMembresiaView viewAsignarMembresia;
@@ -96,7 +76,7 @@ public class SocioController implements ActionListener, ItemListener {
 	private HuellaInit huellaInit;
 	private Membresia membresiaTemp;
 
-	public SocioController(SocioRegistroView viewRegistroSocio, SocioBusquedaView viewBusquedaSocio,
+	public SocioController(SocioRegistroView viewRegistroSocio, SocioActualizarView viewActualizarSocio, SocioBusquedaView viewBusquedaSocio,
 			SocioListadoView socioListadoView, SocioCumpleaniosListadoView cumpleaniosListadoView,
 			SocioAsignarMembresiaView asignarMembresiaView, SocioConsultaBusquedaView consultaBusquedaView) {
 		this.socioDao = new SocioDao();
@@ -105,9 +85,13 @@ public class SocioController implements ActionListener, ItemListener {
 		this.saldoFavorDao = new SaldoFavorDao();
 		this.deudaDao = new DeudaDao();
 		this.viewConsultaBusquedaSocio = consultaBusquedaView;
+		this.viewActualizarSocio = viewActualizarSocio;
 
 		if (viewRegistroSocio != null) {
 			initRegistroSocio(viewRegistroSocio);
+		}
+		if(viewActualizarSocio != null) {
+			initActualizarSocio(viewActualizarSocio);
 		}
 		if (viewBusquedaSocio != null) {
 			initBusquedaSocio(viewBusquedaSocio);
@@ -141,9 +125,11 @@ public class SocioController implements ActionListener, ItemListener {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new PagoController(new PagoMembresiaView());
+					PagoController pagoController = new PagoController(new PagoMembresiaView());
+					pagoController.cargarDeudas(socio.getId());
 				}
 			});
+
 			String primerNombre = socio.getNombreCompleto();
 			viewConsultaBusquedaSocio.getTextField_primerNombre().setText(primerNombre);
 			String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
@@ -151,9 +137,9 @@ public class SocioController implements ActionListener, ItemListener {
 			String telefono = socio.getTelefono();
 			viewConsultaBusquedaSocio.getTextField_telefono().setText(telefono);
 			int deuda = deudaDao.totalDeudasSocio(socio.getId());
-			viewConsultaBusquedaSocio.getLabelDeuda().setText("$ "+deuda);
+			viewConsultaBusquedaSocio.getLabelDeuda().setText("$ " + deuda);
 			int saldoFavor = saldoFavorDao.saldoFavorSocio(socio.getId());
-			viewConsultaBusquedaSocio.getLabelSaldoFavor().setText("$ "+saldoFavor);
+			viewConsultaBusquedaSocio.getLabelSaldoFavor().setText("$ " + saldoFavor);
 			if (socio.getFoto() != null) {
 				Image dimg = socio.getFoto().getScaledInstance(viewConsultaBusquedaSocio.getLblFoto().getWidth(),
 						viewConsultaBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
@@ -161,10 +147,100 @@ public class SocioController implements ActionListener, ItemListener {
 			}
 			llenarTablaHistorico(socio.getId(), viewConsultaBusquedaSocio);
 			llenarTablaAsistencia(socio.getId(), viewConsultaBusquedaSocio);
+			llenarTablaVisitas(socio.getId(), viewConsultaBusquedaSocio);
+			llenarTablaPagos(socio.getId(), viewConsultaBusquedaSocio);
+			viewConsultaBusquedaSocio.getBtnRegistrarVisita().addActionListener(new ActionListener() {
 
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					MembresiaRegistroVisitaSocioConsultaView consultaView = new MembresiaRegistroVisitaSocioConsultaView();
+					consultaView.getTextFieldSocio().setText(socio.getIdentificacion());
+					consultaView.getTextFieldNombres().setText(socio.getNombre());
+					consultaView.getTextFieldApellidos().setText(socio.getApellido());
+					consultaView.setVisible(true);
+					consultaView.getBtnCancelar().addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							consultaView.setVisible(false);
+							consultaView.dispose();
+						}
+					});
+					consultaView.getBtnRegistrar().addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							VisitaDao visitaDao = new VisitaDao();
+							int caja_id = new CajaDao().verificarCajaAbierta();
+							visitaDao.registrarVisita(socio.getNombre(), socio.getApellido(),
+									Integer.parseInt(consultaView.getTextFieldValor().getText()), socio.getId(),
+									caja_id);
+							consultaView.setVisible(false);
+							consultaView.dispose();
+							llenarTablaVisitas(socio.getId(), viewConsultaBusquedaSocio);
+						}
+					});
+				}
+			});
 		} else {
-			JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
+			JOptionPane.showMessageDialog(null, "No se encontrï¿½ un socio con ese nï¿½mero de identificaciï¿½n, "
 					+ "por favor verifique e intente de nuevo");
+		}
+	}
+
+	private void llenarTablaPagos(int id, SocioConsultaBusquedaView viewConsultaBusquedaSocio2) {
+		try {
+
+			List<Deuda> list = deudaDao.historicoPago(id);
+
+			DefaultTableModel defaultTableModel = (DefaultTableModel) viewConsultaBusquedaSocio2
+					.getTableHistorialPagos().getModel();
+
+			Object[] columna = new Object[3];
+			int numeroRegistros = list.size();
+
+			for (int i = 0; i < numeroRegistros; i++) {
+				columna[0] = list.get(i).getId();
+				columna[1] = "$ " + NumberFormat.getInstance().format(0 - list.get(i).getValor());
+				columna[2] = new SimpleDateFormat("dd/MM/yyyy hh:MM:ss a").format(list.get(i).getFecha());
+
+				defaultTableModel.addRow(columna);
+			}
+
+			viewConsultaBusquedaSocio2.getTableHistorialPagos().setModel(defaultTableModel);
+			viewConsultaBusquedaSocio2.getTableHistorialPagos().repaint();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	private void llenarTablaVisitas(int id, SocioConsultaBusquedaView viewConsultaBusquedaSocio2) {
+		try {
+
+			VisitaDao visitaDao = new VisitaDao();
+			List<Visita> list = visitaDao.historicoVisita(id);
+
+			DefaultTableModel defaultTableModel = (DefaultTableModel) viewConsultaBusquedaSocio2
+					.getTableHistorialVisitas().getModel();
+
+			Object[] columna = new Object[3];
+			int numeroRegistros = list.size();
+
+			for (int i = 0; i < numeroRegistros; i++) {
+				columna[0] = list.get(i).getId();
+				columna[1] = "$ " + NumberFormat.getInstance().format(Integer.parseInt(list.get(i).getValor()));
+				columna[2] = new SimpleDateFormat("dd/MM/yyyy hh:MM:ss a").format(list.get(i).getFecha());
+
+				defaultTableModel.addRow(columna);
+			}
+
+			viewConsultaBusquedaSocio2.getTableHistorialVisitas().setModel(defaultTableModel);
+			viewConsultaBusquedaSocio2.getTableHistorialVisitas().repaint();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
@@ -217,7 +293,7 @@ public class SocioController implements ActionListener, ItemListener {
 
 	private void cargarDatosAsignarMembresia(String identificacion) {
 		List<Membresia> membresias = membresiaDao.listaMembresia();
-		JComboBox comboboxMembresias = viewAsignarMembresia.getComboBoxMembresia();
+		JComboBox<Object> comboboxMembresias = viewAsignarMembresia.getComboBoxMembresia();
 		comboboxMembresias.addItem("----");
 		for (Membresia membresia : membresias) {
 			comboboxMembresias.addItem(membresia);
@@ -249,8 +325,10 @@ public class SocioController implements ActionListener, ItemListener {
 					int caja_id = new CajaDao().verificarCajaAbierta();
 					int descuento = Integer.parseInt(viewAsignarMembresia.getTextFieldDescuento().getText());
 					boolean respuesta = membresiaSocioDao.registrarMembresiaSocio(membresia.getId(), socio.getId(),
-							fechaInicio, fechaFin, descuento, renovar, caja_id);
+							fechaInicio, fechaFin, descuento, renovar, caja_id, membresia.getValor() - descuento);
 					if (respuesta == true) {
+						deudaDao.registrarDeuda(membresia.getValor() - descuento, membresia.getNombre(), socio.getId(),
+								caja_id);
 						JOptionPane.showMessageDialog(viewAsignarMembresia,
 								"Se ha asignado una nueva membresia al socio.");
 						viewAsignarMembresia.setVisible(false);
@@ -279,6 +357,16 @@ public class SocioController implements ActionListener, ItemListener {
 		this.viewRegistroSocio.setWebcam(webcam);
 		generarCodigo();
 	}
+	
+	public void initActualizarSocio(SocioActualizarView socioActualizarView) {
+		webcam = Webcam.getWebcams().get(0);
+		this.viewActualizarSocio = socioActualizarView;
+		this.viewActualizarSocio.getBtnTomarFoto().addActionListener(this);
+		this.viewActualizarSocio.getBtnCapturar().addActionListener(this);
+		this.viewActualizarSocio.getBtnActualizar().addActionListener(this);
+		this.viewActualizarSocio.setVisible(true);
+		this.viewActualizarSocio.setWebcam(webcam);
+	}
 
 	public void initBusquedaSocio(SocioBusquedaView socioBusquedaView) {
 		this.viewBusquedaSocio = socioBusquedaView;
@@ -291,6 +379,7 @@ public class SocioController implements ActionListener, ItemListener {
 
 	public void initSocioListado(SocioListadoView socioListadoView) {
 		this.viewListadoSocio = socioListadoView;
+		this.viewListadoSocio.getBtnEditar().addActionListener(this);
 		listadoSociosLlenarTabla(viewListadoSocio.getTableSocios());
 		this.viewListadoSocio.setVisible(true);
 	}
@@ -309,7 +398,7 @@ public class SocioController implements ActionListener, ItemListener {
 			if (e.getSource() == viewRegistroSocio.getBtnRegistrar()) {
 				registroSocio();
 			}
-
+			
 			if (e.getSource() == viewRegistroSocio.getBtnCapturar()) {
 				viewRegistroSocio.getBtnTomarFoto().setEnabled(true);
 				viewRegistroSocio.getWebcamPanel().start();
@@ -335,7 +424,6 @@ public class SocioController implements ActionListener, ItemListener {
 				viewRegistroSocio.btnCapturar.setEnabled(false);
 			}
 		}
-
 		if (viewBusquedaSocio != null) {
 			if (e.getSource() == viewBusquedaSocio.btnBuscar) {
 				String numeroId = viewBusquedaSocio.getTextField_identidad().getText();
@@ -370,7 +458,72 @@ public class SocioController implements ActionListener, ItemListener {
 				new PagoController(new PagoMembresiaView());
 			}
 		}
-
+		
+		if(viewListadoSocio != null) {
+			if(e.getSource() == viewListadoSocio.getBtnEditar()) {
+				int filaSeleccionada = viewListadoSocio.getTableSocios().getSelectedRow();
+				List<Socio>listaSocios = socioDao.listaSocios();
+				if(filaSeleccionada != -1) {
+					if(listaSocios != null) {
+						String identificacion = listaSocios.get(filaSeleccionada).getIdentificacion();
+						Socio socio = socioDao.buscarSocio(identificacion);
+						if(socio != null) {
+							
+							viewActualizarSocio = new SocioActualizarView();
+							viewActualizarSocio.getTextIdentificacion().setText(identificacion);
+							String nombres = socio.getNombre();
+							viewActualizarSocio.getTextNombres().setText(nombres);
+							String apellidos = socio.getApellido();
+							viewActualizarSocio.getTextApellidos().setText(apellidos);
+							String correo = socio.getCorreo();
+							viewActualizarSocio.getTextCorreo().setText(correo);
+							String telefono = socio.getTelefono();
+							viewActualizarSocio.getTextTelefono().setText(telefono);
+							int genero = socio.getGenero();
+							viewActualizarSocio.getTextGenero().setText(String.valueOf(genero));
+							Date fechaNacimiento = socio.getFechaNacimiento();
+							viewActualizarSocio.getTextFechaNacimiento().setDate(fechaNacimiento);
+							viewActualizarSocio.setLocationRelativeTo(null);
+							this.viewActualizarSocio.setVisible(true);
+							this.viewActualizarSocio.getBtnActualizar().addActionListener(this);
+						}
+					}
+				}
+			}
+		}
+		if(viewActualizarSocio != null && e.getSource()== viewActualizarSocio.getBtnActualizar()) {
+			String identificacion = viewActualizarSocio.getTextIdentificacion().getText();
+			String nombres = viewActualizarSocio.getTextNombres().getText();
+			String apellidos = viewActualizarSocio.getTextApellidos().getText();
+			String correo = viewActualizarSocio.getTextCorreo().getText();
+			String telefono = viewActualizarSocio.getTextTelefono().getText();
+			int genero = Integer.parseInt(viewActualizarSocio.getTextGenero().getText());
+			Date fechaNacimiento = viewActualizarSocio.getTextFechaNacimiento().getDate();
+			
+			if(e.getSource() == viewActualizarSocio.getBtnCapturar()) {
+				viewActualizarSocio.getBtnTomarFoto().setEnabled(true);
+				viewActualizarSocio.getWebcamPanel().start();
+			}
+			if(e.getSource() == viewActualizarSocio.getBtnTomarFoto()) {
+				fotoTemp = viewActualizarSocio.getWebcam().getImage();
+				viewActualizarSocio.getWebcamPanel().stop();
+				viewActualizarSocio.getWebcamPanel().setVisible(false);
+				JLabel jLabel = new JLabel(new ImageIcon(fotoTemp));
+				jLabel.setBounds(viewActualizarSocio.getWebcamPanel().getBounds());
+				viewActualizarSocio.getPanelFoto().add(jLabel);
+				viewActualizarSocio.getBtnTomarFoto().setEnabled(false);
+				viewActualizarSocio.getBtnCapturar().setEnabled(false);
+			}
+			
+			boolean respuesta = socioDao.modificarSocio(identificacion, fechaNacimiento, nombres, apellidos, correo, telefono, genero);
+			if (respuesta) {
+				listadoSociosLlenarTabla(viewListadoSocio.getTableSocios());
+				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
+				
+			} else {
+				JOptionPane.showMessageDialog(null, "Ocurrio un error actualizando los datos del usuario.");
+			}
+		}
 	}
 
 	private void llenarTablaAsistencia(int id, SocioConsultaBusquedaView busquedaView) {
@@ -511,10 +664,12 @@ public class SocioController implements ActionListener, ItemListener {
 			e1.printStackTrace();
 		}
 	}
+	
+
 
 	public void listadoSociosLlenarTabla(JTable tabla) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificacion", "Nombre", "Direcciï¿½n", "Correo electrï¿½nico", "Telï¿½fono" });
+				new String[] { "Nro. identificacion", "Nombre", "DirecciÃ³n", "Correo electrÃ³nico", "TelÃ©fono" });
 
 		Object[] columna = new Object[5];
 		List<Socio> listSocios = socioDao.listaSocios();

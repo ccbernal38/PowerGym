@@ -23,6 +23,7 @@ public class Socio {
 	private Rol rol;
 	private byte[]  huella;
 	private String nombreCompleto;
+	private String codigo;
 
 	public Socio() {
 
@@ -159,5 +160,19 @@ public class Socio {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return getNombreCompleto();
+	}
+
+	/**
+	 * @return the codigo
+	 */
+	public String getCodigo() {
+		return codigo;
+	}
+
+	/**
+	 * @param codigo the codigo to set
+	 */
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 }

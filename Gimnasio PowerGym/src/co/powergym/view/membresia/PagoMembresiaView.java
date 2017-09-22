@@ -16,17 +16,21 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 
 public class PagoMembresiaView extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
-	private JLabel lblPago;
+	private JLabel lblSaldoFavor;
 	private JLabel lblNuevoBalance;
 	private JLabel lblBalance;
 	private JButton btnCancelar;
 	private JButton btnPagar;
+	private JLabel lblSaldoFavorActual;
+	private JTextField textFieldSaldoUsar;
+	private JCheckBox chckbxSi;
 
 	/**
 	 * Create the frame.
@@ -58,7 +62,7 @@ public class PagoMembresiaView extends JFrame {
 		lblBalanceAPagar.setBounds(388, 230, 172, 14);
 		contentPane.add(lblBalanceAPagar);
 
-		JLabel lblNuevoPago = new JLabel("Nuevo pago:");
+		JLabel lblNuevoPago = new JLabel("Saldo a favor:");
 		lblNuevoPago.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblNuevoPago.setBounds(388, 255, 172, 14);
 		contentPane.add(lblNuevoPago);
@@ -95,12 +99,12 @@ public class PagoMembresiaView extends JFrame {
 		lblBalance.setBounds(529, 230, 138, 14);
 		contentPane.add(lblBalance);
 
-		lblPago = new JLabel("$0");
-		lblPago.setForeground(new Color(34, 139, 34));
-		lblPago.setFont(new Font("Verdana", Font.BOLD, 11));
-		lblPago.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPago.setBounds(529, 255, 138, 14);
-		contentPane.add(lblPago);
+		lblSaldoFavor = new JLabel("$0");
+		lblSaldoFavor.setForeground(new Color(34, 139, 34));
+		lblSaldoFavor.setFont(new Font("Verdana", Font.BOLD, 11));
+		lblSaldoFavor.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSaldoFavor.setBounds(529, 255, 138, 14);
+		contentPane.add(lblSaldoFavor);
 
 		lblNuevoBalance = new JLabel("$0");
 		lblNuevoBalance.setFont(new Font("Verdana", Font.BOLD, 11));
@@ -121,6 +125,47 @@ public class PagoMembresiaView extends JFrame {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(388, 438, 130, 23);
 		contentPane.add(btnCancelar);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panel_1.setBounds(10, 230, 368, 110);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("\u00BFDesea utilizar el saldo a favor?");
+		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 11));
+		lblNewLabel.setBounds(10, 39, 187, 14);
+		panel_1.add(lblNewLabel);
+
+		chckbxSi = new JCheckBox("Si");
+		chckbxSi.setFont(new Font("Verdana", Font.PLAIN, 11));
+		chckbxSi.setBounds(203, 35, 97, 23);
+		panel_1.add(chckbxSi);
+
+		JLabel lblSaldoAFavor = new JLabel("SALDO A FAVOR");
+		lblSaldoAFavor.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSaldoAFavor.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblSaldoAFavor.setBounds(10, 11, 187, 23);
+		panel_1.add(lblSaldoAFavor);
+
+		lblSaldoFavorActual = new JLabel("$ 0");
+		lblSaldoFavorActual.setFont(new Font("Verdana", Font.BOLD, 18));
+		lblSaldoFavorActual.setForeground(new Color(34, 139, 34));
+		lblSaldoFavorActual.setBounds(203, 11, 155, 23);
+		panel_1.add(lblSaldoFavorActual);
+		
+		textFieldSaldoUsar = new JTextField();
+		textFieldSaldoUsar.setText("0");
+		textFieldSaldoUsar.setEnabled(false);
+		textFieldSaldoUsar.setFont(new Font("Verdana", Font.PLAIN, 11));
+		textFieldSaldoUsar.setBounds(203, 64, 155, 23);
+		panel_1.add(textFieldSaldoUsar);
+		textFieldSaldoUsar.setColumns(10);
+		
+		JLabel lblValorAUtilizar = new JLabel("Valor a utilizar:");
+		lblValorAUtilizar.setFont(new Font("Verdana", Font.PLAIN, 11));
+		lblValorAUtilizar.setBounds(10, 68, 187, 14);
+		panel_1.add(lblValorAUtilizar);
 	}
 
 	public JTextField getTextFieldPago() {
@@ -132,7 +177,7 @@ public class PagoMembresiaView extends JFrame {
 	}
 
 	public JLabel getLblPago() {
-		return lblPago;
+		return lblSaldoFavor;
 	}
 
 	public JLabel getLblNuevoBalance() {
@@ -149,5 +194,14 @@ public class PagoMembresiaView extends JFrame {
 
 	public JButton getBtnPagar() {
 		return btnPagar;
+	}
+	public JLabel getLblSaldoFavorActual() {
+		return lblSaldoFavorActual;
+	}
+	public JCheckBox getChckbxSi() {
+		return chckbxSi;
+	}
+	public JTextField getTextFieldSaldoUsar() {
+		return textFieldSaldoUsar;
 	}
 }

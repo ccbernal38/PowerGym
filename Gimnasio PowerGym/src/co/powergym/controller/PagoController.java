@@ -5,9 +5,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.jar.JarEntry;
 
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.nio.file.SensitivityWatchEventModifier;
@@ -15,16 +20,23 @@ import com.sun.nio.file.SensitivityWatchEventModifier;
 import co.powergym.dao.CajaDao;
 import co.powergym.dao.DeudaDao;
 import co.powergym.dao.PagoDao;
+import co.powergym.dao.SaldoFavorDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Caja;
 import co.powergym.model.Deuda;
+import co.powergym.utils.Preferencias;
 import co.powergym.view.membresia.PagoMembresiaView;
 
-public class PagoController implements ActionListener, KeyListener {
+public class PagoController implements ActionListener {
 	PagoMembresiaView pagoMembresiaView;
 	PagoDao pagoDao;
 	SocioDao socioDao;
 	DeudaDao deudaDao;
+	CajaDao cajaDao;
+	SaldoFavorDao saldoFavorDao;
+	int deuda;
+	int saldoFavor;
+	int socioTemp;
 
 	/**
 	 * @param pagoMembresiaView
@@ -34,42 +46,142 @@ public class PagoController implements ActionListener, KeyListener {
 			pagoDao = new PagoDao();
 			socioDao = new SocioDao();
 			deudaDao = new DeudaDao();
-
+			saldoFavorDao = new SaldoFavorDao();
+			cajaDao = new CajaDao();
 			this.pagoMembresiaView = pagoMembresiaView;
-			cargarDeudas();
+
 			this.pagoMembresiaView.getBtnPagar().addActionListener(this);
 			this.pagoMembresiaView.getBtnCancelar().addActionListener(this);
 			this.pagoMembresiaView.setLocationRelativeTo(null);
 			this.pagoMembresiaView.setVisible(true);
-			this.pagoMembresiaView.getTextFieldPago().addKeyListener(this);
+
 		}
 	}
 
-	private void cargarDeudas() {
-		/**
-		List<Deuda> list = deudaDao.totalDeudasSocio(socio_id)
-		DefaultTableModel defaultTableModel = (DefaultTableModel) cajaHistoricoView.getTable().getModel();
-		Object[] columna = new Object[11];
+	public void cargarDeudas(int socio_id) {
+		NumberFormat format = NumberFormat.getInstance();
+		socioTemp = socio_id;
+		deuda = deudaDao.totalDeudasSocio(socio_id);
+		saldoFavor = saldoFavorDao.saldoFavorSocio(socio_id);
+		this.cargarTablaDeudas(socio_id);
+		this.pagoMembresiaView.getLblBalance().setText("$" + format.format(deuda));
+		this.pagoMembresiaView.getLblSaldoFavorActual().setText("$" + format.format(saldoFavor));
+		this.pagoMembresiaView.getChckbxSi().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (pagoMembresiaView.getChckbxSi().isSelected()) {
+					pagoMembresiaView.getTextFieldSaldoUsar().setEnabled(true);
+				} else {
+					pagoMembresiaView.getTextFieldSaldoUsar().setEnabled(false);
+					pagoMembresiaView.getLblPago().setText("$0");
+				}
+			}
+		});
+
+		pagoMembresiaView.getTextFieldPago().addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					int saldo = 0;
+					if (!pagoMembresiaView.getTextFieldPago().getText().equals("")) {
+						saldo = Integer.parseInt(pagoMembresiaView.getTextFieldPago().getText());
+					}
+					int saldoFavor = 0;
+					if (pagoMembresiaView.getChckbxSi().isSelected()) {
+						if (!pagoMembresiaView.getTextFieldSaldoUsar().getText().equals("")) {
+							saldoFavor = Integer.parseInt(pagoMembresiaView.getTextFieldSaldoUsar().getText());
+						}
+					}
+					int nuevoBalance = deuda - (saldo + saldoFavor);
+					pagoMembresiaView.getLblNuevoBalance().setText("$" + nuevoBalance);
+				} catch (Exception error) {
+
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		pagoMembresiaView.getTextFieldSaldoUsar().addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try {
+					if (pagoMembresiaView.getChckbxSi().isSelected()) {
+						int saldo = Integer.parseInt(pagoMembresiaView.getTextFieldSaldoUsar().getText());
+						if (saldo <= saldoFavor) {
+							pagoMembresiaView.getLblPago().setText("$" + NumberFormat.getInstance().format(saldo));
+							int valortemp;
+
+							valortemp = NumberFormat.getInstance()
+									.parse(pagoMembresiaView.getLblPago().getText().substring(1)).intValue();
+
+							int valorPago = 0;
+							if (!pagoMembresiaView.getTextFieldPago().getText().equals("")) {
+								valorPago = Integer.parseInt(pagoMembresiaView.getTextFieldPago().getText());
+							}
+							int nuevoBalance = deuda - (valortemp + valorPago);
+							pagoMembresiaView.getLblNuevoBalance()
+									.setText("$" + NumberFormat.getInstance().format(nuevoBalance));
+						} else {
+							int valortemp;
+
+							valortemp = NumberFormat.getInstance()
+									.parse(pagoMembresiaView.getLblPago().getText().substring(1)).intValue();
+							pagoMembresiaView.getTextFieldSaldoUsar().setText("" + valortemp);
+							int valorPago = 0;
+							if (!pagoMembresiaView.getTextFieldPago().getText().equals("")) {
+								valorPago = Integer.parseInt(pagoMembresiaView.getTextFieldPago().getText());
+							}
+							int nuevoBalance = deuda - (valortemp + valorPago);
+							pagoMembresiaView.getLblNuevoBalance()
+									.setText("$" + NumberFormat.getInstance().format(nuevoBalance));
+						}
+					}
+				} catch (Exception e1) {
+
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+			}
+		});
+
+	}
+
+	public void cargarTablaDeudas(int socio_id) {
+		NumberFormat format = NumberFormat.getInstance();
+		List<Deuda> list = deudaDao.listaDeudasSocio(socio_id);
+		DefaultTableModel defaultTableModel = (DefaultTableModel) pagoMembresiaView.getTablePendientes().getModel();
+		Object[] columna = new Object[3];
 		int numeroRegistros = list.size();
 		for (int i = 0; i < numeroRegistros; i++) {
-			columna[0] = list.get(i).getId();
-			columna[1] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFechaApertura());
-			NumberFormat format = NumberFormat.getInstance();
-			columna[2] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFechaCierre());
-			columna[3] = "$ " + format.format(list.get(i).getTotalVisitas());
-			columna[4] = "$ " + format.format(list.get(i).getTotalMembresias());
-			columna[5] = "$ " + format.format(list.get(i).getTotalSaldoFavor());
-			columna[6] = "$ " + format.format(list.get(i).getTotalAdeudos());
-			columna[7] = "$ " + format.format(list.get(i).getTotalEgresos());
-			columna[8] = "$ " + format.format(list.get(i).getSaldoFinal());
-			columna[9] = list.get(i).getNombreApertura();
-			columna[10] = list.get(i).getNombreCierre();
-
+			columna[0] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFecha());
+			columna[1] = list.get(i).getConcepto();
+			columna[2] = "$ " + format.format(list.get(i).getValor());
 			defaultTableModel.addRow(columna);
 		}
-		this.cajaHistoricoView.getTable().setModel(defaultTableModel);
-		this.cajaHistoricoView.getTable().repaint();
-		**/
+		this.pagoMembresiaView.getTablePendientes().setModel(defaultTableModel);
+		this.pagoMembresiaView.getTablePendientes().repaint();
 	}
 
 	@Override
@@ -77,6 +189,35 @@ public class PagoController implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (pagoMembresiaView != null) {
 			if (e.getSource() == pagoMembresiaView.getBtnPagar()) {
+				int saldoFavor = 0;
+				if (pagoMembresiaView.getChckbxSi().isSelected()
+						&& !pagoMembresiaView.getTextFieldSaldoUsar().getText().equals("")) {
+					saldoFavor = Integer.parseInt(pagoMembresiaView.getTextFieldSaldoUsar().getText());
+				}
+				int saldoPagar = 0;
+				if (!pagoMembresiaView.getTextFieldPago().getText().equals("")) {
+					saldoPagar = Integer.parseInt(pagoMembresiaView.getTextFieldPago().getText());
+				}
+
+				int totalPagar = (saldoFavor + saldoPagar);
+				int caja_id = cajaDao.verificarCajaAbierta();
+				deudaDao.registrarPago(-deuda, "Pago realizado", socioTemp, caja_id);
+				if (saldoFavor != 0) {
+					saldoFavorDao.registrarSaldoFavor(-saldoFavor, socioTemp, caja_id);
+				}
+
+				if ((deuda - totalPagar) < 0) {
+					int option = JOptionPane.showConfirmDialog(null,
+							"¿Desea guardar el dinero restante como saldo a favor?", "Atención",
+							JOptionPane.YES_NO_OPTION);
+					if (option == JOptionPane.YES_OPTION) {
+						saldoFavorDao.registrarSaldoFavor(-(deuda - totalPagar), socioTemp, caja_id);
+
+					}
+					pagoMembresiaView.setVisible(false);
+					pagoMembresiaView.dispose();
+
+				}
 
 			} else if (e.getSource() == pagoMembresiaView.getBtnCancelar()) {
 				pagoMembresiaView.setVisible(false);
@@ -85,27 +226,8 @@ public class PagoController implements ActionListener, KeyListener {
 		}
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	public void actualizarPago(int deuda) {
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		actualizarPago();
-
-	}
-
-	public void actualizarPago() {
-		if (pagoMembresiaView != null) {
-			int balance = Integer.parseInt(pagoMembresiaView.getLblBalance().getText().substring(1,
-					pagoMembresiaView.getLblBalance().getText().length()));
-			int valor = Integer.parseInt(pagoMembresiaView.getTextFieldPago().getText());
-			pagoMembresiaView.getLblBalance().setText("$" + (int) (balance - valor));
-		}
 	}
 
 }

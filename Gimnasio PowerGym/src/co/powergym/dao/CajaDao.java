@@ -1,7 +1,6 @@
 package co.powergym.dao;
 
-import java.io.ByteArrayOutputStream;
-import java.sql.Blob;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,14 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import co.powergym.interfacedao.CajaInterfaceDao;
 import co.powergym.model.Caja;
 import co.powergym.model.Conexion;
 import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
-import co.powergym.model.Movimiento;
 import co.powergym.model.Socio;
 
 public class CajaDao implements CajaInterfaceDao {
@@ -92,7 +88,7 @@ public class CajaDao implements CajaInterfaceDao {
 			statement.setInt(2, calendar.get(Calendar.YEAR));
 			statement.setInt(3, calendar.get(Calendar.DAY_OF_MONTH));
 			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
+			while (resultSet.next()) {
 				MembresiaSocio membresiaSocio = new MembresiaSocio();
 				Socio socio = new Socio();
 				socio.setNombre(resultSet.getString(1));
@@ -102,6 +98,8 @@ public class CajaDao implements CajaInterfaceDao {
 				membresiaSocio.setValor(resultSet.getInt(3));
 				membresiaSocio.setDescuento(resultSet.getInt(4));
 				membresiaSocio.setFechaInicial(resultSet.getTimestamp(5));
+				membresiaSocio.setMembresia(membresia);
+				list.add(membresiaSocio);
 			}
 
 		} catch (SQLException e) {
