@@ -8,7 +8,6 @@ import java.awt.event.ItemListener;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
