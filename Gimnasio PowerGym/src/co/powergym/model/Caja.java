@@ -14,14 +14,23 @@ public class Caja {
 	private int estado;
 	private Date fechaApertura;
 	private Date fechaCierre;
-	private int totalIngresos, totalEgresos, totalMembresias, totalVisitas, saldoFinal;
+	private int totalSaldoFavor, totalEgresos, totalMembresias, totalVisitas, saldoFinal, totalAdeudos;
+	private String nombreApertura, nombreCierre;
 
-	public int getTotalIngresos() {
-		return totalIngresos;
+	public int getTotalSaldoFavor() {
+		return totalSaldoFavor;
 	}
 
-	public void setTotalIngresos(int totalIngresos) {
-		this.totalIngresos = totalIngresos;
+	public void setTotalSaldoFavor(int totalSaldoFavor) {
+		this.totalSaldoFavor = totalSaldoFavor;
+	}
+
+	public int getTotalAdeudos() {
+		return totalAdeudos;
+	}
+
+	public void setTotalAdeudos(int totalAdeudos) {
+		this.totalAdeudos = totalAdeudos;
 	}
 
 	public int getTotalEgresos() {
@@ -121,6 +130,22 @@ public class Caja {
 	 * 
 	 */
 	public Caja() {
+	}
+
+	public String getNombreApertura() {
+		return nombreApertura;
+	}
+
+	public void setNombreApertura(String nombreApertura) {
+		this.nombreApertura = nombreApertura;
+	}
+
+	public String getNombreCierre() {
+		return nombreCierre;
+	}
+
+	public void setNombreCierre(String nombreCierre) {
+		this.nombreCierre = nombreCierre;
 	}
 
 }

@@ -19,7 +19,7 @@ import co.powergym.model.Conexion;
 import co.powergym.model.DiaSemana;
 import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
-import co.powergym.model.Pago;
+import co.powergym.model.Factura;
 import co.powergym.model.Socio;
 
 public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
@@ -64,7 +64,7 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 				mem.setId(resultSet.getInt("idMembresia"));
 				memSocio.setMembresia(mem);
 
-				Pago pago = new Pago();
+				Factura pago = new Factura();
 				String idPago = resultSet.getString("idPago");
 				if (idPago != null) {
 					pago.setId(Integer.parseInt(idPago));

@@ -179,6 +179,9 @@ public class InitView extends JFrame {
 		jMenu5.add(jMenuItem14);
 
 		jMenuBar.add(jMenu5);
+		
+		mntmHistoricoDeCaja = new JMenuItem("Historico de caja");
+		jMenu5.add(mntmHistoricoDeCaja);
 
 		JSeparator separator = new JSeparator();
 		jMenu5.add(separator);
@@ -497,6 +500,7 @@ public class InitView extends JFrame {
 	private JMenuItem mntmRegistroDeVisitas;
 	private JMenuItem mntmVisitasDeHoy;
 	private JMenuItem mntmCopiaDeSeguridad;
+	private JMenuItem mntmHistoricoDeCaja;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -644,5 +648,8 @@ public class InitView extends JFrame {
 	}
 	public JMenuItem getMntmCopiaDeSeguridad() {
 		return mntmCopiaDeSeguridad;
+	}
+	public JMenuItem getMntmHistoricoDeCaja() {
+		return mntmHistoricoDeCaja;
 	}
 }

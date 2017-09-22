@@ -30,6 +30,8 @@ public class CajaCierreView extends JFrame {
 	private JLabel labelDineroEnCaja;
 	private JButton btnCancelar;
 	private JButton btnCerrarCaja;
+	private JTextField textFieldAdeudos;
+	private JTextField textFieldSaldoFavor;
 
 	/**
 	 * Create the frame.
@@ -39,7 +41,7 @@ public class CajaCierreView extends JFrame {
 				Toolkit.getDefaultToolkit().getImage("D:\\PowerGym\\PowerGym\\Gimnasio PowerGym\\image\\icon.ico"));
 		setTitle("Cierre de caja");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 575, 501);
+		setBounds(100, 100, 575, 533);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -53,7 +55,7 @@ public class CajaCierreView extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panel.setBounds(10, 78, 542, 240);
+		panel.setBounds(10, 78, 542, 306);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -84,7 +86,7 @@ public class CajaCierreView extends JFrame {
 
 		JLabel lblEgresosDelDia = new JLabel("Egresos del d\u00EDa:");
 		lblEgresosDelDia.setFont(new Font("Verdana", Font.BOLD, 14));
-		lblEgresosDelDia.setBounds(10, 190, 232, 24);
+		lblEgresosDelDia.setBounds(10, 226, 232, 24);
 		panel.add(lblEgresosDelDia);
 
 		textFieldEgresos = new JTextField();
@@ -92,7 +94,7 @@ public class CajaCierreView extends JFrame {
 		textFieldEgresos.setHorizontalAlignment(SwingConstants.RIGHT);
 		textFieldEgresos.setFont(new Font("Verdana", Font.BOLD, 14));
 		textFieldEgresos.setEditable(false);
-		textFieldEgresos.setBounds(232, 190, 200, 27);
+		textFieldEgresos.setBounds(232, 225, 200, 27);
 		panel.add(textFieldEgresos);
 		textFieldEgresos.setColumns(10);
 
@@ -141,28 +143,56 @@ public class CajaCierreView extends JFrame {
 		panel.add(buttonDetallesVisitasDia);
 
 		buttonDetalleEgresosDia = new JButton("Detalles");
-		buttonDetalleEgresosDia.setBounds(442, 193, 89, 23);
+		buttonDetalleEgresosDia.setBounds(442, 229, 89, 23);
 		panel.add(buttonDetalleEgresosDia);
+		
+		textFieldAdeudos = new JTextField();
+		textFieldAdeudos.setHorizontalAlignment(SwingConstants.RIGHT);
+		textFieldAdeudos.setForeground(new Color(128, 0, 0));
+		textFieldAdeudos.setFont(new Font("Verdana", Font.BOLD, 14));
+		textFieldAdeudos.setEditable(false);
+		textFieldAdeudos.setColumns(10);
+		textFieldAdeudos.setBounds(232, 263, 200, 27);
+		panel.add(textFieldAdeudos);
+		
+		textFieldSaldoFavor = new JTextField();
+		textFieldSaldoFavor.setHorizontalAlignment(SwingConstants.RIGHT);
+		textFieldSaldoFavor.setForeground(new Color(34, 139, 34));
+		textFieldSaldoFavor.setFont(new Font("Verdana", Font.BOLD, 14));
+		textFieldSaldoFavor.setEditable(false);
+		textFieldSaldoFavor.setColumns(10);
+		textFieldSaldoFavor.setBounds(232, 188, 200, 27);
+		panel.add(textFieldSaldoFavor);
+		
+		JLabel lblSaldoAFavor = new JLabel("Saldo a favor:");
+		lblSaldoAFavor.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblSaldoAFavor.setBounds(10, 191, 232, 24);
+		panel.add(lblSaldoAFavor);
+		
+		JLabel lblAdeudos = new JLabel("Adeudos:");
+		lblAdeudos.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblAdeudos.setBounds(10, 264, 232, 24);
+		panel.add(lblAdeudos);
 
 		JLabel lblDineroEnCaja = new JLabel("DINERO EN CAJA:");
 		lblDineroEnCaja.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDineroEnCaja.setFont(new Font("Verdana", Font.BOLD, 24));
-		lblDineroEnCaja.setBounds(10, 329, 292, 68);
+		lblDineroEnCaja.setBounds(10, 395, 292, 68);
 		contentPane.add(lblDineroEnCaja);
 
 		labelDineroEnCaja = new JLabel("$ 1'000.000");
 		labelDineroEnCaja.setHorizontalAlignment(SwingConstants.LEFT);
 		labelDineroEnCaja.setFont(new Font("Verdana", Font.BOLD, 34));
-		labelDineroEnCaja.setBounds(312, 323, 240, 68);
+		labelDineroEnCaja.setBounds(312, 391, 240, 68);
 		labelDineroEnCaja.setForeground(new Color(34, 139, 34));
 		contentPane.add(labelDineroEnCaja);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(439, 428, 113, 23);
+		btnCancelar.setBounds(439, 460, 113, 23);
 		contentPane.add(btnCancelar);
 		
 		btnCerrarCaja = new JButton("Cerrar caja");
-		btnCerrarCaja.setBounds(316, 428, 113, 23);
+		btnCerrarCaja.setBounds(319, 460, 113, 23);
 		contentPane.add(btnCerrarCaja);
 	}
 
@@ -210,5 +240,11 @@ public class CajaCierreView extends JFrame {
 	}
 	public JButton getBtnCerrarCaja() {
 		return btnCerrarCaja;
+	}
+	public JTextField getTextFieldSaldoFavor() {
+		return textFieldSaldoFavor;
+	}
+	public JTextField getTextFieldAdeudos() {
+		return textFieldAdeudos;
 	}
 }

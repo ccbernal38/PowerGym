@@ -29,6 +29,7 @@ import co.powergym.view.caja.CajaMembresiaVentaDiaView;
 import co.powergym.view.membresia.MembresiaListaDiaVisitasView;
 import co.powergym.view.BackupView;
 import co.powergym.view.caja.CajaCierreView;
+import co.powergym.view.caja.CajaHistoricoView;
 
 public class CajaController implements ActionListener {
 
@@ -37,13 +38,16 @@ public class CajaController implements ActionListener {
 	private CajaMembresiaVentaDiaView membresiaVentaDiaView;
 	private CajaCierreView cierreCajaView;
 	private BackupView backupView;
+	private CajaHistoricoView cajaHistoricoView;
 
-	public CajaController(CajaMembresiaVentaDiaView diaView, CajaCierreView cierreCaja, BackupView copiaSeguridadView) {
+	public CajaController(CajaMembresiaVentaDiaView diaView, CajaCierreView cierreCaja, BackupView copiaSeguridadView,
+			CajaHistoricoView historicoView) {
 		cajaDao = new CajaDao();
 		usuarioDao = new UsuarioDao();
 		this.membresiaVentaDiaView = diaView;
 		this.cierreCajaView = cierreCaja;
 		this.backupView = copiaSeguridadView;
+		this.cajaHistoricoView = historicoView;
 
 		if (membresiaVentaDiaView != null) {
 			cargarVentasMembresiaDia();
@@ -68,7 +72,44 @@ public class CajaController implements ActionListener {
 			backupView.getBtnGenerarCopiaDe().addActionListener(this);
 			backupView.getBtnSeleccionar().addActionListener(this);
 		}
+		if (cajaHistoricoView != null) {
+			cargarHistoricoCaja();
+			cajaHistoricoView.setLocationRelativeTo(null);
+			cajaHistoricoView.setVisible(true);
+			cajaHistoricoView.getBtnCancelar().addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					cajaHistoricoView.setVisible(false);
+					cajaHistoricoView.dispose();
+				}
+			});
+		}
+	}
 
+	private void cargarHistoricoCaja() {
+		List<Caja> list = cajaDao.historicoCaja();
+		DefaultTableModel defaultTableModel = (DefaultTableModel) cajaHistoricoView.getTable().getModel();
+		Object[] columna = new Object[11];
+		int numeroRegistros = list.size();
+		for (int i = 0; i < numeroRegistros; i++) {
+			columna[0] = list.get(i).getId();
+			columna[1] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFechaApertura());
+			NumberFormat format = NumberFormat.getInstance();
+			columna[2] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFechaCierre());
+			columna[3] = "$ " + format.format(list.get(i).getTotalVisitas());
+			columna[4] = "$ " + format.format(list.get(i).getTotalMembresias());
+			columna[5] = "$ " + format.format(list.get(i).getTotalSaldoFavor());
+			columna[6] = "$ " + format.format(list.get(i).getTotalAdeudos());
+			columna[7] = "$ " + format.format(list.get(i).getTotalEgresos());
+			columna[8] = "$ " + format.format(list.get(i).getSaldoFinal());
+			columna[9] = list.get(i).getNombreApertura();
+			columna[10] = list.get(i).getNombreCierre();
+
+			defaultTableModel.addRow(columna);
+		}
+		this.cajaHistoricoView.getTable().setModel(defaultTableModel);
+		this.cajaHistoricoView.getTable().repaint();
 	}
 
 	private void cargarSaldosCierre() {
@@ -93,8 +134,15 @@ public class CajaController implements ActionListener {
 		// Egresos del dia
 		int totalEgresosDia = cajaDao.totalEgresosDia(caja.getId());
 		cierreCajaView.getTextFieldEgresos().setText("$ " + format.format(totalEgresosDia));
+		// Adeudos del dia
+		int totalAdeudosDia = cajaDao.totalDeudasDia(caja.getId());
+		cierreCajaView.getTextFieldAdeudos().setText("$ " + format.format(totalAdeudosDia));
+		// Adeudos del dia
+		int totalSaldoFavorDia = cajaDao.totalSaldoFavorDia(caja.getId());
+		cierreCajaView.getTextFieldSaldoFavor().setText("$ " + format.format(totalSaldoFavorDia));
 		// Dinero en caja
-		int dineroEnCaja = (totalVentasMembresiaDia + totalVentasVisitasDia) - totalEgresosDia;
+		int dineroEnCaja = (totalVentasMembresiaDia + totalVentasVisitasDia + totalSaldoFavorDia)
+				- (totalEgresosDia + totalAdeudosDia);
 		cierreCajaView.getLabelDineroEnCaja().setText("$ " + format.format(dineroEnCaja));
 		if (dineroEnCaja < 0) {
 			cierreCajaView.getLabelDineroEnCaja().setForeground(new Color(128, 0, 0));
@@ -106,10 +154,13 @@ public class CajaController implements ActionListener {
 		int totalVentasMembresiaDia = cajaDao.totalVentasMembresiasDia(caja.getId());
 		int totalVentasVisitasDia = cajaDao.totalVentasVisitasDia(caja.getId());
 		int totalEgresosDia = cajaDao.totalEgresosDia(caja.getId());
-		int dineroEnCaja = (totalVentasMembresiaDia + totalVentasVisitasDia) - totalEgresosDia;
+		int totalAdeudosDia = cajaDao.totalDeudasDia(caja.getId());
+		int totalSaldoFavorDia = cajaDao.totalSaldoFavorDia(caja.getId());
+		int dineroEnCaja = (totalVentasMembresiaDia + totalVentasVisitasDia + totalSaldoFavorDia)
+				- (totalEgresosDia + totalAdeudosDia);
 		int usuario_cierre = Integer.parseInt(Preferencias.obtenerPreferencia(Constantes.ID_RESPONSABLE));
 		boolean respuesta = cajaDao.cerrarCaja(caja.getId(), usuario_cierre, totalEgresosDia, totalVentasMembresiaDia,
-				totalVentasVisitasDia, dineroEnCaja);
+				totalVentasVisitasDia, totalAdeudosDia, totalSaldoFavorDia, dineroEnCaja);
 		if (respuesta == true) {
 			JOptionPane.showMessageDialog(null, "Se ha cerrado correctamente la caja.");
 			System.exit(0);
@@ -144,7 +195,7 @@ public class CajaController implements ActionListener {
 				new MovimientoController(null, null, new CajaListaEgresosHoyView(), null, null, null);
 			}
 			if (cierreCajaView.getButtonDetallesMembresia() == e.getSource()) {
-				new CajaController(new CajaMembresiaVentaDiaView(), null, null);
+				new CajaController(new CajaMembresiaVentaDiaView(), null, null, null);
 			}
 			if (cierreCajaView.getButtonDetallesVisitasDia() == e.getSource()) {
 				new VisitaController(null, null, new MembresiaListaDiaVisitasView());
@@ -165,11 +216,11 @@ public class CajaController implements ActionListener {
 			if (backupView.getBtnGenerarCopiaDe() == e.getSource()) {
 				String ruta = backupView.getTextFieldUbicacion().getText();
 				java.io.File file = new java.io.File(ruta);
-				if(file.exists()) {
+				if (file.exists()) {
 					backup(ruta);
 					backupView.setVisible(false);
 					backupView.dispose();
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, "La ruta seleccionada no es valida");
 				}
 			}
@@ -205,7 +256,7 @@ public class CajaController implements ActionListener {
 			InputStream is = p.getInputStream();
 			Calendar calendar = Calendar.getInstance();
 			String fecha = new SimpleDateFormat("ddMMYYYYHms").format(calendar.getTime());
-			FileOutputStream fos = new FileOutputStream(ruta+"\\"+"Backup-"+ fecha + ".sql");
+			FileOutputStream fos = new FileOutputStream(ruta + "\\" + "Backup-" + fecha + ".sql");
 			byte[] buffer = new byte[1000];
 
 			int leido = is.read(buffer);

@@ -12,7 +12,7 @@ public class MembresiaSocio {
 	private Date fechaFinal;
 	private boolean isActiva;
 	private int descuento;
-	private Pago pago;
+	private Factura pago;
 	private int valor;
 
 	public int getValor() {
@@ -47,11 +47,11 @@ public class MembresiaSocio {
 		this.isActiva = isActiva;
 	}
 
-	public Pago getPago() {
+	public Factura getPago() {
 		return pago;
 	}
 
-	public void setPago(Pago pago) {
+	public void setPago(Factura pago) {
 		this.pago = pago;
 	}
 
@@ -104,7 +104,7 @@ public class MembresiaSocio {
 		this.fechaFinal = fechaFinal;
 	}
 
-	public MembresiaSocio(Membresia membresia, Socio socio, Date fecha, boolean isActiva, Pago pago) {
+	public MembresiaSocio(Membresia membresia, Socio socio, Date fecha, boolean isActiva, Factura pago) {
 
 		this.membresia = membresia;
 		this.socio = socio;

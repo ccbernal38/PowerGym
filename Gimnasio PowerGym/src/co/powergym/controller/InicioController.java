@@ -52,6 +52,7 @@ import co.powergym.view.BackupView;
 import co.powergym.view.InitView;
 import co.powergym.view.caja.CajaAperturaView;
 import co.powergym.view.caja.CajaCierreView;
+import co.powergym.view.caja.CajaHistoricoView;
 import co.powergym.view.caja.CajaListaEgresosHoyView;
 import co.powergym.view.caja.CajaListaHistoricoEgresosView;
 import co.powergym.view.caja.CajaListaHistoricosIngresosView;
@@ -119,6 +120,7 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getJMenuItemVentasDia().addActionListener(this);
 		this.viewPrincipal.getJMenuItemCierreCaja().addActionListener(this);
 		this.viewPrincipal.getMntmCopiaDeSeguridad().addActionListener(this);
+		this.viewPrincipal.getMntmHistoricoDeCaja().addActionListener(this);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
@@ -144,7 +146,7 @@ public class InicioController implements ActionListener {
 						new MembresiaController(new MembresiaRegistroView(), null, null);
 					}
 					if (e.getKeyCode() == KeyEvent.VK_F6) {
-						new CajaController(null, new CajaCierreView(), null);
+						new CajaController(null, new CajaCierreView(), null, null);
 					}
 				}
 				return false;
@@ -335,11 +337,13 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
 			new VisitaController(null, null, new MembresiaListaDiaVisitasView());
 		} else if (viewPrincipal.getJMenuItemVentasDia() == e.getSource()) {
-			new CajaController(new CajaMembresiaVentaDiaView(), null, null);
+			new CajaController(new CajaMembresiaVentaDiaView(), null, null, null);
 		} else if (viewPrincipal.getJMenuItemCierreCaja() == e.getSource()) {
-			new CajaController(null, new CajaCierreView(), null);
+			new CajaController(null, new CajaCierreView(), null, null);
 		} else if (viewPrincipal.getMntmCopiaDeSeguridad() == e.getSource()) {
-			new CajaController(null, null, new BackupView());
+			new CajaController(null, null, new BackupView(), null);
+		} else if (this.viewPrincipal.getMntmHistoricoDeCaja() == e.getSource()) {
+			new CajaController(null, null, null, new CajaHistoricoView());
 		}
 	}
 
@@ -379,54 +383,6 @@ public class InicioController implements ActionListener {
 		}
 		jList.setModel(model);
 		jList.setCellRenderer(new SocioPanelCumpleanios());
-	}
-
-	private void llenarTablaAsistencia(int id, SocioConsultaBusquedaView viewBusquedaSocio) {
-		AsistenciaDao asistenciaDao = new AsistenciaDao();
-		List<Asistencia> list = asistenciaDao.historicoAsistencias(id);
-
-		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Dia", "Fecha", "Hora" });
-
-		Object[] columna = new Object[3];
-		int numeroRegistros = list.size();
-
-		for (int i = 0; i < numeroRegistros; i++) {
-			columna[0] = list.get(i).getDia();
-			columna[1] = list.get(i).getFecha();
-			columna[2] = list.get(i).getHora();
-
-			defaultTableModel.addRow(columna);
-		}
-		viewBusquedaSocio.getTableAsistencias().setModel(defaultTableModel);
-		viewBusquedaSocio.getTableAsistencias().repaint();
-	}
-
-	private void llenarTablaHistorico(int id, SocioConsultaBusquedaView viewBusquedaSocio) {
-		MembresiaSocioDao membresiaSocioDao = new MembresiaSocioDao();
-		List<MembresiaSocio> list = membresiaSocioDao.historialMembresias(id);
-
-		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nombre", "Fecha Inicio", "Fecha Fin", "Estado" });
-
-		Object[] columna = new Object[4];
-		int numeroRegistros = list.size();
-
-		for (int i = 0; i < numeroRegistros; i++) {
-			columna[0] = list.get(i).getMembresia().getNombre();
-			Date inicial = list.get(i).getFechaInicial();
-			columna[1] = new SimpleDateFormat("MM-dd-yyyy").format(inicial);
-
-			columna[2] = new SimpleDateFormat("MM-dd-yyyy").format(list.get(i).getFechaFinal());
-			if (list.get(i).isActiva()) {
-				columna[3] = "Activa";
-			} else {
-				columna[3] = "Inactiva";
-			}
-			defaultTableModel.addRow(columna);
-		}
-		viewBusquedaSocio.getTableHistorico().setModel(defaultTableModel);
-		viewBusquedaSocio.getTableHistorico().repaint();
 	}
 
 }
