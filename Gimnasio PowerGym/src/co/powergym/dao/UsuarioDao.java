@@ -99,21 +99,24 @@ public class UsuarioDao implements UsuarioDaoInterface {
 
 	@Override
 	public boolean modificarUsuario(String identificacion, String nombre, String apellido, Date fechaNacimiento,
-			String telefono, String correo, String username, String password) {
+			String telefono, String correo, String username, String password, int estado) {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
 
-
-			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set nombre = ?, "
-					+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ? "
+			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set identificacion = ?, nombre = ?, "
+					+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ?, estado = ?, username = ?, password = ?"
 					+ "WHERE identificacion = ?");
-			statement.setString(1, nombre);
-			statement.setString(2, apellido);
-			statement.setDate(3, new java.sql.Date(fechaNacimiento.getTime()));
-			statement.setString(4, correo);
-			statement.setString(5, telefono);
-			statement.setString(6, identificacion);
+			statement.setString(1, identificacion);
+			statement.setString(2, nombre);
+			statement.setString(3, apellido);
+			statement.setDate(4, new java.sql.Date(fechaNacimiento.getTime()));
+			statement.setString(5, correo);
+			statement.setString(6, telefono);
+			statement.setInt(7, estado);
+			statement.setString(8, username);
+			statement.setString(9, password);
+			statement.setString(10, identificacion);
 			statement.execute();
 			resultado = true;
 		} catch (Exception e) {
