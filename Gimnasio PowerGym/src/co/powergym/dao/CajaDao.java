@@ -1,7 +1,6 @@
 package co.powergym.dao;
 
-import java.io.ByteArrayOutputStream;
-import java.sql.Blob;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,14 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import co.powergym.interfacedao.CajaInterfaceDao;
 import co.powergym.model.Caja;
 import co.powergym.model.Conexion;
 import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
-import co.powergym.model.Movimiento;
 import co.powergym.model.Socio;
 
 public class CajaDao implements CajaInterfaceDao {

@@ -14,7 +14,7 @@ public interface UsuarioDaoInterface {
 	public boolean eliminarUsuario(String identificacion);
 
 	public boolean modificarUsuario(String identificacion, String nombre, String apellido, Date fechaNacimiento,
-			String correo, String telefono, String username, String password);
+			String correo, String telefono, String username, String password, int estado);
 
 	public Usuario buscarUsuario(String identificacion);
 
