@@ -112,4 +112,31 @@ public class VisitaDao implements VisitaDaoInterface {
 		return list;
 	}
 
+	@Override
+	public List<Visita> historicoVisita(int socio_id) {
+		List<Visita> list = new ArrayList<Visita>();
+		Visita visitas;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT id, nombre, apellido, valor, fechaCreacion FROM Visita Where socio_id = ? Order by  fechaCreacion desc");
+			preparedStatement.setInt(1, socio_id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				visitas = new Visita();
+				visitas.setId(resultSet.getInt(1));
+				visitas.setNombre(resultSet.getString(2));
+				visitas.setApellido(resultSet.getString(3));
+				visitas.setValor(resultSet.getInt(4) + "");
+				visitas.setFecha(resultSet.getTimestamp(5));
+				list.add(visitas);
+
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

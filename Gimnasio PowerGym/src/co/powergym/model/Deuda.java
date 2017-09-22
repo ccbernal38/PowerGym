@@ -1,5 +1,7 @@
 package co.powergym.model;
 
+import java.util.Date;
+
 public class Deuda {
 
 	private int id;
@@ -7,6 +9,7 @@ public class Deuda {
 	private String concepto;
 	private int socio_id;
 	private int caja_id;
+	private Date fecha;
 
 	public int getId() {
 		return id;
@@ -46,6 +49,14 @@ public class Deuda {
 
 	public void setConcepto(String concepto) {
 		this.concepto = concepto;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 }

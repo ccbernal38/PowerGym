@@ -59,12 +59,16 @@ import co.powergym.dao.MembresiaDao;
 import co.powergym.dao.MembresiaSocioDao;
 import co.powergym.dao.SaldoFavorDao;
 import co.powergym.dao.SocioDao;
+import co.powergym.dao.VisitaDao;
 import co.powergym.model.Asistencia;
+import co.powergym.model.Deuda;
 import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
 import co.powergym.model.SaldoAFavor;
 import co.powergym.model.Socio;
+import co.powergym.model.Visita;
 import co.powergym.utils.HuellaInit;
+import co.powergym.view.membresia.MembresiaRegistroVisitaSocioConsultaView;
 import co.powergym.view.membresia.PagoMembresiaView;
 import co.powergym.view.socio.SocioAsignarMembresiaView;
 import co.powergym.view.socio.SocioBusquedaView;
@@ -141,9 +145,11 @@ public class SocioController implements ActionListener, ItemListener {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new PagoController(new PagoMembresiaView());
+					PagoController pagoController = new PagoController(new PagoMembresiaView());
+					pagoController.cargarDeudas(socio.getId());
 				}
 			});
+
 			String primerNombre = socio.getNombreCompleto();
 			viewConsultaBusquedaSocio.getTextField_primerNombre().setText(primerNombre);
 			String fechaNacimiento = String.valueOf(socio.getFechaNacimiento());
@@ -151,9 +157,9 @@ public class SocioController implements ActionListener, ItemListener {
 			String telefono = socio.getTelefono();
 			viewConsultaBusquedaSocio.getTextField_telefono().setText(telefono);
 			int deuda = deudaDao.totalDeudasSocio(socio.getId());
-			viewConsultaBusquedaSocio.getLabelDeuda().setText("$ "+deuda);
+			viewConsultaBusquedaSocio.getLabelDeuda().setText("$ " + deuda);
 			int saldoFavor = saldoFavorDao.saldoFavorSocio(socio.getId());
-			viewConsultaBusquedaSocio.getLabelSaldoFavor().setText("$ "+saldoFavor);
+			viewConsultaBusquedaSocio.getLabelSaldoFavor().setText("$ " + saldoFavor);
 			if (socio.getFoto() != null) {
 				Image dimg = socio.getFoto().getScaledInstance(viewConsultaBusquedaSocio.getLblFoto().getWidth(),
 						viewConsultaBusquedaSocio.getLblFoto().getHeight(), Image.SCALE_REPLICATE);
@@ -161,10 +167,100 @@ public class SocioController implements ActionListener, ItemListener {
 			}
 			llenarTablaHistorico(socio.getId(), viewConsultaBusquedaSocio);
 			llenarTablaAsistencia(socio.getId(), viewConsultaBusquedaSocio);
+			llenarTablaVisitas(socio.getId(), viewConsultaBusquedaSocio);
+			llenarTablaPagos(socio.getId(), viewConsultaBusquedaSocio);
+			viewConsultaBusquedaSocio.getBtnRegistrarVisita().addActionListener(new ActionListener() {
 
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					MembresiaRegistroVisitaSocioConsultaView consultaView = new MembresiaRegistroVisitaSocioConsultaView();
+					consultaView.getTextFieldSocio().setText(socio.getIdentificacion());
+					consultaView.getTextFieldNombres().setText(socio.getNombre());
+					consultaView.getTextFieldApellidos().setText(socio.getApellido());
+					consultaView.setVisible(true);
+					consultaView.getBtnCancelar().addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							consultaView.setVisible(false);
+							consultaView.dispose();
+						}
+					});
+					consultaView.getBtnRegistrar().addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							VisitaDao visitaDao = new VisitaDao();
+							int caja_id = new CajaDao().verificarCajaAbierta();
+							visitaDao.registrarVisita(socio.getNombre(), socio.getApellido(),
+									Integer.parseInt(consultaView.getTextFieldValor().getText()), socio.getId(),
+									caja_id);
+							consultaView.setVisible(false);
+							consultaView.dispose();
+							llenarTablaVisitas(socio.getId(), viewConsultaBusquedaSocio);
+						}
+					});
+				}
+			});
 		} else {
 			JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
 					+ "por favor verifique e intente de nuevo");
+		}
+	}
+
+	private void llenarTablaPagos(int id, SocioConsultaBusquedaView viewConsultaBusquedaSocio2) {
+		try {
+
+			List<Deuda> list = deudaDao.historicoPago(id);
+
+			DefaultTableModel defaultTableModel = (DefaultTableModel) viewConsultaBusquedaSocio2
+					.getTableHistorialPagos().getModel();
+
+			Object[] columna = new Object[3];
+			int numeroRegistros = list.size();
+
+			for (int i = 0; i < numeroRegistros; i++) {
+				columna[0] = list.get(i).getId();
+				columna[1] = "$ " + NumberFormat.getInstance().format(0 - list.get(i).getValor());
+				columna[2] = new SimpleDateFormat("dd/MM/yyyy hh:MM:ss a").format(list.get(i).getFecha());
+
+				defaultTableModel.addRow(columna);
+			}
+
+			viewConsultaBusquedaSocio2.getTableHistorialPagos().setModel(defaultTableModel);
+			viewConsultaBusquedaSocio2.getTableHistorialPagos().repaint();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	private void llenarTablaVisitas(int id, SocioConsultaBusquedaView viewConsultaBusquedaSocio2) {
+		try {
+
+			VisitaDao visitaDao = new VisitaDao();
+			List<Visita> list = visitaDao.historicoVisita(id);
+
+			DefaultTableModel defaultTableModel = (DefaultTableModel) viewConsultaBusquedaSocio2
+					.getTableHistorialVisitas().getModel();
+
+			Object[] columna = new Object[3];
+			int numeroRegistros = list.size();
+
+			for (int i = 0; i < numeroRegistros; i++) {
+				columna[0] = list.get(i).getId();
+				columna[1] = "$ " + NumberFormat.getInstance().format(Integer.parseInt(list.get(i).getValor()));
+				columna[2] = new SimpleDateFormat("dd/MM/yyyy hh:MM:ss a").format(list.get(i).getFecha());
+
+				defaultTableModel.addRow(columna);
+			}
+
+			viewConsultaBusquedaSocio2.getTableHistorialVisitas().setModel(defaultTableModel);
+			viewConsultaBusquedaSocio2.getTableHistorialVisitas().repaint();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
@@ -249,8 +345,10 @@ public class SocioController implements ActionListener, ItemListener {
 					int caja_id = new CajaDao().verificarCajaAbierta();
 					int descuento = Integer.parseInt(viewAsignarMembresia.getTextFieldDescuento().getText());
 					boolean respuesta = membresiaSocioDao.registrarMembresiaSocio(membresia.getId(), socio.getId(),
-							fechaInicio, fechaFin, descuento, renovar, caja_id);
+							fechaInicio, fechaFin, descuento, renovar, caja_id, membresia.getValor() - descuento);
 					if (respuesta == true) {
+						deudaDao.registrarDeuda(membresia.getValor() - descuento, membresia.getNombre(), socio.getId(),
+								caja_id);
 						JOptionPane.showMessageDialog(viewAsignarMembresia,
 								"Se ha asignado una nueva membresia al socio.");
 						viewAsignarMembresia.setVisible(false);

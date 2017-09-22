@@ -44,7 +44,7 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement(
 					"SELECT ms.id as id, ms.fechaInicio as fechaInicio, ms.fechafin as fechaFin, ms.activa as activa, "
-							+ "ms.membresia_id as idMembresia, ms.pago_id as idPago " + "FROM Membresia_socio ms "
+							+ "ms.membresia_id as idMembresia " + "FROM Membresia_socio ms "
 							+ "WHERE ms.socio_id = ? ORDER BY ms.fechaInicio DESC");
 			preparedStatement.setInt(1, idSocio);
 
@@ -65,11 +65,6 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 				memSocio.setMembresia(mem);
 
 				Factura pago = new Factura();
-				String idPago = resultSet.getString("idPago");
-				if (idPago != null) {
-					pago.setId(Integer.parseInt(idPago));
-					memSocio.setPago(pago);
-				}
 
 				list.add(memSocio);
 			}
@@ -89,13 +84,13 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 
 	@Override
 	public boolean registrarMembresiaSocio(int codigoMembresia, int idSocio, Date fechaInicio, Date fechaFin,
-			int descuento, int renovar, int caja_id) {
+			int descuento, int renovar, int caja_id, int valor) {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD.prepareStatement(
-					"INSERT INTO Membresia_Socio(Socio_id, Membresia_id, fechaInicio, fechaFin, descuento, renovar, caja_id) "
-							+ "VALUES(?,?,?,?,?,?,?)");
+					"INSERT INTO Membresia_Socio(Socio_id, Membresia_id, fechaInicio, fechaFin, descuento, renovar, caja_id, valor) "
+							+ "VALUES(?,?,?,?,?,?,?,?)");
 			statement.setInt(1, idSocio);
 			statement.setInt(2, codigoMembresia);
 			statement.setDate(3, new java.sql.Date(fechaInicio.getTime()));
@@ -103,6 +98,7 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 			statement.setInt(5, descuento);
 			statement.setInt(6, renovar);
 			statement.setInt(7, caja_id);
+			statement.setInt(8, valor);
 			statement.execute();
 			respuesta = true;
 			conexion.desconectar();
