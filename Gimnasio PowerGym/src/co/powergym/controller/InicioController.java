@@ -98,15 +98,27 @@ public class InicioController implements ActionListener {
 		permisoUsuarioDao = new PermisoUsuarioDao();
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.getJMenuItemRegistrarSocio().addActionListener(this);
+		this.viewPrincipal.getJMenuItemRegistrarSocio().setEnabled(false);
 		this.viewPrincipal.btnRegistrarSocio.addActionListener(this);
+		this.viewPrincipal.btnRegistrarSocio.setEnabled(false);
 		this.viewPrincipal.jMenuItem3buscarSocio.addActionListener(this);
+		this.viewPrincipal.jMenuItem3buscarSocio.setEnabled(false);
 		this.viewPrincipal.btnMenuMembresia.addActionListener(this);
+		this.viewPrincipal.btnMenuMembresia.setEnabled(false);
+		this.viewPrincipal.jButtonCierreCaja.setEnabled(false);
+		this.viewPrincipal.getJCrearMembresia().setEnabled(false);
 		this.viewPrincipal.getMntmListadoDeSocios().addActionListener(this);
+		this.viewPrincipal.getMntmListadoDeSocios().setEnabled(false);
 		this.viewPrincipal.getJMenuItemCumpleanios().addActionListener(this);
+		this.viewPrincipal.getJMenuItemCumpleanios().setEnabled(false);
 		this.viewPrincipal.getJMenuItemRegistrarUsuario().addActionListener(this);
+		this.viewPrincipal.getJMenuItemRegistrarUsuario().setEnabled(false);
 		this.viewPrincipal.getJMenuItemListaUsuario().addActionListener(this);
+		this.viewPrincipal.getJMenuItemListaUsuario().setEnabled(false);
 		this.viewPrincipal.getJMenuItemListaMembresias().addActionListener(this);
+		this.viewPrincipal.getJMenuItemListaMembresias().setEnabled(false);
 		this.viewPrincipal.getBtnRegistrodeVisita().addActionListener(this);
+		this.viewPrincipal.getBtnRegistrodeVisita().setEnabled(false);
 		this.viewPrincipal.getMntmPuertoTorniquete().addActionListener(this);
 		this.viewPrincipal.getBtnSalir().addActionListener(this);
 		this.viewPrincipal.getjMenuItemAsistencia().addActionListener(this);
@@ -114,16 +126,26 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getBtnPuerta().addActionListener(this);
 		this.viewPrincipal.getBtnBuscar().addActionListener(this);
 		this.viewPrincipal.getMntmRegistrarEgreso().addActionListener(this);
+		this.viewPrincipal.getMntmRegistrarEgreso().setEnabled(false);
 		this.viewPrincipal.getBtnVerificar().addActionListener(this);
 		this.viewPrincipal.getMntmHistoricoDeEgresos().addActionListener(this);
+		this.viewPrincipal.getMntmHistoricoDeEgresos().setEnabled(false);
 		this.viewPrincipal.getMntmEgresosDelDia().addActionListener(this);
+		this.viewPrincipal.getMntmEgresosDelDia().setEnabled(false);
 		this.viewPrincipal.getMntmHistoricoDeVisitas().addActionListener(this);
+		this.viewPrincipal.getMntmHistoricoDeVisitas().setEnabled(false);
 		this.viewPrincipal.getMntmVisitasDeHoy().addActionListener(this);
+		this.viewPrincipal.getMntmVisitasDeHoy().setEnabled(false);
 		this.viewPrincipal.getMntmRegistroDeVisitas().addActionListener(this);
+		this.viewPrincipal.getMntmRegistroDeVisitas().setEnabled(false);
 		this.viewPrincipal.getJMenuItemVentasDia().addActionListener(this);
+		this.viewPrincipal.getJMenuItemVentasDia().setEnabled(false);
 		this.viewPrincipal.getJMenuItemCierreCaja().addActionListener(this);
+		this.viewPrincipal.getJMenuItemCierreCaja().setEnabled(false);
 		this.viewPrincipal.getMntmCopiaDeSeguridad().addActionListener(this);
+		this.viewPrincipal.getMntmCopiaDeSeguridad().setEnabled(false);
 		this.viewPrincipal.getMntmHistoricoDeCaja().addActionListener(this);
+		this.viewPrincipal.getMntmHistoricoDeCaja().setEnabled(false);
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
@@ -239,9 +261,62 @@ public class InicioController implements ActionListener {
 		
 		for (int i = 0; i < permisos.size(); i++) {
 			if(permisos.get(i).getPermiso_id() == 1) {
-				viewPrincipal.getMntmCopiaDeSeguridad().setEnabled(false);
-				viewPrincipal.getBtnRegistrarSocio().setEnabled(false);
-				viewPrincipal.getJMenuItemRegistrarSocio().setEnabled(false);
+				viewPrincipal.getMntmCopiaDeSeguridad().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 2) {
+				viewPrincipal.getBtnRegistrarSocio().setEnabled(true);
+				viewPrincipal.getJMenuItemRegistrarSocio().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 3) {
+				viewPrincipal.getjMenuItem3buscarSocio().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 4) {
+				viewPrincipal.getMntmListadoDeSocios().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 5) {
+				viewPrincipal.getJMenuItemCumpleanios().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 6) {
+				viewPrincipal.getJCrearMembresia().setEnabled(true);
+				viewPrincipal.getBtnMenuMembresia().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 7) {
+				viewPrincipal.getJMenuItemListaMembresias().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 8) {
+				viewPrincipal.getJMenuItemCierreCaja().setEnabled(true);
+				viewPrincipal.getJButtonCierreCaja().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 9) {
+				viewPrincipal.getJMenuItemVentasDia().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 10) {
+				viewPrincipal.getMntmHistoricoDeCaja().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 11) {
+				viewPrincipal.getMntmHistoricoDeEgresos().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 12) {
+				viewPrincipal.getMntmEgresosDelDia().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 13) {
+				viewPrincipal.getMntmRegistrarEgreso().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 14) {
+				viewPrincipal.getMntmHistoricoDeVisitas().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 15) {
+				viewPrincipal.getBtnRegistrodeVisita().setEnabled(true);
+				viewPrincipal.getMntmRegistroDeVisitas().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 16) {
+				viewPrincipal.getMntmVisitasDeHoy().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 17) {
+				viewPrincipal.getJMenuItemRegistrarUsuario().setEnabled(true);
+			}
+			if(permisos.get(i).getPermiso_id() == 18) {
+				viewPrincipal.getJMenuItemListaUsuario().setEnabled(true);
 			}
 		}
 	}

@@ -87,15 +87,9 @@ public class InitView extends JFrame {
 		jMenu6 = new javax.swing.JMenu();
 		jMenuItemSocioActivo = new javax.swing.JMenuItem();
 		jMenuItemAsistencia = new javax.swing.JMenuItem();
-		jMenu3 = new javax.swing.JMenu();
-		jMenuItem7 = new javax.swing.JMenuItem();
-		jMenuItem8 = new javax.swing.JMenuItem();
-		jMenuItem9 = new javax.swing.JMenuItem();
 		jMenu4 = new javax.swing.JMenu();
 		jMenuItem10 = new javax.swing.JMenuItem();
 		jMenuItemListaMembresias = new javax.swing.JMenuItem();
-		jMenu7 = new javax.swing.JMenu();
-		jMenuItem12 = new javax.swing.JMenuItem();
 		jMenu5 = new javax.swing.JMenu();
 		jMenuItem13 = new javax.swing.JMenuItem();
 		jMenuItem14 = new javax.swing.JMenuItem();
@@ -140,20 +134,6 @@ public class InitView extends JFrame {
 
 		jMenuBar.add(jMenu2);
 
-		jMenu3.setText("Mensualidad");
-
-		jMenuItem7.setText("Pagar mensualidad");
-
-		jMenu3.add(jMenuItem7);
-
-		jMenuItem8.setText("Pago en mora");
-		jMenu3.add(jMenuItem8);
-
-		jMenuItem9.setText("Pagos proximos");
-		jMenu3.add(jMenuItem9);
-
-		jMenuBar.add(jMenu3);
-
 		jMenu4.setText("Membresias");
 
 		jMenuItem10.setText("Crear membresia");
@@ -161,13 +141,6 @@ public class InitView extends JFrame {
 
 		jMenuItemListaMembresias.setText("Lista de membresias");
 		jMenu4.add(jMenuItemListaMembresias);
-
-		jMenu7.setText("Informes");
-
-		jMenuItem12.setText("Cantidad de membresias activas");
-		jMenu7.add(jMenuItem12);
-
-		jMenu4.add(jMenu7);
 
 		jMenuBar.add(jMenu4);
 
@@ -448,16 +421,13 @@ public class InitView extends JFrame {
 	public javax.swing.JButton jButtonCierreCaja;
 	public javax.swing.JMenu jMenu1;
 	public javax.swing.JMenu jMenu2;
-	public javax.swing.JMenu jMenu3;
 	public javax.swing.JMenu jMenu4;
 	public javax.swing.JMenu jMenu5;
 	public javax.swing.JMenu jMenu6;
-	public javax.swing.JMenu jMenu7;
 	public javax.swing.JMenuBar jMenuBar;
 	public javax.swing.JMenuItem jMenuItem1;
 	public javax.swing.JMenuItem jMenuItem10;
 	public javax.swing.JMenuItem jMenuItemListaMembresias;
-	public javax.swing.JMenuItem jMenuItem12;
 	public javax.swing.JMenuItem jMenuItem13;
 	public javax.swing.JMenuItem jMenuItem14;
 	public javax.swing.JMenuItem jMenuItemRegistrarSocio;
@@ -481,9 +451,6 @@ public class InitView extends JFrame {
 
 	public javax.swing.JMenuItem jMenuItem5;
 	public javax.swing.JMenuItem jMenuItemAsistencia;
-	public javax.swing.JMenuItem jMenuItem7;
-	public javax.swing.JMenuItem jMenuItem8;
-	public javax.swing.JMenuItem jMenuItem9;
 
 	private JMenuItem mntmListadoDeSocios;
 
@@ -664,5 +631,11 @@ public class InitView extends JFrame {
 	}
 	public JMenuItem getMntmHistoricoDeCaja() {
 		return mntmHistoricoDeCaja;
+	}
+	public JMenuItem getJCrearMembresia() {
+		return jMenuItem10;
+	}
+	public JButton getJButtonCierreCaja() {
+		return jButtonCierreCaja;
 	}
 }
