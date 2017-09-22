@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JCheckBox;
 
 public class ActualizarUsuario extends JFrame {
 	/**
@@ -34,6 +35,8 @@ public class ActualizarUsuario extends JFrame {
 	private JTextField textconfirmaC;
 	private JTable tablePermisos;
 	private JDateChooser fechaNacimiento;
+	private JLabel lblEstado;
+	private JCheckBox chckbxDesactivar;
 	
 	
 	public ActualizarUsuario() {
@@ -151,6 +154,14 @@ public class ActualizarUsuario extends JFrame {
 		fechaNacimiento.setBounds(558, 110, 102, 26);
 		getContentPane().add(fechaNacimiento);
 		
+		lblEstado = new JLabel("Estado:");
+		lblEstado.setBounds(35, 185, 44, 16);
+		getContentPane().add(lblEstado);
+		
+		chckbxDesactivar = new JCheckBox("Desactivar");
+		chckbxDesactivar.setBounds(86, 181, 102, 25);
+		getContentPane().add(chckbxDesactivar);
+		
 		setSize(818, 569);
 	}
 
@@ -260,5 +271,11 @@ public class ActualizarUsuario extends JFrame {
 	}
 	public JDateChooser getFechaNacimiento() {
 		return fechaNacimiento;
+	}
+	public JLabel getLblEstadoUsuario() {
+		return lblEstado;
+	}
+	public JCheckBox getChckbEstadoUsuario() {
+		return chckbxDesactivar;
 	}
 }

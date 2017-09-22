@@ -372,6 +372,8 @@ public class UsuarioController implements ActionListener {
 			String user = viewActualizarUsuario.getTextUsuario().getText();
 			String confirmaC = viewActualizarUsuario.getTextconfirmaC().getText();
 			String contrasena = viewActualizarUsuario.getTextContrasena().getText();
+			boolean estado = viewActualizarUsuario.getChckbEstadoUsuario().isSelected();
+			int estadoAux = 0;
 
 			Date fecha = viewActualizarUsuario.getFechaNacimiento().getDate();
 			Usuario usuario = usuarioDao.buscarUsuario(numeroId);	
@@ -383,8 +385,14 @@ public class UsuarioController implements ActionListener {
 				JOptionPane.showMessageDialog(viewActualizarUsuario,
 						"La contraseña y la confirmación no coinciden, por favor verifique.");
 			}
+			
+			if(estado) {
+				estadoAux = 0;
+			}else {
+				estadoAux = 1;
+			}
 			boolean respuesta = usuarioDao.modificarUsuario(numeroId, nombre, apellido, fecha, telefono, correoElectronico, 
-					user, password);
+					user, password, estadoAux);
 			permisoUsuarioDao.eliminarPermisosusuario(usuario.getId());
 			actualizarAsignarPermiso(usuario.getIdentificacion());
 
