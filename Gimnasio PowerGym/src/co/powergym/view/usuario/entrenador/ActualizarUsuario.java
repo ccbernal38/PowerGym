@@ -1,11 +1,8 @@
 package co.powergym.view.usuario.entrenador;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
-import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -14,6 +11,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 public class ActualizarUsuario extends JFrame {
 	/**

@@ -32,27 +32,6 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 	}
 
 	@Override
-	public boolean registrarMembresiaSocio(int codigoMembresia, int idSocio, Date fecha, boolean isActivo) {
-
-		boolean respuesta = false;
-		try {
-			Connection accesoBD = conexion.getConexion();
-			PreparedStatement statement = accesoBD.prepareStatement(
-					"INSERT INTO Membresia_Socio(Socio_id, Membresia_id, fecha, activa) " + "VALUES(?,?,?,?)");
-			statement.setInt(1, idSocio);
-			statement.setInt(2, codigoMembresia);
-			statement.setDate(3, (java.sql.Date) fecha);
-			statement.setBoolean(4, isActivo);
-			statement.execute();
-			respuesta = true;
-			conexion.desconectar();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return respuesta;
-	}
-
-	@Override
 	public boolean modificarMembresiaSocio(int id, int codigoMembresia, int idSocio, boolean isActivo) {
 		// TODO Auto-generated method stub
 		return false;
@@ -65,9 +44,8 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement(
 					"SELECT ms.id as id, ms.fechaInicio as fechaInicio, ms.fechafin as fechaFin, ms.activa as activa, "
-					+ "ms.membresia_id as idMembresia, ms.pago_id as idPago "
-					+ "FROM Membresia_socio ms "
-					+ "WHERE ms.socio_id = ? ORDER BY ms.fechaInicio DESC");
+							+ "ms.membresia_id as idMembresia, ms.pago_id as idPago " + "FROM Membresia_socio ms "
+							+ "WHERE ms.socio_id = ? ORDER BY ms.fechaInicio DESC");
 			preparedStatement.setInt(1, idSocio);
 
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -76,40 +54,62 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 				memSocio.setId(resultSet.getInt("id"));
 				memSocio.setFechaInicial(resultSet.getDate("fechaInicio"));
 				memSocio.setFechaFinal(resultSet.getDate("fechaFin"));
-				
-				if(resultSet.getInt("activa") == 1)
+
+				if (resultSet.getInt("activa") == 1)
 					memSocio.setActiva(true);
 				else
 					memSocio.setActiva(false);
-				
+
 				Membresia mem = new Membresia();
 				mem.setId(resultSet.getInt("idMembresia"));
 				memSocio.setMembresia(mem);
-				
+
 				Pago pago = new Pago();
 				String idPago = resultSet.getString("idPago");
-				if(idPago != null) {
+				if (idPago != null) {
 					pago.setId(Integer.parseInt(idPago));
-					memSocio.setPago(pago);	
+					memSocio.setPago(pago);
 				}
-				
-				
-				list.add(memSocio);			
+
+				list.add(memSocio);
 			}
 			conexion.desconectar();
-			
+
 			for (MembresiaSocio ms : list) {
 				int idMembresia = ms.getMembresia().getId();
 				ms.setMembresia(new MembresiaDao().buscarMembresia(idMembresia));
 				ms.setSocio(new SocioDao().buscarSocio(idSocio));
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
 
-	
+	@Override
+	public boolean registrarMembresiaSocio(int codigoMembresia, int idSocio, Date fechaInicio, Date fechaFin,
+			int descuento, int renovar, int caja_id) {
+		boolean respuesta = false;
+		try {
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement(
+					"INSERT INTO Membresia_Socio(Socio_id, Membresia_id, fechaInicio, fechaFin, descuento, renovar, caja_id) "
+							+ "VALUES(?,?,?,?,?,?,?)");
+			statement.setInt(1, idSocio);
+			statement.setInt(2, codigoMembresia);
+			statement.setDate(3, new java.sql.Date(fechaInicio.getTime()));
+			statement.setDate(4, new java.sql.Date(fechaFin.getTime()));
+			statement.setInt(5, descuento);
+			statement.setInt(6, renovar);
+			statement.setInt(7, caja_id);
+			statement.execute();
+			respuesta = true;
+			conexion.desconectar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return respuesta;
+	}
 
 }

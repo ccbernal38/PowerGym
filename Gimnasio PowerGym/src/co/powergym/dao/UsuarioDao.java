@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import co.powergym.interfacedao.UsuarioDaoInterface;
 import co.powergym.model.Conexion;
-import co.powergym.model.Entrenador;
 import co.powergym.model.Usuario;
 
 public class UsuarioDao implements UsuarioDaoInterface {
@@ -26,6 +25,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
+
 			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Usuario(identificacion, nombre, "
 					+ "apellido, fechaNacimiento, correoElectronico, telefono, genero, username, password) VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, identificacion);
@@ -103,6 +103,7 @@ public class UsuarioDao implements UsuarioDaoInterface {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
+
 
 			PreparedStatement statement = connection.prepareStatement("UPDATE Usuario Set nombre = ?, "
 					+ "apellido = ?, fechaNacimiento = ?, correoElectronico = ?, telefono = ? "

@@ -16,10 +16,10 @@ public class Membresia {
 	private List<DiaSemana> diasPermitidos;
 	private List<Horario> horario;
 	private Date fecha_creacion;
+	private Date fechaFinal;
 	private Duracion duracionValor;
 	private boolean renovar;
 	public int estado;
-
 
 	public Membresia(String nombre, int valor) {
 		super();
@@ -129,11 +129,11 @@ public class Membresia {
 	public int getEstado() {
 		return estado;
 	}
-	
+
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	
+
 	public String getDias() {
 		String dias = "";
 		for (int i = 0; i < diasPermitidos.size(); i++) {
@@ -148,13 +148,13 @@ public class Membresia {
 	}
 
 	public String getTiempoDuracion() {
-		String fechaActual = new SimpleDateFormat("dd/mm/yyyy").format(Calendar.getInstance().getTime());
-		String fechaFin = new SimpleDateFormat("dd/mm/yyyy").format(getFechaFinal());
+		String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+		String fechaFin = new SimpleDateFormat("dd/MM/yyyy").format(getFechaFinal());
 		return "Comienza el " + fechaActual + " hasta el " + fechaFin;
 	}
 
 	public String getHorarioPermitido() {
-		String cadena = "<html>";
+		String cadena = "";
 		for (int i = 0; i < getHorario().size(); i++) {
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
 			String dateHoraInicio = sdf.format(getHorario().get(i).getHoraInicio());
@@ -164,12 +164,7 @@ public class Membresia {
 			} else if (i < getHorario().size()) {
 				cadena += dateHoraInicio + " - " + dateHoraFin + ", ";
 			}
-			if (i % 3 == 1) {
-				cadena += "<br/>";
-			}
-
 		}
-		cadena += "</html>";
 		return cadena;
 	}
 
@@ -181,19 +176,29 @@ public class Membresia {
 
 	public Date getFechaFinal() {
 
-		String duracionValor = getDuracionValor().getNombre();
-		int duracion = getDuracion();
-		int diasTotal = 0;
-		if (duracionValor.equals(Duracion.DIA)) {
-			diasTotal = duracion;
-		} else if (duracionValor.equals(Duracion.SEMANA)) {
-			diasTotal = duracion * 7;
-		} else if (duracionValor.equals(Duracion.MES)) {
-			diasTotal = duracion * 30;
-		} else if (duracionValor.equals(Duracion.ANIO)) {
-			diasTotal = duracion * 365;
+		if (fechaFinal == null) {
+			String duracionValor = getDuracionValor().getNombre();
+			int duracion = getDuracion();
+			int diasTotal = 0;
+			if (duracionValor.equals(Duracion.DIA)) {
+				diasTotal = duracion;
+			} else if (duracionValor.equals(Duracion.SEMANA)) {
+				diasTotal = duracion * 7;
+			} else if (duracionValor.equals(Duracion.MES)) {
+				diasTotal = duracion * 30;
+			} else if (duracionValor.equals(Duracion.ANIO)) {
+				diasTotal = duracion * 365;
+			}
+			return sumarDiasFecha(Calendar.getInstance().getTime(), diasTotal);
+		} else {
+			return fechaFinal;
 		}
-		return sumarDiasFecha(Calendar.getInstance().getTime(), diasTotal);
+
+	}
+	
+
+	public void setFechaFinal(Date fechaFinal) {
+		this.fechaFinal = fechaFinal;
 	}
 
 	public Date sumarDiasFecha(Date fecha, int dias) {

@@ -6,11 +6,11 @@ import co.powergym.model.MembresiaSocio;
 
 public interface MembresiaSocioDaoInterface {
 
-	public boolean registrarMembresiaSocio(int codigoMembresia, int idSocio, Date fecha, boolean isActivo);
-	
+	public boolean registrarMembresiaSocio(int codigoMembresia, int idSocio, Date fechaInicio, Date fechaFin,
+			int descuento, int renovar, int caja_id);
+
 	public boolean modificarMembresiaSocio(int id, int codigoMembresia, int idSocio, boolean isActivo);
-	
-	public List<MembresiaSocio> historialMembresias(int idSocio);	
-	
-	
+
+	public List<MembresiaSocio> historialMembresias(int idSocio);
+
 }
