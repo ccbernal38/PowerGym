@@ -42,6 +42,7 @@ import co.powergym.dao.MembresiaSocioDao;
 import co.powergym.dao.SocioDao;
 import co.powergym.model.Asistencia;
 import co.powergym.model.MembresiaSocio;
+import co.powergym.model.PermisoUsuario;
 import co.powergym.model.Socio;
 import co.powergym.reportes.Reporte;
 import co.powergym.utils.Constantes;
@@ -83,6 +84,7 @@ public class InicioController implements ActionListener {
 	SocioDao socioDao;
 	CajaDao cajaDao;
 	Reporte reporte;
+	PermisoUsuarioDao permisoUsuarioDao;
 
 	public static String TEMPLATE_PROPERTY = "template";
 	public DPFPFeatureSet featuresinscripcion;
@@ -93,6 +95,7 @@ public class InicioController implements ActionListener {
 	public InicioController(InitView viewPrincipal) {
 		socioDao = new SocioDao();
 		cajaDao = new CajaDao();
+		permisoUsuarioDao = new PermisoUsuarioDao();
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.getJMenuItemRegistrarSocio().addActionListener(this);
 		this.viewPrincipal.btnRegistrarSocio.addActionListener(this);
@@ -124,9 +127,11 @@ public class InicioController implements ActionListener {
 		listadoCumpleaniosDia();
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
+		asignarPermisos();
+
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 		manager.addKeyEventDispatcher(new KeyEventDispatcher() {
-
+		
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent e) {
 				// TODO Auto-generated method stub
@@ -224,8 +229,23 @@ public class InicioController implements ActionListener {
 			viewPrincipal.setEnabled(false);
 			aperturaCajaView.setVisible(true);
 		}
+		
 	}
-
+	
+	public void asignarPermisos() {
+		
+		int idUsuario = Integer.parseInt(Preferencias.obtenerPreferencia(Constantes.ID_RESPONSABLE));
+		List<PermisoUsuario>permisos  = permisoUsuarioDao.permisosPorUsuario(idUsuario);
+		
+		for (int i = 0; i < permisos.size(); i++) {
+			if(permisos.get(i).getPermiso_id() == 1) {
+				viewPrincipal.getMntmCopiaDeSeguridad().setEnabled(false);
+				viewPrincipal.getBtnRegistrarSocio().setEnabled(false);
+				viewPrincipal.getJMenuItemRegistrarSocio().setEnabled(false);
+			}
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (aperturaCajaView != null) {

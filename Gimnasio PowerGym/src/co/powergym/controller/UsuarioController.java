@@ -19,6 +19,7 @@ import javax.swing.table.TableCellRenderer;
 
 import co.powergym.dao.PermisoDao;
 import co.powergym.dao.PermisoUsuarioDao;
+import co.powergym.dao.RolUsuarioDao;
 import co.powergym.dao.UsuarioDao;
 import co.powergym.model.Permiso;
 import co.powergym.model.PermisoUsuario;
@@ -35,6 +36,7 @@ public class UsuarioController implements ActionListener {
 	 */
 	UsuarioDao usuarioDao;
 	PermisoDao permisoDao;
+	RolUsuarioDao rolUsuarioDao;
 	PermisoUsuarioDao permisoUsuarioDao;
 	RegistroUsuario viewRegistroUsuario;
 	BusquedaUsuario viewBusquedaUsuario;
@@ -48,6 +50,7 @@ public class UsuarioController implements ActionListener {
 			ActualizarUsuario viewActualizarUsuario) {
 		this.usuarioDao = usuarioDao;
 		this.permisoDao = permisoDao;
+		this.rolUsuarioDao = new RolUsuarioDao();
 		this.permisoUsuarioDao = new PermisoUsuarioDao();
 		this.viewRegistroUsuario = viewRegistroUsuario;
 		this.viewBusquedaUsuario = viewBusquedaUsuario;
@@ -268,7 +271,17 @@ public class UsuarioController implements ActionListener {
 
 
 				Usuario usuario = usuarioDao.buscarUsuario(numeroId);
-
+				boolean selectAdmin = viewRegistroUsuario.getRdbtnAdministrador().isSelected();
+				boolean selectEntre = viewRegistroUsuario.getRdbtnEntrenador().isSelected();
+				if(selectAdmin == true) {
+					rolUsuarioDao.registrarRolUsuario(usuario.getId(), 1);
+				}
+				if(selectEntre == true) {
+					rolUsuarioDao.registrarRolUsuario(usuario.getId(), 2);
+				}
+				if(selectAdmin == false && selectEntre == false) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un rol para este usuario del sistema");
+				}
 				listaPermiso = permisoDao.listaPermisos();
 				JRadioButton jRadioButton;
 				ArrayList<Integer> seleccionados = new ArrayList<>();
