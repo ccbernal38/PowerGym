@@ -212,13 +212,12 @@ public class PagoController implements ActionListener {
 							JOptionPane.YES_NO_OPTION);
 					if (option == JOptionPane.YES_OPTION) {
 						saldoFavorDao.registrarSaldoFavor(-(deuda - totalPagar), socioTemp, caja_id);
-
 					}
-					pagoMembresiaView.setVisible(false);
-					pagoMembresiaView.dispose();
+					
 
 				}
-
+				pagoMembresiaView.setVisible(false);
+				pagoMembresiaView.dispose();
 			} else if (e.getSource() == pagoMembresiaView.getBtnCancelar()) {
 				pagoMembresiaView.setVisible(false);
 				pagoMembresiaView.dispose();

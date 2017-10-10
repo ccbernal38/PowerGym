@@ -12,5 +12,9 @@ public interface MembresiaSocioDaoInterface {
 	public boolean modificarMembresiaSocio(int id, int codigoMembresia, int idSocio, boolean isActivo);
 
 	public List<MembresiaSocio> historialMembresias(int idSocio);
+	
+	public boolean eliminarMembresiaSocio(int id);
+	
+	public int valorPagado(int id);
 
 }

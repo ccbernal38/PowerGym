@@ -8,10 +8,16 @@ import java.io.InputStream;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.poi.ss.formula.functions.Choose;
@@ -29,16 +35,20 @@ import co.powergym.view.caja.CajaMembresiaVentaDiaView;
 import co.powergym.view.membresia.MembresiaListaDiaVisitasView;
 import co.powergym.view.BackupView;
 import co.powergym.view.caja.CajaCierreView;
+import co.powergym.view.caja.CajaHistoricoDetalleView;
 import co.powergym.view.caja.CajaHistoricoView;
 
 public class CajaController implements ActionListener {
 
+	private static final String CIERRECAJAVIEW = "CierreCajaView";
+	private static final String HISTORICODETALLECAJA = "HistoricoDetalleCaja";
 	private CajaDao cajaDao;
 	private UsuarioDao usuarioDao;
 	private CajaMembresiaVentaDiaView membresiaVentaDiaView;
 	private CajaCierreView cierreCajaView;
 	private BackupView backupView;
 	private CajaHistoricoView cajaHistoricoView;
+	private CajaHistoricoDetalleView cajaHistoricoDetalleView;
 
 	public CajaController(CajaMembresiaVentaDiaView diaView, CajaCierreView cierreCaja, BackupView copiaSeguridadView,
 			CajaHistoricoView historicoView) {
@@ -55,7 +65,8 @@ public class CajaController implements ActionListener {
 			membresiaVentaDiaView.setVisible(true);
 		}
 		if (cierreCajaView != null) {
-			cargarSaldosCierre();
+			Caja caja = cajaDao.ultimoRegistro();
+			cargarSaldosCierre(caja, CIERRECAJAVIEW);
 			cierreCajaView.setLocationRelativeTo(null);
 			cierreCajaView.setVisible(true);
 			cierreCajaView.getButtonDetalleEgresosDia().addActionListener(this);
@@ -84,27 +95,55 @@ public class CajaController implements ActionListener {
 					cajaHistoricoView.dispose();
 				}
 			});
+			JTable table = cajaHistoricoView.getTable();
+			table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+
+					boolean adjust = e.getValueIsAdjusting();
+					if (!adjust) {
+						int id_caja = (int) table.getValueAt(table.getSelectedRow(), 0);
+						System.out.println(id_caja);
+						cargarDetallesCaja(id_caja);
+					}
+				}
+			});
 		}
+	}
+
+	private void cargarDetallesCaja(int id_caja) {
+		Caja caja = cajaDao.buscarCaja(id_caja);
+		cajaHistoricoDetalleView = new CajaHistoricoDetalleView();
+		cargarSaldosCierre(caja, HISTORICODETALLECAJA);
+		cajaHistoricoDetalleView.setLocationRelativeTo(null);
+		cajaHistoricoDetalleView.setVisible(true);
+		cajaHistoricoDetalleView.getBtnCancelar().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				cajaHistoricoDetalleView.setVisible(true);
+				cajaHistoricoDetalleView.dispose();
+			}
+		});
 	}
 
 	private void cargarHistoricoCaja() {
 		List<Caja> list = cajaDao.historicoCaja();
 		DefaultTableModel defaultTableModel = (DefaultTableModel) cajaHistoricoView.getTable().getModel();
-		Object[] columna = new Object[11];
+		Object[] columna = new Object[7];
 		int numeroRegistros = list.size();
 		for (int i = 0; i < numeroRegistros; i++) {
 			columna[0] = list.get(i).getId();
 			columna[1] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFechaApertura());
 			NumberFormat format = NumberFormat.getInstance();
 			columna[2] = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(list.get(i).getFechaCierre());
-			columna[3] = "$ " + format.format(list.get(i).getTotalVisitas());
-			columna[4] = "$ " + format.format(list.get(i).getTotalMembresias());
-			columna[5] = "$ " + format.format(list.get(i).getTotalSaldoFavor());
-			columna[6] = "$ " + format.format(list.get(i).getTotalAdeudos());
-			columna[7] = "$ " + format.format(list.get(i).getTotalEgresos());
-			columna[8] = "$ " + format.format(list.get(i).getSaldoFinal());
-			columna[9] = list.get(i).getNombreApertura();
-			columna[10] = list.get(i).getNombreCierre();
+			columna[3] = "$ " + format.format(list.get(i).getTotalVisitas() + list.get(i).getTotalMembresias()
+					+ list.get(i).getTotalSaldoFavor());
+			columna[4] = "$ " + format.format(list.get(i).getTotalAdeudos() + list.get(i).getTotalEgresos());
+			columna[5] = list.get(i).getNombreApertura();
+			columna[6] = list.get(i).getNombreCierre();
 
 			defaultTableModel.addRow(columna);
 		}
@@ -112,40 +151,70 @@ public class CajaController implements ActionListener {
 		this.cajaHistoricoView.getTable().repaint();
 	}
 
-	private void cargarSaldosCierre() {
-		Caja caja = cajaDao.ultimoRegistro();
+	private void cargarSaldosCierre(Caja caja, String view) {
 		Usuario userApertura = usuarioDao.buscarUsuarioId(caja.getResponsableApertura());
-		// Fecha de apertura
-		cierreCajaView.getLabelFechaApertura()
-				.setText(new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(caja.getFechaApertura()));
-		// Responsable de apertura
-		cierreCajaView.getLabelResponsableApertura()
-				.setText(userApertura.getNombre() + " " + userApertura.getApellido());
-		// Responsable de cierre
-		cierreCajaView.getLabelResponsableCierre()
-				.setText(Preferencias.obtenerPreferencia(Constantes.NOMBRE_RESPONSABLE));
-		// Ventas de membresias del dia
-		int totalVentasMembresiaDia = cajaDao.totalVentasMembresiasDia(caja.getId());
-		NumberFormat format = NumberFormat.getInstance();
-		cierreCajaView.getTextFieldVentasM().setText("$ " + format.format(totalVentasMembresiaDia));
-		// Ventas de visitas del dia
-		int totalVentasVisitasDia = cajaDao.totalVentasVisitasDia(caja.getId());
-		cierreCajaView.getTextFieldVisitas().setText("$ " + format.format(totalVentasVisitasDia));
-		// Egresos del dia
-		int totalEgresosDia = cajaDao.totalEgresosDia(caja.getId());
-		cierreCajaView.getTextFieldEgresos().setText("$ " + format.format(totalEgresosDia));
-		// Adeudos del dia
-		int totalAdeudosDia = cajaDao.totalDeudasDia(caja.getId());
-		cierreCajaView.getTextFieldAdeudos().setText("$ " + format.format(totalAdeudosDia));
-		// Adeudos del dia
-		int totalSaldoFavorDia = cajaDao.totalSaldoFavorDia(caja.getId());
-		cierreCajaView.getTextFieldSaldoFavor().setText("$ " + format.format(totalSaldoFavorDia));
-		// Dinero en caja
-		int dineroEnCaja = (totalVentasMembresiaDia + totalVentasVisitasDia + totalSaldoFavorDia)
-				- (totalEgresosDia + totalAdeudosDia);
-		cierreCajaView.getLabelDineroEnCaja().setText("$ " + format.format(dineroEnCaja));
-		if (dineroEnCaja < 0) {
-			cierreCajaView.getLabelDineroEnCaja().setForeground(new Color(128, 0, 0));
+
+		if (view.equals(HISTORICODETALLECAJA)) {
+
+			NumberFormat format = NumberFormat.getInstance();
+			Usuario userCierre = usuarioDao.buscarUsuarioId(caja.getResponsableCierre());
+			// Fecha de apertura
+			cajaHistoricoDetalleView.getLabelFechaApertura()
+					.setText(new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(caja.getFechaApertura()));
+			// Fecha de cierre
+			cajaHistoricoDetalleView.getLabelFechaCierre()
+					.setText(new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(caja.getFechaCierre()));
+			// Responsable de apertura
+			cajaHistoricoDetalleView.getLabelResponsableApertura()
+					.setText(userApertura.getNombre() + " " + userApertura.getApellido());
+			// Responsable de cierre
+			cajaHistoricoDetalleView.getLabelResponsableCierre()
+					.setText(userCierre.getNombre() + " " + userCierre.getApellido());
+
+			cajaHistoricoDetalleView.getTextFieldVentasM().setText("$ " + format.format(caja.getTotalMembresias()));
+
+			cajaHistoricoDetalleView.getTextFieldVisitas().setText("$ " + format.format(caja.getTotalVisitas()));
+
+			cajaHistoricoDetalleView.getTextFieldEgresos().setText("$ " + format.format(caja.getTotalEgresos()));
+
+			cajaHistoricoDetalleView.getTextFieldAdeudos().setText("$ " + format.format(caja.getTotalAdeudos()));
+
+			cajaHistoricoDetalleView.getTextFieldSaldoFavor().setText("$ " + format.format(caja.getTotalSaldoFavor()));
+
+		}
+		if (view.equals(CIERRECAJAVIEW)) {
+			int totalVentasMembresiaDia = cajaDao.totalVentasMembresiasDia(caja.getId());
+			NumberFormat format = NumberFormat.getInstance();
+			int totalVentasVisitasDia = cajaDao.totalVentasVisitasDia(caja.getId());
+			int totalEgresosDia = cajaDao.totalEgresosDia(caja.getId());
+			int totalAdeudosDia = cajaDao.totalDeudasDia(caja.getId());
+			int totalSaldoFavorDia = cajaDao.totalSaldoFavorDia(caja.getId());
+			int dineroEnCaja = (totalVentasMembresiaDia + totalVentasVisitasDia + totalSaldoFavorDia)
+					- (totalEgresosDia + totalAdeudosDia);
+			// Fecha de apertura
+			cierreCajaView.getLabelFechaApertura()
+					.setText(new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(caja.getFechaApertura()));
+			// Responsable de apertura
+			cierreCajaView.getLabelResponsableApertura()
+					.setText(userApertura.getNombre() + " " + userApertura.getApellido());
+			// Responsable de cierre
+			cierreCajaView.getLabelResponsableCierre()
+					.setText(Preferencias.obtenerPreferencia(Constantes.NOMBRE_RESPONSABLE));
+			// Ventas de membresias del dia
+			cierreCajaView.getTextFieldVentasM().setText("$ " + format.format(totalVentasMembresiaDia));
+			// Ventas de visitas del dia
+			cierreCajaView.getTextFieldVisitas().setText("$ " + format.format(totalVentasVisitasDia));
+			// Egresos del dia
+			cierreCajaView.getTextFieldEgresos().setText("$ " + format.format(totalEgresosDia));
+			// Adeudos del dia
+			cierreCajaView.getTextFieldAdeudos().setText("$ " + format.format(totalAdeudosDia));
+			// Adeudos del dia
+			cierreCajaView.getTextFieldSaldoFavor().setText("$ " + format.format(totalSaldoFavorDia));
+			// Dinero en caja
+			cierreCajaView.getLabelDineroEnCaja().setText("$ " + format.format(dineroEnCaja));
+			if (dineroEnCaja < 0) {
+				cierreCajaView.getLabelDineroEnCaja().setForeground(new Color(128, 0, 0));
+			}
 		}
 	}
 
@@ -198,7 +267,7 @@ public class CajaController implements ActionListener {
 				new CajaController(new CajaMembresiaVentaDiaView(), null, null, null);
 			}
 			if (cierreCajaView.getButtonDetallesVisitasDia() == e.getSource()) {
-				new VisitaController(null, null, new MembresiaListaDiaVisitasView());
+				new VisitaController(null, null, new MembresiaListaDiaVisitasView(), null);
 			}
 			if (cierreCajaView.getBtnCancelar() == e.getSource()) {
 				cierreCajaView.setVisible(false);
@@ -271,5 +340,4 @@ public class CajaController implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
 }

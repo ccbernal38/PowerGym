@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import co.powergym.interfacedao.VisitaDaoInterface;
@@ -133,6 +135,39 @@ public class VisitaDao implements VisitaDaoInterface {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public boolean registrarVisitaRango(String nombre, String apellido, int valor, int id_usuario, int id_caja,
+			Date horaInicio, Date horaFin) {
+		boolean respuesta = false;
+		try {
+			Connection accesoBD = conexion.getConexion();
+
+			PreparedStatement statement = null;
+			if (id_usuario != -1) {
+				statement = accesoBD.prepareStatement(
+						"INSERT INTO Visita(nombre, apellido, valor, caja_id, horaInicio, horaFin, socio_id) VALUES(?,?,?,?,?)");
+			} else {
+				statement = accesoBD
+						.prepareStatement("INSERT INTO Visita(nombre, apellido, valor, caja_id, horaInicio, horaFin) VALUES(?,?,?,?)");
+			}
+			statement.setString(1, nombre);
+			statement.setString(2, apellido);
+			statement.setInt(3, valor);
+			statement.setInt(4, id_caja);
+			statement.setTimestamp(5, new Timestamp(horaInicio.getTime()));
+			statement.setTimestamp(6, new Timestamp(horaFin.getTime()));
+			if (id_usuario != -1) {
+				statement.setInt(7, id_usuario);
+			}
+			statement.execute();
+			respuesta = true;
+			conexion.desconectar();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return respuesta;
 	}
 
 }

@@ -26,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SocioConsultaBusquedaView extends JFrame {
 
@@ -50,6 +52,7 @@ public class SocioConsultaBusquedaView extends JFrame {
 	private JScrollPane scrollPane_3;
 	private JTable tableHistorialPagos;
 	private JTable tableHistorialVisitas;
+	private JButton btnEliminar;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -58,7 +61,7 @@ public class SocioConsultaBusquedaView extends JFrame {
 
 		setTitle("Buscar un socio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 812, 615);
+		setBounds(100, 100, 812, 648);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(new Color(127, 190, 235));
@@ -78,17 +81,15 @@ public class SocioConsultaBusquedaView extends JFrame {
 		panel_1.setBackground(new Color(127, 190, 235));
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de membresias",
 				TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
-		panel_1.setBounds(25, 272, 376, 140);
+		panel_1.setBounds(25, 272, 376, 175);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 23, 350, 106);
+		scrollPane.setBounds(10, 45, 350, 119);
 		panel_1.add(scrollPane);
 
 		table = new JTable();
-		table.setCellSelectionEnabled(true);
-		table.setColumnSelectionAllowed(true);
 
 		table.setModel(
 				new DefaultTableModel(new Object[][] {}, new String[] { "Nombre", "Fecha de inicio", "Estado" }));
@@ -97,12 +98,20 @@ public class SocioConsultaBusquedaView extends JFrame {
 		JTableHeader header = new JTableHeader();
 		header.setName("asdas");
 		table.setBounds(10, 23, 530, 106);
+		
+		btnEliminar = new JButton("Eliminar membresia activa");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnEliminar.setBounds(160, 15, 200, 23);
+		panel_1.add(btnEliminar);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(127, 190, 235));
 		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de asistencias",
 				TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
-		panel_2.setBounds(25, 423, 376, 140);
+		panel_2.setBounds(25, 458, 376, 140);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -217,11 +226,11 @@ public class SocioConsultaBusquedaView extends JFrame {
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de pagos",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
 		panel.setBackground(new Color(127, 190, 235));
-		panel.setBounds(411, 272, 376, 140);
+		panel.setBounds(411, 272, 376, 175);
 		contentPane.add(panel);
 
 		scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(10, 23, 350, 106);
+		scrollPane_2.setBounds(10, 23, 350, 141);
 		panel.add(scrollPane_2);
 
 		tableHistorialPagos = new JTable();
@@ -235,7 +244,7 @@ public class SocioConsultaBusquedaView extends JFrame {
 		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Historial de visitas",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
 		panel_3.setBackground(new Color(127, 190, 235));
-		panel_3.setBounds(411, 423, 376, 140);
+		panel_3.setBounds(411, 458, 376, 140);
 		contentPane.add(panel_3);
 
 		scrollPane_3 = new JScrollPane();
@@ -305,5 +314,8 @@ public class SocioConsultaBusquedaView extends JFrame {
 
 	public JTable getTableHistorialPagos() {
 		return tableHistorialPagos;
+	}
+	public JButton getBtnEliminar() {
+		return btnEliminar;
 	}
 }

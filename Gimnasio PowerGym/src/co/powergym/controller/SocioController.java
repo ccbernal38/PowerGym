@@ -44,7 +44,9 @@ import co.powergym.model.Membresia;
 import co.powergym.model.MembresiaSocio;
 import co.powergym.model.Socio;
 import co.powergym.model.Visita;
+import co.powergym.utils.Constantes;
 import co.powergym.utils.HuellaInit;
+import co.powergym.utils.Preferencias;
 import co.powergym.view.membresia.MembresiaRegistroVisitaSocioConsultaView;
 import co.powergym.view.membresia.PagoMembresiaView;
 import co.powergym.view.socio.SocioActualizarView;
@@ -113,8 +115,28 @@ public class SocioController implements ActionListener, ItemListener {
 			viewConsultaBusquedaSocio.getBtnAgregarMembresia().setEnabled(true);
 			viewConsultaBusquedaSocio.getBtnAgregarPago().setEnabled(true);
 			viewConsultaBusquedaSocio.getBtnRegistrarVisita().setEnabled(true);
+			viewConsultaBusquedaSocio.getBtnEliminar().addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JTable table = viewConsultaBusquedaSocio.getTableHistorico();
+					if(table.getSelectedRow() != -1) {
+						int id = (int) table.getModel().getValueAt(table.getSelectedRow(), 0);
+						System.out.println(id);
+						int valor = membresiaSocioDao.valorPagado(id);
+						boolean res = membresiaSocioDao.eliminarMembresiaSocio(id);
+						int caja_id = new CajaDao().verificarCajaAbierta();
+						saldoFavorDao.registrarSaldoFavor(valor, socio.getId(), caja_id);
+						if(res == true) {
+							llenarTablaHistorico(socio.getId(), viewConsultaBusquedaSocio);
+							int saldo = saldoFavorDao.saldoFavorSocio(socio.getId());
+							viewConsultaBusquedaSocio.getLabelSaldoFavor().setText("$"+saldo);
+							int deuda = deudaDao.totalDeudasSocio(socio.getId());
+							viewConsultaBusquedaSocio.getLabelDeuda().setText("$"+deuda);
+						}
+					}
+				}
+			});
 			viewConsultaBusquedaSocio.getBtnAgregarMembresia().addActionListener(new ActionListener() {
-
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					String identificacion = socio.getIdentificacion();
@@ -122,7 +144,6 @@ public class SocioController implements ActionListener, ItemListener {
 				}
 			});
 			viewConsultaBusquedaSocio.getBtnAgregarPago().addActionListener(new ActionListener() {
-
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					PagoController pagoController = new PagoController(new PagoMembresiaView());
@@ -153,7 +174,7 @@ public class SocioController implements ActionListener, ItemListener {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
+					
 					MembresiaRegistroVisitaSocioConsultaView consultaView = new MembresiaRegistroVisitaSocioConsultaView();
 					consultaView.getTextFieldSocio().setText(socio.getIdentificacion());
 					consultaView.getTextFieldNombres().setText(socio.getNombre());
@@ -559,21 +580,22 @@ public class SocioController implements ActionListener, ItemListener {
 		List<MembresiaSocio> list = membresiaSocioDao.historialMembresias(id);
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nombre", "Fecha Inicio", "Fecha Fin", "Estado" });
+				new String[] {"id", "Nombre", "Fecha Inicio", "Fecha Fin", "Estado" });
 
-		Object[] columna = new Object[4];
+		Object[] columna = new Object[5];
 		int numeroRegistros = list.size();
 
 		for (int i = 0; i < numeroRegistros; i++) {
-			columna[0] = list.get(i).getMembresia().getNombre();
+			columna[0] = list.get(i).getId();
+			columna[1] = list.get(i).getMembresia().getNombre();
 			Date inicial = list.get(i).getFechaInicial();
-			columna[1] = new SimpleDateFormat("MM-dd-yyyy").format(inicial);
+			columna[2] = new SimpleDateFormat("MM-dd-yyyy").format(inicial);
 
-			columna[2] = new SimpleDateFormat("MM-dd-yyyy").format(list.get(i).getFechaFinal());
+			columna[3] = new SimpleDateFormat("MM-dd-yyyy").format(list.get(i).getFechaFinal());
 			if (list.get(i).isActiva()) {
-				columna[3] = "Activa";
+				columna[4] = "Activa";
 			} else {
-				columna[3] = "Inactiva";
+				columna[4] = "Inactiva";
 			}
 			defaultTableModel.addRow(columna);
 		}

@@ -32,4 +32,6 @@ public interface CajaInterfaceDao {
 			int totalAdeudosDia, int totalSaldoFavorDia, int dineroCaja);
 
 	public List<Caja> historicoCaja();
+	
+	public Caja buscarCaja(int id);
 }

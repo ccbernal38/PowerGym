@@ -182,6 +182,9 @@ public class InitView extends JFrame {
 
 		mntmRegistroDeVisitas = new JMenuItem("Registro de visitas");
 		mnVisitas.add(mntmRegistroDeVisitas);
+		
+		mntmRegistroDeVisitasRango = new JMenuItem("Registro de visitas rango horas");
+		mnVisitas.add(mntmRegistroDeVisitasRango);
 
 		mntmVisitasDeHoy = new JMenuItem("Visitas del dia");
 		mnVisitas.add(mntmVisitasDeHoy);
@@ -481,6 +484,7 @@ public class InitView extends JFrame {
 	private JMenuItem mntmVisitasDeHoy;
 	private JMenuItem mntmCopiaDeSeguridad;
 	private JMenuItem mntmHistoricoDeCaja;
+	private JMenuItem mntmRegistroDeVisitasRango;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -637,5 +641,8 @@ public class InitView extends JFrame {
 	}
 	public JButton getJButtonCierreCaja() {
 		return jButtonCierreCaja;
+	}
+	public JMenuItem getMntmRegistroDeVisitaRango() {
+		return mntmRegistroDeVisitasRango;
 	}
 }

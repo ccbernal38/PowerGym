@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JCheckBox;
+import javax.swing.table.DefaultTableModel;
 
 public class ActualizarUsuario extends JFrame {
 	/**
@@ -43,21 +44,21 @@ public class ActualizarUsuario extends JFrame {
 		getContentPane().setLayout(null);
 		
 		txtNumeroid = new JTextField();
-		txtNumeroid.setBounds(201, 73, 177, 26);
+		txtNumeroid.setBounds(163, 73, 215, 26);
 		getContentPane().add(txtNumeroid);
 		txtNumeroid.setColumns(10);
 		
 		txtCorreoelectronico = new JTextField();
-		txtCorreoelectronico.setBounds(158, 148, 220, 26);
+		txtCorreoelectronico.setBounds(163, 148, 215, 26);
 		getContentPane().add(txtCorreoelectronico);
 		txtCorreoelectronico.setColumns(10);
 		
 		txtTelefono = new JTextField();
-		txtTelefono.setBounds(558, 148, 216, 26);
+		txtTelefono.setBounds(554, 148, 220, 26);
 		getContentPane().add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
-		JLabel lblNmeroDeIdentificacion = new JLabel("Número de identificación:");
+		JLabel lblNmeroDeIdentificacion = new JLabel("N\u00FAmero de identificaci\u00F3n:");
 		lblNmeroDeIdentificacion.setBounds(35, 78, 166, 16);
 		getContentPane().add(lblNmeroDeIdentificacion);
 		
@@ -65,11 +66,11 @@ public class ActualizarUsuario extends JFrame {
 		lblFechaDeNacimiento.setBounds(416, 114, 140, 16);
 		getContentPane().add(lblFechaDeNacimiento);
 		
-		lblCorreoElectrnico = new JLabel("Correo electrónico:");
+		lblCorreoElectrnico = new JLabel("Correo electr\u00E9nico:");
 		lblCorreoElectrnico.setBounds(35, 153, 130, 16);
 		getContentPane().add(lblCorreoElectrnico);
 		
-		lblNmeroDeContacto = new JLabel("Número de contacto:");
+		lblNmeroDeContacto = new JLabel("N\u00FAmero de contacto:");
 		lblNmeroDeContacto.setBounds(416, 153, 140, 16);
 		getContentPane().add(lblNmeroDeContacto);
 		
@@ -89,13 +90,13 @@ public class ActualizarUsuario extends JFrame {
 		getContentPane().add(lblNombre);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(477, 73, 297, 26);
+		txtNombre.setBounds(554, 73, 220, 26);
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		
 		txtApellido = new JTextField();
-		txtApellido.setBounds(99, 109, 279, 26);
+		txtApellido.setBounds(163, 109, 215, 26);
 		getContentPane().add(txtApellido);
 		txtApellido.setColumns(10);
 		
@@ -115,7 +116,7 @@ public class ActualizarUsuario extends JFrame {
 		panelCredenciales.add(textContrasena);
 		textContrasena.setColumns(10);
 		
-		JLabel lblContrsea = new JLabel("Contraseña:");
+		JLabel lblContrsea = new JLabel("Contrase\u00F1a:");
 		lblContrsea.setBounds(221, 29, 82, 16);
 		panelCredenciales.add(lblContrsea);
 		
@@ -128,7 +129,7 @@ public class ActualizarUsuario extends JFrame {
 		lblUsuario.setBounds(23, 29, 61, 16);
 		panelCredenciales.add(lblUsuario);
 		
-		JLabel lblConfirmacinDeLa = new JLabel("Confirmación de la contraseña:");
+		JLabel lblConfirmacinDeLa = new JLabel("Confirmaci\u00F3n de la contrase\u00F1a:");
 		lblConfirmacinDeLa.setBounds(483, 29, 206, 16);
 		panelCredenciales.add(lblConfirmacinDeLa);
 		
@@ -144,14 +145,21 @@ public class ActualizarUsuario extends JFrame {
 		panelPermisos.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 34, 699, 101);
+		scrollPane.setBounds(10, 21, 719, 113);
 		panelPermisos.add(scrollPane);
 		
 		tablePermisos = new JTable();
-		scrollPane.setColumnHeaderView(tablePermisos);
+		scrollPane.setViewportView(tablePermisos);
+		tablePermisos.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Permiso", "Fecha de creaci�n", "Fecha de modificaci�n", "Seleccionado"
+			}
+		));
 		
 		fechaNacimiento = new JDateChooser();
-		fechaNacimiento.setBounds(558, 110, 102, 26);
+		fechaNacimiento.setBounds(554, 110, 220, 26);
 		getContentPane().add(fechaNacimiento);
 		
 		lblEstado = new JLabel("Estado:");
@@ -159,7 +167,7 @@ public class ActualizarUsuario extends JFrame {
 		getContentPane().add(lblEstado);
 		
 		chckbxDesactivar = new JCheckBox("Desactivar");
-		chckbxDesactivar.setBounds(86, 181, 102, 25);
+		chckbxDesactivar.setBounds(158, 181, 102, 25);
 		getContentPane().add(chckbxDesactivar);
 		
 		setSize(818, 569);

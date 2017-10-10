@@ -40,15 +40,14 @@ public class CajaHistoricoView extends JFrame {
 		panel.add(scrollPane);
 
 		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Id", "Fecha de apertura", "Fecha de cierre", "Total de visitas", "Total de membresias",
-						"Total de saldo a favor", "Total de adeudos", "Total de egresos", "Saldo final",
-						"Responsable Apertura", "Responsable de cierre" }));
+		table.setModel(
+				new DefaultTableModel(new Object[][] {}, new String[] { "Id", "Fecha de apertura", "Fecha de cierre",
+						"Total de ingresos", "Total de egresos", "Responsable Apertura", "Responsable de cierre" }));
 		table.getColumnModel().getColumn(0).setMaxWidth(40);
 
 		table.setFont(new Font("Verdana", Font.PLAIN, 11));
 		scrollPane.setViewportView(table);
-		
+
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(895, 278, 89, 23);
 		panel.add(btnCancelar);
@@ -64,6 +63,7 @@ public class CajaHistoricoView extends JFrame {
 	public JTable getTable() {
 		return table;
 	}
+
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}

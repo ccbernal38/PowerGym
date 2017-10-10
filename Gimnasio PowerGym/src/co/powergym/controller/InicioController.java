@@ -63,6 +63,7 @@ import co.powergym.view.caja.CajaRegistroEgresoView;
 import co.powergym.view.caja.CajaRegistroIngresoView;
 import co.powergym.view.config.ConfigPuertoView;
 import co.powergym.view.membresia.MembresiaRegistroView;
+import co.powergym.view.membresia.MembresiaRegistroVisitaRangoView;
 import co.powergym.view.membresia.MembresiaListaDiaVisitasView;
 import co.powergym.view.membresia.MembresiaListaVisitasView;
 import co.powergym.view.membresia.MembresiaListadoView;
@@ -99,13 +100,14 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.getJMenuItemRegistrarSocio().addActionListener(this);
 		this.viewPrincipal.getJMenuItemRegistrarSocio().setEnabled(false);
-		this.viewPrincipal.btnRegistrarSocio.addActionListener(this);
-		this.viewPrincipal.btnRegistrarSocio.setEnabled(false);
-		this.viewPrincipal.jMenuItem3buscarSocio.addActionListener(this);
-		this.viewPrincipal.jMenuItem3buscarSocio.setEnabled(false);
-		this.viewPrincipal.btnMenuMembresia.addActionListener(this);
-		this.viewPrincipal.btnMenuMembresia.setEnabled(false);
-		this.viewPrincipal.jButtonCierreCaja.setEnabled(false);
+		this.viewPrincipal.getMntmRegistroDeVisitaRango().addActionListener(this);
+		this.viewPrincipal.getBtnRegistrarSocio().addActionListener(this);
+		this.viewPrincipal.getBtnRegistrarSocio().setEnabled(false);
+		this.viewPrincipal.getjMenuItem3buscarSocio().addActionListener(this);
+		this.viewPrincipal.getjMenuItem3buscarSocio().setEnabled(false);
+		this.viewPrincipal.getBtnMenuMembresia().addActionListener(this);
+		this.viewPrincipal.getBtnMenuMembresia().setEnabled(false);
+		this.viewPrincipal.getJButtonCierreCaja().setEnabled(false);
 		this.viewPrincipal.getJCrearMembresia().setEnabled(false);
 		this.viewPrincipal.getMntmListadoDeSocios().addActionListener(this);
 		this.viewPrincipal.getMntmListadoDeSocios().setEnabled(false);
@@ -159,7 +161,7 @@ public class InicioController implements ActionListener {
 				// TODO Auto-generated method stub
 				if (e.getID() == KeyEvent.KEY_PRESSED) {
 					if (e.getKeyCode() == KeyEvent.VK_F2) {
-						new VisitaController(new MembresiaRegistroVisitaView(), null, null);
+						new VisitaController(new MembresiaRegistroVisitaView(), null, null, null);
 					}
 					if (e.getKeyCode() == KeyEvent.VK_F3) {
 						SocioController socioController = new SocioController(new SocioRegistroView(), null, null, null,
@@ -352,11 +354,11 @@ public class InicioController implements ActionListener {
 		}
 		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()
 				|| viewPrincipal.getMntmRegistroDeVisitas() == e.getSource()) {
-			new VisitaController(new MembresiaRegistroVisitaView(), null, null);
+			new VisitaController(new MembresiaRegistroVisitaView(), null, null, null);
 		} else if (viewPrincipal.getMntmHistoricoDeVisitas() == e.getSource()) {
-			new VisitaController(null, new MembresiaListaVisitasView(), null);
+			new VisitaController(null, new MembresiaListaVisitasView(), null, null);
 		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
-			new VisitaController(null, null, new MembresiaListaDiaVisitasView());
+			new VisitaController(null, null, new MembresiaListaDiaVisitasView(), null);
 		} else if (viewPrincipal.getBtnBuscar() == e.getSource()) {
 			String key = viewPrincipal.getTextFieldKey().getText();
 			List<Socio> socios = socioDao.buscarSocioKey(key);
@@ -428,9 +430,9 @@ public class InicioController implements ActionListener {
 				huellaInit.initConsultaEntrada(socio);
 			}
 		} else if (viewPrincipal.getMntmHistoricoDeVisitas() == e.getSource()) {
-			new VisitaController(null, new MembresiaListaVisitasView(), null);
+			new VisitaController(null, new MembresiaListaVisitasView(), null, null);
 		} else if (viewPrincipal.getMntmVisitasDeHoy() == e.getSource()) {
-			new VisitaController(null, null, new MembresiaListaDiaVisitasView());
+			new VisitaController(null, null, new MembresiaListaDiaVisitasView(), null);
 		} else if (viewPrincipal.getJMenuItemVentasDia() == e.getSource()) {
 			new CajaController(new CajaMembresiaVentaDiaView(), null, null, null);
 		} else if (viewPrincipal.getJMenuItemCierreCaja() == e.getSource()) {
@@ -439,6 +441,8 @@ public class InicioController implements ActionListener {
 			new CajaController(null, null, new BackupView(), null);
 		} else if (this.viewPrincipal.getMntmHistoricoDeCaja() == e.getSource()) {
 			new CajaController(null, null, null, new CajaHistoricoView());
+		} else if(viewPrincipal.getMntmRegistroDeVisitaRango() == e.getSource()) {
+			new VisitaController(null, null, null, new MembresiaRegistroVisitaRangoView());
 		}
 	}
 

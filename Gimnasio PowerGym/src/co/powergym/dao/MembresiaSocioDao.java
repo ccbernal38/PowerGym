@@ -1,6 +1,5 @@
 package co.powergym.dao;
 
-
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
@@ -99,6 +98,43 @@ public class MembresiaSocioDao implements MembresiaSocioDaoInterface {
 			e.printStackTrace();
 		}
 		return respuesta;
+	}
+
+	@Override
+	public boolean eliminarMembresiaSocio(int id) {
+		boolean resultado = false;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM Membresia_Socio WHERE id = ?");
+			statement.setInt(1, id);
+			resultado = statement.execute();
+			resultado = true;
+			conexion.desconectar();
+		} catch (Exception e) {
+
+		}
+		return resultado;
+	}
+
+	@Override
+	public int valorPagado(int id) {
+		int valor = 0;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT valor FROM Membresia_socio WHERE id = ?");
+			preparedStatement.setInt(1, id);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				valor = resultSet.getInt(1);
+			}
+			conexion.desconectar();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return valor;
 	}
 
 }

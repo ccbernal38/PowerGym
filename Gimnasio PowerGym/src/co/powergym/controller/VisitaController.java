@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ import co.powergym.utils.Constantes;
 import co.powergym.utils.Preferencias;
 import co.powergym.view.membresia.MembresiaListaDiaVisitasView;
 import co.powergym.view.membresia.MembresiaListaVisitasView;
+import co.powergym.view.membresia.MembresiaRegistroVisitaRangoView;
 import co.powergym.view.membresia.MembresiaRegistroVisitaView;
 
 public class VisitaController implements ActionListener {
@@ -27,6 +29,7 @@ public class VisitaController implements ActionListener {
 	private VisitaDao visitaDao;
 	private SocioDao socioDao;
 	private MembresiaRegistroVisitaView membresiaRegistroVisitaView;
+	private MembresiaRegistroVisitaRangoView membresiaRegistroVisitaRangoView;
 	private MembresiaListaVisitasView membresiaListaVisitasView;
 	private MembresiaListaDiaVisitasView membresiaDiaVisitaView;
 	private Socio socioTemp;
@@ -36,13 +39,15 @@ public class VisitaController implements ActionListener {
 	 * @param membresiaRegistroVisitaView
 	 */
 	public VisitaController(MembresiaRegistroVisitaView membresiaRegistroVisitaView,
-			MembresiaListaVisitasView membresiaListaVisita, MembresiaListaDiaVisitasView membresiaDiaVisitaView) {
+			MembresiaListaVisitasView membresiaListaVisita, MembresiaListaDiaVisitasView membresiaDiaVisitaView,
+			MembresiaRegistroVisitaRangoView membresiaRegistroVisitaRango) {
 		visitaDao = new VisitaDao();
 		socioDao = new SocioDao();
 		cajaDao = new CajaDao();
 		this.membresiaRegistroVisitaView = membresiaRegistroVisitaView;
 		this.membresiaListaVisitasView = membresiaListaVisita;
 		this.membresiaDiaVisitaView = membresiaDiaVisitaView;
+		this.membresiaRegistroVisitaRangoView = membresiaRegistroVisitaRango;
 		if (this.membresiaRegistroVisitaView != null) {
 			this.membresiaRegistroVisitaView.setLocationRelativeTo(null);
 			this.membresiaRegistroVisitaView.getBtnBuscar().addActionListener(this);
@@ -61,6 +66,13 @@ public class VisitaController implements ActionListener {
 			this.membresiaDiaVisitaView.setLocationRelativeTo(null);
 			this.membresiaDiaVisitaView.getBtnSalir().addActionListener(this);
 			this.membresiaDiaVisitaView.setVisible(true);
+		}
+		if(this.membresiaRegistroVisitaRangoView != null) {
+			this.membresiaRegistroVisitaRangoView.setLocationRelativeTo(null);
+			this.membresiaRegistroVisitaRangoView.getBtnBuscar().addActionListener(this);
+			this.membresiaRegistroVisitaRangoView.getBtnCancelar().addActionListener(this);
+			this.membresiaRegistroVisitaRangoView.getBtnRegistrar().addActionListener(this);
+			this.membresiaRegistroVisitaRangoView.setVisible(true);
 		}
 	}
 
@@ -164,6 +176,64 @@ public class VisitaController implements ActionListener {
 			}
 
 		}
+		
+		if (membresiaRegistroVisitaRangoView != null) {
+			if (membresiaRegistroVisitaRangoView.getBtnBuscar() == e.getSource()) {
+				String key = membresiaRegistroVisitaRangoView.getTextFieldSocio().getText();
+				if (!key.equals("")) {
+					socioTemp = socioDao.buscarSocioIdOrCodigo(key);
+					if (socioTemp != null) {
+						membresiaRegistroVisitaRangoView.getTextFieldNombres().setText(socioTemp.getNombre());
+						membresiaRegistroVisitaRangoView.getTextFieldApellidos().setText(socioTemp.getApellido());
+					} else {
+						JOptionPane.showMessageDialog(null, "No se encontró un socio asociado.");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "El campo codigo no puede estar vacio.");
+				}
+
+			} else if (membresiaRegistroVisitaRangoView.getBtnCancelar() == e.getSource()) {
+				membresiaRegistroVisitaRangoView.setVisible(false);
+				membresiaRegistroVisitaRangoView.dispose();
+			} else if (membresiaRegistroVisitaRangoView.getBtnRegistrar() == e.getSource()) {
+				if (membresiaRegistroVisitaRangoView.getTextFieldNombres().getText().equals("")
+						|| membresiaRegistroVisitaRangoView.getTextFieldApellidos().getText().equals("")
+						|| membresiaRegistroVisitaRangoView.getTextFieldValor().getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "No puede dejar vacio el campo nombre, apellido o valor.");
+				} else {
+					boolean res = false;
+					int id_caja = cajaDao.verificarCajaAbierta();
+					if (socioTemp == null) {
+						String nombre = membresiaRegistroVisitaRangoView.getTextFieldNombres().getText();
+						String apellido = membresiaRegistroVisitaRangoView.getTextFieldApellidos().getText();
+						int valor = Integer.parseInt(membresiaRegistroVisitaRangoView.getTextFieldValor().getText());
+						Date horaInicio = (Date) membresiaRegistroVisitaRangoView.getSpinnerHoraInicio().getValue();
+						Date horaFin = (Date) membresiaRegistroVisitaRangoView.getSpinnerHoraFin().getValue();
+						res = visitaDao.registrarVisitaRango(nombre, apellido, valor, -1, id_caja, horaInicio, horaFin);
+						membresiaRegistroVisitaRangoView.setVisible(false);
+						membresiaRegistroVisitaRangoView.dispose();
+					} else {
+						String nombre = membresiaRegistroVisitaRangoView.getTextFieldNombres().getText();
+						String apellido = membresiaRegistroVisitaRangoView.getTextFieldApellidos().getText();
+						int valor = Integer.parseInt(membresiaRegistroVisitaRangoView.getTextFieldValor().getText());
+
+						res = visitaDao.registrarVisita(nombre, apellido, valor, socioTemp.getId(), id_caja);
+
+						membresiaRegistroVisitaRangoView.setVisible(false);
+						membresiaRegistroVisitaRangoView.dispose();
+					}
+					if (res == true) {
+						JOptionPane.showMessageDialog(null, "La visita se registro correctamente");
+					} else {
+						JOptionPane.showMessageDialog(null, "Ocurrio un error al tratar de registrar la visita.");
+					}
+				}
+
+			}
+
+		}
+		
 		if (membresiaDiaVisitaView != null) {
 			if (membresiaDiaVisitaView.getBtnSalir() == e.getSource()) {
 				membresiaDiaVisitaView.setVisible(false);

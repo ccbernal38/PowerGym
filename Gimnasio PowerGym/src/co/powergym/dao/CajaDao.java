@@ -1,6 +1,5 @@
 package co.powergym.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -307,7 +306,8 @@ public class CajaDao implements CajaInterfaceDao {
 							+ "c.totalSaldoFavor, c.totalAdeudos, c.totalEgresos, c.saldoFinal, "
 							+ "Concat(u.nombre,\" \",u.apellido), Concat(u2.nombre,\" \",u2.apellido) "
 							+ "FROM Caja AS c " + "JOIN Usuario AS u On c.usuario_id_apertura = u.id "
-							+ "JOIN Usuario AS u2 On c.usuario_id_cierre = u2.id " + "WHERE c.estado = 0;");
+							+ "JOIN Usuario AS u2 On c.usuario_id_cierre = u2.id "
+							+ "WHERE c.estado = 0 Order By id desc;");
 
 			ResultSet resultSet = statement.executeQuery();
 
@@ -332,5 +332,40 @@ public class CajaDao implements CajaInterfaceDao {
 			System.out.println(e);
 		}
 		return list;
+	}
+
+	@Override
+	public Caja buscarCaja(int id) {
+		Caja caja = null;
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Connection accesoBD = conexion.getConexion();
+			PreparedStatement statement = accesoBD.prepareStatement(""
+					+ "SELECT id, fechaApertura, fechaCierre, usuario_id_apertura, usuario_id_cierre, "
+					+ "totalMembresias, totalVisitas, totalAdeudos, totalSaldoFavor, totalEgresos "
+					+ "FROM Caja WHERE id = ?");
+
+			statement.setInt(1, id);
+
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				caja = new Caja();
+				caja.setId(resultSet.getInt(1));
+				caja.setFechaApertura(new Date(resultSet.getTimestamp(2).getTime()));
+				caja.setFechaCierre(new Date(resultSet.getTimestamp(3).getTime()));
+				caja.setResponsableApertura(resultSet.getInt(4));
+				caja.setResponsableCierre(resultSet.getInt(5));
+				caja.setTotalMembresias(resultSet.getInt(6));
+				caja.setTotalVisitas(resultSet.getInt(7));
+				caja.setTotalAdeudos(resultSet.getInt(8));
+				caja.setTotalSaldoFavor(resultSet.getInt(9));
+				caja.setTotalEgresos(resultSet.getInt(10));
+			}
+			return caja;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+		return caja;
 	}
 }
