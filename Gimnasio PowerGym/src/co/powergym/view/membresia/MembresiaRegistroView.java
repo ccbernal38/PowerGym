@@ -74,6 +74,8 @@ public class MembresiaRegistroView extends JFrame {
 	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
 	private JDateChooser fechaPromo;
 	private JCheckBox chckbxSiProm;
+	private JCheckBox chckbxCantidadDeVeces;
+	private JSpinner spinner;
 
 	/**
 	 * Create the frame.
@@ -315,6 +317,14 @@ public class MembresiaRegistroView extends JFrame {
 		fechaPromo = new JDateChooser();
 		fechaPromo.setBounds(233, 500, 100, 20);
 		contentPane.add(fechaPromo);
+		
+		chckbxCantidadDeVeces = new JCheckBox("Cantidad de veces por semana");
+		chckbxCantidadDeVeces.setBounds(520, 215, 217, 23);
+		contentPane.add(chckbxCantidadDeVeces);
+		
+		spinner = new JSpinner();
+		spinner.setBounds(722, 215, 54, 20);
+		contentPane.add(spinner);
 		table_resumen_membresia.getColumnModel().getColumn(0).setPreferredWidth(215);
 		table_resumen_membresia.getColumnModel().getColumn(1).setPreferredWidth(171);
 
@@ -494,5 +504,11 @@ public class MembresiaRegistroView extends JFrame {
 
 	public JCheckBox getChckbxSiProm() {
 		return chckbxSiProm;
+	}
+	public JCheckBox getChckbxCantidadDeVeces() {
+		return chckbxCantidadDeVeces;
+	}
+	public JSpinner getSpinnerCantidadVeces() {
+		return spinner;
 	}
 }

@@ -91,6 +91,7 @@ public class MembresiaController implements ActionListener {
 			this.membresia.getBtnAtras().addActionListener(this);
 			this.membresia.getChckbxSi().addActionListener(this);
 			this.membresia.getChckbxNo().addActionListener(this);
+			this.membresia.getChckbxCantidadDeVeces().addActionListener(this);
 			this.membresia.getComboBoxVisitas().setEnabled(false);
 			this.membresia.getCheckBox_todosDias().addActionListener(this);
 			this.membresia.getCheckBox_lunes().addActionListener(this);
@@ -183,7 +184,7 @@ public class MembresiaController implements ActionListener {
 			this.membresia.getComboBoxVisitas().addItem(i);
 		}
 	}
-
+ 
 	private void llenarComboboxHorarios() {
 
 		for (int i = 1; 1 <= 24; i++) {
@@ -201,7 +202,7 @@ public class MembresiaController implements ActionListener {
 	private void listadoMembresiasLlenarTabla(JTable tableListMembresias) {
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Id","Nombre de la membresia", "Precio", "Duracion" });
+				new String[] { "Id", "Nombre de la membresia", "Precio", "Duracion" });
 
 		Object[] columna = new Object[4];
 		listMembresias = membresiaDao.listaMembresia();
@@ -307,6 +308,10 @@ public class MembresiaController implements ActionListener {
 				membresia.getCheckBox_sabado().setVisible(true);
 				membresia.getCheckBox_domingo().setVisible(true);
 				membresia.getCheckBox_todosDias().setVisible(true);
+				membresia.getChckbxCantidadDeVeces().setBounds(20, 215, membresia.getChckbxCantidadDeVeces().getWidth(),
+						membresia.getChckbxCantidadDeVeces().getHeight());
+				membresia.getSpinnerCantidadVeces().setBounds(250, 215, membresia.getSpinnerCantidadVeces().getWidth(),
+						membresia.getSpinnerCantidadVeces().getHeight());
 				contPasosAtras++;
 
 			} else if (contPasos == 4) {
@@ -323,6 +328,11 @@ public class MembresiaController implements ActionListener {
 				membresia.getCheckBox_sabado().setVisible(false);
 				membresia.getCheckBox_domingo().setVisible(false);
 				membresia.getCheckBox_todosDias().setVisible(false);
+				
+				membresia.getChckbxCantidadDeVeces().setBounds(520, 215, membresia.getChckbxCantidadDeVeces().getWidth(),
+						membresia.getChckbxCantidadDeVeces().getHeight());
+				membresia.getSpinnerCantidadVeces().setBounds(722, 215, membresia.getSpinnerCantidadVeces().getWidth(),
+						membresia.getSpinnerCantidadVeces().getHeight());
 
 				membresia.getChckbxNo_horario().setBounds(30, 147, 128, 23);
 				membresia.getChckbxSiLosHorarios().setBounds(30, 173, 267, 23);
@@ -423,6 +433,10 @@ public class MembresiaController implements ActionListener {
 				membresia.getCheckBox_sabado().setVisible(true);
 				membresia.getCheckBox_domingo().setVisible(true);
 				membresia.getCheckBox_todosDias().setVisible(true);
+				membresia.getChckbxCantidadDeVeces().setBounds(20, 215, membresia.getChckbxCantidadDeVeces().getWidth(),
+						membresia.getChckbxCantidadDeVeces().getHeight());
+				membresia.getSpinnerCantidadVeces().setBounds(250, 215, membresia.getSpinnerCantidadVeces().getWidth(),
+						membresia.getSpinnerCantidadVeces().getHeight());
 
 			} else if (contPasos == 4) {
 
@@ -443,6 +457,10 @@ public class MembresiaController implements ActionListener {
 				membresia.getComboBoxVisitas().setVisible(true);
 				membresia.getChckbxNo().setVisible(true);
 				membresia.getChckbxSi().setVisible(true);
+				membresia.getChckbxCantidadDeVeces().setBounds(520, 215, membresia.getChckbxCantidadDeVeces().getWidth(),
+						membresia.getChckbxCantidadDeVeces().getHeight());
+				membresia.getSpinnerCantidadVeces().setBounds(750, 215, membresia.getSpinnerCantidadVeces().getWidth(),
+						membresia.getSpinnerCantidadVeces().getHeight());
 
 			} else if (contPasos == 3) {
 
@@ -654,6 +672,19 @@ public class MembresiaController implements ActionListener {
 			lista.updateUI();
 
 		}
+		if(membresia != null && membresia.getChckbxCantidadDeVeces() == e.getSource()) {
+			
+			membresia.getSpinnerCantidadVeces().setEnabled(true);			
+			membresia.getCheckBox_lunes().setSelected(false);
+			membresia.getCheckBox_martes().setSelected(false);
+			membresia.getCheckBox_miercoles().setSelected(false);
+			membresia.getCheckBox_jueves().setSelected(false);
+			membresia.getCheckBox_viernes().setSelected(false);
+			membresia.getCheckBox_sabado().setSelected(false);
+			membresia.getCheckBox_domingo().setSelected(false);
+			membresia.getCheckBox_todosDias().setSelected(false);
+			diasAux.clear();
+		}
 		if (membresia != null && membresia.getButtonEliminarH() == e.getSource()) {
 
 			JList lista = membresia.getList_listaHorarios();
@@ -687,21 +718,21 @@ public class MembresiaController implements ActionListener {
 				}
 			}
 		}
-		
-		if(editarMembresia != null && editarMembresia.getBtnCancelar() == e.getSource()) {
+
+		if (editarMembresia != null && editarMembresia.getBtnCancelar() == e.getSource()) {
 			editarMembresia.setVisible(false);
 			editarMembresia.dispose();
 		}
-		
-		if(editarMembresia != null && editarMembresia.getBtnGuardar() == e.getSource()) {
-			
+
+		if (editarMembresia != null && editarMembresia.getBtnGuardar() == e.getSource()) {
+
 			String nombre = editarMembresia.getTextFieldNuevoNombreM().getText();
 			int valor = Integer.parseInt(editarMembresia.getTextFieldNuevoValor().getText());
 			int visitasDia = Integer.parseInt(editarMembresia.getTextFieldNuevaCantidad().getText());
-			
+
 			boolean desactivado = editarMembresia.getChckbxDesactivar().isSelected();
 			int estado = 1;
-			if(desactivado == true) {
+			if (desactivado == true) {
 				estado = 0;
 			}
 			membresiaDao.modificarMembresia(nombre, valor, visitasDia, editarMembresia.getId(), estado);
