@@ -44,7 +44,6 @@ import co.powergym.model.Asistencia;
 import co.powergym.model.MembresiaSocio;
 import co.powergym.model.PermisoUsuario;
 import co.powergym.model.Socio;
-import co.powergym.reportes.Reporte;
 import co.powergym.utils.Constantes;
 import co.powergym.utils.HuellaInit;
 import co.powergym.utils.Preferencias;
@@ -68,6 +67,7 @@ import co.powergym.view.membresia.MembresiaListaDiaVisitasView;
 import co.powergym.view.membresia.MembresiaListaVisitasView;
 import co.powergym.view.membresia.MembresiaListadoView;
 import co.powergym.view.membresia.MembresiaRegistroVisitaView;
+import co.powergym.view.reporte.GenerarReporte;
 import co.powergym.view.socio.SocioBusquedaView;
 import co.powergym.view.socio.SocioConsultaBusquedaView;
 import co.powergym.view.socio.SocioCumpleaniosListadoView;
@@ -84,7 +84,6 @@ public class InicioController implements ActionListener {
 	InitView viewPrincipal = new InitView();
 	SocioDao socioDao;
 	CajaDao cajaDao;
-	Reporte reporte;
 	PermisoUsuarioDao permisoUsuarioDao;
 
 	public static String TEMPLATE_PROPERTY = "template";
@@ -99,6 +98,7 @@ public class InicioController implements ActionListener {
 		permisoUsuarioDao = new PermisoUsuarioDao();
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.getJMenuItemRegistrarSocio().addActionListener(this);
+		this.viewPrincipal.getjMenuItemSocioActivo().addActionListener(this);
 		this.viewPrincipal.getJMenuItemRegistrarSocio().setEnabled(false);
 		this.viewPrincipal.getMntmRegistroDeVisitaRango().addActionListener(this);
 		this.viewPrincipal.getBtnRegistrarSocio().addActionListener(this);
@@ -348,7 +348,9 @@ public class InicioController implements ActionListener {
 				aperturaCajaView.dispose();
 			}
 		}
-
+		if(viewPrincipal.getjMenuItemSocioActivo() == e.getSource()) {
+			new ReporteController(new GenerarReporte());
+		}
 		if (viewPrincipal.getMntmRegistrarEgreso() == e.getSource()) {
 			new MovimientoController(null, new CajaRegistroEgresoView(), null, null, null, null);
 		}

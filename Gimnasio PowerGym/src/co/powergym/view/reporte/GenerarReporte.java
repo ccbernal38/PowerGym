@@ -28,12 +28,15 @@ public class GenerarReporte extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JTable table_vista_informe;
 	private JCheckBox chckbxVentasDia= new JCheckBox();
+	private JCheckBox chckbxListaSocios;
 	private JCheckBox chckbxVentasMes= new JCheckBox();
+	private JCheckBox chckbxSociosCumppleanosMes;
 	private JCheckBox chckbxVentasE= new JCheckBox();
 	private JDateChooser dateChooser_fechaInicio = new JDateChooser();
 	private JDateChooser dateChooser_fechaFin = new JDateChooser();
 	private JButton btnGenerarFechaEspecifica = new JButton();
 	private JPanel panel_especifica = new JPanel();
+	private JTable tableReportes;
 
 	/**
 	 * 
@@ -51,16 +54,16 @@ public class GenerarReporte extends JFrame{
 		lbl_lista_informes.setBounds(37, 95, 202, 16);
 		getContentPane().add(lbl_lista_informes);
 		
-		chckbxVentasDia = new JCheckBox("Ventas del día");
-		chckbxVentasDia.setBounds(47, 123, 128, 23);
-		getContentPane().add(chckbxVentasDia);
+		chckbxListaSocios = new JCheckBox("Lista de socios");
+		chckbxListaSocios.setBounds(47, 123, 128, 23);
+		getContentPane().add(chckbxListaSocios);
 		
-		chckbxVentasMes = new JCheckBox("Ventas del mes actual");
-		chckbxVentasMes.setBounds(182, 123, 169, 23);
-		getContentPane().add(chckbxVentasMes);
+		chckbxSociosCumppleanosMes = new JCheckBox("Socios cumpleaños del mes");
+		chckbxSociosCumppleanosMes.setBounds(182, 123, 299, 23);
+		getContentPane().add(chckbxSociosCumppleanosMes);
 		
 		chckbxVentasE = new JCheckBox("Ventas en una fecha específica");
-		chckbxVentasE.setBounds(363, 123, 230, 23);
+		chckbxVentasE.setBounds(251, 88, 230, 23);
 		getContentPane().add(chckbxVentasE);
 		
 		panel_especifica = new JPanel();
@@ -102,40 +105,86 @@ public class GenerarReporte extends JFrame{
 		table_vista_informe.setBounds(90, 453, 491, -120);
 		getContentPane().add(table_vista_informe);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(57, 336, 536, 285);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		tableReportes = new JTable();
+		tableReportes.setBounds(6, 6, 520, 270);
+		panel.add(tableReportes);
+		
+		JButton btnExportar = new JButton("Exportar");
+		btnExportar.setBounds(480, 623, 117, 29);
+		getContentPane().add(btnExportar);
+		
 		
 		//table_vista_informe.addColumn(aColumn);
 		
 		
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 	/**
-	 * @return the chckbxVentasDelDa
+	 * @return the chckbxVentasDia
 	 */
 	public JCheckBox getChckbxVentasDia() {
 		return chckbxVentasDia;
 	}
-
 	/**
-	 * @param chckbxVentasDelDa the chckbxVentasDelDa to set
+	 * @param chckbxVentasDia the chckbxVentasDia to set
 	 */
-	public void setChckbxVentasDia(JCheckBox chckbxVentasDelDa) {
-		this.chckbxVentasDia = chckbxVentasDelDa;
+	public void setChckbxVentasDia(JCheckBox chckbxVentasDia) {
+		this.chckbxVentasDia = chckbxVentasDia;
 	}
-
+	/**
+	 * @return the chckbxSociosCumppleanosMes
+	 */
+	public JCheckBox getChckbxSociosCumppleanosMes() {
+		return chckbxSociosCumppleanosMes;
+	}
+	/**
+	 * @param chckbxSociosCumppleanosMes the chckbxSociosCumppleanosMes to set
+	 */
+	public void setChckbxSociosCumppleanosMes(JCheckBox chckbxSociosCumppleanosMes) {
+		this.chckbxSociosCumppleanosMes = chckbxSociosCumppleanosMes;
+	}
+	/**
+	 * @return the tableReportes
+	 */
+	public JTable getTableReportes() {
+		return tableReportes;
+	}
+	/**
+	 * @param tableReportes the tableReportes to set
+	 */
+	public void setTableReportes(JTable tableReportes) {
+		this.tableReportes = tableReportes;
+	}
+	/**
+	 * @param chckbxListaSocios the chckbxListaSocios to set
+	 */
+	public void setChckbxListaSocios(JCheckBox chckbxListaSocios) {
+		this.chckbxListaSocios = chckbxListaSocios;
+	}
+	/**
+	 * @return
+	 */
+	public JCheckBox getChckbxListaSocios() {
+		return chckbxListaSocios;
+	}
+	
 	/**
 	 * @return the chckbxVentasDelMes
 	 */
 	public JCheckBox getChckbxVentasMes() {
-		return chckbxVentasMes;
+		return chckbxSociosCumppleanosMes;
 	}
 
 	/**
 	 * @param chckbxVentasDelMes the chckbxVentasDelMes to set
 	 */
 	public void setChckbxVentasMes(JCheckBox chckbxVentasDelMes) {
-		this.chckbxVentasMes = chckbxVentasDelMes;
+		this.chckbxSociosCumppleanosMes = chckbxVentasDelMes;
 	}
 
 	/**
