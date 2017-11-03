@@ -60,6 +60,7 @@ public class HuellaInit {
 	private InitView initView;
 	private SocioDao socioDao;
 	private AsistenciaDao asistenciaDao;
+	private Image imageHuella;
 
 	public HuellaInit(InitView initView) {
 		socioDao = new SocioDao();
@@ -245,15 +246,15 @@ public class HuellaInit {
 			try {
 				System.out.println("Las Caracteristicas de la Huella han sido creada");
 				Reclutador.addFeatures(featuresinscripcion);
-				Image image = CrearImagenHuella(sample);
+				imageHuella = CrearImagenHuella(sample);
 				if (Reclutador.getFeaturesNeeded() == 3) {
-					DibujarHuella(image, 1);
+					DibujarHuella(imageHuella, 1);
 				} else if (Reclutador.getFeaturesNeeded() == 2) {
-					DibujarHuella(image, 2);
+					DibujarHuella(imageHuella, 2);
 				} else if (Reclutador.getFeaturesNeeded() == 1) {
-					DibujarHuella(image, 3);
+					DibujarHuella(imageHuella, 3);
 				} else {
-					DibujarHuella(image, 4);
+					DibujarHuella(imageHuella, 4);
 				}
 
 			} catch (DPFPImageQualityException ex) {
@@ -280,6 +281,14 @@ public class HuellaInit {
 					break;
 				}
 			}
+	}
+
+	public Image getImageHuella() {
+		return imageHuella;
+	}
+
+	public void setImageHuella(Image imageHuella) {
+		this.imageHuella = imageHuella;
 	}
 
 	public byte[] read(ByteArrayInputStream bais) throws IOException {
@@ -413,6 +422,62 @@ public class HuellaInit {
 		dialog.setVisible(true);
 		System.out.println("Mensaje Fin");
 
+	}
+
+	public DPFPCapture getLector() {
+		return Lector;
+	}
+
+	public void setLector(DPFPCapture lector) {
+		Lector = lector;
+	}
+
+	public DPFPEnrollment getReclutador() {
+		return Reclutador;
+	}
+
+	public void setReclutador(DPFPEnrollment reclutador) {
+		Reclutador = reclutador;
+	}
+
+	public DPFPVerification getVerificador() {
+		return Verificador;
+	}
+
+	public void setVerificador(DPFPVerification verificador) {
+		Verificador = verificador;
+	}
+
+	public DPFPFeatureSet getFeaturesinscripcion() {
+		return featuresinscripcion;
+	}
+
+	public void setFeaturesinscripcion(DPFPFeatureSet featuresinscripcion) {
+		this.featuresinscripcion = featuresinscripcion;
+	}
+
+	public DPFPFeatureSet getFeaturesverificacion() {
+		return featuresverificacion;
+	}
+
+	public void setFeaturesverificacion(DPFPFeatureSet featuresverificacion) {
+		this.featuresverificacion = featuresverificacion;
+	}
+
+	public InitView getInitView() {
+		return initView;
+	}
+
+	public void setInitView(InitView initView) {
+		this.initView = initView;
+	}
+
+	public SocioDao getSocioDao() {
+		return socioDao;
+	}
+
+	public void setSocioDao(SocioDao socioDao) {
+		this.socioDao = socioDao;
 	}
 
 }

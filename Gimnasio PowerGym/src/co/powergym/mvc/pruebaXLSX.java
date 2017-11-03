@@ -36,12 +36,13 @@ public class pruebaXLSX {
 			int columnCount = 0;
 
 			for (Object field : aBook) {
-				Cell cell = row.createCell(++columnCount);
+				Cell cell = row.createCell(columnCount);
 				if (field instanceof String) {
 					cell.setCellValue((String) field);
 				} else if (field instanceof Integer) {
 					cell.setCellValue((Integer) field);
 				}
+				columnCount++;
 			}
 
 		}

@@ -20,6 +20,8 @@ public class Membresia {
 	private Duracion duracionValor;
 	private boolean renovar;
 	public int estado;
+	private int cantVecesSemana;
+	private int visitasRestantes;
 
 	public Membresia(String nombre, int valor) {
 		super();
@@ -132,6 +134,22 @@ public class Membresia {
 
 	public void setEstado(int estado) {
 		this.estado = estado;
+	}
+
+	public int getCantVecesSemana() {
+		return cantVecesSemana;
+	}
+
+	public void setCantVecesSemana(int cantVecesSemana) {
+		this.cantVecesSemana = cantVecesSemana;
+	}
+
+	public int getVisitasRestantes() {
+		return visitasRestantes;
+	}
+
+	public void setVisitasRestantes(int visitasRestantes) {
+		this.visitasRestantes = visitasRestantes;
 	}
 
 	public String getDias() {

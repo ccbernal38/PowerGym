@@ -1,6 +1,5 @@
 package co.powergym.controller;
 
-
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,9 +77,10 @@ public class SocioController implements ActionListener, ItemListener {
 	private HuellaInit huellaInit;
 	private Membresia membresiaTemp;
 
-	public SocioController(SocioRegistroView viewRegistroSocio, SocioActualizarView viewActualizarSocio, SocioBusquedaView viewBusquedaSocio,
-			SocioListadoView socioListadoView, SocioCumpleaniosListadoView cumpleaniosListadoView,
-			SocioAsignarMembresiaView asignarMembresiaView, SocioConsultaBusquedaView consultaBusquedaView) {
+	public SocioController(SocioRegistroView viewRegistroSocio, SocioActualizarView viewActualizarSocio,
+			SocioBusquedaView viewBusquedaSocio, SocioListadoView socioListadoView,
+			SocioCumpleaniosListadoView cumpleaniosListadoView, SocioAsignarMembresiaView asignarMembresiaView,
+			SocioConsultaBusquedaView consultaBusquedaView) {
 		this.socioDao = new SocioDao();
 		this.membresiaDao = new MembresiaDao();
 		this.membresiaSocioDao = new MembresiaSocioDao();
@@ -92,7 +92,7 @@ public class SocioController implements ActionListener, ItemListener {
 		if (viewRegistroSocio != null) {
 			initRegistroSocio(viewRegistroSocio);
 		}
-		if(viewActualizarSocio != null) {
+		if (viewActualizarSocio != null) {
 			initActualizarSocio(viewActualizarSocio);
 		}
 		if (viewBusquedaSocio != null) {
@@ -119,19 +119,19 @@ public class SocioController implements ActionListener, ItemListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JTable table = viewConsultaBusquedaSocio.getTableHistorico();
-					if(table.getSelectedRow() != -1) {
+					if (table.getSelectedRow() != -1) {
 						int id = (int) table.getModel().getValueAt(table.getSelectedRow(), 0);
 						System.out.println(id);
 						int valor = membresiaSocioDao.valorPagado(id);
 						boolean res = membresiaSocioDao.eliminarMembresiaSocio(id);
 						int caja_id = new CajaDao().verificarCajaAbierta();
 						saldoFavorDao.registrarSaldoFavor(valor, socio.getId(), caja_id);
-						if(res == true) {
+						if (res == true) {
 							llenarTablaHistorico(socio.getId(), viewConsultaBusquedaSocio);
 							int saldo = saldoFavorDao.saldoFavorSocio(socio.getId());
-							viewConsultaBusquedaSocio.getLabelSaldoFavor().setText("$"+saldo);
+							viewConsultaBusquedaSocio.getLabelSaldoFavor().setText("$" + saldo);
 							int deuda = deudaDao.totalDeudasSocio(socio.getId());
-							viewConsultaBusquedaSocio.getLabelDeuda().setText("$"+deuda);
+							viewConsultaBusquedaSocio.getLabelDeuda().setText("$" + deuda);
 						}
 					}
 				}
@@ -174,7 +174,7 @@ public class SocioController implements ActionListener, ItemListener {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+
 					MembresiaRegistroVisitaSocioConsultaView consultaView = new MembresiaRegistroVisitaSocioConsultaView();
 					consultaView.getTextFieldSocio().setText(socio.getIdentificacion());
 					consultaView.getTextFieldNombres().setText(socio.getNombre());
@@ -378,7 +378,7 @@ public class SocioController implements ActionListener, ItemListener {
 		this.viewRegistroSocio.setWebcam(webcam);
 		generarCodigo();
 	}
-	
+
 	public void initActualizarSocio(SocioActualizarView socioActualizarView) {
 		webcam = Webcam.getWebcams().get(0);
 		this.viewActualizarSocio = socioActualizarView;
@@ -419,7 +419,7 @@ public class SocioController implements ActionListener, ItemListener {
 			if (e.getSource() == viewRegistroSocio.getBtnRegistrar()) {
 				registroSocio();
 			}
-			
+
 			if (e.getSource() == viewRegistroSocio.getBtnCapturar()) {
 				viewRegistroSocio.getBtnTomarFoto().setEnabled(true);
 				viewRegistroSocio.getWebcamPanel().start();
@@ -431,7 +431,7 @@ public class SocioController implements ActionListener, ItemListener {
 			}
 
 			if (e.getSource() == viewRegistroSocio.getBtnTomarHuellas()) {
-				new HuellaController(new SocioRegistroHuella(), null, this);
+				new HuellaController(new SocioRegistroHuella(), null, huellaInit);
 			}
 
 			if (e.getSource() == viewRegistroSocio.getBtnTomarFoto()) {
@@ -479,17 +479,17 @@ public class SocioController implements ActionListener, ItemListener {
 				new PagoController(new PagoMembresiaView());
 			}
 		}
-		
-		if(viewListadoSocio != null) {
-			if(e.getSource() == viewListadoSocio.getBtnEditar()) {
+
+		if (viewListadoSocio != null) {
+			if (e.getSource() == viewListadoSocio.getBtnEditar()) {
 				int filaSeleccionada = viewListadoSocio.getTableSocios().getSelectedRow();
-				List<Socio>listaSocios = socioDao.listaSocios();
-				if(filaSeleccionada != -1) {
-					if(listaSocios != null) {
+				List<Socio> listaSocios = socioDao.listaSocios();
+				if (filaSeleccionada != -1) {
+					if (listaSocios != null) {
 						String identificacion = listaSocios.get(filaSeleccionada).getIdentificacion();
 						Socio socio = socioDao.buscarSocio(identificacion);
-						if(socio != null) {
-							
+						if (socio != null) {
+
 							viewActualizarSocio = new SocioActualizarView();
 							viewActualizarSocio.getTextIdentificacion().setText(identificacion);
 							String nombres = socio.getNombre();
@@ -512,7 +512,7 @@ public class SocioController implements ActionListener, ItemListener {
 				}
 			}
 		}
-		if(viewActualizarSocio != null && e.getSource()== viewActualizarSocio.getBtnActualizar()) {
+		if (viewActualizarSocio != null && e.getSource() == viewActualizarSocio.getBtnActualizar()) {
 			String identificacion = viewActualizarSocio.getTextIdentificacion().getText();
 			String nombres = viewActualizarSocio.getTextNombres().getText();
 			String apellidos = viewActualizarSocio.getTextApellidos().getText();
@@ -520,12 +520,12 @@ public class SocioController implements ActionListener, ItemListener {
 			String telefono = viewActualizarSocio.getTextTelefono().getText();
 			int genero = Integer.parseInt(viewActualizarSocio.getTextGenero().getText());
 			Date fechaNacimiento = viewActualizarSocio.getTextFechaNacimiento().getDate();
-			
-			if(e.getSource() == viewActualizarSocio.getBtnCapturar()) {
+
+			if (e.getSource() == viewActualizarSocio.getBtnCapturar()) {
 				viewActualizarSocio.getBtnTomarFoto().setEnabled(true);
 				viewActualizarSocio.getWebcamPanel().start();
 			}
-			if(e.getSource() == viewActualizarSocio.getBtnTomarFoto()) {
+			if (e.getSource() == viewActualizarSocio.getBtnTomarFoto()) {
 				fotoTemp = viewActualizarSocio.getWebcam().getImage();
 				viewActualizarSocio.getWebcamPanel().stop();
 				viewActualizarSocio.getWebcamPanel().setVisible(false);
@@ -535,12 +535,13 @@ public class SocioController implements ActionListener, ItemListener {
 				viewActualizarSocio.getBtnTomarFoto().setEnabled(false);
 				viewActualizarSocio.getBtnCapturar().setEnabled(false);
 			}
-			
-			boolean respuesta = socioDao.modificarSocio(identificacion, fechaNacimiento, nombres, apellidos, correo, telefono, genero);
+
+			boolean respuesta = socioDao.modificarSocio(identificacion, fechaNacimiento, nombres, apellidos, correo,
+					telefono, genero);
 			if (respuesta) {
 				listadoSociosLlenarTabla(viewListadoSocio.getTableSocios());
 				JOptionPane.showMessageDialog(null, "los datos se actualizaron exitosamente");
-				
+
 			} else {
 				JOptionPane.showMessageDialog(null, "Ocurrio un error actualizando los datos del usuario.");
 			}
@@ -580,7 +581,7 @@ public class SocioController implements ActionListener, ItemListener {
 		List<MembresiaSocio> list = membresiaSocioDao.historialMembresias(id);
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] {"id", "Nombre", "Fecha Inicio", "Fecha Fin", "Estado" });
+				new String[] { "id", "Nombre", "Fecha Inicio", "Fecha Fin", "Estado" });
 
 		Object[] columna = new Object[5];
 		int numeroRegistros = list.size();
@@ -686,8 +687,6 @@ public class SocioController implements ActionListener, ItemListener {
 			e1.printStackTrace();
 		}
 	}
-	
-
 
 	public void listadoSociosLlenarTabla(JTable tabla) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
@@ -830,15 +829,23 @@ public class SocioController implements ActionListener, ItemListener {
 
 	public void setHuellaInit(HuellaInit huellaInit) {
 		this.huellaInit = huellaInit;
-		desactivarHuellaBackground();
+		//desactivarHuellaBackground();
 	}
 
 	public void activarHuellaBackground() {
-		huellaInit.start();
+		try {
+			huellaInit.start();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	public void desactivarHuellaBackground() {
-		huellaInit.stop();
+		try {
+			huellaInit.stop();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 }

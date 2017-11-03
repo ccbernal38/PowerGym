@@ -27,13 +27,13 @@ public class MembresiaDao implements MembresiaDaoInterface {
 
 	@Override
 	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion, int visitasxdia,
-			int IdTipoDuracion, int promocional, Date fechaFinalizacion) {
+			int IdTipoDuracion, int promocional, Date fechaFinalizacion, int visitasXSemana) {
 
 		boolean respuesta = false;
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Membresia(nombre, duracion, precio, "
-					+ "visitasxdia, duracion_id, promocional, fechaFinalizacion) VALUES(?,?,?,?,?,?,?)");
+					+ "visitasxdia, duracion_id, promocional, fechaFinalizacion, visitasXSemana, visitasXSemanaRestantes) VALUES(?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, nombre);
 			statement.setInt(2, cantidadDuracion);
 			statement.setDouble(3, valor);
@@ -45,7 +45,8 @@ public class MembresiaDao implements MembresiaDaoInterface {
 			}else {
 				statement.setDate(7, null);
 			}
-
+			statement.setInt(8, visitasXSemana);
+			statement.setInt(9, visitasXSemana);
 			statement.execute();
 			respuesta = true;
 			conexion.desconectar();

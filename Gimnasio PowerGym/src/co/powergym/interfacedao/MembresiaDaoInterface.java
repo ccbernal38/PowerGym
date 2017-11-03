@@ -11,7 +11,7 @@ import co.powergym.model.MembresiaSocio;
 public interface MembresiaDaoInterface {
 
 	public boolean registrarMembresia(String nombre, double valor, int cantidadDuracion, int visitasxdia,
-			int IdTipoDuracion, int promocional, Date fechaFinalizacion);
+			int IdTipoDuracion, int promocional, Date fechaFinalizacion, int visitasXSemana);
 
 	public List<Membresia> listaMembresia();
 
