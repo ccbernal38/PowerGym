@@ -43,6 +43,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import java.awt.Dimension;
 import javax.swing.border.SoftBevelBorder;
+import java.awt.Frame;
+import java.awt.Rectangle;
 
 /**
  *
@@ -59,6 +61,8 @@ public class InitView extends JFrame {
 	 * Creates new form Principal
 	 */
 	public InitView() {
+		getContentPane().setName("");
+		getContentPane().setBounds(new Rectangle(0, 0, 200, 200));
 		setIconImage(Toolkit.getDefaultToolkit().getImage("image/icon.ico"));
 
 		setTitle("PowerGym");
@@ -95,7 +99,7 @@ public class InitView extends JFrame {
 		jMenuItem14 = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setExtendedState(6);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 
 		jMenu1.setText("Archivo");
 		

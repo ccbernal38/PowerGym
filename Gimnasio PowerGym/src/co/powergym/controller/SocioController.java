@@ -431,7 +431,7 @@ public class SocioController implements ActionListener, ItemListener {
 			}
 
 			if (e.getSource() == viewRegistroSocio.getBtnTomarHuellas()) {
-				new HuellaController(new SocioRegistroHuella(), null, huellaInit);
+				new HuellaController(new SocioRegistroHuella(), this, huellaInit);
 			}
 
 			if (e.getSource() == viewRegistroSocio.getBtnTomarFoto()) {

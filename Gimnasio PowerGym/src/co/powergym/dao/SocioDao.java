@@ -212,7 +212,7 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setGenero(resultSet.getInt(8));
 				Blob blob = resultSet.getBlob(9);
 				if (blob != null) {
-					InputStream bufferedImage = resultSet.getBlob(10).getBinaryStream();
+					InputStream bufferedImage = blob.getBinaryStream();
 					socio.setFoto(ImageIO.read(bufferedImage));
 				}
 
@@ -220,6 +220,7 @@ public class SocioDao implements SocioDaoInterface {
 			}
 			conexion.desconectar();
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 		return list;
 	}

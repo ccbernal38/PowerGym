@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.jdesktop.xswingx.PromptSupport;
 
+import co.powergym.utils.Constantes;
 import javafx.scene.web.PromptData;
 
 import javax.swing.JLabel;
@@ -51,7 +52,7 @@ public class LoginView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		getContentPane().setBackground(new Color(218, 227, 229));
+		getContentPane().setBackground(new Color(17, 12, 18));
 
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -63,14 +64,14 @@ public class LoginView extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(22, 149, 438, 239);
-		panel.setBackground(new Color(0, 0, 0, 0));
+		panel.setBackground(new Color(17, 12, 18, 0));
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
+		panel_1.setBackground(Constantes.white());
 		panel_1.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		panel_1.setBounds(58, 22, 319, 50);
 		panel.add(panel_1);
@@ -96,6 +97,7 @@ public class LoginView extends JFrame {
 
 		textFieldUsername.setBounds(60, 11, 249, 28);
 		textFieldUsername.setText("ccbernal38");
+		textFieldUsername.setBackground(Constantes.white());
 		PromptSupport.setPrompt("Nombre de usuario", textFieldUsername);
 		PromptSupport.setForeground(Color.LIGHT_GRAY, textFieldUsername);
 		PromptSupport.setFontStyle(Font.PLAIN, textFieldUsername);
@@ -104,7 +106,7 @@ public class LoginView extends JFrame {
 		textFieldUsername.setColumns(10);
 		
 		panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
+		panel_3.setBackground(Constantes.white());
 		panel_3.setLayout(null);
 		panel_3.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		panel_3.setBounds(58, 83, 319, 50);
@@ -128,23 +130,23 @@ public class LoginView extends JFrame {
 		passwordField.setFont(new Font("Verdana", Font.PLAIN, 12));
 		passwordField.setBounds(60, 11, 249, 28);
 		passwordField.setText("123456");
+		passwordField.setBackground(Constantes.white());
 		panel_3.add(passwordField);
 		PromptSupport.setPrompt("Contraseña", passwordField);
 		PromptSupport.setForeground(Color.LIGHT_GRAY, passwordField);
 		PromptSupport.setFontStyle(Font.PLAIN, passwordField);
 		btnSalir = new JButton("Salir");
-		btnSalir.setForeground(new Color(74, 74, 72));
-		btnSalir.setBorder(new LineBorder(Color.LIGHT_GRAY, 3, true));
-		btnSalir.setBackground(Color.LIGHT_GRAY);
+		btnSalir.setForeground(Color.BLACK);
+		btnSalir.setBackground(Constantes.white());
 		btnSalir.setFont(new Font("Verdana", Font.BOLD, 11));
 		btnSalir.setBounds(356, 399, 104, 25);
 		contentPane.add(btnSalir);
 		
 		btnIniciar = new JButton("Iniciar");
-		btnIniciar.setForeground(new Color(74, 74, 72));
+		btnIniciar.setForeground(Color.BLACK);
 		btnIniciar.setFont(new Font("Verdana", Font.BOLD, 14));
-		btnIniciar.setBackground(Color.ORANGE);
-		btnIniciar.setBorder(new LineBorder(new Color(255, 255, 153), 3, true));
+		btnIniciar.setBackground(Constantes.blue());
+		btnIniciar.setBorder(new LineBorder(Color.BLUE, 3, true));
 		btnIniciar.setBounds(58, 144, 319, 51);
 		btnIniciar.setFocusable(true);
 		btnIniciar.requestDefaultFocus();
@@ -155,8 +157,8 @@ public class LoginView extends JFrame {
 		btnCambiarContrasea = new JButton("Cambiar contrase\u00F1a");
 		btnCambiarContrasea.setBounds(130, 206, 180, 23);
 		panel.add(btnCambiarContrasea);
-		btnCambiarContrasea.setForeground(new Color(74, 74, 72));
-		btnCambiarContrasea.setBackground(Color.LIGHT_GRAY);
+		btnCambiarContrasea.setForeground(Color.BLACK);
+		btnCambiarContrasea.setBackground(Constantes.white());
 		btnCambiarContrasea.setFont(new Font("Verdana", Font.BOLD, 11));
 		this.addWindowListener(new WindowAdapter() {
 		    public void windowGainedFocus(WindowEvent e) {
