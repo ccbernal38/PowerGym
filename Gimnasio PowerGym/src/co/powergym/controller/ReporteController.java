@@ -28,6 +28,7 @@ public class ReporteController implements ActionListener {
 	private SocioDao socioDao;
 	private MembresiaDao membresiaDao;
 	private GenerarReporte generarReporteA;
+	
 	/**
 	 * Metodo constructor
 	 * @param generarReporte
@@ -43,7 +44,9 @@ public class ReporteController implements ActionListener {
 			this.generarReporteA.setLocationRelativeTo(null);
 			this.generarReporteA.getChckbxListaSocios().addActionListener(this);
 			this.generarReporteA.getChckbxSociosCumppleanosMes().addActionListener(this);
+			this.generarReporteA.getChckbxSociosActivos().addActionListener(this);
 			this.generarReporteA.getBtnExportar().addActionListener(this);
+			this.generarReporteA.getCheckBoxSociosInactivos().addActionListener(this);
 		}
 	}
 	
@@ -124,11 +127,12 @@ public class ReporteController implements ActionListener {
 	 */
 	public String[][] converterListToMatrixSociosCumple(List<Socio> socios) {
 
-		String[][] sociosFinales = new String[socios.size()][3];
+		String[][] sociosFinales = new String[socios.size()][4];
 		for (int i = 0; i < sociosFinales.length; i++) {
 			sociosFinales[i][0] = socios.get(i).getIdentificacion();
 			sociosFinales[i][1] = socios.get(i).getNombreCompleto();
 			sociosFinales[i][2] = socios.get(i).getFechaNacimiento()+"";
+			sociosFinales[i][3] = socios.get(i).getTelefono();
 		}
 		return sociosFinales;
 	}
@@ -172,13 +176,12 @@ public class ReporteController implements ActionListener {
 	 * Metodo que permite llenar la tabla de socios.
 	 * @param listaSocios
 	 */
-	private void llenarTablaListaSocios(JTable listaSocios) {
+	private void llenarTablaListaSocios(JTable listaSocios, List<Socio>listSocios) {
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
 				new String[] { "Nro. identificación", "Nombre", "Dirección", "Correo electrónico", "Teléfono" });
 
 		Object[] columna = new Object[5];
-		List<Socio> listSocios = socioDao.listaSocios();
 		int numeroRegistros = listSocios.size();
 
 		for (int i = 0; i < numeroRegistros; i++) {
@@ -206,9 +209,9 @@ public class ReporteController implements ActionListener {
 	 */
 	public void listadoCumpleaniosLlenarTabla(JTable tableSocios) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumpleaños" });
+				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumpleaños", "Teléfono" });
 
-		Object[] columna = new Object[3];
+		Object[] columna = new Object[4];
 		List<Socio> listSocios = socioDao.sociosCumpleaniosMes();
 		int numeroRegistros = listSocios.size();
 
@@ -247,6 +250,7 @@ public class ReporteController implements ActionListener {
 			}
 
 			columna[2] = calendar.get(Calendar.DAY_OF_MONTH) + " de " + mes;
+			columna[3] = listSocios.get(i).getTelefono();
 			defaultTableModel.addRow(columna);
 		}
 		tableSocios.setModel(defaultTableModel);
@@ -264,18 +268,18 @@ public class ReporteController implements ActionListener {
 		String[][] sociosFinales = converterListToMatrixSociosCumple(sociosCumpleanosMes);
 		String nombreArchivo = ruta;
 		String nombreHoja1 = "Socios cumpleaños";
-		String[] columnas = { "Nro identificación", "Nombre", "Fecha de cumpleaños"};
+		String[] columnas = { "Nro identificación", "Nombre", "Fecha de cumpleaños", "Teléfono"};
 		XSSFWorkbook libroTrabajo = new XSSFWorkbook();
 		XSSFSheet hoja1 = libroTrabajo.createSheet(nombreHoja1);
 		XSSFRow row = hoja1.createRow(0);
-		for (int j = 0; j < 5; j++) {
+		for (int j = 0; j < 4; j++) {
 			XSSFCell cell = row.createCell(j);
 			cell.setCellValue(columnas[j]);
 		}
 
 		for (int i = 0; i < sociosFinales.length; i++) {
 			row = hoja1.createRow(i + 1);
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < 4; j++) {
 				XSSFCell cell = row.createCell(j);
 				cell.setCellValue(sociosFinales[i][j]);
 				hoja1.autoSizeColumn(j);
@@ -293,11 +297,11 @@ public class ReporteController implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
+		//Llenar tabla y generar reporte de lista de socios.
 		if (generarReporteA.getChckbxListaSocios() == e.getSource()) {
-			llenarTablaListaSocios(generarReporteA.getTableReportes());
+			llenarTablaListaSocios(generarReporteA.getTableReportes(), socioDao.listaSocios());
 		}
-
 		if (generarReporteA.getChckbxListaSocios().isSelected()) {
 			if (generarReporteA.getBtnExportar() == e.getSource()) {
 				try {
@@ -312,6 +316,7 @@ public class ReporteController implements ActionListener {
 
 			}
 		}
+		//Llenar tabla y generar reporte de socios que cumplen años en mes actual
 		if(generarReporteA.getChckbxSociosCumppleanosMes() == e.getSource()) {
 			
 			listadoCumpleaniosLlenarTabla(generarReporteA.getTableReportes());
@@ -328,6 +333,40 @@ public class ReporteController implements ActionListener {
 				}
 			}
 			
+		}
+		//Llenar tabla y generar reporte de socios activos.
+		if(generarReporteA.getChckbxSociosActivos() == e.getSource()) {
+			llenarTablaListaSocios(generarReporteA.getTableReportes(), socioDao.listarSociosActivos());
+		}
+		if (generarReporteA.getChckbxSociosActivos().isSelected()) {
+			if (generarReporteA.getBtnExportar() == e.getSource()) {
+				try {
+					String ruta = retornarRutaFileChooser();
+					if (!ruta.equals("")) {
+						reporteListaSocios(socioDao.listarSociosActivos(), ruta);
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		}
+		//Llenar tabla y generar reporte de socios inactivos.
+		if(generarReporteA.getCheckBoxSociosInactivos() == e.getSource()) {
+			llenarTablaListaSocios(generarReporteA.getTableReportes(), socioDao.listarSociosInactivos());
+		}
+		if (generarReporteA.getCheckBoxSociosInactivos().isSelected()) {
+			if (generarReporteA.getBtnExportar() == e.getSource()) {
+				try {
+					String ruta = retornarRutaFileChooser();
+					if (!ruta.equals("")) {
+						reporteListaSocios(socioDao.listarSociosInactivos(), ruta);
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+			}
 		}
 	}
 

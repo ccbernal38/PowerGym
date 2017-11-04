@@ -196,9 +196,9 @@ public class SocioDao implements SocioDaoInterface {
 		Calendar calendar = Calendar.getInstance();
 		try {
 			Connection connection = conexion.getConexion();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre, "
-					+ "apellido, fechaNacimiento, telefono, correoElectronico, genero, foto"
-					+ " FROM Socio WHERE Month(fechaNacimiento) = ?");
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"SELECT id, identificacion, nombre, " + "apellido, fechaNacimiento, telefono, correoElectronico"
+							+ " FROM Socio WHERE Month(fechaNacimiento) = ?");
 			int mes = calendar.get(Calendar.MONTH) + 1;
 			preparedStatement.setInt(1, mes);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -211,12 +211,6 @@ public class SocioDao implements SocioDaoInterface {
 				socio.setFechaNacimiento(resultSet.getDate(5));
 				socio.setTelefono(resultSet.getString(6));
 				socio.setCorreo(resultSet.getString(7));
-				socio.setGenero(resultSet.getInt(8));
-				Blob blob = resultSet.getBlob(9);
-				if (blob != null) {
-					InputStream bufferedImage = blob.getBinaryStream();
-					socio.setFoto(ImageIO.read(bufferedImage));
-				}
 
 				list.add(socio);
 			}
@@ -400,6 +394,7 @@ public class SocioDao implements SocioDaoInterface {
 		return socio;
 	}
 
+	@Override
 	public void inactivarSocio(int id, int estado) {
 		try {
 			Connection connection = conexion.getConexion();
@@ -412,6 +407,60 @@ public class SocioDao implements SocioDaoInterface {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Socio> listarSociosActivos() {
+
+		List<Socio> list = new ArrayList<Socio>();
+		Socio socio;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT identificacion, nombre"
+					+ ", apellido, telefono, correoElectronico FROM Socio WHERE estado = 0");
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				socio = new Socio();
+				socio.setIdentificacion(resultSet.getString(1));
+				socio.setNombre(resultSet.getString(2));
+				socio.setApellido(resultSet.getString(3));
+				socio.setTelefono(resultSet.getString(4));
+				socio.setCorreo(resultSet.getString(5));
+				list.add(socio);
+
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Socio> listarSociosInactivos() {
+
+		List<Socio> list = new ArrayList<Socio>();
+		Socio socio;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT identificacion, nombre"
+					+ ", apellido, telefono, correoElectronico FROM Socio WHERE estado = 1");
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				socio = new Socio();
+				socio.setIdentificacion(resultSet.getString(1));
+				socio.setNombre(resultSet.getString(2));
+				socio.setApellido(resultSet.getString(3));
+				socio.setTelefono(resultSet.getString(4));
+				socio.setCorreo(resultSet.getString(5));
+				list.add(socio);
+
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

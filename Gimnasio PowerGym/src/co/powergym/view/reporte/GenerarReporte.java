@@ -16,6 +16,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.ButtonGroup;
 
 /**
  * @author nia
@@ -32,12 +33,15 @@ public class GenerarReporte extends JFrame{
 	private JCheckBox chckbxVentasMes= new JCheckBox();
 	private JCheckBox chckbxSociosCumppleanosMes;
 	private JCheckBox chckbxVentasE= new JCheckBox();
+	private JCheckBox chckbxSociosActivos;
 	private JDateChooser dateChooser_fechaInicio = new JDateChooser();
 	private JDateChooser dateChooser_fechaFin = new JDateChooser();
 	private JButton btnGenerarFechaEspecifica = new JButton();
 	private JPanel panel_especifica = new JPanel();
 	private JTable tableReportes;
 	private JButton btnExportar;
+	private JCheckBox checkBoxSociosInactivos;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * 
@@ -56,16 +60,19 @@ public class GenerarReporte extends JFrame{
 		getContentPane().add(lbl_lista_informes);
 		
 		chckbxListaSocios = new JCheckBox("Lista de socios");
-		chckbxListaSocios.setBounds(53, 123, 117, 23);
+		buttonGroup.add(chckbxListaSocios);
+		chckbxListaSocios.setBounds(53, 123, 127, 23);
 		getContentPane().add(chckbxListaSocios);
 		
 		chckbxSociosCumppleanosMes = new JCheckBox("Socios cumplea\u00F1os del mes");
-		chckbxSociosCumppleanosMes.setBounds(182, 123, 299, 23);
+		buttonGroup.add(chckbxSociosCumppleanosMes);
+		chckbxSociosCumppleanosMes.setBounds(182, 123, 201, 23);
 		getContentPane().add(chckbxSociosCumppleanosMes);
 		
-		chckbxVentasE = new JCheckBox("Ventas en una fecha espec\u00EDfica");
-		chckbxVentasE.setBounds(251, 88, 230, 23);
-		getContentPane().add(chckbxVentasE);
+		chckbxSociosActivos = new JCheckBox("Socios activos");
+		buttonGroup.add(chckbxSociosActivos);
+		chckbxSociosActivos.setBounds(385, 123, 117, 23);
+		getContentPane().add(chckbxSociosActivos);
 		
 		panel_especifica = new JPanel();
 		panel_especifica.setBackground(Color.WHITE);
@@ -112,6 +119,11 @@ public class GenerarReporte extends JFrame{
 		
 		tableReportes = new JTable();
 		scrollPane.setViewportView(tableReportes);
+		
+		checkBoxSociosInactivos = new JCheckBox("Socios inactivos");
+		buttonGroup.add(checkBoxSociosInactivos);
+		checkBoxSociosInactivos.setBounds(514, 123, 117, 23);
+		getContentPane().add(checkBoxSociosInactivos);
 		
 		
 		//table_vista_informe.addColumn(aColumn);
@@ -185,15 +197,15 @@ public class GenerarReporte extends JFrame{
 	/**
 	 * @return the chckbxVentasEnUna
 	 */
-	public JCheckBox getChckbxVentasE() {
-		return chckbxVentasE;
+	public JCheckBox getChckbxSociosActivos() {
+		return chckbxSociosActivos;
 	}
 
 	/**
 	 * @param chckbxVentasEnUna the chckbxVentasEnUna to set
 	 */
-	public void setChckbxVentasE(JCheckBox chckbxVentasEnUna) {
-		this.chckbxVentasE = chckbxVentasEnUna;
+	public void setChckbxSociosActivos(JCheckBox chckbxVentasEnUna) {
+		this.chckbxSociosActivos = chckbxVentasEnUna;
 	}
 
 	/**
@@ -254,5 +266,8 @@ public class GenerarReporte extends JFrame{
 
 	public JButton getBtnExportar() {
 		return btnExportar;
+	}
+	public JCheckBox getCheckBoxSociosInactivos() {
+		return checkBoxSociosInactivos;
 	}
 }
