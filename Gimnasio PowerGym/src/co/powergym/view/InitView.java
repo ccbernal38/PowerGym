@@ -266,7 +266,7 @@ public class InitView extends JFrame {
 		panelCumpleanios.setLayout(null);
 
 		JLabel lblCumpleaosDelDa = new JLabel("Cumpleaños del Día");
-		lblCumpleaosDelDa.setForeground(new Color(74, 74, 72));
+		lblCumpleaosDelDa.setForeground(Color.WHITE);
 		lblCumpleaosDelDa.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCumpleaosDelDa.setFont(new Font("Verdana", Font.BOLD, 18));
 		lblCumpleaosDelDa.setBounds(10, 11, 244, 29);
@@ -278,7 +278,7 @@ public class InitView extends JFrame {
 
 		lblNewLabel.setBounds(10, 51, 244, 137);
 		lblNewLabel.setIcon(new ImageIcon(((new ImageIcon("image/logo_bithday.png")).getImage()).getScaledInstance(
-				lblNewLabel.getHeight(), lblNewLabel.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
+				lblNewLabel.getWidth(), lblNewLabel.getHeight(), java.awt.Image.SCALE_AREA_AVERAGING)));
 
 		panelCumpleanios.add(lblNewLabel);
 
@@ -299,7 +299,7 @@ public class InitView extends JFrame {
 		listCumpleanios.setBackground(new Color(0, 0, 0, 0));
 
 		panelBusqueda = new JPanel();
-		panelBusqueda.setBackground(Constantes.blue());
+		panelBusqueda.setBackground(Color.WHITE);
 		panelBusqueda.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelBusqueda.setBounds(0, 0, 1373, 47);
 		getContentPane().add(panelBusqueda);
@@ -370,7 +370,8 @@ public class InitView extends JFrame {
 		panel_1.add(panel);
 		panel.setFont(new Font("Verdana", Font.BOLD, 11));
 		panel.setBackground(new Color(0, 0, 0, 0));
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaner de huella", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaner de huella",
+				TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
 		panel.setLayout(new BorderLayout(0, 0));
 
 		lblHuella = new JLabel("");
@@ -408,18 +409,18 @@ public class InitView extends JFrame {
 		btnVerificar.setForeground(Color.BLACK);
 		btnVerificar.setBounds(245, 155, 125, 23);
 		panel_1.add(btnVerificar);
-		
+
 		panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBounds(0, 0, 404, 55);
 		panel_1.add(panel_2);
-				panel_2.setLayout(new BorderLayout(0, 0));
-		
-				JLabel lblNewLabel_1 = new JLabel("Registro de asistencia");
-				panel_2.add(lblNewLabel_1);
-				lblNewLabel_1.setForeground(Color.BLACK);
-				lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 18));
+		panel_2.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblNewLabel_1 = new JLabel("Registro de asistencia");
+		panel_2.add(lblNewLabel_1);
+		lblNewLabel_1.setForeground(Color.BLACK);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		btnVerificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

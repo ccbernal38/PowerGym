@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import co.powergym.utils.ButtonSecundario;
+import co.powergym.utils.Constantes;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -30,102 +34,109 @@ public class MembresiaRegistroVisitaView extends JFrame {
 	public MembresiaRegistroVisitaView() {
 		setTitle("Registrar visita");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 535, 232);
+		setBounds(100, 100, 535, 240);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(42, 45, 52));
+		contentPane.setBackground(Constantes.black());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(0, 0, 0, 0));
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(null);
-		
+		contentPane.setLayout(null);
+
 		JLabel lblSocio = new JLabel("Socio:");
+		lblSocio.setBounds(10, 70, 93, 14);
+		contentPane.add(lblSocio);
 		lblSocio.setForeground(Color.WHITE);
-		lblSocio.setFont(new Font("Verdana", Font.PLAIN, 11));
-		lblSocio.setBounds(10, 30, 93, 14);
-		panel_1.add(lblSocio);
-		
+		lblSocio.setFont(new Font("Verdana", Font.BOLD, 12));
+
 		textFieldSocio = new JTextField();
+		textFieldSocio.setBounds(113, 68, 135, 20);
+		contentPane.add(textFieldSocio);
 		textFieldSocio.setFont(new Font("Verdana", Font.PLAIN, 11));
-		textFieldSocio.setBounds(113, 28, 135, 20);
-		panel_1.add(textFieldSocio);
 		textFieldSocio.setColumns(10);
-		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(258, 27, 89, 23);
-		panel_1.add(btnBuscar);
-		
+
+		btnBuscar = new ButtonSecundario("Buscar");
+		btnBuscar.setBounds(258, 67, 89, 23);
+		contentPane.add(btnBuscar);
+
 		JLabel lblNombre = new JLabel("Nombres:");
+		lblNombre.setBounds(10, 102, 93, 14);
+		contentPane.add(lblNombre);
 		lblNombre.setForeground(Color.WHITE);
-		lblNombre.setFont(new Font("Verdana", Font.BOLD, 11));
-		lblNombre.setBounds(10, 62, 93, 14);
-		panel_1.add(lblNombre);
-		
+		lblNombre.setFont(new Font("Verdana", Font.BOLD, 12));
+
 		JLabel lblApellidos = new JLabel("Apellidos:");
+		lblApellidos.setBounds(258, 102, 93, 14);
+		contentPane.add(lblApellidos);
 		lblApellidos.setForeground(Color.WHITE);
-		lblApellidos.setFont(new Font("Verdana", Font.BOLD, 11));
-		lblApellidos.setBounds(258, 62, 93, 14);
-		panel_1.add(lblApellidos);
-		
+		lblApellidos.setFont(new Font("Verdana", Font.BOLD, 12));
+
 		textFieldNombres = new JTextField();
+		textFieldNombres.setBounds(113, 99, 135, 20);
+		contentPane.add(textFieldNombres);
 		textFieldNombres.setFont(new Font("Verdana", Font.PLAIN, 11));
 		textFieldNombres.setColumns(10);
-		textFieldNombres.setBounds(113, 59, 135, 20);
-		panel_1.add(textFieldNombres);
-		
+
 		textFieldApellidos = new JTextField();
+		textFieldApellidos.setBounds(361, 99, 135, 20);
+		contentPane.add(textFieldApellidos);
 		textFieldApellidos.setFont(new Font("Verdana", Font.PLAIN, 11));
 		textFieldApellidos.setColumns(10);
-		textFieldApellidos.setBounds(361, 59, 135, 20);
-		panel_1.add(textFieldApellidos);
-		
+
 		textFieldValor = new JTextField();
-		textFieldValor.setBounds(113, 90, 135, 20);
-		panel_1.add(textFieldValor);
+		textFieldValor.setBounds(113, 130, 135, 20);
+		contentPane.add(textFieldValor);
 		textFieldValor.setColumns(10);
-		
+
 		JLabel lblValor = new JLabel("Valor:");
+		lblValor.setBounds(10, 132, 93, 14);
+		contentPane.add(lblValor);
 		lblValor.setForeground(Color.WHITE);
-		lblValor.setFont(new Font("Verdana", Font.BOLD, 11));
-		lblValor.setBounds(10, 92, 93, 14);
-		panel_1.add(lblValor);
-		
-		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(258, 121, 89, 23);
-		panel_1.add(btnRegistrar);
-		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(159, 121, 89, 23);
-		panel_1.add(btnCancelar);
-		
+		lblValor.setFont(new Font("Verdana", Font.BOLD, 12));
+
+		btnRegistrar = new ButtonSecundario("Registrar");
+		btnRegistrar.setBounds(321, 161, 89, 23);
+		contentPane.add(btnRegistrar);
+
+		btnCancelar = new ButtonSecundario("Cancelar");
+		btnCancelar.setBounds(420, 161, 89, 23);
+		contentPane.add(btnCancelar);
+
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 519, 56);
+		contentPane.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+
 		JLabel lblNewLabel = new JLabel("Registrar Visita");
+		panel.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
-		contentPane.add(lblNewLabel, BorderLayout.NORTH);
 	}
-	
+
 	public JTextField getTextFieldApellidos() {
 		return textFieldApellidos;
 	}
+
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
+
 	public JTextField getTextFieldSocio() {
 		return textFieldSocio;
 	}
+
 	public JTextField getTextFieldNombres() {
 		return textFieldNombres;
 	}
+
 	public JTextField getTextFieldValor() {
 		return textFieldValor;
 	}
+
 	public JButton getBtnRegistrar() {
 		return btnRegistrar;
 	}
+
 	public JButton getBtnBuscar() {
 		return btnBuscar;
 	}
