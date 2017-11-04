@@ -115,6 +115,17 @@ public class SocioController implements ActionListener, ItemListener {
 			viewConsultaBusquedaSocio.getBtnAgregarMembresia().setEnabled(true);
 			viewConsultaBusquedaSocio.getBtnAgregarPago().setEnabled(true);
 			viewConsultaBusquedaSocio.getBtnRegistrarVisita().setEnabled(true);
+			viewConsultaBusquedaSocio.getChckbxInactivo().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (viewConsultaBusquedaSocio.getChckbxInactivo().isSelected()) {
+						socioDao.inactivarSocio(socio.getId(), Socio.INACTIVAR);
+					} else {
+						socioDao.inactivarSocio(socio.getId(), socio.ACTIVO);
+					}
+				}
+			});
 			viewConsultaBusquedaSocio.getBtnEliminar().addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -829,7 +840,7 @@ public class SocioController implements ActionListener, ItemListener {
 
 	public void setHuellaInit(HuellaInit huellaInit) {
 		this.huellaInit = huellaInit;
-		//desactivarHuellaBackground();
+		// desactivarHuellaBackground();
 	}
 
 	public void activarHuellaBackground() {

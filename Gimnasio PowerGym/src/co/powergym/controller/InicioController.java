@@ -51,6 +51,7 @@ import co.powergym.utils.Preferencias;
 import co.powergym.utils.SocioPanelCumpleanios;
 import co.powergym.view.BackupView;
 import co.powergym.view.InitView;
+import co.powergym.view.ReciboView;
 import co.powergym.view.caja.CajaAperturaView;
 import co.powergym.view.caja.CajaCierreView;
 import co.powergym.view.caja.CajaHistoricoView;
@@ -156,7 +157,7 @@ public class InicioController implements ActionListener {
 
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 		manager.addKeyEventDispatcher(new KeyEventDispatcher() {
-		
+
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent e) {
 				// TODO Auto-generated method stub
@@ -255,74 +256,74 @@ public class InicioController implements ActionListener {
 			aperturaCajaView.setVisible(true);
 		}
 	}
-	
+
 	public void asignarPermisos() {
-		
+
 		int idUsuario = Integer.parseInt(Preferencias.obtenerPreferencia(Constantes.ID_RESPONSABLE));
-		List<PermisoUsuario>permisos  = permisoUsuarioDao.permisosPorUsuario(idUsuario);
-		
+		List<PermisoUsuario> permisos = permisoUsuarioDao.permisosPorUsuario(idUsuario);
+
 		for (int i = 0; i < permisos.size(); i++) {
-			if(permisos.get(i).getPermiso_id() == 1) {
+			if (permisos.get(i).getPermiso_id() == 1) {
 				viewPrincipal.getMntmCopiaDeSeguridad().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 2) {
+			if (permisos.get(i).getPermiso_id() == 2) {
 				viewPrincipal.getBtnRegistrarSocio().setEnabled(true);
 				viewPrincipal.getJMenuItemRegistrarSocio().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 3) {
+			if (permisos.get(i).getPermiso_id() == 3) {
 				viewPrincipal.getjMenuItem3buscarSocio().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 4) {
+			if (permisos.get(i).getPermiso_id() == 4) {
 				viewPrincipal.getMntmListadoDeSocios().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 5) {
+			if (permisos.get(i).getPermiso_id() == 5) {
 				viewPrincipal.getJMenuItemCumpleanios().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 6) {
+			if (permisos.get(i).getPermiso_id() == 6) {
 				viewPrincipal.getJCrearMembresia().setEnabled(true);
 				viewPrincipal.getBtnMenuMembresia().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 7) {
+			if (permisos.get(i).getPermiso_id() == 7) {
 				viewPrincipal.getJMenuItemListaMembresias().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 8) {
+			if (permisos.get(i).getPermiso_id() == 8) {
 				viewPrincipal.getJMenuItemCierreCaja().setEnabled(true);
 				viewPrincipal.getJButtonCierreCaja().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 9) {
+			if (permisos.get(i).getPermiso_id() == 9) {
 				viewPrincipal.getJMenuItemVentasDia().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 10) {
+			if (permisos.get(i).getPermiso_id() == 10) {
 				viewPrincipal.getMntmHistoricoDeCaja().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 11) {
+			if (permisos.get(i).getPermiso_id() == 11) {
 				viewPrincipal.getMntmHistoricoDeEgresos().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 12) {
+			if (permisos.get(i).getPermiso_id() == 12) {
 				viewPrincipal.getMntmEgresosDelDia().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 13) {
+			if (permisos.get(i).getPermiso_id() == 13) {
 				viewPrincipal.getMntmRegistrarEgreso().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 14) {
+			if (permisos.get(i).getPermiso_id() == 14) {
 				viewPrincipal.getMntmHistoricoDeVisitas().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 15) {
+			if (permisos.get(i).getPermiso_id() == 15) {
 				viewPrincipal.getBtnRegistrodeVisita().setEnabled(true);
 				viewPrincipal.getMntmRegistroDeVisitas().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 16) {
+			if (permisos.get(i).getPermiso_id() == 16) {
 				viewPrincipal.getMntmVisitasDeHoy().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 17) {
+			if (permisos.get(i).getPermiso_id() == 17) {
 				viewPrincipal.getJMenuItemRegistrarUsuario().setEnabled(true);
 			}
-			if(permisos.get(i).getPermiso_id() == 18) {
+			if (permisos.get(i).getPermiso_id() == 18) {
 				viewPrincipal.getJMenuItemListaUsuario().setEnabled(true);
 			}
 		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (aperturaCajaView != null) {
@@ -348,11 +349,12 @@ public class InicioController implements ActionListener {
 				aperturaCajaView.dispose();
 			}
 		}
-		if(viewPrincipal.getjMenuItemSocioActivo() == e.getSource()) {
+		if (viewPrincipal.getjMenuItemSocioActivo() == e.getSource()) {
 			new ReporteController(new GenerarReporte());
 		}
 		if (viewPrincipal.getMntmRegistrarEgreso() == e.getSource()) {
 			new MovimientoController(null, new CajaRegistroEgresoView(), null, null, null, null);
+			// new ReciboController(new ReciboView());
 		}
 		if (viewPrincipal.getBtnRegistrodeVisita() == e.getSource()
 				|| viewPrincipal.getMntmRegistroDeVisitas() == e.getSource()) {
@@ -377,12 +379,12 @@ public class InicioController implements ActionListener {
 		} else if (viewPrincipal.btnRegistrarSocio == e.getSource()
 				|| viewPrincipal.getJMenuItemRegistrarSocio() == e.getSource()) {
 			SocioRegistroView viewRegistroSocio = new SocioRegistroView();
-			SocioController socioController = new SocioController(viewRegistroSocio, null, null, null, null, null, null);
+			SocioController socioController = new SocioController(viewRegistroSocio, null, null, null, null, null,
+					null);
 			socioController.setHuellaInit(huellaInit);
-		}
-		else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
+		} else if (viewPrincipal.jMenuItem3buscarSocio == e.getSource()) {
 			SocioBusquedaView viewBusquedaSocio = new SocioBusquedaView();
-			new SocioController(null,null, viewBusquedaSocio, null, null, null, null);
+			new SocioController(null, null, viewBusquedaSocio, null, null, null, null);
 		} else if (viewPrincipal.btnMenuMembresia == e.getSource()) {
 			new MembresiaDao();
 			MembresiaRegistroView crearMembresia = new MembresiaRegistroView();
@@ -443,7 +445,7 @@ public class InicioController implements ActionListener {
 			new CajaController(null, null, new BackupView(), null);
 		} else if (this.viewPrincipal.getMntmHistoricoDeCaja() == e.getSource()) {
 			new CajaController(null, null, null, new CajaHistoricoView());
-		} else if(viewPrincipal.getMntmRegistroDeVisitaRango() == e.getSource()) {
+		} else if (viewPrincipal.getMntmRegistroDeVisitaRango() == e.getSource()) {
 			new VisitaController(null, null, null, new MembresiaRegistroVisitaRangoView());
 		}
 	}
@@ -470,7 +472,8 @@ public class InicioController implements ActionListener {
 	}
 
 	private void mostrarViewBusqueda(Socio socio) {
-		SocioController controller = new SocioController(null, null, null, null, null, null, new SocioConsultaBusquedaView());
+		SocioController controller = new SocioController(null, null, null, null, null, null,
+				new SocioConsultaBusquedaView());
 		controller.cargarConsultaBusquedaSocio(socio);
 	}
 

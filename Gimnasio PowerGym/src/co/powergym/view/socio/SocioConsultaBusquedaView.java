@@ -28,6 +28,7 @@ import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class SocioConsultaBusquedaView extends JFrame {
 
@@ -53,6 +54,7 @@ public class SocioConsultaBusquedaView extends JFrame {
 	private JTable tableHistorialPagos;
 	private JTable tableHistorialVisitas;
 	private JButton btnEliminar;
+	private JCheckBox chckbxInactivo;
 
 	/**
 	 * Creates new form RegistroSocio
@@ -256,6 +258,11 @@ public class SocioConsultaBusquedaView extends JFrame {
 				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "id", "Valor", "Fecha" }));
 		tableHistorialVisitas.getColumnModel().getColumn(0).setMaxWidth(30);
 		scrollPane_3.setViewportView(tableHistorialVisitas);
+		
+		chckbxInactivo = new JCheckBox("Inactivo");
+		chckbxInactivo.setBackground(Color.LIGHT_GRAY);
+		chckbxInactivo.setBounds(498, 238, 97, 23);
+		contentPane.add(chckbxInactivo);
 	}
 
 	/**
@@ -317,5 +324,8 @@ public class SocioConsultaBusquedaView extends JFrame {
 	}
 	public JButton getBtnEliminar() {
 		return btnEliminar;
+	}
+	public JCheckBox getChckbxInactivo() {
+		return chckbxInactivo;
 	}
 }

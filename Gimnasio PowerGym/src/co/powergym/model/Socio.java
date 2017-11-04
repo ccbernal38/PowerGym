@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Socio {
 
+	public static final int ACTIVO = 0;
+	public static final int INACTIVAR = 1;
 	public static int GENERO_M = 0;
 	public static int GENERO_F = 1;
 
@@ -21,7 +23,7 @@ public class Socio {
 	private String direccion;
 	private BufferedImage foto;
 	private Rol rol;
-	private byte[]  huella;
+	private byte[] huella;
 	private String nombreCompleto;
 	private String codigo;
 
@@ -29,8 +31,8 @@ public class Socio {
 
 	}
 
-	public Socio(int id, String identificacion, Date fechaNacimiento, String primerNombre,
-			String primerApellido, String correo, String telefono, int genero) {
+	public Socio(int id, String identificacion, Date fechaNacimiento, String primerNombre, String primerApellido,
+			String correo, String telefono, int genero) {
 		super();
 		this.id = id;
 		this.identificacion = identificacion;
@@ -81,8 +83,6 @@ public class Socio {
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-
-	
 
 	public String getNombre() {
 		return nombre;
@@ -149,13 +149,14 @@ public class Socio {
 	}
 
 	public String getNombreCompleto() {
-		return nombre+" "+apellido;
+		return nombre + " " + apellido;
 	}
 
 	public String capitalLetter(String input) {
 		String output = input.substring(0, 1).toUpperCase() + input.substring(1);
 		return output;
 	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -170,7 +171,8 @@ public class Socio {
 	}
 
 	/**
-	 * @param codigo the codigo to set
+	 * @param codigo
+	 *            the codigo to set
 	 */
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
