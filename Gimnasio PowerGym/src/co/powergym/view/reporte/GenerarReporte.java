@@ -122,7 +122,7 @@ public class GenerarReporte extends JFrame{
 		
 		checkBoxSociosInactivos = new JCheckBox("Socios inactivos");
 		buttonGroup.add(checkBoxSociosInactivos);
-		checkBoxSociosInactivos.setBounds(514, 123, 117, 23);
+		checkBoxSociosInactivos.setBounds(514, 123, 133, 23);
 		getContentPane().add(checkBoxSociosInactivos);
 		
 		

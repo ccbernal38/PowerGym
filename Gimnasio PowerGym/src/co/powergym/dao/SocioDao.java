@@ -463,4 +463,33 @@ public class SocioDao implements SocioDaoInterface {
 		return list;
 	}
 
+	
+	@Override
+	public List<Socio> listarSociosMembresiasAExpirar() {
+		
+		List<Socio> list = new ArrayList<Socio>();
+		Socio socio;
+		try {
+			Connection connection = conexion.getConexion();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT identificacion, nombre"
+					+ ", apellido, telefono, correoElectronico FROM Socio s JOIN membresia_socio ms ON ms.socio_id = s.id WHERE ");
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				socio = new Socio();
+				socio.setIdentificacion(resultSet.getString(1));
+				socio.setNombre(resultSet.getString(2));
+				socio.setApellido(resultSet.getString(3));
+				socio.setTelefono(resultSet.getString(4));
+				socio.setCorreo(resultSet.getString(5));
+				list.add(socio);
+
+			}
+			conexion.desconectar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 }

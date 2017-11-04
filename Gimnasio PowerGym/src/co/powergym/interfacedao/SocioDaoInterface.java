@@ -38,6 +38,8 @@ public interface SocioDaoInterface {
 	public List<Socio> listarSociosActivos();
 	
 	public List<Socio> listarSociosInactivos();
+	
+	public List<Socio> listarSociosMembresiasAExpirar();
 
 	public void inactivarSocio(int id, int estado);
 }
