@@ -83,12 +83,14 @@ public class HuellaController implements ActionListener {
 		huella = huellaInit;
 		huellaInit.start();
 		lector = huellaInit.getLector();
-		reclutador = huellaInit.getReclutador();
-		verificador = huellaInit.getVerificador();
-		template = huellaInit.getTemplate();
-		featuresinscripcion = huellaInit.getFeaturesinscripcion();
-		featuresverificacion = huellaInit.getFeaturesverificacion();
-		Iniciar();
+		if (verificador == null) {
+			verificador = DPFPGlobal.getVerificationFactory().createVerification();
+		}
+		if (reclutador == null) {
+			reclutador = DPFPGlobal.getEnrollmentFactory().createEnrollment();
+		}
+		initLector();
+		
 		this.socioController = socioController;
 
 		if (socioRegistroHuella != null) {

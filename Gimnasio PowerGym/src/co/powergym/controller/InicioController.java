@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -149,6 +150,7 @@ public class InicioController implements ActionListener {
 		this.viewPrincipal.getMntmHistoricoDeCaja().addActionListener(this);
 		this.viewPrincipal.getMntmHistoricoDeCaja().setEnabled(false);
 		listadoCumpleaniosDia();
+		this.viewPrincipal.setExtendedState(JFrame.MAXIMIZED_HORIZ);
 		this.viewPrincipal.setVisible(true);
 		this.viewPrincipal.setLocationRelativeTo(null);
 		asignarPermisos();
@@ -253,7 +255,6 @@ public class InicioController implements ActionListener {
 			viewPrincipal.setEnabled(false);
 			aperturaCajaView.setVisible(true);
 		}
-		
 	}
 	
 	public void asignarPermisos() {
