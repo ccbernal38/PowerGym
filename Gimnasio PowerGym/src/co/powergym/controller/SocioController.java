@@ -218,7 +218,7 @@ public class SocioController implements ActionListener, ItemListener {
 				}
 			});
 		} else {
-			JOptionPane.showMessageDialog(null, "No se encontrï¿½ un socio con ese nï¿½mero de identificaciï¿½n, "
+			JOptionPane.showMessageDialog(null, "No se encontró un socio con ese número de identificación, "
 					+ "por favor verifique e intente de nuevo");
 		}
 	}
@@ -478,7 +478,7 @@ public class SocioController implements ActionListener, ItemListener {
 					llenarTablaAsistencia(socio.getId(), null);
 				} else {
 					JOptionPane.showMessageDialog(null,
-							"No se encontrï¿½ un socio con ese nï¿½mero de identificaciï¿½n, "
+							"No se encontró un socio con ese número de identificación, "
 									+ "por favor verifique e intente de nuevo");
 				}
 			}
@@ -701,7 +701,7 @@ public class SocioController implements ActionListener, ItemListener {
 
 	public void listadoSociosLlenarTabla(JTable tabla) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificacion", "Nombre", "DirecciÃ³n", "Correo electrÃ³nico", "TelÃ©fono" });
+				new String[] { "Nro. identificacion", "Nombre", "Dirección", "Correo electrónico", "Teléfono" });
 
 		Object[] columna = new Object[5];
 		List<Socio> listSocios = socioDao.listaSocios();
@@ -723,7 +723,7 @@ public class SocioController implements ActionListener, ItemListener {
 	public void listadoCumpleaniosLlenarTabla(JTable tableSocios) {
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumpleaños" });
+				new String[] { "Nro. identificación", "Nombre", "Fecha de cumpleaños" });
 
 		Object[] columna = new Object[3];
 		List<Socio> listSocios = socioDao.sociosCumpleaniosMes();

@@ -34,10 +34,11 @@ public class MembresiaListaVisitasView extends JFrame {
 	 * Create the frame.
 	 */
 	public MembresiaListaVisitasView() {
-		setTitle("Historico de visitas");
+		setTitle("Histórico de visitas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 658, 470);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -48,7 +49,7 @@ public class MembresiaListaVisitasView extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblNewLabel = new JLabel("HISTORICO DE VISITAS");
+		JLabel lblNewLabel = new JLabel("HISTÓRICO DE VISITAS");
 		lblNewLabel.setBackground(Color.WHITE);
 		panel.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);

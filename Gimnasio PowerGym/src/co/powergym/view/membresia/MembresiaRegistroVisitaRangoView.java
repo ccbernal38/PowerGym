@@ -39,6 +39,7 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
 	private JSpinner spinner_1;
 	private JSpinner spinner2;
 	private JSpinner spinner;
+	private JPanel panel;
 
 	/**
 	 * Create the frame.
@@ -46,27 +47,28 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
 	public MembresiaRegistroVisitaRangoView() {
 		setTitle("Registrar visita");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 535, 257);
+		setBounds(100, 100, 535, 348);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(42, 45, 52));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(0, 91, 519, 207);
 		panel_1.setBackground(new Color(0, 0, 0, 0));
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblSocio = new JLabel("Socio:");
+		lblSocio.setBounds(10, 30, 93, 14);
 		lblSocio.setForeground(Color.WHITE);
 		lblSocio.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblSocio.setBounds(10, 30, 93, 14);
 		panel_1.add(lblSocio);
 
 		textFieldSocio = new JTextField();
-		textFieldSocio.setFont(new Font("Verdana", Font.PLAIN, 11));
 		textFieldSocio.setBounds(113, 28, 135, 20);
+		textFieldSocio.setFont(new Font("Verdana", Font.PLAIN, 11));
 		panel_1.add(textFieldSocio);
 		textFieldSocio.setColumns(10);
 
@@ -75,67 +77,67 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
 		panel_1.add(btnBuscar);
 
 		JLabel lblNombre = new JLabel("Nombres:");
+		lblNombre.setBounds(10, 62, 93, 14);
 		lblNombre.setForeground(Color.WHITE);
 		lblNombre.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblNombre.setBounds(10, 62, 93, 14);
 		panel_1.add(lblNombre);
 
 		JLabel lblApellidos = new JLabel("Apellidos:");
+		lblApellidos.setBounds(258, 62, 93, 14);
 		lblApellidos.setForeground(Color.WHITE);
 		lblApellidos.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblApellidos.setBounds(258, 62, 93, 14);
 		panel_1.add(lblApellidos);
 
 		textFieldNombres = new JTextField();
+		textFieldNombres.setBounds(113, 59, 135, 20);
 		textFieldNombres.setFont(new Font("Verdana", Font.PLAIN, 11));
 		textFieldNombres.setColumns(10);
-		textFieldNombres.setBounds(113, 59, 135, 20);
 		panel_1.add(textFieldNombres);
 
 		textFieldApellidos = new JTextField();
+		textFieldApellidos.setBounds(361, 59, 135, 20);
 		textFieldApellidos.setFont(new Font("Verdana", Font.PLAIN, 11));
 		textFieldApellidos.setColumns(10);
-		textFieldApellidos.setBounds(361, 59, 135, 20);
 		panel_1.add(textFieldApellidos);
 
 		textFieldValor = new JTextField();
-		textFieldValor.setFont(new Font("Verdana", Font.PLAIN, 11));
 		textFieldValor.setBounds(113, 122, 135, 20);
+		textFieldValor.setFont(new Font("Verdana", Font.PLAIN, 11));
 		panel_1.add(textFieldValor);
 		textFieldValor.setColumns(10);
 
 		JLabel lblValor = new JLabel("Hora de inicio:");
+		lblValor.setBounds(10, 92, 110, 14);
 		lblValor.setForeground(Color.WHITE);
 		lblValor.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblValor.setBounds(10, 92, 110, 14);
 		panel_1.add(lblValor);
 
-		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(258, 153, 89, 23);
+		btnRegistrar = new ButtonSecundario("Registrar");
+		btnRegistrar.setBounds(321, 173, 89, 23);
 		panel_1.add(btnRegistrar);
 
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(159, 153, 89, 23);
+		btnCancelar = new ButtonSecundario("Cancelar");
+		btnCancelar.setBounds(420, 173, 89, 23);
 		panel_1.add(btnCancelar);
 
 		JLabel label = new JLabel("Valor:");
+		label.setBounds(10, 124, 93, 14);
 		label.setForeground(Color.WHITE);
 		label.setFont(new Font("Verdana", Font.BOLD, 12));
-		label.setBounds(10, 124, 93, 14);
 		panel_1.add(label);
 
 		lblHoraDeFin = new JLabel("Hora de fin:");
+		lblHoraDeFin.setBounds(258, 93, 110, 14);
 		lblHoraDeFin.setForeground(Color.WHITE);
 		lblHoraDeFin.setFont(new Font("Verdana", Font.BOLD, 12));
-		lblHoraDeFin.setBounds(258, 93, 110, 14);
 		panel_1.add(lblHoraDeFin);
 
 		Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(0, 0, 0, 0, 0, 0));
         
         spinner2 = new JSpinner(new SpinnerDateModel(new Date(1507111200847L), null, null, Calendar.DAY_OF_MONTH));
-        spinner2.setFont(new Font("Verdana", Font.PLAIN, 11));
         spinner2.setBounds(113, 91, 135, 20);
+        spinner2.setFont(new Font("Verdana", Font.PLAIN, 11));
         JSpinner.DateEditor de_spinner2 = new JSpinner.DateEditor(spinner2, "hh:mm:ss a");
         DateFormatter formatter2 = (DateFormatter)de_spinner2.getTextField().getFormatter();
         formatter2.setAllowsInvalid(false); // this makes what you want
@@ -150,8 +152,8 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
         model.setValue(calendar.getTime());
 
         spinner = new JSpinner(new SpinnerDateModel(new Date(1507172400847L), null, null, Calendar.DAY_OF_MONTH));
-        spinner.setFont(new Font("Verdana", Font.PLAIN, 11));
         spinner.setBounds(361, 90, 135, 20);
+        spinner.setFont(new Font("Verdana", Font.PLAIN, 11));
         JSpinner.DateEditor de_spinner = new JSpinner.DateEditor(spinner, "hh:mm:ss a");
         DateFormatter formatter = (DateFormatter)de_spinner.getTextField().getFormatter();
         formatter.setAllowsInvalid(false); // this makes what you want
@@ -160,12 +162,20 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
         spinner.setEditor(de_spinner);
 
         panel_1.add(spinner);
-        
+		
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 519, 56);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
 		JLabel lblNewLabel = new JLabel("Registrar Visita");
+		lblNewLabel.setBounds(10, 11, 509, 23);
+		panel.add(lblNewLabel);
+		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
-		contentPane.add(lblNewLabel, BorderLayout.NORTH);
 	}
 
 	public JTextField getTextFieldApellidos() {

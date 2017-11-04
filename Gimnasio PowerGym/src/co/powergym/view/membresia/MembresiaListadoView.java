@@ -78,7 +78,7 @@ public class MembresiaListadoView extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-					"Id", "Nombre de la membres\u00EDa", "Precio", "Duracion" 
+					"Id", "Nombre de la membres\u00EDa", "Precio", "Duración" 
 			}
 		));
 		tableMembresias.getColumnModel().getColumn(0).setPreferredWidth(10);

@@ -23,6 +23,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JScrollPane;
 import com.toedter.calendar.JDateChooser;
 
+import co.powergym.utils.ButtonSecundario;
+import co.powergym.utils.Constantes;
+
 public class MembresiaRegistroView extends JFrame {
 
 	private JPanel contentPane;
@@ -84,6 +87,7 @@ public class MembresiaRegistroView extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 480, 435);
 		contentPane = new JPanel();
+		contentPane.setBackground(Constantes.black());
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -97,7 +101,7 @@ public class MembresiaRegistroView extends JFrame {
 		btn_anterior.setBounds(726, 105, 110, 30);
 		contentPane.add(btn_anterior);
 
-		btnSiguiente = new JButton("Siguiente");
+		btnSiguiente = new ButtonSecundario("Siguiente");
 		btnSiguiente.setBounds(338, 350, 110, 30);
 		contentPane.add(btnSiguiente);
 
@@ -125,19 +129,20 @@ public class MembresiaRegistroView extends JFrame {
 		lblPasoDe.setBounds(76, 50, 61, 16);
 		panel_2.add(lblPasoDe);
 
-		lbl_pregunta_1 = new JLabel("Asigne un nombre a la nueva membres\u00EDa:");
+		lbl_pregunta_1 = new JLabel("Asigne un nombre a la nueva membresía:");
+		lbl_pregunta_1.setForeground(Color.WHITE);
 		lbl_pregunta_1.setBounds(30, 118, 285, 16);
 		contentPane.add(lbl_pregunta_1);
 
-		lbl_pregunta_2 = new JLabel("Seleccione la duraci\u00F3n de esta membres\u00EDa:");
+		lbl_pregunta_2 = new JLabel("Seleccione la duración de esta membresía:");
 		lbl_pregunta_2.setBounds(503, 21, 285, 16);
 		contentPane.add(lbl_pregunta_2);
 
-		lb_pregunta_3 = new JLabel("\u00BFSe limitaran las visitas por dia para esta membres\u00EDa?");
+		lb_pregunta_3 = new JLabel("\u00BFSe limitaran las visitas por dia para esta membresía?");
 		lb_pregunta_3.setBounds(503, 84, 344, 16);
 		contentPane.add(lb_pregunta_3);
 
-		lbl_pregunta_4 = new JLabel("Seleccione los d\u00EDas de ingreso para esta membres\u00EDa:");
+		lbl_pregunta_4 = new JLabel("Seleccione los días de ingreso para esta membresía:");
 		lbl_pregunta_4.setBounds(503, 171, 285, 16);
 		contentPane.add(lbl_pregunta_4);
 
@@ -154,7 +159,7 @@ public class MembresiaRegistroView extends JFrame {
 		lblCantidad.setBounds(503, 49, 61, 16);
 		contentPane.add(lblCantidad);
 
-		chckbxSi = new JCheckBox("SI. Inidicar el n\u00FAmero de visitas permitidas por d\u00EDa.");
+		chckbxSi = new JCheckBox("SI. Inidicar el número de visitas permitidas por día.");
 		buttonGroup.add(chckbxSi);
 		chckbxSi.setBounds(503, 147, 267, 23);
 		contentPane.add(chckbxSi);
@@ -168,7 +173,7 @@ public class MembresiaRegistroView extends JFrame {
 		comboBoxVisitas.setBounds(777, 145, 61, 27);
 		contentPane.add(comboBoxVisitas);
 
-		checkBoxTodosDias = new JCheckBox("Todos los d\u00EDas");
+		checkBoxTodosDias = new JCheckBox("Todos los días");
 		checkBoxTodosDias.setBounds(720, 230, 93, 23);
 		contentPane.add(checkBoxTodosDias);
 
@@ -188,7 +193,7 @@ public class MembresiaRegistroView extends JFrame {
 		checkBox_jueves.setBounds(720, 202, 69, 23);
 		contentPane.add(checkBox_jueves);
 
-		checkBox_miercoles = new JCheckBox("Miercoles");
+		checkBox_miercoles = new JCheckBox("Miércoles");
 		checkBox_miercoles.setBounds(650, 202, 69, 23);
 		contentPane.add(checkBox_miercoles);
 
@@ -205,11 +210,13 @@ public class MembresiaRegistroView extends JFrame {
 		contentPane.add(tfNombreMembresia);
 		tfNombreMembresia.setColumns(10);
 
-		lbl_costoMembresia = new JLabel("Asigne un costo a la membres\u00EDa:");
+		lbl_costoMembresia = new JLabel("Asigne un costo a la membresía:");
+		lbl_costoMembresia.setForeground(Color.WHITE);
 		lbl_costoMembresia.setBounds(30, 192, 285, 16);
 		contentPane.add(lbl_costoMembresia);
 
 		label_signoP = new JLabel("$");
+		label_signoP.setForeground(Color.WHITE);
 		label_signoP.setFont(new Font("Tahoma", Font.BOLD, 26));
 		label_signoP.setBounds(30, 215, 25, 34);
 		contentPane.add(label_signoP);
@@ -219,7 +226,7 @@ public class MembresiaRegistroView extends JFrame {
 		textFieldPrecio.setBounds(54, 220, 86, 26);
 		contentPane.add(textFieldPrecio);
 
-		lbl_pregunta5 = new JLabel("\u00BFSe restringiran los horarios de ingreso para esta membres\u00EDa?");
+		lbl_pregunta5 = new JLabel("\u00BFSe restringiran los horarios de ingreso para esta membresía?");
 		lbl_pregunta5.setBounds(520, 260, 342, 16);
 		contentPane.add(lbl_pregunta5);
 
@@ -279,7 +286,7 @@ public class MembresiaRegistroView extends JFrame {
 		label_vineta_2.setBounds(10, 189, 20, 20);
 		contentPane.add(label_vineta_2);
 
-		lblResumenMembresia = new JLabel("Resumen de la membres\u00EDa:");
+		lblResumenMembresia = new JLabel("Resumen de la membresía:");
 		lblResumenMembresia.setBounds(55, 559, 165, 14);
 		contentPane.add(lblResumenMembresia);
 
@@ -295,12 +302,12 @@ public class MembresiaRegistroView extends JFrame {
 		table_resumen_membresia = new JTable();
 		scrollPane.setViewportView(table_resumen_membresia);
 		table_resumen_membresia.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		table_resumen_membresia.setModel(new DefaultTableModel(new Object[][] { { " Nombre de la membres\u00EDa:", "" },
-				{ " Costo de la membres\u00EDa:", null }, { " Duraci\u00F3n de la membres\u00EDa:", null },
-				{ " N\u00FAmero de visitas por d\u00EDa:", null }, { " D\u00EDas limite de ingreso:", null },
-				{ " Horarios de ingreso por d\u00EDa:", null }, }, new String[] { "Criterio", "Valor" }));
+		table_resumen_membresia.setModel(new DefaultTableModel(new Object[][] { { " Nombre de la membresía:", "" },
+				{ " Costo de la membresía:", null }, { " Duración de la  membresía:", null },
+				{ " Número de visitas por día:", null }, { " Días limite de ingreso:", null },
+				{ " Horarios de ingreso por día:", null }, }, new String[] { "Criterio", "Valor" }));
 
-		labelMPromoconal = new JLabel("Indique si es una membres\u00EDa promocional:");
+		labelMPromoconal = new JLabel("Indique si es una  membresía promocional:");
 		labelMPromoconal.setBounds(100, 500, 285, 16);
 		contentPane.add(labelMPromoconal);
 

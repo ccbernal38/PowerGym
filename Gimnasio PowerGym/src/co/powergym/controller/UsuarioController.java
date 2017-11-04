@@ -85,7 +85,7 @@ public class UsuarioController implements ActionListener {
 
 	public void listadoUsuariosLlenarTabla(JTable tablaUsuarios) {
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificación", "Nombre", "Dirección", "Correo electronico", "Teléfono" });
+				new String[] { "Nro. identificación", "Nombre", "Dirección", "Correo electrónico", "Teléfono" });
 
 		Object[] columna = new Object[5];
 		List<Usuario> listUsuarios = usuarioDao.listaUsuario();
@@ -263,7 +263,7 @@ public class UsuarioController implements ActionListener {
 						JOptionPane.showMessageDialog(null, "El campo contraseña no puede estar vacio.");
 					} else if (!contrasena.equals(confirmaC)) {
 						JOptionPane.showMessageDialog(null,
-								"La contraseña no incide con los datos ingresados en el campo contrseña, por favor verifique.");
+								"La contraseña no incide con los datos ingresados en el campo contraseña, por favor verifique.");
 					}
 				}
 				respuesta = usuarioDao.registrarUsuario(numeroId, nombre, apellido, fechaNacimiento, correo, telefono,
