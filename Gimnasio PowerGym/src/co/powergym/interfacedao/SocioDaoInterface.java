@@ -34,5 +34,9 @@ public interface SocioDaoInterface {
 	public Socio buscarSocioIdOrCodigo(String id);
 
 	public int contarSocios();
+	
+	public List<Socio> listarSociosActivos();
+	
+	public List<Socio> listarSociosInactivos();
 
 }
