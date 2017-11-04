@@ -51,7 +51,7 @@ public class ReciboDao implements ReciboInterfaceDao {
 		try {
 			Connection accesoBD = conexion.getConexion();
 			PreparedStatement statement = accesoBD.prepareStatement("INSERT INTO Factura(fecha, descripcion, "
-					+ "pago, usadoSaldoFavor, debe, saldoFavor, socio_id, usuario_id"
+					+ "paga, usadoSaldoFavor, debe, saldoFavor, socio_id, usuario_id"
 					+ ") VALUES(?,?,?,?,?,?,?,?)");
 			statement.setTimestamp(1, new Timestamp(fecha.getTime()));
 			statement.setString(2, descripcion);

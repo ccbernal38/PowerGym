@@ -143,8 +143,8 @@ public class LoginView extends JFrame {
 		contentPane.add(btnSalir);
 		
 		btnIniciar = new JButton("Iniciar");
-		btnIniciar.setForeground(Color.BLACK);
 		btnIniciar.setFont(new Font("Verdana", Font.BOLD, 14));
+		btnIniciar.setForeground(Color.BLACK);
 		btnIniciar.setBackground(Constantes.blue());
 		btnIniciar.setBorder(new LineBorder(Color.BLUE, 3, true));
 		btnIniciar.setBounds(58, 144, 319, 51);

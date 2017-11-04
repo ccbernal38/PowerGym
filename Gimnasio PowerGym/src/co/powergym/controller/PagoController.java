@@ -207,32 +207,24 @@ public class PagoController implements ActionListener {
 					saldoFavorDao.registrarSaldoFavor(-saldoFavor, socioTemp, caja_id);
 					pagoMembresiaView.setVisible(false);
 					pagoMembresiaView.dispose();
-					ReciboView reciboView = new ReciboView();
-					reciboView.getLabelCliente().setText(socioDao.buscarSocio(socioTemp).getNombreCompleto());
-					reciboView.getTextFieldPaga().setText(saldoPagar + "");
-					reciboView.getTextFieldUsadoSaldoFavor().setText(saldoFavor + "");
-					reciboView.getTextFieldDebe().setText(0 + "");
-					ReciboController controller = new ReciboController(reciboView);
-					controller.setClienteId(socioTemp);
-
 				}
 
 				if ((deuda - totalPagar) < 0) {
 					int option = JOptionPane.showConfirmDialog(null,
-							"¿Desea guardar el dinero restante" + (-(deuda - totalPagar)) + " como saldo a favor?",
+							"¿Desea guardar el dinero restante " + (-(deuda - totalPagar)) + " como saldo a favor?",
 							"Atención", JOptionPane.YES_NO_OPTION);
 					if (option == JOptionPane.YES_OPTION) {
 						saldoFavorDao.registrarSaldoFavor(-(deuda - totalPagar), socioTemp, caja_id);
-						ReciboView reciboView = new ReciboView();
-						reciboView.getTextFieldPaga().setText(saldoPagar + "");
-						reciboView.getTextFieldUsadoSaldoFavor().setText(saldoFavor + "");
-						reciboView.getTextFieldDebe().setText(0 + "");
-						reciboView.getTextFieldSaldoFavor().setText((-(deuda - totalPagar)) + "");
-						ReciboController controller = new ReciboController(reciboView);
-						controller.setClienteId(socioTemp);
 					}
-
 				}
+				ReciboView reciboView = new ReciboView();
+				reciboView.getTextFieldPaga().setText(saldoPagar + "");
+				reciboView.getTextFieldUsadoSaldoFavor().setText(saldoFavor + "");
+				reciboView.getTextFieldDebe().setText(0 + "");
+				reciboView.getTextFieldSaldoFavor().setText((-(deuda - totalPagar)) + "");
+				ReciboController controller = new ReciboController(reciboView, socioTemp);
+				controller.setClienteId(socioTemp);
+
 				pagoMembresiaView.setVisible(false);
 				pagoMembresiaView.dispose();
 

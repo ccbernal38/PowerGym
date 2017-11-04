@@ -14,6 +14,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+
+import co.powergym.utils.ButtonSecundario;
+import co.powergym.utils.Constantes;
+
 import javax.swing.JSeparator;
 
 public class CajaHistoricoDetalleView extends JFrame {
@@ -31,54 +37,56 @@ public class CajaHistoricoDetalleView extends JFrame {
 	private JLabel labelFechaCierre;
 
 	public CajaHistoricoDetalleView() {
+		setResizable(false);
 		setIconImage(
 				Toolkit.getDefaultToolkit().getImage("D:\\PowerGym\\PowerGym\\Gimnasio PowerGym\\image\\icon.ico"));
 		setTitle("Cierre de caja");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 480, 504);
+		setBounds(100, 100, 473, 506);
 		contentPane = new JPanel();
+		contentPane.setBackground(Constantes.black());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblCierreDeCaja = new JLabel("DETALLE DE CAJA");
-		lblCierreDeCaja.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCierreDeCaja.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblCierreDeCaja.setBounds(10, 11, 444, 56);
-		contentPane.add(lblCierreDeCaja);
-
 		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panel.setBackground(Constantes.black());
 		panel.setBounds(10, 78, 448, 349);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Responsable de apertura:");
+		lblNewLabel.setForeground(Constantes.white());
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblNewLabel.setBounds(10, 11, 232, 24);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Fecha de apertura:");
+		lblNewLabel_1.setForeground(Constantes.white());
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(10, 46, 232, 24);
 		panel.add(lblNewLabel_1);
 
 		JLabel lblResponsableDeCierre = new JLabel("Responsable de cierre:");
+		lblResponsableDeCierre.setForeground(Constantes.white());
 		lblResponsableDeCierre.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblResponsableDeCierre.setBounds(10, 81, 232, 24);
 		panel.add(lblResponsableDeCierre);
 
 		JLabel lblVentaDeMembresias = new JLabel("Venta de membres\u00EDas:");
+		lblVentaDeMembresias.setForeground(Constantes.white());
 		lblVentaDeMembresias.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblVentaDeMembresias.setBounds(10, 167, 232, 27);
 		panel.add(lblVentaDeMembresias);
 
 		JLabel lblVisitasDelDia = new JLabel("Visitas del d\u00EDa:");
+		lblVisitasDelDia.setForeground(Constantes.white());
 		lblVisitasDelDia.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblVisitasDelDia.setBounds(10, 205, 232, 24);
 		panel.add(lblVisitasDelDia);
 
 		JLabel lblEgresosDelDia = new JLabel("Egresos del d\u00EDa:");
+		lblEgresosDelDia.setForeground(Constantes.white());
 		lblEgresosDelDia.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblEgresosDelDia.setBounds(10, 278, 232, 24);
 		panel.add(lblEgresosDelDia);
@@ -111,18 +119,21 @@ public class CajaHistoricoDetalleView extends JFrame {
 		panel.add(textFieldVentasM);
 
 		labelResponsableCierre = new JLabel("");
+		labelResponsableCierre.setForeground(Constantes.white());
 		labelResponsableCierre.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelResponsableCierre.setFont(new Font("Verdana", Font.BOLD, 14));
 		labelResponsableCierre.setBounds(232, 81, 200, 24);
 		panel.add(labelResponsableCierre);
 
 		labelFechaApertura = new JLabel("");
+		labelFechaApertura.setForeground(Constantes.white());
 		labelFechaApertura.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelFechaApertura.setFont(new Font("Verdana", Font.BOLD, 14));
 		labelFechaApertura.setBounds(232, 46, 200, 24);
 		panel.add(labelFechaApertura);
 
 		labelResponsableApertura = new JLabel("");
+		labelResponsableApertura.setForeground(Constantes.white());
 		labelResponsableApertura.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelResponsableApertura.setFont(new Font("Verdana", Font.BOLD, 14));
 		labelResponsableApertura.setBounds(232, 11, 200, 24);
@@ -147,21 +158,25 @@ public class CajaHistoricoDetalleView extends JFrame {
 		panel.add(textFieldSaldoFavor);
 
 		JLabel lblSaldoAFavor = new JLabel("Saldo a favor:");
+		lblSaldoAFavor.setForeground(Constantes.white());
 		lblSaldoAFavor.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblSaldoAFavor.setBounds(10, 243, 232, 24);
 		panel.add(lblSaldoAFavor);
 
 		JLabel lblAdeudos = new JLabel("Cuentas por cobrar:");
+		lblAdeudos.setForeground(Constantes.white());
 		lblAdeudos.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblAdeudos.setBounds(10, 314, 232, 24);
 		panel.add(lblAdeudos);
 
 		JLabel lblFechaDeCierre = new JLabel("Fecha de cierre:");
+		lblFechaDeCierre.setForeground(Constantes.white());
 		lblFechaDeCierre.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblFechaDeCierre.setBounds(10, 116, 232, 24);
 		panel.add(lblFechaDeCierre);
 
 		labelFechaCierre = new JLabel("");
+		labelFechaCierre.setForeground(Constantes.white());
 		labelFechaCierre.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelFechaCierre.setFont(new Font("Verdana", Font.BOLD, 14));
 		labelFechaCierre.setBounds(232, 116, 200, 24);
@@ -171,9 +186,20 @@ public class CajaHistoricoDetalleView extends JFrame {
 		separator.setBounds(10, 148, 422, 8);
 		panel.add(separator);
 
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(341, 438, 113, 23);
+		btnCancelar = new ButtonSecundario("Cancelar");
+		btnCancelar.setBounds(329, 438, 113, 23);
 		contentPane.add(btnCancelar);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBounds(0, 0, 467, 56);
+		contentPane.add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblCierreDeCaja = new JLabel("DETALLE DE CAJA");
+		panel_1.add(lblCierreDeCaja, BorderLayout.CENTER);
+		lblCierreDeCaja.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCierreDeCaja.setFont(new Font("Verdana", Font.BOLD, 18));
 	}
 
 	public JLabel getLabelResponsableApertura() {

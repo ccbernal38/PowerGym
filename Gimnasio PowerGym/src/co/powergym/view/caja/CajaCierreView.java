@@ -11,6 +11,11 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+import co.powergym.utils.ButtonPrincipal;
+import co.powergym.utils.ButtonSecundario;
+import co.powergym.utils.Constantes;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Toolkit;
@@ -37,54 +42,55 @@ public class CajaCierreView extends JFrame {
 	 * Create the frame.
 	 */
 	public CajaCierreView() {
+		setResizable(false);
 		setIconImage(
 				Toolkit.getDefaultToolkit().getImage("D:\\PowerGym\\PowerGym\\Gimnasio PowerGym\\image\\icon.ico"));
 		setTitle("Cierre de caja");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 575, 533);
+		setBounds(100, 100, 559, 533);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Constantes.black());
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblCierreDeCaja = new JLabel("CIERRE DE CAJA");
-		lblCierreDeCaja.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCierreDeCaja.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblCierreDeCaja.setBounds(10, 11, 542, 56);
-		contentPane.add(lblCierreDeCaja);
-
 		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panel.setBackground(Constantes.black());
 		panel.setBounds(10, 78, 542, 306);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Responsable de apertura:");
+		lblNewLabel.setForeground(Constantes.white());
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblNewLabel.setBounds(10, 11, 232, 24);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Fecha de apertura:");
+		lblNewLabel_1.setForeground(Constantes.white());
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(10, 46, 232, 24);
 		panel.add(lblNewLabel_1);
 
 		JLabel lblResponsableDeCierre = new JLabel("Responsable de cierre:");
+		lblResponsableDeCierre.setForeground(Constantes.white());
 		lblResponsableDeCierre.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblResponsableDeCierre.setBounds(10, 81, 232, 24);
 		panel.add(lblResponsableDeCierre);
 
 		JLabel lblVentaDeMembresias = new JLabel("Venta de membres\u00EDas:");
+		lblVentaDeMembresias.setForeground(Constantes.white());
 		lblVentaDeMembresias.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblVentaDeMembresias.setBounds(10, 115, 232, 27);
 		panel.add(lblVentaDeMembresias);
 
 		JLabel lblVisitasDelDia = new JLabel("Visitas del d\u00EDa:");
+		lblVisitasDelDia.setForeground(Constantes.white());
 		lblVisitasDelDia.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblVisitasDelDia.setBounds(10, 153, 232, 24);
 		panel.add(lblVisitasDelDia);
 
 		JLabel lblEgresosDelDia = new JLabel("Egresos del d\u00EDa:");
+		lblEgresosDelDia.setForeground(Constantes.white());
 		lblEgresosDelDia.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblEgresosDelDia.setBounds(10, 226, 232, 24);
 		panel.add(lblEgresosDelDia);
@@ -117,35 +123,38 @@ public class CajaCierreView extends JFrame {
 		panel.add(textFieldVentasM);
 
 		labelResponsableCierre = new JLabel("");
+		labelResponsableCierre.setForeground(Constantes.white());
 		labelResponsableCierre.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelResponsableCierre.setFont(new Font("Verdana", Font.BOLD, 14));
 		labelResponsableCierre.setBounds(232, 81, 200, 24);
 		panel.add(labelResponsableCierre);
 
 		labelFechaApertura = new JLabel("");
+		labelFechaApertura.setForeground(Constantes.white());
 		labelFechaApertura.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelFechaApertura.setFont(new Font("Verdana", Font.BOLD, 14));
 		labelFechaApertura.setBounds(232, 46, 200, 24);
 		panel.add(labelFechaApertura);
 
 		labelResponsableApertura = new JLabel("");
+		labelResponsableApertura.setForeground(Constantes.white());
 		labelResponsableApertura.setHorizontalAlignment(SwingConstants.RIGHT);
 		labelResponsableApertura.setFont(new Font("Verdana", Font.BOLD, 14));
 		labelResponsableApertura.setBounds(232, 11, 200, 24);
 		panel.add(labelResponsableApertura);
 
-		buttonDetallesMembresia = new JButton("Detalles");
+		buttonDetallesMembresia = new ButtonSecundario("Detalles");
 		buttonDetallesMembresia.setBounds(442, 119, 89, 23);
 		panel.add(buttonDetallesMembresia);
 
-		buttonDetallesVisitasDia = new JButton("Detalles");
+		buttonDetallesVisitasDia = new ButtonSecundario("Detalles");
 		buttonDetallesVisitasDia.setBounds(442, 156, 89, 23);
 		panel.add(buttonDetallesVisitasDia);
 
-		buttonDetalleEgresosDia = new JButton("Detalles");
+		buttonDetalleEgresosDia = new ButtonSecundario("Detalles");
 		buttonDetalleEgresosDia.setBounds(442, 229, 89, 23);
 		panel.add(buttonDetalleEgresosDia);
-		
+
 		textFieldAdeudos = new JTextField();
 		textFieldAdeudos.setHorizontalAlignment(SwingConstants.RIGHT);
 		textFieldAdeudos.setForeground(new Color(128, 0, 0));
@@ -154,7 +163,7 @@ public class CajaCierreView extends JFrame {
 		textFieldAdeudos.setColumns(10);
 		textFieldAdeudos.setBounds(232, 263, 200, 27);
 		panel.add(textFieldAdeudos);
-		
+
 		textFieldSaldoFavor = new JTextField();
 		textFieldSaldoFavor.setHorizontalAlignment(SwingConstants.RIGHT);
 		textFieldSaldoFavor.setForeground(new Color(34, 139, 34));
@@ -163,18 +172,21 @@ public class CajaCierreView extends JFrame {
 		textFieldSaldoFavor.setColumns(10);
 		textFieldSaldoFavor.setBounds(232, 188, 200, 27);
 		panel.add(textFieldSaldoFavor);
-		
+
 		JLabel lblSaldoAFavor = new JLabel("Saldo a favor:");
+		lblSaldoAFavor.setForeground(Constantes.white());
 		lblSaldoAFavor.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblSaldoAFavor.setBounds(10, 191, 232, 24);
 		panel.add(lblSaldoAFavor);
-		
+
 		JLabel lblAdeudos = new JLabel("Cuentas por cobrar:");
+		lblAdeudos.setForeground(Constantes.white());
 		lblAdeudos.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblAdeudos.setBounds(10, 264, 232, 24);
 		panel.add(lblAdeudos);
 
 		JLabel lblDineroEnCaja = new JLabel("DINERO EN CAJA:");
+		lblDineroEnCaja.setForeground(Constantes.white());
 		lblDineroEnCaja.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDineroEnCaja.setFont(new Font("Verdana", Font.BOLD, 24));
 		lblDineroEnCaja.setBounds(10, 395, 292, 68);
@@ -184,16 +196,27 @@ public class CajaCierreView extends JFrame {
 		labelDineroEnCaja.setHorizontalAlignment(SwingConstants.LEFT);
 		labelDineroEnCaja.setFont(new Font("Verdana", Font.BOLD, 34));
 		labelDineroEnCaja.setBounds(312, 391, 240, 68);
-		labelDineroEnCaja.setForeground(new Color(34, 139, 34));
+		labelDineroEnCaja.setForeground(Constantes.white());
 		contentPane.add(labelDineroEnCaja);
-		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(439, 460, 113, 23);
+
+		btnCancelar = new ButtonSecundario("Cancelar");
+		btnCancelar.setBounds(435, 460, 113, 23);
 		contentPane.add(btnCancelar);
-		
-		btnCerrarCaja = new JButton("Cerrar caja");
-		btnCerrarCaja.setBounds(319, 460, 113, 23);
+
+		btnCerrarCaja = new ButtonSecundario("Cerrar caja");
+		btnCerrarCaja.setBounds(312, 460, 113, 23);
 		contentPane.add(btnCerrarCaja);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBounds(0, 0, 559, 56);
+		contentPane.add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblCierreDeCaja = new JLabel("CIERRE DE CAJA");
+		panel_1.add(lblCierreDeCaja);
+		lblCierreDeCaja.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCierreDeCaja.setFont(new Font("Verdana", Font.BOLD, 18));
 	}
 
 	public JLabel getLabelResponsableApertura() {
@@ -235,15 +258,19 @@ public class CajaCierreView extends JFrame {
 	public JLabel getLabelDineroEnCaja() {
 		return labelDineroEnCaja;
 	}
+
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
+
 	public JButton getBtnCerrarCaja() {
 		return btnCerrarCaja;
 	}
+
 	public JTextField getTextFieldSaldoFavor() {
 		return textFieldSaldoFavor;
 	}
+
 	public JTextField getTextFieldAdeudos() {
 		return textFieldAdeudos;
 	}
