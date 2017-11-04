@@ -99,7 +99,6 @@ public class InicioController implements ActionListener {
 		permisoUsuarioDao = new PermisoUsuarioDao();
 		this.viewPrincipal = viewPrincipal;
 		this.viewPrincipal.getJMenuItemRegistrarSocio().addActionListener(this);
-		this.viewPrincipal.getjMenuItemSocioActivo().addActionListener(this);
 		this.viewPrincipal.getJMenuItemRegistrarSocio().setEnabled(false);
 		this.viewPrincipal.getMntmRegistroDeVisitaRango().addActionListener(this);
 		this.viewPrincipal.getBtnRegistrarSocio().addActionListener(this);

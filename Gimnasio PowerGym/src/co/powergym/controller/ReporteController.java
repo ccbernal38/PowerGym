@@ -27,17 +27,16 @@ public class ReporteController implements ActionListener{
 		if(generarReporte != null) {
 			this.generarReporteA = generarReporte;
 			this.generarReporteA.setVisible(true);
+			this.generarReporteA.setLocationRelativeTo(null);
 			this.generarReporteA.getChckbxListaSocios().addActionListener(this);			
 		}
 	}
 	
-	
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(generarReporteA.getChckbxListaSocios() ==e.getSource()) {
-			llenarTablaListaSocios(generarReporteA.getTable_vista_informe());
+			llenarTablaListaSocios(generarReporteA.getTableReportes());
 		}
 	}
 
@@ -46,7 +45,7 @@ public class ReporteController implements ActionListener{
 	private void llenarTablaListaSocios(JTable listaSocios) {
 		
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificacion", "Nombre", "DirecciÃ³n", "Correo electrÃ³nico", "TelÃ©fono" });
+				new String[] { "Nro. identificación", "Nombre", "Dirección", "Correo electrónico", "Teléfono" });
 
 		Object[] columna = new Object[5];
 		List<Socio> listSocios = socioDao.listaSocios();
@@ -60,7 +59,13 @@ public class ReporteController implements ActionListener{
 			columna[4] = listSocios.get(i).getTelefono();
 			defaultTableModel.addRow(columna);
 		}
+		
 		listaSocios.setModel(defaultTableModel);
+		listaSocios.getColumnModel().getColumn(0).setPreferredWidth(20);
+		listaSocios.getColumnModel().getColumn(1).setPreferredWidth(80);
+		listaSocios.getColumnModel().getColumn(2).setPreferredWidth(80);
+		listaSocios.getColumnModel().getColumn(3).setPreferredWidth(80);
+		listaSocios.getColumnModel().getColumn(4).setPreferredWidth(20);
 		listaSocios.repaint();
 		
 	}
