@@ -30,7 +30,6 @@ public class CajaListaIngresosHoyView extends JFrame {
 	private JButton btnSalir;
 	private JPanel panel;
 
-	
 	/**
 	 * Create the frame.
 	 */
@@ -67,21 +66,23 @@ public class CajaListaIngresosHoyView extends JFrame {
 		});
 		btnSalir.setBounds(543, 397, 89, 23);
 		contentPane.add(btnSalir);
-		
+
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 652, 56);
 		contentPane.add(panel);
-				panel.setLayout(new BorderLayout(0, 0));
-		
-				JLabel lblNewLabel = new JLabel("INGRESOS DE HOY");
-				panel.add(lblNewLabel);
-				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
+		panel.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblNewLabel = new JLabel("INGRESOS DE HOY");
+		panel.add(lblNewLabel);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
 	}
+
 	public JButton getBtnSalir() {
 		return btnSalir;
 	}
+
 	public JTable getTable() {
 		return table;
 	}
