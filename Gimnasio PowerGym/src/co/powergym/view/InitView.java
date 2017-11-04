@@ -37,6 +37,10 @@ import javax.swing.border.EmptyBorder;
 
 import com.digitalpersona.onetouch.DPFPTemplate;
 import com.toedter.components.JSpinField;
+
+import co.powergym.utils.ButtonSecundario;
+import co.powergym.utils.Constantes;
+
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -67,7 +71,7 @@ public class InitView extends JFrame {
 
 		setTitle("PowerGym");
 
-		getContentPane().setBackground(new Color(127, 190, 235));
+		getContentPane().setBackground(Constantes.black());
 		initComponents();
 	}
 
@@ -102,7 +106,7 @@ public class InitView extends JFrame {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 
 		jMenu1.setText("Archivo");
-		
+
 		mntmCopiaDeSeguridad = new JMenuItem("Copia de seguridad");
 		jMenu1.add(mntmCopiaDeSeguridad);
 
@@ -157,7 +161,7 @@ public class InitView extends JFrame {
 		jMenu5.add(jMenuItem14);
 
 		jMenuBar.add(jMenu5);
-		
+
 		mntmHistoricoDeCaja = new JMenuItem("Historico de caja");
 		jMenu5.add(mntmHistoricoDeCaja);
 
@@ -186,7 +190,7 @@ public class InitView extends JFrame {
 
 		mntmRegistroDeVisitas = new JMenuItem("Registro de visitas");
 		mnVisitas.add(mntmRegistroDeVisitas);
-		
+
 		mntmRegistroDeVisitasRango = new JMenuItem("Registro de visitas rango horas");
 		mnVisitas.add(mntmRegistroDeVisitasRango);
 
@@ -217,7 +221,7 @@ public class InitView extends JFrame {
 		btnRegistrarSocio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrarSocio.setFont(new Font("Verdana", Font.BOLD, 12));
 		getContentPane().add(btnRegistrarSocio);
-		btnRegistrarSocio.setForeground(new Color(74, 74, 72));
+		btnRegistrarSocio.setForeground(Color.BLACK);
 		btnRegistrarSocio.setBackground(new Color(208, 0, 0));
 
 		btnRegistrarSocio.setText("<html><center>Registro<br />de socio (F3)</center></html>");
@@ -228,7 +232,7 @@ public class InitView extends JFrame {
 		btnMenuMembresia.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnMenuMembresia.setBorder(null);
 		btnMenuMembresia.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnMenuMembresia.setForeground(new Color(74, 74, 72));
+		btnMenuMembresia.setForeground(Color.BLACK);
 		getContentPane().add(btnMenuMembresia);
 		btnMenuMembresia.setBackground(new Color(0, 208, 0));
 
@@ -238,7 +242,7 @@ public class InitView extends JFrame {
 		jButtonPagarMensualidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonPagarMensualidad.setBorder(null);
 		jButtonPagarMensualidad.setFont(new Font("Verdana", Font.BOLD, 12));
-		jButtonPagarMensualidad.setForeground(new Color(74, 74, 72));
+		jButtonPagarMensualidad.setForeground(Color.BLACK);
 		getContentPane().add(jButtonPagarMensualidad);
 		jButtonPagarMensualidad.setBackground(new Color(0, 0, 208));
 
@@ -248,7 +252,7 @@ public class InitView extends JFrame {
 		jButtonCierreCaja.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jButtonCierreCaja.setBorder(null);
 		jButtonCierreCaja.setFont(new Font("Verdana", Font.BOLD, 12));
-		jButtonCierreCaja.setForeground(new Color(74, 74, 72));
+		jButtonCierreCaja.setForeground(Color.BLACK);
 		getContentPane().add(jButtonCierreCaja);
 		jButtonCierreCaja.setBackground(new Color(208, 208, 0));
 
@@ -295,14 +299,14 @@ public class InitView extends JFrame {
 		listCumpleanios.setBackground(new Color(0, 0, 0, 0));
 
 		panelBusqueda = new JPanel();
-		panelBusqueda.setBackground(new Color( 255,255,255));
+		panelBusqueda.setBackground(Constantes.blue());
 		panelBusqueda.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelBusqueda.setBounds(0, 0, 1362, 47);
+		panelBusqueda.setBounds(0, 0, 1373, 47);
 		getContentPane().add(panelBusqueda);
 		panelBusqueda.setLayout(null);
 
 		JLabel lblNewLabel_2 = new JLabel("Consultar socio:");
-		lblNewLabel_2.setForeground(new Color(74, 74, 72));
+		lblNewLabel_2.setForeground(Color.BLACK);
 		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(10, 3, 195, 36);
 		panelBusqueda.add(lblNewLabel_2);
@@ -314,22 +318,19 @@ public class InitView extends JFrame {
 		panelBusqueda.add(textFieldKey);
 		textFieldKey.setColumns(10);
 
-		btnSalir = new JButton("Salir");
-		btnSalir.setBackground(Color.LIGHT_GRAY);
-		btnSalir.setForeground(new Color(74, 74, 72));
+		btnSalir = new ButtonSecundario("Salir");
+		btnSalir.setForeground(Color.BLACK);
 		btnSalir.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnSalir.setBounds(1233, 11, 107, 23);
 		panelBusqueda.add(btnSalir);
-		btnB = new JButton("Buscar");
-		btnB.setBackground(Color.LIGHT_GRAY);
+		btnB = new ButtonSecundario("Buscar");
 		btnB.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnB.setForeground(new Color(74, 74, 72));
+		btnB.setForeground(Color.BLACK);
 		btnB.setBounds(336, 11, 121, 25);
 		panelBusqueda.add(btnB);
 
-		btnPuerta = new JButton("Puerta");
-		btnPuerta.setBackground(Color.LIGHT_GRAY);
-		btnPuerta.setForeground(new Color(74, 74, 72));
+		btnPuerta = new ButtonSecundario("Puerta");
+		btnPuerta.setForeground(Color.BLACK);
 		btnPuerta.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnPuerta.setBounds(1134, 11, 89, 23);
 		panelBusqueda.add(btnPuerta);
@@ -342,7 +343,7 @@ public class InitView extends JFrame {
 
 		getContentPane().add(labelBackgroundImage);
 
-		btnRegistrodeVisita = new JButton();
+		btnRegistrodeVisita = new ButtonSecundario();
 		btnRegistrodeVisita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -350,7 +351,7 @@ public class InitView extends JFrame {
 		btnRegistrodeVisita.setToolTipText("");
 		btnRegistrodeVisita.setText("<html><center>Registro<br />de visita (F2)</center></html>");
 		btnRegistrodeVisita.setPreferredSize(new Dimension(50, 50));
-		btnRegistrodeVisita.setForeground(new Color(74, 74, 72));
+		btnRegistrodeVisita.setForeground(Color.BLACK);
 		btnRegistrodeVisita.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnRegistrodeVisita.setBorder(null);
 		btnRegistrodeVisita.setBackground(Color.GREEN);
@@ -358,9 +359,9 @@ public class InitView extends JFrame {
 		getContentPane().add(btnRegistrodeVisita);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		panel_1.setBackground(new Color( 255, 255, 255));
-		panel_1.setBounds(0, 70, 404, 380);
+		panel_1.setBorder(new LineBorder(Color.WHITE));
+		panel_1.setBackground(Constantes.black());
+		panel_1.setBounds(34, 84, 404, 380);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -369,10 +370,12 @@ public class InitView extends JFrame {
 		panel_1.add(panel);
 		panel.setFont(new Font("Verdana", Font.BOLD, 11));
 		panel.setBackground(new Color(0, 0, 0, 0));
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaner de huella", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, new Color(74, 74, 72)));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escaner de huella", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.WHITE));
 		panel.setLayout(new BorderLayout(0, 0));
 
 		lblHuella = new JLabel("");
+		lblHuella.setBackground(Color.WHITE);
+		lblHuella.setOpaque(true);
 		lblHuella.setFont(new Font("Verdana", Font.BOLD, 11));
 		panel.add(lblHuella, BorderLayout.CENTER);
 
@@ -380,8 +383,8 @@ public class InitView extends JFrame {
 				"<html><center>Ingrese el número <br>de identificación del socio:</center></html>");
 		lblingreseElNmero.setBounds(226, 66, 168, 50);
 		panel_1.add(lblingreseElNmero);
-		lblingreseElNmero.setForeground(new Color(74, 74, 72));
-		lblingreseElNmero.setFont(new Font("Verdana", Font.PLAIN, 12));
+		lblingreseElNmero.setForeground(Color.WHITE);
+		lblingreseElNmero.setFont(new Font("Verdana", Font.BOLD, 12));
 
 		textField = new JTextField();
 		textField.setForeground(new Color(74, 74, 72));
@@ -397,22 +400,26 @@ public class InitView extends JFrame {
 		textArea = new JTextArea();
 		textArea.setFont(new Font("Verdana", Font.BOLD, 13));
 		textArea.setForeground(new Color(74, 74, 72));
-		textArea.setBackground(new Color( 255,255,255));
+		textArea.setBackground(new Color(255, 255, 255));
 		scrollPane_2.setViewportView(textArea);
 
-		btnVerificar = new JButton("Verificar");
-		btnVerificar.setBackground(Color.LIGHT_GRAY);
+		btnVerificar = new ButtonSecundario("Verificar");
 		btnVerificar.setFont(new Font("Verdana", Font.BOLD, 12));
-		btnVerificar.setForeground(new Color(74, 74, 72));
+		btnVerificar.setForeground(Color.BLACK);
 		btnVerificar.setBounds(245, 155, 125, 23);
 		panel_1.add(btnVerificar);
-
-		JLabel lblNewLabel_1 = new JLabel("Registro de asistencia");
-		lblNewLabel_1.setForeground(new Color(74, 74, 72));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 18));
-		lblNewLabel_1.setBounds(10, 19, 384, 36);
-		panel_1.add(lblNewLabel_1);
+		
+		panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
+		panel_2.setBounds(0, 0, 404, 55);
+		panel_1.add(panel_2);
+				panel_2.setLayout(new BorderLayout(0, 0));
+		
+				JLabel lblNewLabel_1 = new JLabel("Registro de asistencia");
+				panel_2.add(lblNewLabel_1);
+				lblNewLabel_1.setForeground(Color.BLACK);
+				lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+				lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		btnVerificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -489,6 +496,7 @@ public class InitView extends JFrame {
 	private JMenuItem mntmCopiaDeSeguridad;
 	private JMenuItem mntmHistoricoDeCaja;
 	private JMenuItem mntmRegistroDeVisitasRango;
+	private JPanel panel_2;
 
 	// End of variables declaration//GEN-END:variables
 	public JButton getBtnRegistrarSocio() {
@@ -628,24 +636,31 @@ public class InitView extends JFrame {
 	public JMenuItem getMntmVisitasDeHoy() {
 		return mntmVisitasDeHoy;
 	}
+
 	public JMenuItem getJMenuItemVentasDia() {
 		return jMenuItem14;
 	}
+
 	public JMenuItem getJMenuItemCierreCaja() {
 		return jMenuItem13;
 	}
+
 	public JMenuItem getMntmCopiaDeSeguridad() {
 		return mntmCopiaDeSeguridad;
 	}
+
 	public JMenuItem getMntmHistoricoDeCaja() {
 		return mntmHistoricoDeCaja;
 	}
+
 	public JMenuItem getJCrearMembresia() {
 		return jMenuItem10;
 	}
+
 	public JButton getJButtonCierreCaja() {
 		return jButtonCierreCaja;
 	}
+
 	public JMenuItem getMntmRegistroDeVisitaRango() {
 		return mntmRegistroDeVisitasRango;
 	}

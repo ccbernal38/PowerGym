@@ -9,6 +9,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import co.powergym.utils.ButtonSecundario;
+import co.powergym.utils.Constantes;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -20,6 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
 import java.awt.Color;
+import java.awt.BorderLayout;
 
 public class MembresiaListadoView extends JFrame {
 
@@ -28,43 +32,41 @@ public class MembresiaListadoView extends JFrame {
 	private JButton btnNuevo;
 	private JButton btnEditar;
 	private JButton btnEliminar;
+	private JPanel panel;
 
 	/**
 	 * Create the frame.
 	 */
 	public MembresiaListadoView() {
+		setResizable(false);
 		setTitle("Listado de membresias");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 650, 447);
 		contentPane = new JPanel();
+		contentPane.setBackground(Constantes.black());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 127, 614, 265);
+		scrollPane.setBounds(10, 127, 624, 265);
 
-		JLabel lblListadoDeMembresas = new JLabel("LISTADO DE MEMBRESIAS");
-		lblListadoDeMembresas.setBounds(10, 16, 614, 42);
-		lblListadoDeMembresas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblListadoDeMembresas.setFont(new Font("Tahoma", Font.BOLD, 18));
-
-		btnNuevo = new JButton("Nuevo");
-		btnNuevo.setForeground(SystemColor.text);
+		btnNuevo = new ButtonSecundario("Nuevo");
+		btnNuevo.setForeground(Color.BLACK);
 		btnNuevo.setBackground(Color.GRAY);
 		btnNuevo.setBounds(334, 66, 90, 50);
 
 		
-		btnEditar = new JButton("Editar");
+		btnEditar = new ButtonSecundario("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnEditar.setForeground(SystemColor.text);
+		btnEditar.setForeground(Color.BLACK);
 		btnEditar.setBackground(Color.GRAY);
 		btnEditar.setBounds(434, 66, 90, 50);
 
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setForeground(SystemColor.text);
+		btnEliminar = new ButtonSecundario("Eliminar");
+		btnEliminar.setForeground(Color.BLACK);
 		btnEliminar.setBackground(Color.GRAY);
 		
 		
@@ -83,8 +85,24 @@ public class MembresiaListadoView extends JFrame {
 		tableMembresias.getColumnModel().getColumn(1).setPreferredWidth(200);
 		tableMembresias.getColumnModel().getColumn(2).setPreferredWidth(90);
 		scrollPane.setViewportView(tableMembresias);
+		tableMembresias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableMembresias.setForeground(Color.BLACK);
+		tableMembresias.setGridColor(Constantes.white());
+		tableMembresias.setBorder(null);
+		tableMembresias.setFillsViewportHeight(true);
 		contentPane.setLayout(null);
-		contentPane.add(lblListadoDeMembresas);
+		
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 644, 56);
+		contentPane.add(panel);
+				panel.setLayout(new BorderLayout(0, 0));
+		
+				JLabel lblListadoDeMembresas = new JLabel("LISTADO DE MEMBRESIAS");
+				lblListadoDeMembresas.setBackground(Color.WHITE);
+				panel.add(lblListadoDeMembresas);
+				lblListadoDeMembresas.setHorizontalAlignment(SwingConstants.CENTER);
+				lblListadoDeMembresas.setFont(new Font("Tahoma", Font.BOLD, 18));
 		contentPane.add(scrollPane);
 		contentPane.add(btnNuevo);
 		contentPane.add(btnEditar);

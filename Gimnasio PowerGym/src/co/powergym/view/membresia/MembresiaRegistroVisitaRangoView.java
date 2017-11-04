@@ -19,6 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.JButton;
 import com.toedter.components.JSpinField;
+
+import co.powergym.utils.ButtonSecundario;
+
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JSpinner;
 
@@ -57,7 +60,7 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
 
 		JLabel lblSocio = new JLabel("Socio:");
 		lblSocio.setForeground(Color.WHITE);
-		lblSocio.setFont(new Font("Verdana", Font.PLAIN, 11));
+		lblSocio.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblSocio.setBounds(10, 30, 93, 14);
 		panel_1.add(lblSocio);
 
@@ -67,19 +70,19 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
 		panel_1.add(textFieldSocio);
 		textFieldSocio.setColumns(10);
 
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new ButtonSecundario("Buscar");
 		btnBuscar.setBounds(258, 27, 89, 23);
 		panel_1.add(btnBuscar);
 
 		JLabel lblNombre = new JLabel("Nombres:");
 		lblNombre.setForeground(Color.WHITE);
-		lblNombre.setFont(new Font("Verdana", Font.BOLD, 11));
+		lblNombre.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblNombre.setBounds(10, 62, 93, 14);
 		panel_1.add(lblNombre);
 
 		JLabel lblApellidos = new JLabel("Apellidos:");
 		lblApellidos.setForeground(Color.WHITE);
-		lblApellidos.setFont(new Font("Verdana", Font.BOLD, 11));
+		lblApellidos.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblApellidos.setBounds(258, 62, 93, 14);
 		panel_1.add(lblApellidos);
 
@@ -96,13 +99,14 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
 		panel_1.add(textFieldApellidos);
 
 		textFieldValor = new JTextField();
+		textFieldValor.setFont(new Font("Verdana", Font.PLAIN, 11));
 		textFieldValor.setBounds(113, 122, 135, 20);
 		panel_1.add(textFieldValor);
 		textFieldValor.setColumns(10);
 
 		JLabel lblValor = new JLabel("Hora de inicio:");
 		lblValor.setForeground(Color.WHITE);
-		lblValor.setFont(new Font("Verdana", Font.BOLD, 11));
+		lblValor.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblValor.setBounds(10, 92, 110, 14);
 		panel_1.add(lblValor);
 
@@ -116,13 +120,13 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
 
 		JLabel label = new JLabel("Valor:");
 		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Verdana", Font.BOLD, 11));
+		label.setFont(new Font("Verdana", Font.BOLD, 12));
 		label.setBounds(10, 124, 93, 14);
 		panel_1.add(label);
 
 		lblHoraDeFin = new JLabel("Hora de fin:");
 		lblHoraDeFin.setForeground(Color.WHITE);
-		lblHoraDeFin.setFont(new Font("Verdana", Font.BOLD, 11));
+		lblHoraDeFin.setFont(new Font("Verdana", Font.BOLD, 12));
 		lblHoraDeFin.setBounds(258, 93, 110, 14);
 		panel_1.add(lblHoraDeFin);
 
@@ -130,6 +134,7 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
         calendar.setTime(new Date(0, 0, 0, 0, 0, 0));
         
         spinner2 = new JSpinner(new SpinnerDateModel(new Date(1507111200847L), null, null, Calendar.DAY_OF_MONTH));
+        spinner2.setFont(new Font("Verdana", Font.PLAIN, 11));
         spinner2.setBounds(113, 91, 135, 20);
         JSpinner.DateEditor de_spinner2 = new JSpinner.DateEditor(spinner2, "hh:mm:ss a");
         DateFormatter formatter2 = (DateFormatter)de_spinner2.getTextField().getFormatter();
@@ -145,6 +150,7 @@ public class MembresiaRegistroVisitaRangoView extends JFrame {
         model.setValue(calendar.getTime());
 
         spinner = new JSpinner(new SpinnerDateModel(new Date(1507172400847L), null, null, Calendar.DAY_OF_MONTH));
+        spinner.setFont(new Font("Verdana", Font.PLAIN, 11));
         spinner.setBounds(361, 90, 135, 20);
         JSpinner.DateEditor de_spinner = new JSpinner.DateEditor(spinner, "hh:mm:ss a");
         DateFormatter formatter = (DateFormatter)de_spinner.getTextField().getFormatter();
