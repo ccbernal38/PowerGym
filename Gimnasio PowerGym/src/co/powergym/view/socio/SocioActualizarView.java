@@ -8,9 +8,16 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.toedter.calendar.JDateChooser;
 
+import co.powergym.utils.ButtonSecundario;
+import co.powergym.utils.Constantes;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 public class SocioActualizarView extends JFrame{
 	
@@ -32,15 +39,19 @@ public class SocioActualizarView extends JFrame{
 	private JButton btnCapturar;
 	private JButton btnActualizar;
 	private JPanel panelFoto;
+	private JPanel panel;
 
 	public SocioActualizarView() {
+		setResizable(false);
 		setTitle("Actualizar datos del socio");
-		getContentPane().setBackground(Color.BLACK);
+		getContentPane().setBackground(Constantes.black());
 		getContentPane().setLayout(null);
-		setBounds(100, 100, 807, 519);
+		setBounds(100, 100, 715, 476);
 
 		panelFoto = new JPanel();
-		panelFoto.setBounds(30, 34, 239, 313);
+		panelFoto.setBackground(Constantes.black());
+		panelFoto.setBorder(new LineBorder(Color.WHITE));
+		panelFoto.setBounds(29, 83, 239, 313);
 		getContentPane().add(panelFoto);
 		
 		if(webcam == null){
@@ -54,87 +65,98 @@ public class SocioActualizarView extends JFrame{
 		webcamPanel.setBounds(6, 6, 224, 231);
 		panelFoto.add(webcamPanel);
 		
-		btnTomarFoto = new JButton("Tomar foto");
+		btnTomarFoto = new ButtonSecundario("Tomar foto");
 		btnTomarFoto.setEnabled(false);
 		btnTomarFoto.setBounds(6, 241, 224, 29);
 		panelFoto.add(btnTomarFoto);
 		
-		btnCapturar = new JButton("Capturar");
+		btnCapturar = new ButtonSecundario("Capturar");
 		btnCapturar.setBounds(6, 270, 224, 29);
 		panelFoto.add(btnCapturar);
 		
-		JLabel lblIdentificacin = new JLabel("Número de identificación:");
+		JLabel lblIdentificacin = new JLabel("N\u00FAmero de identificaci\u00F3n:");
 		lblIdentificacin.setForeground(Color.WHITE);
-		lblIdentificacin.setBounds(351, 36, 183, 16);
+		lblIdentificacin.setBounds(278, 88, 183, 16);
 		getContentPane().add(lblIdentificacin);
 		
 		JLabel lblNombres = new JLabel("Nombres:");
 		lblNombres.setForeground(Color.WHITE);
-		lblNombres.setBounds(351, 66, 61, 16);
+		lblNombres.setBounds(278, 118, 61, 16);
 		getContentPane().add(lblNombres);
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
 		lblApellidos.setForeground(Color.WHITE);
-		lblApellidos.setBounds(351, 96, 84, 16);
+		lblApellidos.setBounds(278, 148, 84, 16);
 		getContentPane().add(lblApellidos);
 		
-		JLabel lblCorreoElectrnico = new JLabel("Correo electrónico:");
+		JLabel lblCorreoElectrnico = new JLabel("Correo electr\u00F3nico:");
 		lblCorreoElectrnico.setForeground(Color.WHITE);
-		lblCorreoElectrnico.setBounds(351, 126, 148, 16);
+		lblCorreoElectrnico.setBounds(278, 178, 148, 16);
 		getContentPane().add(lblCorreoElectrnico);
 		
-		JLabel lblTelefno = new JLabel("Telefóno:");
+		JLabel lblTelefno = new JLabel("Tel\u00E9fono:");
 		lblTelefno.setForeground(Color.WHITE);
-		lblTelefno.setBounds(351, 156, 84, 16);
+		lblTelefno.setBounds(278, 208, 84, 16);
 		getContentPane().add(lblTelefno);
 		
-		JLabel lblGnero = new JLabel("Género:");
+		JLabel lblGnero = new JLabel("G\u00E9nero:");
 		lblGnero.setForeground(Color.WHITE);
-		lblGnero.setBounds(351, 186, 61, 16);
+		lblGnero.setBounds(278, 238, 61, 16);
 		getContentPane().add(lblGnero);
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
 		lblFechaDeNacimiento.setForeground(Color.WHITE);
-		lblFechaDeNacimiento.setBounds(351, 216, 148, 16);
+		lblFechaDeNacimiento.setBounds(278, 268, 148, 16);
 		getContentPane().add(lblFechaDeNacimiento);
 		
 		textIdentificacion = new JTextField();
-		textIdentificacion.setBounds(521, 31, 245, 26);
+		textIdentificacion.setBounds(448, 83, 245, 26);
 		getContentPane().add(textIdentificacion);
 		textIdentificacion.setColumns(10);
 		
 		textNombres = new JTextField();
-		textNombres.setBounds(521, 61, 245, 26);
+		textNombres.setBounds(448, 113, 245, 26);
 		getContentPane().add(textNombres);
 		textNombres.setColumns(10);
 		
 		textApellidos = new JTextField();
-		textApellidos.setBounds(521, 91, 245, 26);
+		textApellidos.setBounds(448, 143, 245, 26);
 		getContentPane().add(textApellidos);
 		textApellidos.setColumns(10);
 		
 		textCorreo = new JTextField();
-		textCorreo.setBounds(521, 121, 245, 26);
+		textCorreo.setBounds(448, 173, 245, 26);
 		getContentPane().add(textCorreo);
 		textCorreo.setColumns(10);
 		
 		textTelefono = new JTextField();
-		textTelefono.setBounds(521, 151, 245, 26);
+		textTelefono.setBounds(448, 203, 245, 26);
 		getContentPane().add(textTelefono);
 		textTelefono.setColumns(10);
 		
 		textGenero = new JTextField();
-		textGenero.setBounds(521, 181, 245, 26);
+		textGenero.setBounds(448, 233, 245, 26);
 		getContentPane().add(textGenero);
 		textGenero.setColumns(10);
 		
 		textFechaNacimiento = new JDateChooser();
-		textFechaNacimiento.setBounds(521, 211, 245, 26);
+		textFechaNacimiento.setBounds(448, 263, 245, 26);
 		getContentPane().add(textFechaNacimiento);
 		
-		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(351, 367, 117, 29);
+		btnActualizar = new ButtonSecundario("Actualizar");
+		btnActualizar.setBounds(576, 407, 117, 29);
 		getContentPane().add(btnActualizar);
+		
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 709, 56);
+		getContentPane().add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblActualizarDatosDel = new JLabel("ACTUALIZAR DATOS DEL SOCIO");
+		lblActualizarDatosDel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActualizarDatosDel.setFont(new Font("Verdana", Font.BOLD, 18));
+		panel.add(lblActualizarDatosDel);
 		// TODO Auto-generated constructor stub
 	}
 

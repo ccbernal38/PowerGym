@@ -6,12 +6,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import co.powergym.utils.Constantes;
+
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
 import javax.swing.AbstractListModel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class SocioListConsultaBusquedaView extends JFrame {
 
@@ -40,28 +45,36 @@ public class SocioListConsultaBusquedaView extends JFrame {
 	public SocioListConsultaBusquedaView() {
 		setTitle("Resultados");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 357, 357);
+		setBounds(100, 100, 453, 417);
 		contentPane = new JPanel();
+		contentPane.setBackground(Constantes.black());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+		contentPane.setLayout(null);
+
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 437, 56);
+		contentPane.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+
 		JLabel lblResultadosDeLa = new JLabel("Resultados de la busqueda");
-		lblResultadosDeLa.setFont(new Font("Verdana", Font.BOLD, 14));
+		lblResultadosDeLa.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResultadosDeLa.setFont(new Font("Verdana", Font.BOLD, 18));
 		panel.add(lblResultadosDeLa);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
+		scrollPane.setBounds(5, 60, 427, 313);
+		contentPane.add(scrollPane);
+
 		listSocios = new JList();
 		listSocios.setModel(new AbstractListModel() {
 			String[] values = new String[] {};
+
 			public int getSize() {
 				return values.length;
 			}
+
 			public Object getElementAt(int index) {
 				return values[index];
 			}

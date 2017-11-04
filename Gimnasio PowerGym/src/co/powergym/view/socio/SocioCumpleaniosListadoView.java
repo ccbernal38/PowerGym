@@ -21,21 +21,26 @@ import java.awt.ScrollPane;
 import java.util.Calendar;
 
 import com.toedter.calendar.JYearChooser;
+
+import co.powergym.utils.Constantes;
+
 import javax.swing.SwingConstants;
 
 public class SocioCumpleaniosListadoView extends JFrame {
 
 	private JPanel contentPane;
-	private JTable tableSocios;
+	private JTable table;
 
 	/**
 	 * Create the frame.
 	 */
 	public SocioCumpleaniosListadoView() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 646, 459);
+		setBounds(100, 100, 634, 389);
 		setBackground(new Color(32, 39, 49));
 		contentPane = new JPanel();
+		contentPane.setBackground(Constantes.black());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -67,28 +72,38 @@ public class SocioCumpleaniosListadoView extends JFrame {
 		} else if (mesTemp == 12) {
 			mes = "Diciembre";
 		}
-		JLabel lblNewLabel = new JLabel("CUMPLEAÑOS DEL MES DE " + mes.toUpperCase());
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel.setBounds(10, 11, 610, 42);
-		contentPane.add(lblNewLabel);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 127, 614, 265);
+		scrollPane.setBounds(10, 69, 614, 265);
 
-		tableSocios = new JTable();
-		tableSocios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tableSocios.setModel(
+		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setForeground(Color.BLACK);
+		table.setGridColor(Constantes.white());
+		table.setBorder(null);
+		table.setFillsViewportHeight(true);
+		table.setModel(
 				new DefaultTableModel(new Object[][] {}, new String[] { "Identificación", "Nombre", "Cumpleaños" }));
 
-		tableSocios.setBounds(32, 68, 579, 301);
+		table.setBounds(32, 68, 579, 301);
 
-		scrollPane.setViewportView(tableSocios);
+		scrollPane.setViewportView(table);
 		contentPane.setLayout(null);
 		contentPane.add(scrollPane);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 630, 56);
+		contentPane.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		JLabel lblNewLabel = new JLabel("CUMPLEAÑOS DEL MES DE " + mes.toUpperCase());
+		panel.add(lblNewLabel);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 18));
 	}
 
 	public JTable getTableSocios() {
-		return tableSocios;
+		return table;
 	}
 
 }
