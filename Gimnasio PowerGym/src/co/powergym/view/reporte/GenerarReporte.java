@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 /**
  * @author nia
@@ -26,7 +27,6 @@ public class GenerarReporte extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable table_vista_informe;
 	private JCheckBox chckbxVentasDia= new JCheckBox();
 	private JCheckBox chckbxListaSocios;
 	private JCheckBox chckbxVentasMes= new JCheckBox();
@@ -43,7 +43,7 @@ public class GenerarReporte extends JFrame{
 	 */
 	public GenerarReporte() {
 		getContentPane().setLayout(null);
-		
+		setBounds(100,100,813,707);
 		JLabel lblNewLabel = new JLabel("Informe de ventas");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -55,14 +55,14 @@ public class GenerarReporte extends JFrame{
 		getContentPane().add(lbl_lista_informes);
 		
 		chckbxListaSocios = new JCheckBox("Lista de socios");
-		chckbxListaSocios.setBounds(47, 123, 128, 23);
+		chckbxListaSocios.setBounds(53, 123, 117, 23);
 		getContentPane().add(chckbxListaSocios);
 		
-		chckbxSociosCumppleanosMes = new JCheckBox("Socios cumpleaños del mes");
+		chckbxSociosCumppleanosMes = new JCheckBox("Socios cumplea\u00F1os del mes");
 		chckbxSociosCumppleanosMes.setBounds(182, 123, 299, 23);
 		getContentPane().add(chckbxSociosCumppleanosMes);
 		
-		chckbxVentasE = new JCheckBox("Ventas en una fecha específica");
+		chckbxVentasE = new JCheckBox("Ventas en una fecha espec\u00EDfica");
 		chckbxVentasE.setBounds(251, 88, 230, 23);
 		getContentPane().add(chckbxVentasE);
 		
@@ -101,22 +101,16 @@ public class GenerarReporte extends JFrame{
 		lblVistaPreviaDel.setBounds(65, 289, 174, 16);
 		getContentPane().add(lblVistaPreviaDel);
 		
-		table_vista_informe = new JTable();
-		table_vista_informe.setBounds(90, 453, 491, -120);
-		getContentPane().add(table_vista_informe);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(57, 336, 536, 285);
-		getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		tableReportes = new JTable();
-		tableReportes.setBounds(6, 6, 520, 270);
-		panel.add(tableReportes);
-		
 		JButton btnExportar = new JButton("Exportar");
 		btnExportar.setBounds(480, 623, 117, 29);
 		getContentPane().add(btnExportar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(37, 341, 728, 240);
+		getContentPane().add(scrollPane);
+		
+		tableReportes = new JTable();
+		scrollPane.setViewportView(tableReportes);
 		
 		
 		//table_vista_informe.addColumn(aColumn);
@@ -242,21 +236,7 @@ public class GenerarReporte extends JFrame{
 	public void setBtnGenerarFechaEspecifica(JButton btnGenerarFechaEspecifica) {
 		this.btnGenerarFechaEspecifica = btnGenerarFechaEspecifica;
 	}
-
-	/**
-	 * @return the table_vista_informe
-	 */
-	public JTable getTable_vista_informe() {
-		return table_vista_informe;
-	}
-
-	/**
-	 * @param table_vista_informe the table_vista_informe to set
-	 */
-	public void setTable_vista_informe(JTable table_vista_informe) {
-		this.table_vista_informe = table_vista_informe;
-	}
-
+	
 	/**
 	 * @return the panel_especifica
 	 */
@@ -270,4 +250,5 @@ public class GenerarReporte extends JFrame{
 	public void setPanel_especifica(JPanel panel_especifica) {
 		this.panel_especifica = panel_especifica;
 	}
+
 }
