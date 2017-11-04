@@ -25,6 +25,7 @@ import co.powergym.dao.SocioDao;
 import co.powergym.model.Caja;
 import co.powergym.model.Deuda;
 import co.powergym.utils.Preferencias;
+import co.powergym.view.ReciboView;
 import co.powergym.view.membresia.PagoMembresiaView;
 
 public class PagoController implements ActionListener {
@@ -204,20 +205,37 @@ public class PagoController implements ActionListener {
 				deudaDao.registrarPago(-deuda, "Pago realizado", socioTemp, caja_id);
 				if (saldoFavor != 0) {
 					saldoFavorDao.registrarSaldoFavor(-saldoFavor, socioTemp, caja_id);
+					pagoMembresiaView.setVisible(false);
+					pagoMembresiaView.dispose();
+					ReciboView reciboView = new ReciboView();
+					reciboView.getLabelCliente().setText(socioDao.buscarSocio(socioTemp).getNombreCompleto());
+					reciboView.getTextFieldPaga().setText(saldoPagar + "");
+					reciboView.getTextFieldUsadoSaldoFavor().setText(saldoFavor + "");
+					reciboView.getTextFieldDebe().setText(0 + "");
+					ReciboController controller = new ReciboController(reciboView);
+					controller.setClienteId(socioTemp);
+
 				}
 
 				if ((deuda - totalPagar) < 0) {
 					int option = JOptionPane.showConfirmDialog(null,
-							"¿Desea guardar el dinero restante como saldo a favor?", "Atención",
-							JOptionPane.YES_NO_OPTION);
+							"¿Desea guardar el dinero restante" + (-(deuda - totalPagar)) + " como saldo a favor?",
+							"Atención", JOptionPane.YES_NO_OPTION);
 					if (option == JOptionPane.YES_OPTION) {
 						saldoFavorDao.registrarSaldoFavor(-(deuda - totalPagar), socioTemp, caja_id);
+						ReciboView reciboView = new ReciboView();
+						reciboView.getTextFieldPaga().setText(saldoPagar + "");
+						reciboView.getTextFieldUsadoSaldoFavor().setText(saldoFavor + "");
+						reciboView.getTextFieldDebe().setText(0 + "");
+						reciboView.getTextFieldSaldoFavor().setText((-(deuda - totalPagar)) + "");
+						ReciboController controller = new ReciboController(reciboView);
+						controller.setClienteId(socioTemp);
 					}
-					
 
 				}
 				pagoMembresiaView.setVisible(false);
 				pagoMembresiaView.dispose();
+
 			} else if (e.getSource() == pagoMembresiaView.getBtnCancelar()) {
 				pagoMembresiaView.setVisible(false);
 				pagoMembresiaView.dispose();

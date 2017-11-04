@@ -79,7 +79,8 @@ public class SocioDao implements SocioDaoInterface {
 		try {
 			Connection connection = conexion.getConexion();
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, identificacion, nombre"
-					+ ", apellido, fechaNacimiento, telefono, correoElectronico, genero, foto, huella, codigo" + " FROM Socio");
+					+ ", apellido, fechaNacimiento, telefono, correoElectronico, genero, foto, huella, codigo"
+					+ " FROM Socio");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				socio = new Socio();
@@ -125,15 +126,16 @@ public class SocioDao implements SocioDaoInterface {
 	}
 
 	@Override
-	public boolean modificarSocio(String identificacion, Date fechaNacimiento, String nombre,
-			String apellido, String correo, String telefono, int genero) {
+	public boolean modificarSocio(String identificacion, Date fechaNacimiento, String nombre, String apellido,
+			String correo, String telefono, int genero) {
 		boolean resultado = false;
 		try {
 			Connection connection = conexion.getConexion();
 
-			PreparedStatement statement = connection.prepareStatement("UPDATE Socio Set identificacion = ?, fechaNacimiento = ?, "
-					+ "nombre = ?, apellido = ?, correoElectronico = ?, telefono = ?, genero = ?"
-					+ " WHERE identificacion = ?");
+			PreparedStatement statement = connection
+					.prepareStatement("UPDATE Socio Set identificacion = ?, fechaNacimiento = ?, "
+							+ "nombre = ?, apellido = ?, correoElectronico = ?, telefono = ?, genero = ?"
+							+ " WHERE identificacion = ?");
 			statement.setString(1, identificacion);
 			statement.setDate(2, new java.sql.Date(fechaNacimiento.getTime()));
 			statement.setString(3, nombre);
@@ -396,6 +398,20 @@ public class SocioDao implements SocioDaoInterface {
 			System.out.println("error");
 		}
 		return socio;
+	}
+
+	public void inactivarSocio(int id, int estado) {
+		try {
+			Connection connection = conexion.getConexion();
+
+			PreparedStatement statement = connection.prepareStatement("UPDATE Socio Set estado = ? WHERE id = ?");
+			statement.setInt(1, estado);
+			statement.setInt(2, id);
+
+			statement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

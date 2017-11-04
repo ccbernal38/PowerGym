@@ -35,4 +35,5 @@ public interface SocioDaoInterface {
 
 	public int contarSocios();
 
+	public void inactivarSocio(int id, int estado);
 }
