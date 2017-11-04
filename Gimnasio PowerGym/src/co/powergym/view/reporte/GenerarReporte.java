@@ -37,6 +37,7 @@ public class GenerarReporte extends JFrame{
 	private JButton btnGenerarFechaEspecifica = new JButton();
 	private JPanel panel_especifica = new JPanel();
 	private JTable tableReportes;
+	private JButton btnExportar;
 
 	/**
 	 * 
@@ -101,7 +102,7 @@ public class GenerarReporte extends JFrame{
 		lblVistaPreviaDel.setBounds(65, 289, 174, 16);
 		getContentPane().add(lblVistaPreviaDel);
 		
-		JButton btnExportar = new JButton("Exportar");
+		btnExportar = new JButton("Exportar");
 		btnExportar.setBounds(480, 623, 117, 29);
 		getContentPane().add(btnExportar);
 		
@@ -251,4 +252,7 @@ public class GenerarReporte extends JFrame{
 		this.panel_especifica = panel_especifica;
 	}
 
+	public JButton getBtnExportar() {
+		return btnExportar;
+	}
 }

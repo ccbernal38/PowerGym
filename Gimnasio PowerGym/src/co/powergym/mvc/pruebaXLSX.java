@@ -15,41 +15,37 @@ import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class pruebaXLSX {
-
-	public static void main(String[] args) throws IOException {
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		XSSFSheet sheet = workbook.createSheet("Java Books");
-
-		Object[][] bookData = { { "Head First Java", "Kathy Serria", 79 }, { "Effective Java", "Joshua Bloch", 36 },
-				{ "Clean Code", "Robert martin", 42 }, { "Thinking in Java", "Bruce Eckel", 35 }, };
-
-		int rowCount = 0;
-
-		for (Object[] aBook : bookData) {
-			Row row = sheet.createRow(++rowCount);
-
-			int columnCount = 0;
-
-			for (Object field : aBook) {
-				Cell cell = row.createCell(columnCount);
-				if (field instanceof String) {
-					cell.setCellValue((String) field);
-				} else if (field instanceof Integer) {
-					cell.setCellValue((Integer) field);
-				}
-				columnCount++;
+	
+	public static void main(String[] args) throws IOException  {
+        
+        generaXlsx();
+ 
+    }
+	
+	public static void generaXlsx() throws IOException {
+		
+		String nombreArchivo = "/informes/File.xlsx";
+		String nombreHoja1 = "Hoja1";//nombre de la hoja1
+		XSSFWorkbook libroTrabajo = new XSSFWorkbook();
+		XSSFSheet hoja1 = libroTrabajo.createSheet(nombreHoja1) ;
+		//iterando numero de filas (r)
+		for (int r=0;r < 5; r++ ) {
+			XSSFRow row = hoja1.createRow(r);
+			for (int c=0;c < 5; c++ ){
+				XSSFCell cell = row.createCell(c);
+				cell.setCellValue("Cell si"+r+" "+c);
 			}
-
 		}
-
-		try (FileOutputStream outputStream = new FileOutputStream("JavaBooks.xlsx")) {
-			workbook.write(outputStream);
-		}
+		FileOutputStream fileOut = new FileOutputStream(nombreArchivo);
+		//escribir este libro en un OutputStream.
+		libroTrabajo.write(fileOut);
+		fileOut.flush();
+		fileOut.close();
 	}
-
 }

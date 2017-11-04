@@ -712,7 +712,7 @@ public class SocioController implements ActionListener, ItemListener {
 	public void listadoCumpleaniosLlenarTabla(JTable tableSocios) {
 
 		DefaultTableModel defaultTableModel = new DefaultTableModel(new Object[][] {},
-				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumpleaï¿½os" });
+				new String[] { "Nro. identificacion", "Nombre", "Fecha de cumpleaños" });
 
 		Object[] columna = new Object[3];
 		List<Socio> listSocios = socioDao.sociosCumpleaniosMes();
