@@ -125,21 +125,21 @@ public class CajaCierreView extends JFrame {
 		labelResponsableCierre = new JLabel("");
 		labelResponsableCierre.setForeground(Constantes.white());
 		labelResponsableCierre.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelResponsableCierre.setFont(new Font("Verdana", Font.BOLD, 14));
+		labelResponsableCierre.setFont(new Font("Verdana", Font.BOLD, 12));
 		labelResponsableCierre.setBounds(232, 81, 200, 24);
 		panel.add(labelResponsableCierre);
 
 		labelFechaApertura = new JLabel("");
 		labelFechaApertura.setForeground(Constantes.white());
 		labelFechaApertura.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelFechaApertura.setFont(new Font("Verdana", Font.BOLD, 14));
+		labelFechaApertura.setFont(new Font("Verdana", Font.BOLD, 12));
 		labelFechaApertura.setBounds(232, 46, 200, 24);
 		panel.add(labelFechaApertura);
 
 		labelResponsableApertura = new JLabel("");
 		labelResponsableApertura.setForeground(Constantes.white());
 		labelResponsableApertura.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelResponsableApertura.setFont(new Font("Verdana", Font.BOLD, 14));
+		labelResponsableApertura.setFont(new Font("Verdana", Font.BOLD, 12));
 		labelResponsableApertura.setBounds(232, 11, 200, 24);
 		panel.add(labelResponsableApertura);
 

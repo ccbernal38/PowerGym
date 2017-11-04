@@ -18,6 +18,7 @@ import co.powergym.utils.Constantes;
 
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.ListSelectionModel;
 
 public class CajaHistoricoView extends JFrame {
 
@@ -30,7 +31,7 @@ public class CajaHistoricoView extends JFrame {
 	 */
 	public CajaHistoricoView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1020, 398);
+		setBounds(100, 100, 1042, 410);
 		contentPane = new JPanel();
 		contentPane.setBackground(Constantes.black());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,7 +40,7 @@ public class CajaHistoricoView extends JFrame {
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(0, 0, 1004, 56);
+		panel_1.setBounds(0, 0, 1026, 56);
 		contentPane.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
@@ -49,15 +50,21 @@ public class CajaHistoricoView extends JFrame {
 		panel_1.add(lblNewLabel);
 
 		btnCancelar = new ButtonSecundario("Cancelar");
-		btnCancelar.setBounds(905, 323, 89, 23);
+		btnCancelar.setBounds(925, 336, 89, 23);
 		contentPane.add(btnCancelar);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
 		scrollPane.setBackground(Constantes.black());
-		scrollPane.setBounds(0, 56, 1004, 256);
+		scrollPane.setBounds(10, 67, 1004, 256);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setForeground(Color.BLACK);
+		table.setGridColor(Constantes.white());
+		table.setBorder(null);
+
 		table.setFillsViewportHeight(true);
 		table.setModel(
 				new DefaultTableModel(new Object[][] {}, new String[] { "Id", "Fecha de apertura", "Fecha de cierre",
